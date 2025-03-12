@@ -4,20 +4,9 @@ title: Kompyuter fanlari ta’limingizning yetishmayotgan semestri
 nositetitle: true
 ---
 
-Kompyuter fanlari (Computer Science) sohasidagi darslar sizga operatsion 
-tizimlardan tortib mashinaviy o‘rganishgacha bo‘lgan ilg‘or mavzularni 
-o‘rgatiladi. Biroq, kamdan-kam hollarda o‘qitiladigan va ko‘pincha talabalarga 
-mustaqil  o‘rganish uchun qoldiriladigan muhim bir mavzu bor: bu o‘z  
-vositalaridan samarali foydalanish ko‘nikmasi. Biz sizga buyruqlar qatorini  
-(command line) mukammal egallashni, kuchli matn muharriridan foydalanishni,  
-versiyalarni boshqarish tizimlarining ilg‘or xususiyatlarini qo‘llashni va 
-boshqa ko‘p narsalarni o‘rgatamiz!
+Kompyuter fanlari (Computer Science) sohasidagi darslar sizga operatsion tizimlardan tortib mashinaviy o‘rganishgacha bo‘lgan ilg‘or mavzularni o‘rgatiladi. Biroq, kamdan-kam hollarda o‘qitiladigan va ko‘pincha talabalarga mustaqil  o‘rganish uchun qoldiriladigan muhim bir mavzu bor: bu o‘z  vositalaridan samarali foydalanish ko‘nikmasi. Biz sizga buyruqlar qatorini  (command line) mukammal egallashni, kuchli matn muharriridan foydalanishni,  versiyalarni boshqarish tizimlarining ilg‘or xususiyatlarini qo‘llashni va boshqa ko‘p narsalarni o‘rgatamiz!
 
-Talabalar ta’lim davomida bu vositalarga yuzlab soat (ish faoliyatlari davomida 
-esa minglab soat) sarflaydilar. Shuning uchun bu tajriba iloji boricha qulay va 
-samarali bo‘lishi kerak. Ushbu vositalarni mukammal o‘zlashtirish nafaqat ularni 
-moslashtirish uchun kamroq vaqt sarflash, balki ilgari hal qilib bo‘lmaydigan 
-darajada murakkab tuyulgan muammolarni yechish imkonini ham beradi.
+Talabalar ta’lim davomida bu vositalarga yuzlab soat (ish faoliyatlari davomida esa minglab soat) sarflaydilar. Shuning uchun bu tajriba iloji boricha qulay va samarali bo‘lishi kerak. Ushbu vositalarni mukammal o‘zlashtirish nafaqat ularni moslashtirish uchun kamroq vaqt sarflash, balki ilgari hal qilib bo‘lmaydigan darajada murakkab tuyulgan muammolarni yechish imkonini ham beradi.
 
 [Bu havolada](/about/) kurs ortidagi sabablar bilan tanishishingiz mumkin.
 
@@ -27,7 +16,7 @@ darajada murakkab tuyulgan muammolarni yechish imkonini ham beradi.
 [Ro‘yxatdan o‘tish shakli](https://forms.gle/TD1KnwCSV52qexVt9)ni to‘ldirib, IAP 2020 kursiga yoziling
 {% endcomment %}
 
-# Dars jadvali
+# Ma’ruzalar jadvali
 
 {% comment %}
 **Ma’ruza**: 35-225 xona, soat 14:00 dan 15:00 gacha<br>
@@ -50,8 +39,7 @@ darajada murakkab tuyulgan muammolarni yechish imkonini ham beradi.
 {% endfor %}
 </ul>
 
-Ma’ruzalarning videoyozuvlari [YouTube
-da](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J) mavjud.
+Ma’ruzalarning videoyozuvlari [YouTube'da](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J) mavjud.
 
 # Kurs haqida
 
@@ -60,8 +48,7 @@ da](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J) ma
 
 # MIT'dan tashqarida
 
-Ushbu resurslardan MIT talabalaridan boshqalar ham foydalanishi uchun uni turli 
-joylarga tarqatdik.
+Ushbu resurslardan MIT talabalaridan boshqalar ham foydalanishi uchun uni turli joylarga tarqatdik.
 Siz postlar va muhokamalarni quyidagi manzillarda topishingiz mumkin.
 
  - [Hacker News](https://news.ycombinator.com/item?id=22226380)
@@ -102,8 +89,7 @@ Ba’zi qo‘shimcha URL manzillar:
 - [Nemischa](https://missing-semester-de.github.io/)
 - [Bengalcha](https://missing-semester-bn.github.io/)
 
-Eslatma: bu tarjimalar hamjamiyat a’zolari tomonidan amalga oshirilgan. Biz 
-ularni tekshirib chiqmaganmiz.
+Eslatma: bu tarjimalar hamjamiyat a’zolari tomonidan amalga oshirilgan. Biz ularni tekshirib chiqmaganmiz.
 
 Ushbu kursning ma’ruza yozuvlarini tarjima qilganmisiz? Uni ro‘yxatga qo‘shishimiz 
 uchun [pull request](https://github.com/missing-semester/missing-semester/pulls) yuborishingizni so‘raymiz!

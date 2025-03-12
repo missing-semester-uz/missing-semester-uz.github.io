@@ -1,6 +1,6 @@
 # The Missing Semester of Your CS Education
 
-[![Build Status](https://github.com/missing-semester/missing-semester/actions/workflows/build.yml/badge.svg)](https://github.com/missing-semester/missing-semester/actions/workflows/build.yml) [![Links Status](https://github.com/missing-semester/missing-semester/actions/workflows/links.yml/badge.svg)](https://github.com/missing-semester/missing-semester/actions/workflows/links.yml)
+[![Build Status](https://github.com/missing-semester-uz/missing-semester-uz.github.io/actions/workflows/build.yml/badge.svg)](https://github.com/missing-semester-uz/missing-semester-uz.github.io/actions/workflows/build.yml) [![Links Status](https://github.com/missing-semester-uz/missing-semester-uz.github.io/actions/workflows/links.yml/badge.svg)](https://github.com/missing-semester-uz/missing-semester-uz.github.io/actions/workflows/links.yml)
 
 [Kompyuter fanlari ta’limingizning yetishmayotgan semestri](https://missing-semester-uz.github.io/) uchun vebsayt (*O'zbekcha tarjimasi*)
 
