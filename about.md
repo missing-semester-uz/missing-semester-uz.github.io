@@ -1,141 +1,82 @@
 ---
 layout: lecture
-title: "Why we are teaching this class"
+title: "Nega bu kursni o‘tayotganimiz haqida"
 ---
 
-During a traditional Computer Science education, chances are you will take
-plenty of classes that teach you advanced topics within CS, everything from
-Operating Systems to Programming Languages to Machine Learning. But at many
-institutions there is one essential topic that is rarely covered and is instead
-left for students to pick up on their own: computing ecosystem literacy.
+An’anaviy kompyuter fanlari ta’limi davomida siz operatsion tizimlardan tortib dasturlash tillarigacha, mashinaviy o‘rganishgacha bo‘lgan ilg‘or mavzularni o‘rgatadigan ko‘plab kurslarda qatnashasiz. Biroq, ko‘plab oliygohlarda kamdan-kam o‘tiladigan va talabalarga mustaqil o‘rganish uchun qoldiriladigan muhim bir mavzu bor: bu - kompyuter ekotizimi savodxonligi.
 
-Over the years, we have helped teach several classes at MIT, and over and over
-we have seen that many students have limited knowledge of the tools available
-to them. Computers were built to automate manual tasks, yet students often
-perform repetitive tasks by hand or fail to take full advantage of powerful
-tools such as version control and text editors. In the best case, this results
-in inefficiencies and wasted time; in the worst case, it results in issues like
-data loss or inability to complete certain tasks.
+Yillar davomida biz Massachusets texnologiya institutida bir nechta kurslarni o‘qitishga yordamlashdik va ko‘plab talabalarning mavjud bo‘lgan vositalar haqida cheklangan bilimga ega ekanliklarini payqadik. Kompyuterlar takroriy vazifalarni avtomatlashtirish uchun yaratilgan bo‘lsa-da, talabalar ko‘pincha ularni qo‘lda bajaradi yoki versiyalarni boshqarish va matn muharrirlari kabi kuchli vositalardan to‘liq foydalana olmaydi. Eng yaxshi holatda bu samarasizlik va vaqtning behuda sarflanishi bo‘lsa, eng yomon holatda esa ma’lumotlarning yo‘qolishi yoki ayrim vazifalarni bajara olmaslik kabi muammolarga sabab bo‘ladi.
 
-These topics are not taught as part of the university curriculum: students are
-never shown how to use these tools, or at least not how to use them
-efficiently, and thus waste time and effort on tasks that _should_ be simple.
-The standard CS curriculum is missing critical topics about the computing
-ecosystem that could make students' lives significantly easier.
+Bu mavzular universitet o‘quv dasturiga kiritilmagan: talabalarga bu vositalardan foydalanish, ayniqsa ulardan samarali foydalanish o‘rgatilmaydi. Shu sababli talabalar _oson_ bo‘lishi kerak bo‘lgan vazifalarni bajarishga ortiqcha vaqt va kuch sarflaydi. Standart kompyuter fanlari o‘quv dasturida talabalar hayotini sezilarli darajada osonlashtirishi mumkin bo‘lgan hisoblash ekotizimi haqidagi muhim mavzular yetishmaydi.
 
-# The missing semester of your CS education
+# Kompyuter fanlari ta’limingizning yetishmayotgan semestri
 
-To help remedy this, we are running a class that covers all the topics we
-consider crucial to be an effective computer scientist and programmer. The
-class is pragmatic and practical, and it provides hands-on introduction to
-tools and techniques that you can immediately apply in a wide variety of
-situations you will encounter. The class is being run during MIT's "Independent
-Activities Period" in January 2020 — a one-month semester that features shorter
-student-run classes. While the lectures themselves are only available to MIT
-students, we will provide all lecture materials along with video recordings of
-lectures to the public.
+Buni hal qilish maqsadida, biz samarali kompyuter olimi va dasturchi bo‘lish uchun muhim deb hisoblaydigan barcha mavzularni qamrab oluvchi kurs tashkil etyapmiz. Kurs amaliy va pragmatik bo‘lib, siz duch keladigan turli vaziyatlarda darhol qo‘llay oladigan vosita va usullarni amalda o‘rgatadi. Kurs 2020-yil yanvar oyida MITning bir oylik semestr davomida talabalar tomonidan boshqariladigan qisqa kurslar ya’ni "Mustaqil faoliyat davri"da o‘tkaziladi. Ma’ruzalar faqat MIT talabalari uchun ochiq bo‘lsa-da, barcha ma’ruza materiallari va videoyozuvlarini ommaviy taqdim etamiz.
 
-If this sounds like it might be for you, here are some concrete
-examples of what the class will teach:
+Agar sizga kurs qiziq tuyulsa, unda nimalarni bo‘lishi haqida bir necha aniq misollarni keltirib o‘tamiz.
 
-## Command shell
+## shell buyruqlar qatori
 
-How to automate common and repetitive tasks with aliases, scripts,
-and build systems. No more copy-pasting commands from a text
-document. No more "run these 15 commands one after the other". No
-more "you forgot to run this thing" or "you forgot to pass this
-argument".
+Alias'lar, skriptlar va tizimlarni qurish orqali keng tarqalgan va takrorlanadigan vazifalarni qanday avtomatlashtirish haqida. Endi saqlangan joydan buyruqlarni nusxalash va joylashtirish shart emas. "Bu 15 ta buyruqni ketma-ket bajaring" degan gaplar ham o‘tmishda qolishi kerak. "Siz bu narsani ishga tushirishni unutdingiz" yoki "siz bu parametrni kiritishni unutdingiz" degan xatolar ham ketmaydi.
 
-For example, searching through your history quickly can be a huge time saver. In the example below we show several tricks related to navigating your shell history for `convert` commands.
-
+Masalan, o‘z buyruqlar tarixingiz orasidan tezda qidirish vaqtni tejashga yordam beradi. Quyidagi misolda biz `convert` buyrug‘ini shell tarixidan topish bilan bog‘liq bir nechta foydali usullarni ko‘rsatamiz.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/history.mp4" type="video/mp4">
 </video>
 
-## Version control
+## Versiya nazorati
 
-How to use version control _properly_, and take advantage of it to
-save you from disaster, collaborate with others, and quickly find and
-isolate problematic changes. No more `rm -rf; git clone`. No more
-merge conflicts (well, fewer of them at least). No more huge blocks
-of commented-out code. No more fretting over how to find what broke
-your code. No more "oh no, did we delete the working code?!". We'll
-even teach you how to contribute to other people's projects with pull
-requests!
+Versiya nazoratidan _to‘g‘ri_ foydalanish va undan foydalanib o‘zingizni falokatdan asrash, boshqalar bilan hamkorlik qilish hamda muammoli o‘zgarishlarni tezda topish va ajratib olish haqida. Endi "rm -rf; git clone" buyruqlariga hojat yo‘q. Birlashish ziddiyatlari ham kerak emas. Izohga olingan katta kod bloklariga xojat yo‘q. Kodingizni nima buzganini topish uchun bosh qotirmaysiz. "Voy, ishlaydigan kodni o‘chirib yubordikmi?!" degan savollar ham bo‘lmaydi. Hatto boshqalarning loyihalariga pull request’lar orqali hissa qo‘shishni ham o‘rgatamiz!
 
-In the example below we use `git bisect` to find which commit broke a unit test and then we fix it with `git revert`.
+Quyidagi misolda `git bisect` buyrug‘i yordamida qaysi commit unit testini buzganini aniqlaymiz va keyin uni `git revert` bilan tuzatamiz.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/git.mp4" type="video/mp4">
 </video>
 
-## Text editing
+## Matn tahriri
 
-How to efficiently edit files from the command-line, both locally and
-remotely, and take advantage of advanced editor features. No more
-copying files back and forth. No more repetitive file editing.
+Buyruqlar qatoridan fayllarni mahalliy va masofaviy tarzda qanday samarali tahrirlash hamda muharrirning ilg‘or xususiyatlaridan qanday foydalanish haqida. Endi fayllarni u yoqdan bu yoqqa ko‘chirish shart emas. Takroriy fayl tahrirlash ham o‘tmishda qoldi.
 
-Vim macros are one of its best features, in the example below we quickly convert an html table to csv format using a nested vim macro.
+Quyidagi misolda Vim makrolari eng ajoyib xususiyatlardan biri bo‘lgan ichma-ich joylashgan Vim makrosidan foydalanib, HTML jadvalini CSV formatiga tez va oson o‘tkazish usulini ko‘rib chiqamiz.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/vim.mp4" type="video/mp4">
 </video>
 
-## Remote machines
+## Masofaviy qurilmalar
 
-How to stay sane when working with remote machines using SSH keys and
-terminal multiplexing. No more keeping many terminals open just to
-run two commands at once. No more typing your password every time you
-connect. No more losing everything just because your Internet
-disconnected or you had to reboot your laptop.
+SSH kalitlari va terminal multipleksorlash yordamida masofaviy mashinalar bilan ishlash haqida. Endi bir vaqtning o‘zida ikkita buyruqni bajarish uchun ko‘plab terminallarni ochishga hojat yo‘q. Har safar ulanganingizda parol kiritish shart emas. Internet uzilib qolsa yoki noutbukni qayta ishga tushirishga to‘g‘ri kelganda barcha ma’lumotlaringizni yo‘qotmaysiz.
 
-In the example below we use `tmux` to keep sessions alive in remote servers and `mosh` to support network roaming and disconnection.
-
+Quyidagi misolda biz masofaviy serverlardagi sessiyalarni faol saqlash uchun `tmux` dasturidan va tarmoq roumingi hamda uzilishlarni qo‘llab-quvvatlash uchun `mosh` dasturidan foydalanamiz.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/ssh.mp4" type="video/mp4">
 </video>
 
-## Finding files
+## Fayllarni topish
 
-How to quickly find files that you are looking for. No
-more clicking through files in your project until you find the one
-that has the code you want.
+O‘zingizga kerak bo‘lgan fayllarni tezda qanday topish haqida. Endi loyihangizdagi kerakli kodi bor faylni topguncha boshqa fayllarga kirib chiqishingiz shart emas.
 
-In the example below we quickly look for files with `fd` and for code snippets with `rg`. We also quickly `cd` and `vim` recent/frequent files/folder using `fasd`.
-
+Quyidagi misolda biz `fd` yordamida fayllarni va `rg` yordamida kod parchalarini tezda qidiramiz. Shuningdek, `fasd` yordamida so‘nggi yoki tez-tez ishlatiladigan fayl va papkalarni `cd` va `vim` buyruqlari orqali tezda ochishimiz mumkin.
 <video autoplay="autoplay" loop="loop" controls muted playsinline  oncontextmenu="return false;"  preload="auto"  class="demo">
   <source src="/static/media/demos/find.mp4" type="video/mp4">
 </video>
 
-## Data wrangling
+## Ma’lumotlarni qayta ishlash
 
-How to quickly and easily modify, view, parse, plot, and compute over
-data and files directly from the command-line. No more copy pasting
-from log files. No more manually computing statistics over data. No
-more spreadsheet plotting.
+Ma’lumotlar va fayllarni buyruqlar qatoridan bevosita qanday tez va oson o‘zgartirish, ko‘rish, tahlil qilish, vizualizatsiya qilish va hisoblash haqida. Endi har safar log fayllaridan nusxa ko‘chirish shart emas. Ma’lumotlar bo‘yicha statistikani qo‘lda hisoblash zarurati yo‘q. Elektron jadvallar yordamida grafik chizishga ham ehtiyoj qolmadi.
 
-## Virtual machines
+## Virtual mashinalar
 
-How to use virtual machines to try out new operating systems, isolate
-unrelated projects, and keep your main machine clean and tidy. No
-more accidentally corrupting your computer while doing a security
-lab. No more millions of randomly installed packages with differing
-versions.
+Yangi operatsion tizimlarni sinab ko‘rish, bir-biriga aloqador bo‘lmagan loyihalarni alohida saqlash va asosiy kompyuteringizni toza hamda tartibli tutish uchun virtual mashinalardan foydalanish haqida. Endi xavfsizlik amaliyotini bajarayotib kompyuteringizni tasodifan ishdan chiqarib qo‘yish xavfi yo‘q. Turli versiyalardagi millionlab tasodifiy o‘rnatilgan dasturiy paketlar muammosi ham bartaraf etiladi.
 
-## Security
+## Xavfsizlik
 
-How to be on the Internet without immediately revealing all of your
-secrets to the world. No more coming up with passwords that match the
-insane criteria yourself. No more unsecured, open WiFi networks. No
-more unencrypted messaging.
+Internetda barcha ma'lumotlaringizni ochiqlab yubormagan holda bo‘lish haqida. Endi murakkab talablarga mos keladigan parollarni o‘ylab topish sizning zimmangizda bo‘lmaydi. Himoyalanmagan, ochiq Wi-Fi tarmoqlari muammosi hal bo‘ladi. Shiflanmagan xabarlar yuborish xavfi ham yo‘qoladi.
 
-# Conclusion
+# Xulosa
 
-This, and more, will be covered across the 12 class lectures, each including an
-exercise for you to get more familiar with the tools on your own. If you can't
-wait for January, you can also take a look at the lectures from [Hacker
-Tools](https://hacker-tools.github.io/lectures/), which we ran during IAP last
-year. It is the precursor to this class, and covers many of the same topics.
+Shu va boshqa mavzular 12 ta ma’ruzalar davomida yoritiladi. Har bir ma’ruzada vositalar bilan mustaqil ravishda chuqurroq tanishishingiz uchun mashqlar berilgan. Agar yanvar oyigacha kutolmasangiz, o‘tgan yili IAP davomida o‘tkazilgan [Hacker Tools](https://hacker-tools.github.io/lectures/) ma’ruzalarini ham ko‘rib chiqishingiz mumkin. U shu kursning debochasi bo‘lib, bu yilgi ko‘plab mavzularni qamrab olgan.
 
-We hope to see you in January, whether virtually or in person!
+Umid qilamizki, yanvar oyida siz bilan virtual yoki shaxsan ko‘rishamiz!
 
-Happy hacking,<br>
-Anish, Jose, and Jon
+Xakerlik qilishdan zavq oling,<br>
+Anish, Jose va Jon

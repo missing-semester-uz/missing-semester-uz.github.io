@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "License"
+title: "Litsenziya"
 permalink: /license/
 ---
 
@@ -8,8 +8,8 @@ permalink: /license/
 
 Ushbu kursdagi barcha qismi, jumladan veb-sayt manba kodi, ma’ruza yozuvlari, mashqlar va ma’ruza videolari Attribution-NonCommercial-ShareAlike 4.0 International [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) litsenziyasi asosida tarqatiladi.
 
-Bu shuni anglatadiki, sizga quyidagi huquqlar beriladi:
-- **Share** _(Baham ko‘rish)_ — materialni istalgan vosita yoki formatda nusxalash va qayta tarqatish
+Bu sizga quyidagi huquqlar berilishini anglatadi:
+- **Share** _(Ulashish)_ — materialni istalgan vosita yoki formatda nusxalash va qayta tarqatish
 - **Adapt** _(Moslash)_ — materialni qayta ishlash, o‘zgartirish va u asosida yangi materiallar tayyorlash
 
 Quyidagi shartlar asosida:
@@ -22,11 +22,11 @@ Bu [litsenziya](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)ning
 
 ## Hissa qo‘shish bo‘yicha ko‘rsatmalar
 
-Siz kurs materiallariga tuzatishlar va takliflarni bizning GitHub [repozitoriyamizga](https://github.com/missing-semester-uz/missing-semester-uz.github.io) muammolar va pull request'larini yuborish orqali taqdim etishingiz mumkin. Bu video ma’ruzalar uchun repozitoriyadagi subtitrlarni ham o‘z ichiga oladi ([bu yerga](https://github.com/missing-semester-uz/missing-semester-uz.github.io/tree/master/static/files/subtitles/2020) qarang).
+Siz kurs materiallariga tuzatishlar va takliflarni bizning GitHub [repozitoriyamizga](https://github.com/missing-semester-uz/missing-semester-uz.github.io) muammolar va pull request'larini yuborish orqali taqdim etishingiz mumkin. Bu ma’ruzalarning videoyozuvlari uchun repozitoriyadagi subtitrlarni ham o‘z ichiga oladi ([bu yerga](https://github.com/missing-semester-uz/missing-semester-uz.github.io/tree/master/static/files/subtitles/2020) qarang).
 
 ## Tarjima bo‘yicha ko‘rsatmalar
 
 Litsenziya shartlariga amal qilgan holda ma’ruza matnlari va mashqlarni erkin tarjima qilishingiz mumkin.
 Agar tarjimangiz kurs tuzilishiga mos kelsa, bizning sahifamizdan sizning tarjima qilingan versiyangizga havola joylashtirishimiz uchun biz bilan bog‘laning.
 
-Video subtitrlarini tarjima qilsangiz esa, iltimos, tarjimalaringizni YouTubega hamjamiyat hissasi sifatida yuboring.
+Video subtitrlarini tarjima qilsangiz, iltimos, tarjimalaringizni YouTube'da hamjamiyat hissasi sifatida yuboring.

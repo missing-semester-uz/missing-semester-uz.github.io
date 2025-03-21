@@ -4,9 +4,9 @@ title: Kompyuter fanlari ta’limingizning yetishmayotgan semestri
 nositetitle: true
 ---
 
-Kompyuter fanlari (Computer Science) sohasidagi darslar sizga operatsion tizimlardan tortib mashinaviy o‘rganishgacha bo‘lgan ilg‘or mavzularni o‘rgatiladi. Biroq, kamdan-kam hollarda o‘qitiladigan va ko‘pincha talabalarga mustaqil  o‘rganish uchun qoldiriladigan muhim bir mavzu bor: bu o‘z  vositalaridan samarali foydalanish ko‘nikmasi. Biz sizga buyruqlar qatorini  (command line) mukammal egallashni, kuchli matn muharriridan foydalanishni,  versiyalarni boshqarish tizimlarining ilg‘or xususiyatlarini qo‘llashni va boshqa ko‘p narsalarni o‘rgatamiz!
+Kompyuter fanlaridagi darslarda operatsion tizimlardan tortib mashinaviy o‘rganishgacha bo‘lgan ilg‘or mavzularni o‘rgatiladi. Biroq, talabalarga juda muhim bo‘lgan, lekin ko‘pincha mustaqil o‘rganish uchun qoldiriladigan mavzular har bor. Bu kerakli vositalaridan samarali foydalanish ko‘nikmasidir. Kurs davomida sizga buyruqlar qatorini mukammal o‘zlashtirishni, kuchli matn muharriridan foydalanishni, versiyalarni boshqarish tizimlarining ilg‘or xususiyatlarini qo‘llashni va boshqa ko‘p narsalarni o‘rgatamiz!
 
-Talabalar ta’lim davomida bu vositalarga yuzlab soat (ish faoliyatlari davomida esa minglab soat) sarflaydilar. Shuning uchun bu tajriba iloji boricha qulay va samarali bo‘lishi kerak. Ushbu vositalarni mukammal o‘zlashtirish nafaqat ularni moslashtirish uchun kamroq vaqt sarflash, balki ilgari hal qilib bo‘lmaydigan darajada murakkab tuyulgan muammolarni yechish imkonini ham beradi.
+Talabalar bu vositalarga o‘qish davomida yuzlab soat (ish faoliyatlari davomida esa minglab soat) vaqt sarflaydilar. Shuning uchun bu tajriba iloji boricha qulay va samarali bo‘lishi kerak. Ushbu vositalarni mukammal o‘zlashtirish nafaqat ularni moslashtirish uchun kamroq vaqt sarflashga, balki ilgari hal qilib bo‘lmaydigan, murakkab tuyulgan muammolarni yechish imkonini ham beradi.
 
 [Bu havolada](/about/) kurs ortidagi sabablar bilan tanishishingiz mumkin.
 
@@ -39,17 +39,16 @@ Talabalar ta’lim davomida bu vositalarga yuzlab soat (ish faoliyatlari davomid
 {% endfor %}
 </ul>
 
-Ma’ruzalarning videoyozuvlari [YouTube'da](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J) mavjud.
+Ma’ruzalarning videoyozuvlari [YouTube'ga](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J) joylangan.
 
 # Kurs haqida
 
-**O‘qituvchilar**: Bu kursni [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/) va [Jose](http://josejg.com/) hamkorlikda olib boradilar.<br>
+**O‘qituvchilar**: Bu kursni [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/) va [Jose](http://josejg.com/) hamkorlikda olib boradi.<br>
 **Savollar**: Bizga [missing-semester@mit.edu](mailto:missing-semester@mit.edu) elektron manzili orqali murojaat qilishingiz mumkin.
 
 # MIT'dan tashqarida
 
-Ushbu resurslardan MIT talabalaridan boshqalar ham foydalanishi uchun uni turli joylarga tarqatdik.
-Siz postlar va muhokamalarni quyidagi manzillarda topishingiz mumkin.
+Ushbu resurslardan MIT talabalaridan boshqalar ham foydalanishi uchun uni turli joylarga tarqatdik. Postlar va muhokamalarni quyidagi manzillarda topishingiz mumkin.
 
  - [Hacker News](https://news.ycombinator.com/item?id=22226380)
  - [Lobsters](https://lobste.rs/s/ti1k98/missing_semester_your_cs_education_mit)
@@ -84,27 +83,23 @@ Ba’zi qo‘shimcha URL manzillar:
 - [Turkcha](https://missing-semester-tr.github.io/)
 - [Vetnamcha](https://missing-semester-vn.github.io/)
 - [Arabcha](https://missing-semester-ar.github.io/)
-- [Italyan](https://missing-semester-it.github.io/)
+- [Italyancha](https://missing-semester-it.github.io/)
 - [Forscha](https://missing-semester-fa.github.io/)
 - [Nemischa](https://missing-semester-de.github.io/)
 - [Bengalcha](https://missing-semester-bn.github.io/)
 
-Eslatma: bu tarjimalar hamjamiyat a’zolari tomonidan amalga oshirilgan. Biz ularni tekshirib chiqmaganmiz.
+Eslatma: bu hamjamiyat a’zolari tomonidan qilingan tarjimalar. Biz ularni tekshirib chiqmaganmiz.
 
-Ushbu kursning ma’ruza yozuvlarini tarjima qilganmisiz? Uni ro‘yxatga qo‘shishimiz 
-uchun [pull request](https://github.com/missing-semester/missing-semester/pulls) yuborishingizni so‘raymiz!
+Ushbu kursning ma’ruza matnlarini tarjima qildingizmi? Uni ro‘yxatga qo‘shishimiz uchun [pull request](https://github.com/missing-semester/missing-semester/pulls) yuborishingizni so‘raymiz!
 
 ## Minnatdorchilik
 
-Biz ma’ruza videolarini yozib olishimiz uchun imkoniyat yaratgan Eleyn Mello, 
-Jim Keyn va [MIT Open Learning](https://openlearning.mit.edu/)ga; audio-vizual jihozlar uchun 
-Entoni Zolnik va [MIT AeroAstro](https://aeroastro.mit.edu/)ga; hamda ushbu kursni qo‘llab-quvvatlagani 
-uchun Brandi Adams va [MIT EECS](https://www.eecs.mit.edu/)ga o‘z minnatdorchiligimizni bildiramiz.
+Biz ma’ruza videolarini yozib olishimiz uchun imkoniyat yaratgan Eleyn Mello, Jim Keyn va [MIT Open Learning](https://openlearning.mit.edu/)ga; audio-vizual jihozlar uchun Entoni Zolnik va [MIT AeroAstro](https://aeroastro.mit.edu/)ga; hamda ushbu kursni qo‘llab-quvvatlagani uchun Brandi Adams va [MIT EECS](https://www.eecs.mit.edu/)ga o‘z minnatdorchiligimizni bildiramiz.
 
 ---
 
 <div class="small center">
 <p><a href="https://github.com/missing-semester-uz/missing-semester-uz.github.io">Manba kodi</a>.</p>
 <p>CC BY-NC-SA litsenziyasi asosida tarqatildi.</p>
-<p>Hissa qo‘shish va tarjima bo‘yicha ko‘rsatmalarni ko‘rish uchun <a href="/license/">shu yerga</a> murojaat qiling.</p>
+<p>Hissa qo‘shish va tarjima bo‘yicha ko‘rsatmalarni ko‘rish uchun <a href="/license/">shu yerga</a> qarang.</p>
 </div>
