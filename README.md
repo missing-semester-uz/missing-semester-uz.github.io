@@ -14,8 +14,8 @@ Tarjimaning joriy holatini [shu yerda](https://github.com/missing-semester-uz/mi
 
 | # | bo‘limlar | tarjima holati |
 | :-: |   --------   |  ----------:  |
-| 1 | [course-shell.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/course-shell.md)  | [`Tarjima jarayonida 🛠️`](https://missing-semester-uz.github.io/2020/course-shell/) |
-| 2 | [shell-tools.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/shell-tools.md)  | Tarjima boshlanmagan ⏳ |
+| 1 | [course-shell.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/course-shell.md)  | [`Tayyor ✔`](https://missing-semester-uz.github.io/2020/course-shell/) |
+| 2 | [shell-tools.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/shell-tools.md)  | [`Tarjima jarayonida 🛠️`](https://missing-semester-uz.github.io/2020/shell-tools/) |
 | 3 | [editors.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/editors.md)  | Tarjima boshlanmagan ⏳ |
 | 4 | [data-wrangling.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/data-wrangling.md)  | Tarjima boshlanmagan ⏳ |
 | 5 | [command-line.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/command-line.md)  | Tarjima boshlanmagan ⏳ |

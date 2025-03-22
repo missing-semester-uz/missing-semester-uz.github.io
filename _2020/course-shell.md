@@ -8,41 +8,41 @@ video:
   id: Z56Jmr9Z34Q
 ---
 
-# Motivation
+# Motivatsiya
 
-As computer scientists, we know that computers are great at aiding in repetitive tasks. However, far too often, we forget that this applies just as much to our _use_ of the computer as it does to the computations we want our programs to perform. We have a vast range of tools available at our fingertips that enable us to be more productive and solve more complex problems when working on any computer-related problem. Yet many of us utilize only a small fraction of those tools; we only know enough magical incantations by rote to get by, and blindly copy-paste commands from the internet when we get stuck.
+Kompyuter mutaxassislari sifatida, kompyuterlarning takroriy vazifalarni bajarishda samarali ekanligini bilamiz. Biroq, ko‘pincha bu qoida nafaqat dasturlarimiz bajarishi kerak bo‘lgan hisob-kitoblarga, balki kompyuterdan _foydalanishimizga_ ham tegishli ekanligini unutib qo‘yamiz. Qo‘limizda kompyuter bilan bog‘liq har qanday muammoni yechishda unumdorligimizni oshirish va murakkab masalalarni hal qilish imkonini beruvchi ko‘plab vositalar mavjud. Ammo ko‘pchiligimiz bu vositalarning faqat kichik qismidan foydalanamiz; biz faqat kundalik ishlarimizni bajarish uchun zarur bo‘lgan bir nechta sehrli buyruqlarni yodlab olganmiz, xolos. Qiyinchilikka duch kelganimizda esa internetdan topgan buyruqlarni tushunmasdan ishlatib qo‘ya qolamiz.
 
-This class is an attempt to address this.
+Ushbu kurs aynan shu muammoni hal qilishga qaratilgan.
 
-We want to teach you how to make the most of the tools you know, show you new tools to add to your toolbox, and hopefully instill in you some excitement for exploring (and perhaps building) more tools on your own. This is what we believe to be the missing semester from most Computer Science curricula.
+Biz sizga o‘zingiz bilgan vositalardan samarali foydalanishni o‘rgatishni, vositalar to‘plamingizga yangi vositalarni qo‘shishni va umid qilamizki, sizda mustaqil ravishda ko‘proq vositalarni o‘rganish (va balki yaratish) uchun qiziqish uyg‘otishni xohlaymiz. Bu kompyuter fanlari o‘quv dasturlarining aksariyatida yetishmayotgan semestr deb hisoblaymiz.
 
-# Class structure
+# Kurs tuzilmasi
 
-The class consists of 11 1-hour lectures, each one centering on a [particular topic](/2020/). The lectures are largely independent, though as the semester goes on we will presume that you are familiar with the content from the earlier lectures. We have lecture notes online, but there will be a lot of content covered in class (e.g. in the form of demos) that may not be in the notes. We will be recording lectures and posting the recordings online.
+Kurs 11 ta bir soatlik ma’ruzadan iborat bo‘lib, har biri [muayyan mavzu](/2020/)ga bag‘ishlangan. Ma’ruzalar asosan bir-biridan mustaqil, ammo avvalgi ma’ruzalar mazmunini bilasiz degan fikr asosida tuzilgan. Onlayn ma’ruza matnlari mavjud, ammo darsda yoritilgan ko‘p materiallar (masalan, ko‘rsatib bersak) matnlarda bo‘lmasligi mumkin. Biz ma’ruzalarni yozib olamiz va internetda e’lon qilamiz.
 
-We are trying to cover a lot of ground over the course of just 11 1-hour lectures, so the lectures are fairly dense. To allow you some time to get familiar with the content at your own pace, each lecture includes a set of exercises that guide you through the lecture's key points. After each lecture, we are hosting office hours where we will be present to help answer any questions you might have. If you are attending the class online, you can send us questions at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+Biz atigi 11 ta bir soatlik ma’ruza davomida ko‘p ma’lumotlarni qamrab olishga harakat qilmoqdamiz, shu bois ma’ruzalar ancha ma’lumotga zich. Kursni o‘z tezligingizga o'rganishingiz uchun har bir ma’ruzada asosiy mavzularni o‘z ichiga olgan mashqlar to‘plami mavjud. Har bir ma’ruzadan so‘ng, savollaringizga javob berish uchun qabul soatlarini o‘tkazamiz. Agar siz darsga onlayn qatnashayotgan bo‘lsangiz, savollaringizni [missing-semester@mit.edu](mailto:missing-semester@mit.edu) manziliga yuborishingiz mumkin.
 
-Due to the limited time we have, we won't be able to cover all the tools in the same level of detail a full-scale class might. Where possible, we will try to point you towards resources for digging further into a tool or topic, but if something particularly strikes your fancy, don't hesitate to reach out to us and ask for pointers!
+Vaqtimiz cheklanganligi sababli, barcha vositalarni to‘liq kurs kabi batafsil o‘rgana olmaymiz. Iloji boricha, biror vosita yoki mavzuni chuqurroq o‘rganishingiz uchun sizni kerakli manbalarga yo‘naltirishga harakat qilamiz. Ammo agar biror narsa sizni juda qiziqtirib qolsa, bizga murojaat qilishdan va qo‘shimcha ma’lumotlar so‘rashdan tortinmang!
 
-# Topic 1: The Shell
+# 1-mavzu: Shell
 
-## What is the shell?
+## Shell nima?
 
-Computers these days have a variety of interfaces for giving them commands; fanciful graphical user interfaces, voice interfaces, and even AR/VR are everywhere. These are great for 80% of use-cases, but they are often fundamentally restricted in what they allow you to do — you cannot press a button that isn't there or give a voice command that hasn't been programmed. To take full advantage of the tools your computer provides, we have to go old-school and drop down to a textual interface: The Shell.
+Bugungi kunda kompyuterlarga buyruq berish uchun turli xil interfeyslar mavjud; chiroyli grafik interfeyslar, ovozli interfeyslar, hatto AR/VR ham hamma joyda uchraydi. 80% holatlar uchun ajoyib, ammo ular ko‘pincha imkoniyatlaringizni jiddiy ravishda cheklaydi — siz mavjud bo‘lmagan tugmani bosa olmaysiz yoki dasturlashtirilmagan ovozli buyruqni bera olmaysiz. Kompyuteringiz taqdim etadigan vositalardan to‘liq foydalanish uchun biz eski usulga qaytishimiz va matnli interfeysga murojaat qilishimiz kerak: Shell.
 
-Nearly all platforms you can get your hands on have a shell in one form or another, and many of them have several shells for you to choose from. While they may vary in the details, at their core they are all roughly the same: they allow you to run programs, give them input, and inspect their output in a semi-structured way.
+Siz foydalanadigan deyarli barcha platformalarda u yoki bu ko‘rinishdagi shell mavjud va ko‘pchiligida hatto bir nechta shell'lar bor. Ular ba'zi tafsilotlarda farq qilishi mumkin, ammo aslida barchasi taxminan bir xil: ular dasturlarni ishga tushirish, ularga ma’lumot kiritish va natijalarini muayyan tizimli usulda tekshirish imkonini beradi.
 
-In this lecture, we will focus on the Bourne Again SHell, or "bash" for short. This is one of the most widely used shells, and its syntax is similar to what you will see in many other shells. To open a shell _prompt_ (where you can type commands), you first need a _terminal_. Your device probably shipped with one installed, or you can install one fairly easily.
+Ushbu ma’ruza "Bourne Again SHell" yoki qisqacha "bash" deb ataladigan shell asosida o'tiladi. Bu eng keng qo‘llaniladigan shell'lardan biri bo‘lib, uning sintaksisi boshqa ko‘plab shell'lardagi sintaksisga o‘xshaydi. Shell _so‘rov_ini (buyruqlarni kiritadigan joyni) ochish uchun avval _terminal_ kerak bo‘ladi. Qurilmangizda terminal allaqachon o‘rnatilgan yoki uni osonlik bilan o‘rnatishingiz mumkin.
 
-## Using the shell
+## Shell'dan foydalanish
 
-When you launch your terminal, you will see a _prompt_ that often looks a little like this:
+Terminalingizni ishga tushirganingizda, odatda quyidagiga o‘xshash _so‘rov satrini_ ko‘rasiz:
 
 ```console
 missing:~$ 
 ```
 
-This is the main textual interface to the shell. It tells you that you are on the machine `missing` and that your "current working directory", or where you currently are, is `~` (short for "home"). The `$` tells you that you are not the root user (more on that later). At this prompt you can type a _command_, which will then be interpreted by the shell. The most basic command is to execute a program:
+Bu shell'ning asosiy matn interfeysidir. U sizga `missing` nomli mashinada ekanligingizni va "joriy ish katalogingiz", ya’ni hozirgi joylashgan o‘rningiz ’~’ ("uy" so‘zining qisqartmasi) ekanligini ko‘rsatadi. `$` belgisi bosh foydalanuvchi emasligingizni bildiradi (bu haqda keyinroq batafsil to‘xtalamiz). Ushbu so‘rovda siz _buyruq_ kiritishingiz mumkin, so‘ng uni shell talqin qiladi. Eng sodda buyruq - dasturni ishga tushirish:
 
 ```console
 missing:~$ date
@@ -50,16 +50,16 @@ Fri 10 Jan 2020 11:49:31 AM EST
 missing:~$ 
 ```
 
-Here, we executed the `date` program, which (perhaps unsurprisingly) prints the current date and time. The shell then asks us for another command to execute. We can also execute a command with _arguments_:
+Bu yerda biz `date` dasturini ishga tushirdik. Bu dastur (kutilganidek) joriy sana va vaqtni chop etadi. Shundan so‘ng terminal bizdan boshqa buyruqni kiritishimizni so‘raydi. Biz buyruqlarni _argumentlar_ bilan ham bajarishimiz mumkin:
 
 ```console
 missing:~$ echo hello
 hello
 ```
 
-In this case, we told the shell to execute the program `echo` with the argument `hello`. The `echo` program simply prints out its arguments. The shell parses the command by splitting it by whitespace, and then runs the program indicated by the first word, supplying each subsequent word as an argument that the program can access. If you want to provide an argument that contains spaces or other special characters (e.g., a directory named "My Photos"), you can either quote the argument with `'` or `"` (`"My Photos"`), or escape just the relevant characters with `\` (`My\ Photos`).
+Bu holda, biz shell'qa `echo` dasturini `hello` argumenti bilan bajarishni buyurdik. `Echo` dasturi shunchaki o‘ziga berilgan argumentlarni chop etadi. Shell buyruqni bo‘sh joylar bo‘yicha ajratib tahlil qiladi, so‘ngra birinchi so‘z bilan ko‘rsatilgan dasturni ishga tushiradi va har bir keyingi so‘zni dastur foydalanishi mumkin bo‘lgan argument sifatida taqdim etadi. Agar siz bo‘sh joylar yoki boshqa maxsus belgilarni o‘z ichiga olgan argumentni (masalan, "My Photos" nomli katalog) taqdim etmoqchi bo‘lsangiz, argumentni `'` yoki `"` (`"My Photos"`) bilan qo‘shtirnoq ichiga olishingiz yoki faqat tegishli belgilarni `\` (`My\ Photos`) bilan saqlashingiz mumkin.
 
-But how does the shell know how to find the `date` or `echo` programs? Well, the shell is a programming environment, just like Python or Ruby, and so it has variables, conditionals, loops, and functions (next lecture!). When you run commands in your shell, you are really writing a small bit of code that your shell interprets. If the shell is asked to execute a command that doesn't match one of its programming keywords, it consults an _environment variable_ called `$PATH` that lists which directories the shell should search for programs when it is given a command:
+Lekin shell `date` yoki `echo` dasturlarini qanday topishni qayerdan biladi? Aslida, shell Python yoki Ruby kabi dasturlash muhitidir, shuning uchun unda o‘zgaruvchilar, shartli operatorlar, sikllar va funksiyalar mavjud (keyingi ma’ruzada ko‘rib chiqamiz!). Shell'da buyruqlarni bajarganda, siz aslida shell talqin qiladigan kichik bir kod yozayotgan bo‘lasiz. Agar shell'ga o‘zining dasturlash kalit so‘zlaridan biriga mos kelmaydigan buyruqni bajarish topshirilsa, u `$PATH` deb nomlangan _muhit o‘zgaruvchisi_ga murojaat qiladi. Bu o‘zgaruvchi buyruq berilganda shell qaysi kataloglardan dasturlarni qidirishi kerakligini ko‘rsatib beradi.
 
 
 ```console
@@ -71,12 +71,12 @@ missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute the program `echo`, and then searches through the `:`-separated list of directories in `$PATH` for a file by that name. When it finds it, it runs it (assuming the file is _executable_; more on that later). We can find out which file is executed for a given program name using the `which` program. We can also bypass `$PATH` entirely by giving the _path_ to the file we want to execute.
+`echo` buyrug‘ini berganimizda, shell `echo` dasturini bajarish kerakligini aniqlaydi va so‘ng `$PATH` dagi ikki nuqta bilan ajratilgan kataloglar ro‘yxati orqali shu nomdagi faylni qidiradi. Fayl topilgach, uni ishga tushiradi (faylni _bajarilishi mumkin_ deb hisoblagan holda; bu haqda keyinroq batafsil to‘xtalamiz). Berilgan dastur nomi uchun qaysi fayl bajarilishini `which` dasturi yordamida aniqlay olamiz. Shuningdek, bajarmoqchi bo‘lgan faylga to‘liq _yo‘l_ ko‘rsatish orqali `$PATH` ni butunlay chetlab o‘tishimiz mumkin.
 
-## Navigating in the shell
+## Shell'da harakatlanish
 
-A path on the shell is a delimited list of directories; separated by `/`
-on Linux and macOS and `\` on Windows. On Linux and macOS, the path `/` is the "root" of the file system, under which all directories and files lie, whereas on Windows there is one root for each disk partition (e.g., `C:\`). We will generally assume that you are using a Linux filesystem in this class. A path that starts with `/` is called an _absolute_ path. Any other path is a _relative_ path. Relative paths are relative to the current working directory, which we can see with the `pwd` command and change with the `cd` command. In a path, `.` refers to the current directory, and `..` to its parent directory:
+Shell'da yo‘l - bu kataloglarning ajratilgan ro‘yxati bo‘lib, Linux va macOS tizimlarida `/`
+bilan, Windows tizimida esa `\` bilan ajratiladi. Linux va macOS’da `/` yo‘li fayl tizimining "boshi" hisoblanadi, uning ostida barcha kataloglar va fayllar joylashgan. Windows’da esa har bir disk bo‘limi uchun alohida bosh mavjud (masalan, `C:\`). Ushbu kursda biz asosan Linux fayl tizimidan foydalanamiz. `/` bilan boshlanadigan yo‘l _mutlaq_ yo‘l deb ataladi. Boshqa har qanday yo‘l esa _nisbiy_ yo‘l hisoblanadi. Nisbiy yo‘llar joriy ishchi katalogga nisbatan aniqlanadi. Joriy ishchi katalogni `pwd` buyrug‘i bilan ko‘rish va `cd` buyrug‘i bilan o‘zgartirish mumkin. Yo‘lda `.` belgisi joriy katalogni, `..` esa uning yuqori katalogini bildiradi.
 
 ```console
 missing:~$ pwd
@@ -97,11 +97,11 @@ missing:~$ ../../bin/echo hello
 hello
 ```
 
-Notice that our shell prompt kept us informed about what our current working directory was. You can configure your prompt to show you all sorts of useful information, which we will cover in a later lecture.
+E’tibor bering, shell so‘rovimiz bizni joriy ishchi katalogimiz haqida doimiy ravishda xabardor qilib turdi. Siz so‘rov qatoringizni turli foydali ma’lumotlarni ko‘rsatadigan qilib sozlashingiz mumkin. Biz bu haqda keyingi ma’ruzada batafsil to‘xtalamiz.
 
-In general, when we run a program, it will operate in the current directory unless we tell it otherwise. For example, it will usually search for files there, and create new files there if it needs to.
+Odatda, dasturni ishga tushirganimizda, agar biz boshqacha ko‘rsatma bermasak, u joriy katalogda ishlaydi. Masalan, u ko‘pincha fayllarni shu yerdan qidiradi va zarur bo‘lsa, yangi fayllarni ham shu yerda yaratadi.
 
-To see what lives in a given directory, we use the `ls` command:
+Biror katalogda nimalar mavjudligini ko‘rish uchun biz `ls` buyrug‘idan foydalanamiz:
 
 ```console
 missing:~$ ls
@@ -118,10 +118,10 @@ home
 ...
 ```
 
-Unless a directory is given as its first argument, `ls` will print the contents of the current directory. Most commands accept flags and options (flags with values) that start with `-` to modify their behavior. Usually, running a program with the `-h` or `--help` flag will print some help text that tells you what flags and options are available. For example, `ls --help` tells us:
+Agar birinchi argument sifatida katalog ko‘rsatilmagan bo‘lsa, `ls` buyrug‘i joriy katalog tarkibini chop etadi. Ko‘pchilik buyruqlar o‘z faoliyatini o‘zgartirish uchun ’-’ bilan boshlanadigan bayroqlar va parametrlarni (qiymatli bayroqlar) qabul qiladi. Odatda, dasturni ’-h’ yoki ’--help’ bayrog‘i bilan ishga tushirish mavjud bayroqlar va parametrlar haqida ma’lumot beruvchi yordam matnini chop etadi. Misol uchun, ’ls --help’ buyrug‘i bizga quyidagilarni ko‘rsatadi:
 
 ```
-  -l                         use a long listing format
+  -l                         uzun ro‘yxat formati
 ```
 
 ```console
@@ -129,21 +129,21 @@ missing:~$ ls -l /home
 drwxr-xr-x 1 missing  users  4096 Jun 15  2019 missing
 ```
 
-This gives us a bunch more information about each file or directory present. First, the `d` at the beginning of the line tells us that `missing` is a directory. Then follow three groups of three characters (`rwx`). These indicate what permissions the owner of the file (`missing`), the owning group (`users`), and everyone else respectively have on the relevant item. A `-` indicates that the given principal does not have the given permission. Above, only the owner is allowed to modify (`w`) the `missing` directory (i.e., add/remove files in it). To enter a directory, a user must have "search" (represented by "execute": `x`) permissions on that directory (and its parents). To list its contents, a user must have read (`r`) permissions on that directory. For files, the permissions are as you would expect. Notice that nearly all the files in `/bin` have the `x` permission set for the last group, "everyone else", so that anyone can execute those programs.
+Bu bizga har bir fayl yoki katalog haqida ko‘proq ma’lumot beradi. Avvalo, satr boshidagi `d` belgisi `missing` katalog ekanligini bildiradi. Keyin uchta guruhga uchtadan belgilar (`rwx`) keladi. Bular fayl egasi (`missing`), egalik qiluvchi guruh (`users`) va boshqalarning tegishli element bo‘yicha ruxsatlarini ko‘rsatadi. `-` belgisi ma’lum ruxsat berilmaganini anglatadi. Yuqorida faqat katalog egasiga `missing` katalogini o‘zgartirish (`w`) ruxsati berilgan (ya’ni, u fayllar qo‘shish yoki o‘chirish imkoniyatiga ega). Katalogga kirish uchun katalogning (va uning yuqori kataloglarida) "qidirish" (ya’ni "bajarish": `x`) ruxsatlariga ega bo‘lishi kerak. Uning ichini ko‘rish uchun esa foydalanuvchi ushbu katalogda o‘qish (`r`) ruxsatlariga ega bo‘lishi lozim. Fayllar uchun ruxsatlar ham yuqoridagidek. E’tibor bering, `/bin` dagi deyarli barcha fayllarda oxirgi guruh, ya’ni "boshqalar" uchun `x` ruxsati o‘rnatilgan, shu sababli har kim bu dasturlarni ishlata oladi.
 
-Some other handy programs to know about at this point are `mv` (to rename/move a file), `cp` (to copy a file), and `mkdir` (to make a new directory).
+Ushbu bosqichda bilishingiz kerak bo‘lgan yana ba’zi foydali dasturlar quyidagilar: `mv` (faylni qayta nomlash yoki ko‘chirish), `cp` (faylni nusxalash) va `mkdir` (yangi katalog yaratish).
 
-If you ever want _more_ information about a program's arguments, inputs, outputs, or how it works in general, give the `man` program a try. It takes as an argument the name of a program, and shows you its _manual page_. Press `q` to exit.
+Agar biror dasturning argumentlari, kirish va chiqish ma’lumotlari yoki umuman qanday ishlashi haqida _batafsil_ ma’lumot olishni istasangiz, `man` dasturini ishlatib ko‘ring. U dastur nomini argument sifatida qabul qiladi va sizga shu dasturning _qo‘llanma sahifasini_ ko‘rsatadi. Chiqish uchun `q` tugmasini bosing.
 
 ```console
 missing:~$ man ls
 ```
 
-## Connecting programs
+## Dasturlarni ulash
 
-In the shell, programs have two primary "streams" associated with them: their input stream and their output stream. When the program tries to read input, it reads from the input stream, and when it prints something, it prints to its output stream. Normally, a program's input and output are both your terminal. That is, your keyboard as input and your screen as output. However, we can also rewire those streams!
+Shell'da dasturlar bilan bog‘liq ikkita asosiy "oqimlar" mavjud: kirish oqimi va chiqish oqimi. Dastur ma’lumot o‘qimoqchi bo‘lganda, u kirish oqimidan o‘qiydi va biror narsani chop etganda, chiqish oqimiga yozadi. Odatda, dasturning kirishi ham, chiqishi ham sizning terminalingizdir. Ya’ni, klaviaturangiz kirish vositasi, ekraningiz esa chiqish vositasi sifatida xizmat qiladi. Ammo biz bu oqimlarni boshqacha yo‘naltirish imkoniyatiga ham egamiz!
 
-The simplest form of redirection is `< file` and `> file`. These let you rewire the input and output streams of a program to a file respectively:
+Qayta yo‘naltirishning eng oddiy shakli `< fayl` va `> fayl` buyruqlaridir. Ular dasturning kirish va chiqish oqimlarini mos ravishda faylga yo‘naltirish imkonini beradi:
 
 ```console
 missing:~$ echo hello > hello.txt
@@ -156,9 +156,9 @@ missing:~$ cat hello2.txt
 hello
 ```
 
-Demonstrated in the example above, `cat` is a program that con`cat`enates files. When given file names as arguments, it prints the contents of each of the files in sequence to its output stream. But when `cat` is not given any arguments, it prints contents from its input stream to its output stream (like in the third example above).
+Yuqoridagi misolda ko‘rsatilganidek, `cat` fayllarni birlashtiruvchi dasturdir. Unga argument sifatida fayl nomlari berilsa, har bir faylning mazmunini ketma-ket ravishda o‘zining chiqish oqimiga chop etadi. Biroq `cat`ga hech qanday argument berilmasa, u o‘zining kirish oqimidan olingan ma’lumotlarni chiqish oqimiga chop etadi (yuqoridagi uchinchi misol).
 
-You can also use `>>` to append to a file. Where this kind of input/output redirection really shines is in the use of _pipes_. The `|` operator lets you "chain" programs such that the output of one is the input of another:
+Shuningdek, faylga ma’lumot qo‘shish uchun `>>` belgisidan foydalanishingiz mumkin. Kiritish/chiqarishni qayta yo‘naltirishning bu turi ayniqsa _pipeline'lar_ yordamida yanada samaraliroq ishlaydi. `|` operatori sizga dasturlarni "zanjir" shaklida bog‘lash imkonini beradi, bunda bir dasturning chiqishi boshqasining kirishi bo‘ladi:
 
 ```console
 missing:~$ ls -l / | tail -n1
@@ -167,21 +167,21 @@ missing:~$ curl --head --silent google.com | grep --ignore-case content-length |
 219
 ```
 
-We will go into a lot more detail about how to take advantage of pipes in the lecture on data wrangling.
+Ma’lumotlarni qayta ishlash bo‘yicha ma’ruzada pipeline'lardan qanday foydalanish haqida batafsil to‘xtalamiz.
 
-## A versatile and powerful tool
+## Ko‘p qirrali va kuchli vosita
 
-On most Unix-like systems, one user is special: the "root" user. You may have seen it in the file listings above. The root user is above (almost) all access restrictions, and can create, read, update, and delete any file in the system. You will not usually log into your system as the root user though, since it's too easy to accidentally break something. Instead, you will be using the `sudo` command. As its name implies, it lets you "do" something "as su" (short for "super user", or "root"). When you get permission denied errors, it is usually because you need to do something as root. Though make sure you first double-check that you really wanted to do it that way!
+Unix'ga o‘xshash tizimlarning aksariyatida bitta foydalanuvchi alohida ahamiyatga ega: "root". Uni yuqoridagi fayllar ro‘yxatida ko‘rgan bo‘lishingiz mumkin. root foydalanuvchisi (deyarli) barcha kirish cheklovlaridan ustun bo‘lib, tizimdagi har qanday faylni yaratishi, o‘qishi, yangilashi va o‘chirishi mumkin. Biroq, tizimingizga odatda root foydalanuvchi sifatida kirmaysiz, chunki biror narsani tasodifan buzib qo‘yish juda oson. Buning o‘rniga `sudo` buyrug‘idan foydalanasiz. Nomidan anglaganingizdek, u sizga "su" (ya’ni "super user" yoki "root") sifatida biror narsani "do" (bajarish) imkonini beradi. Ruxsat rad etilganlik haqida xato chiqqanida, odatda root sifatida biror narsa qilishingiz kerak bo‘ladi. Ammo haqiqatan ham shunday qilishga ikki karra ishonchingiz komil bo'lishi kerak!
 
-One thing you need to be root in order to do is writing to the `sysfs` file system mounted under `/sys`. `sysfs` exposes a number of kernel parameters as files, so that you can easily reconfigure the kernel on the fly without specialized tools. **Note that sysfs does not exist on Windows or macOS.**
+root huquqiga ega bo‘lishingiz talab etiladigan ishlardan biri - bu `/sys` katalogida joylashgan `sysfs` fayl tizimiga yozishdir. `sysfs` bir qator kernel parametrlarini fayllar ko‘rinishida taqdim etadi, shu tufayli siz maxsus vositalardan foydalanmasdan kernelni tezda qayta sozlashingiz mumkin. **E’tibor bering: Windows yoki macOS tizimlarida sysfs mavjud emas.**
 
-For example, the brightness of your laptop's screen is exposed through a file called `brightness` under
+Masalan, noutbukingiz ekranining yorqinligi `brightness` nomli fayl orqali boshqariladi, u quyidagi joyda joylashgan:
 
 ```
 /sys/class/backlight
 ```
 
-By writing a value into that file, we can change the screen brightness. Your first instinct might be to do something like:
+Ushbu faylga qiymat yozish orqali ekran yorqinligini o‘zgartirishimiz mumkin. Sizga birinchi keladigan fikr:
 
 ```console
 $ sudo find -L /sys/class/backlight -maxdepth 2 -name '*brightness*'
@@ -192,67 +192,42 @@ An error occurred while redirecting file 'brightness'
 open: Permission denied
 ```
 
-This error may come as a surprise. After all, we ran the command with `sudo`! This is an important thing to know about the shell. Operations like `|`, `>`, and `<` are done _by the shell_, not by the individual program. `echo` and friends do not "know" about `|`. They just read from their input and write to their output, whatever it may be. In the case above, the _shell_ (which is authenticated just as your user) tries to open the brightness file for writing, before setting that as `sudo echo`'s output, but is prevented from doing so since the shell does not run as root. Using this knowledge, we can work around this:
+Bu xato sizga qiziq tuyulishi mumkin. Axir, buyruqni `sudo` bilan ishga tushirdik-ku! Bu shell haqida bilish kerak bo‘lgan muhim narsa. `|`, `>` va `<` kabi operatsiyalar _shell tomonidan_ bajariladi, alohida dastur tomonidan emas. `echo` va unga o‘xshash buyruqlar `|` haqida "bilishmaydi". Ular nima bo‘lishidan qat’i nazar o‘z kirishlari o‘qiydi va chiqishlariga yozadi. Yuqoridagi holatda, _shell_ (xuddi foydalanuvchingiz kabi qayd qilingan) `sudo echo`ning chiqishini qabul qilishdan oldin brightness fayliga yozishga harakat qiladi, lekin shell root sifatida ishlamagani uchun bunga ruxsat berilmaydi. Bundan foydalanib, biz quyidagicha yechim qila olamiz:
 
 ```console
 $ echo 3 | sudo tee brightness
 ```
 
-Since the `tee` program is the one to open the `/sys` file for writing, and _it_ is running as `root`, the permissions all work out. You can control all sorts of fun and useful things through `/sys`, such as the state of various system LEDs (your path might be different):
+`/sys` faylini yozish uchun `tee` dasturi ochganligi va u `root` huquqlari bilan ishlayotganligi sababli, barcha ruxsatlar to‘g‘ri ishlaydi. Siz `/sys` orqali turli qiziqarli va foydali narsalarni boshqarishingiz mumkin. Masalan, tizimning turli chiroqli indikatorlari (LED) holatini nazorat qila olasiz (sizdagi yo‘l boshqacha bo‘lishi mumkin):
 
 ```console
 $ echo 1 | sudo tee /sys/class/leds/input6::scrolllock/brightness
 ```
 
-# Next steps
+# Keyingi qadamlar
 
-At this point you know your way around a shell enough to accomplish basic tasks. You should be able to navigate around to find files of interest and use the basic functionality of most programs. In the next lecture, we will talk about how to perform and automate more complex tasks using the shell and the many handy command-line programs out there.
+Shu yerga kelib, siz asosiy vazifalarni bajarish uchun shell'da bemalol harakat qila olasiz. Kerakli fayllarni topish va ko‘pchilik dasturlarning asosiy funksiyalaridan foydalanish uchun erkin harakatlana olishingiz lozim. Keyingi ma’ruzada biz shell va mavjud ko‘plab qulay buyruq qatori dasturlaridan foydalanib, murakkab vazifalarni qanday bajarish va avtomatlashtirish haqida gaplashamiz.
 
-# Exercises
+# Mashqlar
 
-All classes in this course are accompanied by a series of exercises. Some give you a specific task to do, while others are open-ended, like "try using X and Y programs". We highly encourage you to try them out.
+Ushbu kursdagi barcha darslarda bir qator mashqlar bor. Ba’zilarida sizga aniq vazifa beriladi, boshqalari esa ochiq turdagi, masalan, "X va Y dasturlaridan foydalanib ko‘ring" kabi. Biz bu mashqlarni albatta bajarib ko‘rishga undaymiz.
 
-We have not written solutions for the exercises. If you are stuck on anything in particular, feel free to send us an email describing what you've tried so far, and we will try to help you out.
+Biz mashqlarning yechimlarini yozmaganmiz. Agar biror narsada qiynalsangiz, shu paytgacha nimalarni sinab ko‘rganingizni bizga xat sifatida yuboring va biz sizga yordam berishga harakat qilamiz.
 
- 1. For this course, you need to be using a Unix shell like Bash or ZSH. If you
-    are on Linux or macOS, you don't have to do anything special. If you are on
-    Windows, you need to make sure you are not running cmd.exe or PowerShell;
-    you can use [Windows Subsystem for
-    Linux](https://docs.microsoft.com/en-us/windows/wsl/) or a Linux virtual
-    machine to use Unix-style command-line tools. To make sure you're running
-    an appropriate shell, you can try the command `echo $SHELL`. If it says
-    something like `/bin/bash` or `/usr/bin/zsh`, that means you're running the
-    right program.
- 1. Create a new directory called `missing` under `/tmp`.
- 1. Look up the `touch` program. The `man` program is your friend.
- 1. Use `touch` to create a new file called `semester` in `missing`.
- 1. Write the following into that file, one line at a time:
+ 1. Ushbu kurs uchun Bash yoki ZSH kabi Unix shell'laridan foydalanishingiz lozim. Linux yoki macOS tizimida bo‘lsangiz, qo‘shimcha hech narsa qilishingiz shart emas. Windows tizimida ishlayotgan bo‘lsangiz, cmd.exe yoki PowerShell ishlatmayotganingizga ishonch hosil qilishingiz kerak. Unix uslubidagi buyruq satri vositalaridan foydalanish uchun [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/) yoki Linux virtual mashinasidan foydalanishingiz mumkin. To'g'ri shellni ishga tushirayotganingizni tekshirish uchun `echo $SHELL` buyrug‘ini kiritishingiz mumkin. Agar natija `/bin/bash` yoki `/usr/bin/zsh` bo‘lsa, demak to‘g‘ri dasturni ishga tushiryapsiz.
+ 1. `/tmp` katalogi ostida `missing` nomli yangi katalog yarating.
+ 1. `touch` dasturini qarab ko'ring. `man` sizning do'stingiz.
+ 1. `missing` katalogida `semester` nomli yangi fayl yaratish uchun `touch` buyrug‘idan foydalaning.
+ 1. Quyidagilarni ushbu faylga bir qatordan yozing:
     ```
     #!/bin/sh
     curl --head --silent https://missing.csail.mit.edu
     ```
-    The first line might be tricky to get working. It's helpful to know that
-    `#` starts a comment in Bash, and `!` has a special meaning even within
-    double-quoted (`"`) strings. Bash treats single-quoted strings (`'`)
-    differently: they will do the trick in this case. See the Bash
-    [quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html)
-    manual page for more information.
- 1. Try to execute the file, i.e. type the path to the script (`./semester`)
-    into your shell and press enter. Understand why it doesn't work by
-    consulting the output of `ls` (hint: look at the permission bits of the
-    file).
- 1. Run the command by explicitly starting the `sh` interpreter, and giving it
-    the file `semester` as the first argument, i.e. `sh semester`. Why does
-    this work, while `./semester` didn't?
- 1. Look up the `chmod` program (e.g. use `man chmod`).
- 1. Use `chmod` to make it possible to run the command `./semester` rather than
-    having to type `sh semester`. How does your shell know that the file is
-    supposed to be interpreted using `sh`? See this page on the
-    [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) line for more
-    information.
- 1. Use `|` and `>` to write the "last modified" date output by
-    `semester` into a file called `last-modified.txt` in your home
-    directory.
- 1. Write a command that reads out your laptop battery's power level or your
-    desktop machine's CPU temperature from `/sys`. Note: if you're a macOS
-    user, your OS doesn't have sysfs, so you can skip this exercise.
+    Birinchi qatorni ishlatish qiyin bo‘lishi mumkin. Bash tilida `#` belgisi izohni boshlaydi, `!` belgisi esa hatto qo‘sh tirnoq (`"`) ichida ham o‘ziga xos ma’noga ega. Buni bilish foydali. Bash bir tirnoqli satrlarni (`'`) boshqacha ko‘rib chiqadi: ular bu holatda yechim bo‘ladi. Batafsil ma’lumot olish uchun Bash [iqtiboslash](https://www.gnu.org/software/bash/manual/html_node/Quoting.html) qo‘llanmasi sahifasiga murojaat qiling.
+
+ 1. Faylni ishga tushirishga urinib ko‘ring, ya’ni shell'ingizga skript qatorida (`./semester`) kiriting va Enter tugmasini bosing. Nima uchun ishlamasligini tushunish uchun `ls` buyrug‘ining natijasini ko‘zdan kechiring (maslahat: faylning ruxsatlariga e’tibor bering).
+ 1. Buyruqni `sh` interpretatorini aniq ko‘rsatib ishga tushiring va unga birinchi argument sifatida `semester` faylini bering, ya’ni `sh semester` shaklida. Nima uchun bu usul ishladi, lekin `./semester` ishlamadi?
+ 1. `chmod’ dasturini qarab ko‘ring (masalan, `man chmod` buyrug‘idan foydalaning).
+ 1. `./semester` buyrug‘ini ishga tushirish uchun `sh semester` yozish o‘rniga `chmod` dan foydalaning. Sizning shell'ingiz faylni `sh` yordamida talqin qilish kerakligini qanday biladi? Bu haqda ko‘proq ma’lumot olish uchun [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) qatori haqidagi sahifani ko‘ring.
+ 1. `|` va `>` belgilaridan foydalanib, `semester` tomonidan chiqarilgan "last modified" (oxirgi o‘zgartirilgan) sana ma’lumotini bosh katalogingizda joylashgan `last-modified.txt` nomli faylga yozing.
+ 1. `/sys` katalogidan noutbukingiz batareyasining quvvat darajasini yoki kompyuteringiz protsessorining haroratini o‘qib beradigan buyruq yozing. Eslatma: agar siz macOS foydalanuvchisi bo‘lsangiz, operatsion tizimingizda sysfs mavjud emas, shuning uchun bu topshiriqni bajarmasligingiz mumkin.

@@ -1,6 +1,6 @@
 ---
 layout: lecture
-title: "Nega bu kursni o‘tayotganimiz haqida"
+title: "Kursni nega o‘tayotganimiz haqida"
 ---
 
 An’anaviy kompyuter fanlari ta’limi davomida siz operatsion tizimlardan tortib dasturlash tillarigacha, mashinaviy o‘rganishgacha bo‘lgan ilg‘or mavzularni o‘rgatadigan ko‘plab kurslarda qatnashasiz. Biroq, ko‘plab oliygohlarda kamdan-kam o‘tiladigan va talabalarga mustaqil o‘rganish uchun qoldiriladigan muhim bir mavzu bor: bu - kompyuter ekotizimi savodxonligi.
@@ -78,5 +78,5 @@ Shu va boshqa mavzular 12 ta ma’ruzalar davomida yoritiladi. Har bir ma’ruza
 
 Umid qilamizki, yanvar oyida siz bilan virtual yoki shaxsan ko‘rishamiz!
 
-Xakerlik qilishdan zavq oling,<br>
+Xakerlikka xush kelibsiz,<br>
 Anish, Jose va Jon
