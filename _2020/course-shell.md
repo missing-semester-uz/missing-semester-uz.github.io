@@ -227,7 +227,7 @@ Biz mashqlarning yechimlarini yozmaganmiz. Agar biror narsada qiynalsangiz, shu 
 
  1. Faylni ishga tushirishga urinib ko‘ring, ya’ni shell'ingizga skript qatorida (`./semester`) kiriting va Enter tugmasini bosing. Nima uchun ishlamasligini tushunish uchun `ls` buyrug‘ining natijasini ko‘zdan kechiring (maslahat: faylning ruxsatlariga e’tibor bering).
  1. Buyruqni `sh` interpretatorini aniq ko‘rsatib ishga tushiring va unga birinchi argument sifatida `semester` faylini bering, ya’ni `sh semester` shaklida. Nima uchun bu usul ishladi, lekin `./semester` ishlamadi?
- 1. `chmod’ dasturini qarab ko‘ring (masalan, `man chmod` buyrug‘idan foydalaning).
+ 1. `chmod` dasturini qarab ko‘ring (masalan, `man chmod` buyrug‘idan foydalaning).
  1. `./semester` buyrug‘ini ishga tushirish uchun `sh semester` yozish o‘rniga `chmod` dan foydalaning. Sizning shell'ingiz faylni `sh` yordamida talqin qilish kerakligini qanday biladi? Bu haqda ko‘proq ma’lumot olish uchun [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) qatori haqidagi sahifani ko‘ring.
  1. `|` va `>` belgilaridan foydalanib, `semester` tomonidan chiqarilgan "last modified" (oxirgi o‘zgartirilgan) sana ma’lumotini bosh katalogingizda joylashgan `last-modified.txt` nomli faylga yozing.
  1. `/sys` katalogidan noutbukingiz batareyasining quvvat darajasini yoki kompyuteringiz protsessorining haroratini o‘qib beradigan buyruq yozing. Eslatma: agar siz macOS foydalanuvchisi bo‘lsangiz, operatsion tizimingizda sysfs mavjud emas, shuning uchun bu topshiriqni bajarmasligingiz mumkin.

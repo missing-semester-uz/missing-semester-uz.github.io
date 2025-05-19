@@ -13,7 +13,7 @@ future: true
 # safe: true # breaks local rendering if enabled
 timezone: America/New_York
 analytics:
-  tracking_id: G-WVCY55VV4D
+  tracking_id: 
 
 collections:
   '2019':
