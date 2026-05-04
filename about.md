@@ -71,12 +71,30 @@ Yangi operatsion tizimlarni sinab ko‘rish, bir-biriga aloqador bo‘lmagan loy
 ## Xavfsizlik
 
 Internetda barcha ma'lumotlaringizni ochiqlab yubormagan holda bo‘lish haqida. Endi murakkab talablarga mos keladigan parollarni o‘ylab topish sizning zimmangizda bo‘lmaydi. Himoyalanmagan, ochiq Wi-Fi tarmoqlari muammosi hal bo‘ladi. Shiflanmagan xabarlar yuborish xavfi ham yo‘qoladi.
+## Code quality and continuous integration
+
+How to use autoformatting, linting, testing, and code coverage tools to improve
+code quality. No more ugly code. No more regressions. No more code that works
+on your computer but crashes on everyone else's.
+
+## Beyond the code
+
+How to write great documentation, communicate clearly with open-source
+maintainers, submit actionable issues, and contribute pull requests that get
+merged. No more confused users who can't get started using your software. No
+more ghosting from maintainers.
 
 # Xulosa
 
 Shu va boshqa mavzular 12 ta ma’ruzalar davomida yoritiladi. Har bir ma’ruzada vositalar bilan mustaqil ravishda chuqurroq tanishishingiz uchun mashqlar berilgan. Agar yanvar oyigacha kutolmasangiz, o‘tgan yili IAP davomida o‘tkazilgan [Hacker Tools](https://hacker-tools.github.io/lectures/) ma’ruzalarini ham ko‘rib chiqishingiz mumkin. U shu kursning debochasi bo‘lib, bu yilgi ko‘plab mavzularni qamrab olgan.
 
+This, and more, will be covered across the 9 class lectures, each including
+exercises for you to get more familiar with the tools on your own. If you can't
+wait until January 2026, you can also take a look at the lectures from the
+[previous offering of the course](/2020/), which covers many of the same
+topics.
+
 Umid qilamizki, yanvar oyida siz bilan virtual yoki shaxsan ko‘rishamiz!
 
 Xakerlikka xush kelibsiz,<br>
-Anish, Jose va Jon
+[Anish](https://anish.io/), [Jon](https://thesquareplanet.com/), and [Jose](https://josejg.com/)

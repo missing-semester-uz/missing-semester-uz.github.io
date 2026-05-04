@@ -2,9 +2,12 @@
 layout: lecture
 title: "Backups"
 presenter: Jose
+date: 2019-01-24
+order: 2
 video:
   aspect: 56.25
   id: lrpqYF8tcYQ
+special: true
 ---
 
 There are two types of people:
@@ -22,7 +25,7 @@ The [3-2-1 rule](https://www.us-cert.gov/sites/default/files/publications/data_b
 - **2** copies in **different mediums**
 - **1** of the copies being **offsite**
 
-The main idea behind this recommendation is not to put all your eggs in one basket. Having 2 different devices/disks ensures that a single hardware failure doesn't take away all your data. Similarly, if you store your only backup at home and the house burns down or gets robbed you lose everything, that's what the offsite copy is there for. Onsite backups give you availability and speed, offsite give you the resiliency should a disaster happen.
+The main idea behind this recommendation is not to put all your eggs in one basket. Having 2 different devices/disks ensures that a single hardware failure doesn't take away all your data. Similarly, if you store your only backup at home and the house burns down or gets robbed you'll lose everything! That's what the offsite copy is there for. Onsite backups give you availability and speed, offsite give you the resiliency should a disaster happen.
 
 ## Testing your backups
 
@@ -83,7 +86,7 @@ Similarly, some high quality content can be found online in the form of webpages
 Some good backup programs and services we have used and can honestly recommend:
 
 - [Tarsnap](https://www.tarsnap.com/) - deduplicated, encrypted online backup service for the truly paranoid.
-- [Borg Backup](https://borgbackup.readthedocs.io) - deduplicated backup program that supports compression and authenticated encryption. If you need a cloud provider [rsync.net](https://www.rsync.net/products/borg.html) has special offerings for Borg users.
+- [Borg Backup](https://borgbackup.readthedocs.io) - deduplicated backup program that supports compression and authenticated encryption. If you need a cloud provider [BorgBase](https://www.borgbase.com/) is one popular option.
 - [rsync](https://rsync.samba.org/) is a utility that provides fast incremental file transfer. It is not a full backup solution.
 - [rclone](https://rclone.org/) like rsync but for cloud storage providers such as Amazon S3, Dropbox, Google Drive, rsync.net, &c. Supports client side encryption of remote folders.
 

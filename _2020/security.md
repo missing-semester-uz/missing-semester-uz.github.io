@@ -1,11 +1,15 @@
 ---
 layout: lecture
 title: "Security and Cryptography"
+description: >
+  Learn about cryptographic primitives like hashes and key derivation functions, and understand how tools like Git and SSH use them.
+thumbnail: /static/assets/thumbnails/2020/lec9.png
 date: 2020-01-28
 ready: true
 video:
   aspect: 56.25
   id: tjwobAmnKTo
+special: true
 ---
 
 Last year's [security and privacy lecture](/2019/security/) focused on how you
@@ -76,7 +80,7 @@ $ printf 'hello' | sha1sum
 aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d
 $ printf 'hello' | sha1sum
 aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d
-$ printf 'Hello' | sha1sum 
+$ printf 'Hello' | sha1sum
 f7ff9e8b7bb2e09b70935a5d785e0cc5d9d0abf0
 ```
 
@@ -95,7 +99,7 @@ different input `m_2` such that `hash(m_1) = hash(m_2)`.
 target collision resistance).
 
 Note: while it may work for certain purposes, SHA-1 is [no
-longer](https://shattered.io/) considered a strong cryptographic hash function.
+longer](https://web.archive.org/web/20260207211148/https://shattered.io/) considered a strong cryptographic hash function.
 You might find this table of [lifetimes of cryptographic hash
 functions](https://valerieaurora.org/hash.html) interesting. However, note that
 recommending specific hash functions is beyond the scope of this lecture. If you
@@ -277,7 +281,7 @@ We've covered the use of SSH and SSH keys in an [earlier
 lecture](/2020/command-line/#remote-machines). Let's look at the cryptography
 aspects of this.
 
-When you run `ssh-keygen`, it generates an asymmetric keypair, `public_key,
+When you run `ssh-keygen`, it generates an asymmetric key pair, `public_key,
 private_key`. This is generated randomly, using entropy provided by the
 operating system (collected from hardware events, etc.). The public key is
 stored as-is (it's public, so keeping it a secret is not important), but at

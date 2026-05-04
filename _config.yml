@@ -1,6 +1,7 @@
 # Setup
 title: 'Missing Semester'
 url: https://missing.csail.mit.edu
+thumbnail: "/static/assets/thumbnails/default.png"
 
 # Settings
 markdown: kramdown
@@ -20,10 +21,17 @@ collections:
     output: true
   '2020':
     output: true
+  '2026':
+    output: true
 
 # Excludes
 exclude:
-  - README.md
+  - AGENTS.md
+  - CNAME
+  - Dockerfile
   - Gemfile
   - Gemfile.lock
+  - README.md
+  - browser.sh
+  - docker-compose.yml
   - vendor

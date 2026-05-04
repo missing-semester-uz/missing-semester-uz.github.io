@@ -2,6 +2,8 @@
 layout: lecture
 title: "Remote Machines"
 presenter: Jose
+date: 2019-01-29
+order: 4
 video:
   aspect: 62.5
   id: X5c2Y8BCowM
@@ -96,7 +98,7 @@ A downside of `mosh` is that is does not support roaming port/graphics forwardin
 
 ## SSH Configuration
 
-#### Client
+### Client
 
 We have covered many many arguments that we can pass. A tempting alternative is to create shell aliases that look like `alias my_serer="ssh -X -i ~/.id_rsa -L 9999:localhost:8888 foobar@remote_server`, however there is a better alternative, using `~/.ssh/config`.
 
@@ -121,7 +123,7 @@ Note that the `~/.ssh/config` file can be considered a dotfile, and in general i
 
 Warning: Never include your RSA keys ( `~/.ssh/id_rsa*` ) in a public repository!
 
-#### Server side
+### Server side
 
 Server side configuration is usually specified in `/etc/ssh/sshd_config`. Here you can make  changes like disabling password authentication, changing ssh ports, enabling X11 forwarding, &c. You can specify config settings in a per user basis.
 
@@ -155,7 +157,7 @@ locally, and then you can use a local editor.
 
 ## References
 
-- [SSH Hacks](http://matt.might.net/articles/ssh-hacks/)
+- [SSH Hacks](https://matt.might.net/articles/ssh-hacks/)
 - [Secure Secure Shell](https://stribika.github.io/2015/01/04/secure-secure-shell.html)
 
 {% comment %}

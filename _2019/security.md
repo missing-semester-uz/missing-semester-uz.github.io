@@ -2,9 +2,12 @@
 layout: lecture
 title: "Security and Privacy"
 presenter: Jon
+date: 2019-01-31
+order: 2
 video:
   aspect: 56.25
   id: OBx_c-i-M8s
+special: true
 ---
 
 The world is a scary place, and everyone's out to get you.
@@ -116,7 +119,7 @@ trying to secure against?
    really wants your secrets.
  - Online attacks (someone has your laptop and it's on): use file
    encryption. There are two primary mechanisms for doing so
-    - Encrypted filesystems: stacked filesystem encryption software encrypts files individually rather than having encrypted block devices. You can "mount" these filesystems by providing the decryption key, and then browse the files inside it freely. When you unmount it, those files are all unavailable.  Modern solutions include [gocryptfs](https://github.com/rfjakob/gocryptfs) and [eCryptFS](http://ecryptfs.org/). More detailed comparisons can be found [here](https://nuetzlich.net/gocryptfs/comparison/) and [here](https://wiki.archlinux.org/index.php/disk_encryption#Comparison_table)
+    - Encrypted filesystems: stacked filesystem encryption software encrypts files individually rather than having encrypted block devices. You can "mount" these filesystems by providing the decryption key, and then browse the files inside it freely. When you unmount it, those files are all unavailable.  Modern solutions include [gocryptfs](https://github.com/rfjakob/gocryptfs) and [eCryptFS](https://www.ecryptfs.org/). More detailed comparisons can be found [here](https://nuetzlich.net/gocryptfs/comparison/) and [here](https://wiki.archlinux.org/index.php/disk_encryption#Comparison_table)
     - Encrypted files: encrypt individual files with symmetric
       encryption (see `gpg -c`) and a secret key. Or, like `pass`, also
       encrypt the key with your public key so only you can read it back
@@ -203,9 +206,7 @@ data from the others. In Google Chrome, you can use [Chrome
 Profiles](https://support.google.com/chrome/answer/2364824) to achieve
 similar results.
 
-Exercises
-
-TODO
+## Exercises
 
 1. Encrypt a file using PGP
 1. Use veracrypt to create a simple encrypted volume

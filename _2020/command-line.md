@@ -1,6 +1,9 @@
 ---
 layout: lecture
 title: "Command-line Environment"
+description: >
+  Learn about job control, terminal multiplexers, dotfiles, and remote machines with SSH.
+thumbnail: /static/assets/thumbnails/2020/lec5.png
 date: 2020-01-21
 ready: true
 video:
@@ -60,7 +63,7 @@ To send this signal we can use the [`kill`](https://www.man7.org/linux/man-pages
 
 Signals can do other things beyond killing a process. For instance, `SIGSTOP` pauses a process. In the terminal, typing `Ctrl-Z` will prompt the shell to send a `SIGTSTP` signal, short for Terminal Stop (i.e. the terminal's version of `SIGSTOP`).
 
-We can then continue the paused job in the foreground or in the background using [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) or [`bg`](http://man7.org/linux/man-pages/man1/bg.1p.html), respectively.
+We can then continue the paused job in the foreground or in the background using [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) or [`bg`](https://man7.org/linux/man-pages/man1/bg.1p.html), respectively.
 
 The [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) command lists the unfinished jobs associated with the current terminal session.
 You can refer to those jobs using their pid (you can use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find that out).
@@ -162,7 +165,7 @@ The most popular terminal multiplexer these days is [`tmux`](https://www.man7.or
     + `<C-b> <space>` Cycle through pane arrangements.
 
 For further reading,
-[here](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) is a quick tutorial on `tmux` and [this](http://linuxcommand.org/lc3_adv_termmux.php) has a more detailed explanation that covers the original `screen` command. You might also want to familiarize yourself with [`screen`](https://www.man7.org/linux/man-pages/man1/screen.1.html), since it comes installed in most UNIX systems.
+[here](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) is a quick tutorial on `tmux` and [this](https://linuxcommand.org/lc3_adv_termmux.php) has a more detailed explanation that covers the original `screen` command. You might also want to familiarize yourself with [`screen`](https://www.man7.org/linux/man-pages/man1/screen.1.html), since it comes installed in most UNIX systems.
 
 # Aliases
 
@@ -222,7 +225,7 @@ hidden in the directory listing `ls` by default).
 
 Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
 Depending on the shell, whether you are starting a login and/or interactive the entire process can be quite complex.
-[Here](https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
+[Here](https://web.archive.org/web/20260329133158/https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
 
 For `bash`, editing your `.bashrc` or `.bash_profile` will work in most systems.
 Here you can include commands that you want to run on startup, like the alias we just described or modifications to your `PATH` environment variable.
@@ -335,7 +338,7 @@ Key-based authentication exploits public-key cryptography to prove to the server
 
 To generate a pair you can run [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html).
 ```bash
-ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519
+ssh-keygen -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 ```
 You should choose a passphrase, to avoid someone who gets hold of your private key to access authorized servers. Use [`ssh-agent`](https://www.man7.org/linux/man-pages/man1/ssh-agent.1.html) or [`gpg-agent`](https://linux.die.net/man/1/gpg-agent) so you do not have to type your passphrase every time.
 
@@ -383,7 +386,7 @@ The most common scenario is local port forwarding, where a service in the remote
 
 We have covered many many arguments that we can pass. A tempting alternative is to create shell aliases that look like
 ```bash
-alias my_server="ssh -i ~/.id_ed25519 --port 2222 -L 9999:localhost:8888 foobar@remote_server
+alias my_server="ssh -i ~/.id_ed25519 --port 2222 -L 9999:localhost:8888 foobar@remote_server"
 ```
 
 However, there is a better alternative using `~/.ssh/config`.
@@ -456,7 +459,7 @@ Since you might be spending hundreds to thousands of hours in your terminal it p
 
 ## Job control
 
-1. From what we have seen, we can use some `ps aux | grep` commands to get our jobs' pids and then kill them, but there are better ways to do it. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](http://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-af` flags).
+1. From what we have seen, we can use some `ps aux | grep` commands to get our jobs' pids and then kill them, but there are better ways to do it. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-af` flags).
 
 1. Say you don't want to start a process until another completes. How would you go about it? In this exercise, our limiting process will always be `sleep 60 &`.
 One way to achieve this is to use the [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) command. Try launching the sleep command and having an `ls` wait until the background process finishes.
@@ -470,7 +473,7 @@ One way to achieve this is to use the [`wait`](https://www.man7.org/linux/man-pa
 
 ## Aliases
 
-1. Create an alias `dc` that resolves to `cd` for when you type it wrongly.
+1. Create an alias `dc` that resolves to `cd` for when you type it wrong.
 
 1.  Run `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10`  to get your top 10 most used commands and consider writing shorter aliases for them. Note: this works for Bash; if you're using ZSH, use `history 1` instead of just `history`.
 
@@ -492,7 +495,7 @@ Let's get you up to speed with dotfiles.
 
 Install a Linux virtual machine (or use an already existing one) for this exercise. If you are not familiar with virtual machines check out [this](https://hibbard.eu/install-ubuntu-virtual-box/) tutorial for installing one.
 
-1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -o -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent` , more info [here](https://www.ssh.com/ssh/agent).
+1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent` , more info [here](https://www.ssh.com/ssh/agent).
 1. Edit `.ssh/config` to have an entry as follows
 
     ```bash

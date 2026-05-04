@@ -1,6 +1,13 @@
 ---
 layout: lecture
+<<<<<<< HEAD
 title: "Kurs mazmuni + shell"
+=======
+title: "Course Overview + The Shell"
+description: >
+  Learn about the motivation for this class, and get started with the shell.
+thumbnail: /static/assets/thumbnails/2020/lec1.png
+>>>>>>> upstream/master
 date: 2020-01-13
 ready: true
 video:
@@ -39,7 +46,7 @@ Ushbu ma’ruza "Bourne Again SHell" yoki qisqacha "bash" deb ataladigan shell a
 Terminalingizni ishga tushirganingizda, odatda quyidagiga o‘xshash _so‘rov satrini_ ko‘rasiz:
 
 ```console
-missing:~$ 
+missing:~$
 ```
 
 Bu shell'ning asosiy matn interfeysidir. U sizga `missing` nomli mashinada ekanligingizni va "joriy ish katalogingiz", ya’ni hozirgi joylashgan o‘rningiz ’~’ ("uy" so‘zining qisqartmasi) ekanligini ko‘rsatadi. `$` belgisi bosh foydalanuvchi emasligingizni bildiradi (bu haqda keyinroq batafsil to‘xtalamiz). Ushbu so‘rovda siz _buyruq_ kiritishingiz mumkin, so‘ng uni shell talqin qiladi. Eng sodda buyruq - dasturni ishga tushirish:
@@ -47,7 +54,7 @@ Bu shell'ning asosiy matn interfeysidir. U sizga `missing` nomli mashinada ekanl
 ```console
 missing:~$ date
 Fri 10 Jan 2020 11:49:31 AM EST
-missing:~$ 
+missing:~$
 ```
 
 Bu yerda biz `date` dasturini ishga tushirdik. Bu dastur (kutilganidek) joriy sana va vaqtni chop etadi. Shundan so‘ng terminal bizdan boshqa buyruqni kiritishimizni so‘raydi. Biz buyruqlarni _argumentlar_ bilan ham bajarishimiz mumkin:

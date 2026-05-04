@@ -2,9 +2,12 @@
 layout: lecture
 title: "Web and Browsers"
 presenter: Jose
+date: 2019-01-31
+order: 1
 video:
   aspect: 62.5
   id: XpZO3S8odec
+special: true
 ---
 
 Apart from the terminal, the web browser is a tool you will find yourself spending significant amounts of time into. Thus it is worth learning how to use it efficiently and
@@ -178,6 +181,6 @@ snapshot_wayback(driver, url)
 1. Install the mentioned extensions. Look into how uBlock Origin/Privacy Badger can be disabled for a website. What differences do you see? Try doing it in a website with plenty of ads like YouTube.
 1. Install Stylus and write a custom style for the class website using the CSS provided. Here are some common programming characters `=   ==   ===   >=   =>   ++   /=   ~=`. What happens to them when changing the font to Fira Code? If you want to know more search for programming font ligatures.
 1. Find a web api to get the weather in your city/area.
-1. Use a WebDriver software like [Selenium](https://docs.seleniumhq.org/) to automate some repetitive manual task that you perform often with your browser.
+1. Use a WebDriver software like [Selenium](https://www.selenium.dev/documentation/) to automate some repetitive manual task that you perform often with your browser.
 
 

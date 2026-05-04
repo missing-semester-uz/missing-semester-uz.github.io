@@ -1,6 +1,9 @@
 ---
 layout: lecture
 title: "Shell Tools and Scripting"
+description: >
+  Learn how to write shell scripts and use powerful command-line tools.
+thumbnail: /static/assets/thumbnails/2020/lec2.png
 date: 2020-01-14
 ready: true
 video:
@@ -114,7 +117,7 @@ done
 
 In the comparison we tested whether `$?` was not equal to 0.
 Bash implements many comparisons of this sort - you can find a detailed list in the manpage for [`test`](https://www.man7.org/linux/man-pages/man1/test.1.html).
-When performing comparisons in bash, try to use double brackets `[[ ]]` in favor of simple brackets `[ ]`. Chances of making mistakes are lower although it won't be portable to `sh`. A more detailed explanation can be found [here](http://mywiki.wooledge.org/BashFAQ/031).
+When performing comparisons in bash, try to use double brackets `[[ ]]` in favor of simple brackets `[ ]`. Chances of making mistakes are lower although it won't be portable to `sh`. A more detailed explanation can be found [here](https://mywiki.wooledge.org/BashFAQ/031).
 
 When launching scripts, you will often want to provide arguments that are similar. Bash has ways of making this easier, expanding expressions by carrying out filename expansion. These techniques are often referred to as shell _globbing_.
 - Wildcards - Whenever you want to perform some sort of wildcard matching, you can use `?` and `*` to match one or any amount of characters respectively. For instance, given files `foo`, `foo1`, `foo2`, `foo10` and `bar`, the command `rm foo?` will delete `foo1` and `foo2` whereas `rm foo*` will delete all but `bar`.
@@ -166,7 +169,7 @@ For this example the shebang line would look like `#!/usr/bin/env python`.
 Some differences between shell functions and scripts that you should keep in mind are:
 - Functions have to be in the same language as the shell, while scripts can be written in any language. This is why including a shebang for scripts is important.
 - Functions are loaded once when their definition is read. Scripts are loaded every time they are executed. This makes functions slightly faster to load, but whenever you change them you will have to reload their definition.
-- Functions are executed in the current shell environment whereas scripts execute in their own process. Thus, functions can modify environment variables, e.g. change your current directory, whereas scripts can't. Scripts will be passed by value environment variables that have been exported using [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html)
+- Functions are executed in the current shell environment whereas scripts execute in their own process. Thus, functions can modify environment variables, e.g. change your current directory, whereas scripts can't. Environment variables which have been exported using [`export`](https://www.man7.org/linux/man-pages/man1/export.1p.html) are passed by value to scripts.
 - As with any programming language, functions are a powerful construct to achieve modularity, code reuse, and clarity of shell code. Often shell scripts will include their own function definitions.
 
 # Shell Tools
@@ -209,8 +212,9 @@ This property can be incredibly helpful to simplify what could be fairly monoton
 ```bash
 # Delete all files with .tmp extension
 find . -name '*.tmp' -exec rm {} \;
+
 # Find all PNG files and convert them to JPG
-find . -name '*.png' -exec convert {} {}.jpg \;
+find . -name '*.png' -exec magick {} {}.jpg \;
 ```
 
 Despite `find`'s ubiquitousness, its syntax can sometimes be tricky to remember.
@@ -231,7 +235,7 @@ A more in-depth comparison can be found [here](https://unix.stackexchange.com/qu
 
 ## Finding code
 
-Finding files by name is useful, but quite often you want to search based on file *content*. 
+Finding files by name is useful, but quite often you want to search based on file *content*.
 A common scenario is wanting to search for all files that contain some pattern, along with where in those files said pattern occurs.
 To achieve this, most UNIX-like systems provide [`grep`](https://www.man7.org/linux/man-pages/man1/grep.1.html), a generic tool for matching patterns from the input text.
 `grep` is an incredibly valuable shell tool that we will cover in greater detail during the data wrangling lecture.

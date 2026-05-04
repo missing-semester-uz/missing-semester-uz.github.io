@@ -41,7 +41,7 @@ bundle exec jekyll serve -w
 Agar saytni Docker konteynerida ko‘tarmoqchi bo‘lsangiz (masalan, o‘z kompyuteringizga Ruby va uning qo‘shimcha qismlarini o‘rnatishdan qochish uchun), quyidagi buyruqni ishga tushiring:
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 Sayt <http://localhost:4000>da ko‘rinishi kerak. Fayllarni o‘zgartirishingiz bilan Jekyll veb-saytni qaytadan quradi.

@@ -2,6 +2,8 @@
 layout: lecture
 title: "Data Wrangling"
 presenter: Jon
+date: 2019-01-17
+order: 2
 video:
   aspect: 56.25
   id: VW2jn9Okjhw
@@ -286,7 +288,7 @@ matches the end). Now, the per-line block just adds the count from the
 first field (although it'll always be 1 in this case), and then we print
 it out at the end. In fact, we _could_ get rid of `grep` and `sed`
 entirely, because `awk` [can do it
-all](https://backreference.org/2010/02/10/idiomatic-awk/), but we'll
+all](https://web.archive.org/web/20251210045942/https://backreference.org/2010/02/10/idiomatic-awk/), but we'll
 leave that as an exercise to the reader.
 
 ## Analyzing data
@@ -374,7 +376,7 @@ rustup toolchain list | grep nightly | grep -vE "nightly-x86|01-17" | sed 's/-x8
    of those two-letter combinations are there? And for a challenge:
    which combinations do not occur?
 1. Find an online data set like [this
-   one](https://stats.wikimedia.org/EN/TablesWikipediaZZ.htm) or [this
+   one](https://commons.wikimedia.org/wiki/Data:Wikipedia_statistics/data.tab) or [this
    one](https://ucr.fbi.gov/crime-in-the-u.s/2016/crime-in-the-u.s.-2016/topic-pages/tables/table-1).
    Maybe another one [from
    here](https://www.springboard.com/blog/data-science/free-public-data-sets-data-science-project/).
