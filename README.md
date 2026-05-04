@@ -13,24 +13,34 @@ Bu kursni o‘zbek tiliga tarjima qilyapmiz. Agar tahrir yoki yangi bobni tarjim
 Tarjimaning joriy holatini [shu yerda](https://github.com/missing-semester-uz/missing-semester-uz.github.io?tab=readme-ov-file#loyiha-holati) kuzatib borishingiz mumkin.
 
 | # | bo‘limlar | tarjima holati |
-| :-: |   --------   |  ----------:  |
-| 1 | [course-shell.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/course-shell.md)  | [`Tayyor ✔`](https://missing-semester-uz.github.io/2020/course-shell/) |
-| 2 | [shell-tools.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/shell-tools.md)  | [`Tarjima jarayonida 🛠️`](https://missing-semester-uz.github.io/2020/shell-tools/) |
-| 3 | [editors.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/editors.md)  | Tarjima boshlanmagan ⏳ |
-| 4 | [data-wrangling.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/data-wrangling.md)  | Tarjima boshlanmagan ⏳ |
-| 5 | [command-line.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/command-line.md)  | Tarjima boshlanmagan ⏳ |
-| 6 | [version-control.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/version-control.md)  | Tarjima boshlanmagan ⏳ |
-| 7 | [debugging-profiling.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/debugging-profiling.md)  | Tarjima boshlanmagan ⏳ |
-| 8 | [metaprogramming.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/metaprogramming.md)  | Tarjima boshlanmagan ⏳ |
-| 9 | [security.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/security.md)  | Tarjima boshlanmagan ⏳ |
-| 10 | [potpourri.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/potpourri.md) | Tarjima boshlanmagan ⏳ |
-| 11 | [qa.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/qa.md) | Tarjima boshlanmagan ⏳ |
-| * | [index.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/index.md) | [`Tayyor ✔`](https://missing-semester-uz.github.io/index) |
-| * | [about.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/about.md)  | [`Tayyor ✔`](https://missing-semester-uz.github.io/about) |
-| * | [license.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/license.md) | [`Tayyor ✔`](https://missing-semester-uz.github.io/license) |
-| * | [404.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/404.md) | [`Tayyor ✔`](https://missing-semester-uz.github.io/404) |
+| :-: |   --------   |  :----------:  |
+| 1 | [course-shell.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/course-shell.md)  | `Tarjima jarayonida 🛠️` |
+| 2 | [command-line-environment.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/command-line-environment.md)  | Tarjima boshlanmagan ⏳ |
+| 3 | [development-environment.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/development-environment.md)  | Tarjima boshlanmagan ⏳ |
+| 4 | [debugging-profiling.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/debugging-profiling.md)  | Tarjima boshlanmagan ⏳ |
+| 5 | [version-control.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/version-control.md)  | Tarjima boshlanmagan ⏳ |
+| 6 | [shipping-code.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/shipping-code.md)  | Tarjima boshlanmagan ⏳ |
+| 7 | [agentic-coding.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/agentic-coding.md)  | Tarjima boshlanmagan ⏳ |
+| 8 | [beyond-code.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/beyond-code.md)  | Tarjima boshlanmagan ⏳ |
+| 9 | [code-quality.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/code-quality.md)  | Tarjima boshlanmagan ⏳ |
+| 10 | [data-wrangling.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/data-wrangling.md)  | Tarjima boshlanmagan ⏳ |
+| 11 | [security.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/security.md)  | Tarjima boshlanmagan ⏳ |
+| 12 | [potpourri.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/potpourri.md) | Tarjima boshlanmagan ⏳ |
+| 13 | [qa.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/qa.md) | Tarjima boshlanmagan ⏳ |
+| 14 | [backups.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/backups.md) | Tarjima boshlanmagan ⏳ |
+| 15 | [automation.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/automation.md) | Tarjima boshlanmagan ⏳ |
+| 16 | [automation.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/automation.md) | Tarjima boshlanmagan ⏳ |
+| 17 | [machine-introspection.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/machine-introspection.md) | Tarjima boshlanmagan ⏳ |
+| 18 | [os-customization.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/os-customization.md) | Tarjima boshlanmagan ⏳ |
+| 19 | [security.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/security.md) | Tarjima boshlanmagan ⏳ |
+| * | [index.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/index.md) | `Tayyor ✔` |
+| * | [about.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/about.md)  | `Tayyor ✔` |
+| * | [license.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/license.md) | `Tayyor ✔` |
+| * | [404.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/404.md) | `Tayyor ✔` |
+| * | [past.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/past.md) | `Tayyor ✔` |
 
-## Ishlab chiqish
+
+## dev
 
 Saytni local'da ko'tarish uchun quyidagi buyruqni ishga tushiring:
 

@@ -1,8 +1,8 @@
 ---
 layout: page
-title: "2020 Lectures"
+title: "2020-yil ma’ruzalari"
 description: >
-  Lecture notes and videos for Missing Semester, MIT IAP 2020.
+  Missing Semester 2020 ma’ruza matnlari va videolari
 permalink: /2020/
 phony: true
 ---
@@ -29,21 +29,22 @@ phony: true
   {% endfor %}
 </ul>
 
-Video recordings of the lectures are available [on YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J).
+Ma’ruzalarning videoyozuvlari <a href="https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J">YouTube'ga</a> joylangan.
 
-# Beyond MIT
+# MIT'dan tashqarida
 
-We've also shared this class beyond MIT in the hopes that others may benefit from these resources. You can find posts and discussion on
+Ushbu resurslardan MIT talabalaridan boshqalar ham foydalanishi uchun uni turli joylarga tarqatdik. Postlar va muhokamalarni quyidagi manzillarda topishingiz mumkin.
 
  - [Hacker News](https://news.ycombinator.com/item?id=22226380)
  - [Lobsters](https://lobste.rs/s/ti1k98/missing_semester_your_cs_education_mit)
- - [r/learnprogramming](https://www.reddit.com/r/learnprogramming/comments/eyagda/the_missing_semester_of_your_cs_education_mit/)
- - [r/programming](https://www.reddit.com/r/programming/comments/eyagcd/the_missing_semester_of_your_cs_education_mit/)
- - [Twitter](https://twitter.com/jonhoo/status/1224383452591509507)
+ - [/r/learnprogramming](https://www.reddit.com/r/learnprogramming/comments/eyagda/the_missing_semester_of_your_cs_education_mit/)
+ - [/r/programming](https://www.reddit.com/r/programming/comments/eyagcd/the_missing_semester_of_your_cs_education_mit/)
+ - [Twitter](https://x.com/jonhoo/status/1224383452591509507)
  - [YouTube](https://www.youtube.com/playlist?list=PLyzOVJj3bHQuloKGG59rS43e29ro7I57J)
 
+
 {% comment %}
-Some more URLs:
+Ko'proq URL'lar:
 
 - https://news.ycombinator.com/item?id=27154577
 - https://news.ycombinator.com/item?id=34934216
@@ -55,6 +56,6 @@ Some more URLs:
 - https://twitter.com/MIT_CSAIL/status/1581313961093484545
 {% endcomment %}
 
-# Acknowledgments
+# Minnatdorchilik
 
-We thank Elaine Mello, Jim Cain, and [MIT Open Learning](https://openlearning.mit.edu/) for making it possible for us to record lecture videos; Anthony Zolnik and [MIT AeroAstro](https://aeroastro.mit.edu/) for A/V equipment; and Brandi Adams and [MIT EECS](https://www.eecs.mit.edu/) for supporting this class.
+Biz ma’ruza videolarini yozib olishimiz uchun imkoniyat yaratgan Eleyn Mello, Jim Keyn va [MIT Open Learning](https://openlearning.mit.edu/)ga; audio-vizual jihozlar uchun Entoni Zolnik va [MIT AeroAstro](https://aeroastro.mit.edu/)ga; hamda ushbu kursni qo‘llab-quvvatlagani uchun Brandi Adams va [MIT EECS](https://www.eecs.mit.edu/)ga o‘z minnatdorchiligimizni bildiramiz.

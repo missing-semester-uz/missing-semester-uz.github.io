@@ -64,35 +64,17 @@ Quyidagi misolda biz `fd` yordamida fayllarni va `rg` yordamida kod parchalarini
 
 Ma’lumotlar va fayllarni buyruqlar qatoridan bevosita qanday tez va oson o‘zgartirish, ko‘rish, tahlil qilish, vizualizatsiya qilish va hisoblash haqida. Endi har safar log fayllaridan nusxa ko‘chirish shart emas. Ma’lumotlar bo‘yicha statistikani qo‘lda hisoblash zarurati yo‘q. Elektron jadvallar yordamida grafik chizishga ham ehtiyoj qolmadi.
 
-## Virtual mashinalar
+## Kod sifati va uzluksiz integratsiya
 
-Yangi operatsion tizimlarni sinab ko‘rish, bir-biriga aloqador bo‘lmagan loyihalarni alohida saqlash va asosiy kompyuteringizni toza hamda tartibli tutish uchun virtual mashinalardan foydalanish haqida. Endi xavfsizlik amaliyotini bajarayotib kompyuteringizni tasodifan ishdan chiqarib qo‘yish xavfi yo‘q. Turli versiyalardagi millionlab tasodifiy o‘rnatilgan dasturiy paketlar muammosi ham bartaraf etiladi.
+Kod sifatini yaxshilash uchun avtoformatlash, lintlash, testlash va kod qamrovi kabi vositalardan qanday foydalanish kerakligi haqida. Endi xunuk kodlar yoki regressiya bo‘lmaydi. O‘z kompyuteringizda ishlab, boshqalarnikida ishdan chiqadigan kodlar ham o‘tmishda qolsin.
 
-## Xavfsizlik
+## Koddan tashqari
 
-Internetda barcha ma'lumotlaringizni ochiqlab yubormagan holda bo‘lish haqida. Endi murakkab talablarga mos keladigan parollarni o‘ylab topish sizning zimmangizda bo‘lmaydi. Himoyalanmagan, ochiq Wi-Fi tarmoqlari muammosi hal bo‘ladi. Shiflanmagan xabarlar yuborish xavfi ham yo‘qoladi.
-## Code quality and continuous integration
-
-How to use autoformatting, linting, testing, and code coverage tools to improve
-code quality. No more ugly code. No more regressions. No more code that works
-on your computer but crashes on everyone else's.
-
-## Beyond the code
-
-How to write great documentation, communicate clearly with open-source
-maintainers, submit actionable issues, and contribute pull requests that get
-merged. No more confused users who can't get started using your software. No
-more ghosting from maintainers.
+Ajoyib hujjatlar yozish, ochiq manba dasturchilari bilan to‘g‘ri muloqot qilish, asosli muammolarni ko‘tarish va qabul qilinadigan pull-request'lar yuborish haqida. Endi dasturingizdan foydalanolmaydiganlar bo‘lmaydi. Dasturchilar sizni e’tiborsiz qoldirilishni to‘xtatadi..
 
 # Xulosa
 
-Shu va boshqa mavzular 12 ta ma’ruzalar davomida yoritiladi. Har bir ma’ruzada vositalar bilan mustaqil ravishda chuqurroq tanishishingiz uchun mashqlar berilgan. Agar yanvar oyigacha kutolmasangiz, o‘tgan yili IAP davomida o‘tkazilgan [Hacker Tools](https://hacker-tools.github.io/lectures/) ma’ruzalarini ham ko‘rib chiqishingiz mumkin. U shu kursning debochasi bo‘lib, bu yilgi ko‘plab mavzularni qamrab olgan.
-
-This, and more, will be covered across the 9 class lectures, each including
-exercises for you to get more familiar with the tools on your own. If you can't
-wait until January 2026, you can also take a look at the lectures from the
-[previous offering of the course](/2020/), which covers many of the same
-topics.
+Shu va boshqa mavzular 9 ta ma’ruzalar davomida yoritiladi. Har bir ma’ruzada vositalar bilan mustaqil ravishda chuqurroq tanishishingiz uchun mashqlar berilgan. Agar yanvar oyigacha kutolmasangiz, kursning [o‘tgan safargi varianti](/2020/) ko‘rib chiqishingiz mumkin. Unda bu yilgi ko‘plab mavzularni qamrab olgan.
 
 Umid qilamizki, yanvar oyida siz bilan virtual yoki shaxsan ko‘rishamiz!
 

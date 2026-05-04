@@ -1,13 +1,9 @@
 ---
 layout: lecture
-<<<<<<< HEAD
 title: "Kurs mazmuni + shell"
-=======
-title: "Course Overview + The Shell"
 description: >
-  Learn about the motivation for this class, and get started with the shell.
+  Kurs ortidagi motivatsiya va shell bilan tanishuv.
 thumbnail: /static/assets/thumbnails/2020/lec1.png
->>>>>>> upstream/master
 date: 2020-01-13
 ready: true
 video:
