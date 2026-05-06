@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Course Overview + Introduction to the Shell"
+title: "Kurs mazmuni + shell"
 description: >
-  Learn about the motivation for this class, and get started with the shell.
+  Kurs ortidagi motivatsiya va shell bilan tanishuv.
 thumbnail: /static/assets/thumbnails/2026/lec1.png
 date: 2026-01-12
 ready: true
@@ -11,156 +11,72 @@ video:
   id: MSgoeuMqUmU
 ---
 
-# Who are we?
+# Biz kimmiz?
 
-This class is co-taught by [Anish](https://anish.io/),
-[Jon](https://thesquareplanet.com/), and [Jose](http://josejg.com/). We
-are all ex-MIT students who started this MIT IAP class back when we were
-students. You can reach us collectively at
-[missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+Bu kurs [Anish](https://anish.io/), [Jon](https://thesquareplanet.com/) va [Jose](http://josejg.com/) tomonidan birgalikda o'qitiladi. Barchamiz sobiq MIT talabalarimiz va bu MIT IAP kursini talabalik davrimizda boshlaganmiz. Biz bilan [missing-semester@mit.edu](mailto:missing-semester@mit.edu) manzili orqali bog'lanishingiz mumkin.
 
-We are not paid to teach this class, and do not monetize the class in
-any way. We make all the [course
-materials](https://missing.csail.mit.edu/) and [recordings of the
-lectures](https://www.youtube.com/@MissingSemester) freely available
-online. If you want to support our work, the best way to do so is to
-simply spread the word about the class. If you're a company, university,
-or other organization that runs this content past larger cohorts, please
-send us experience reports/testimonials by email so we get to hear about
-it :)
+Biz bu kursni o'qitganimiz uchun maosh olmaymiz va kursdan hech qanday moddiy foyda ko'rmaymiz. Biz barcha [kurs materiallarini](https://missing.csail.mit.edu/) va [ma'ruza yozuvlarini](https://www.youtube.com/@MissingSemester) bepul tarzda onlayn ommaga taqdim etamiz. Agar ishimizni qo'llab-quvvatlashni istasangiz, buning eng yaxshi yo'li shunchaki kurs haqida boshqalarga aytishdir. Agar siz ushbu kontentni kattaroq guruhlarga o'qitadigan kompaniya, universitet yoki boshqa tashkilot bo'lsangiz, iltimos, bizga o'z tajribangiz/fikrlaringizni elektron pochta orqali yuboring, shunda biz bundan xabardor bo'lamiz :)
 
-# Motivation
+# Motivatsiya
 
-As computer scientists, we know that computers are great at aiding in
-repetitive tasks. However, far too often, we forget that this applies
-just as much to our _use_ of the computer as it does to the computations
-we want our programs to perform. We have a vast range of tools available
-at our fingertips that enable us to be more productive and solve more
-complex problems when working on any computer-related problem. Yet many
-of us utilize only a small fraction of those tools; we only know enough
-magical incantations by rote to get by, and blindly copy-paste commands
-from the internet when we get stuck.
+Kompyuter mutaxassislari sifatida, kompyuterlar takroriy vazifalarni bajarishda ajoyib yordamchi ekanini bilamiz. Biroq, ko'pincha kompyuterdan _foydalanishimiz_ dasturlarimiz bajarishini xohlagan hisoblashlar kabi muhim ekanligini unutib qo'yamiz. Kompyuter bilan bog'liq har qanday muammo ustida ishlaganda unumdorlikni oshirish va murakkabroq muammolarni hal qilish imkonini beruvchi juda ko'p vositalar doimo qo'l ostimizda. Shunga qaramay, ko'pchiligimiz bu vositalarning faqat kichik bir qismidan foydalanamiz; biz faqat ishimizni bitirish uchun yetarli bo'lgan sehrli so'zlarni yoddan bilamiz va tiqilib qolganimizda internetdan buyruqlarni ko'r-ko'rona nusxalaymiz.
 
-This class is an attempt to [address this](/about/).
+Ushbu kurs buni [hal qilishga](/about/) qaratilgan urinishdir.
 
-We want to teach you how to make the most of the tools you know, show
-you new tools to add to your toolbox, and hopefully instill in you some
-excitement for exploring (and perhaps building) more tools on your own.
-This is what we believe to be the missing semester from most Computer
-Science curricula.
+Biz sizga o'zingiz bilgan vositalardan qanday qilib maksimal darajada foydalanishni o'rgatmoqchimiz, asboblar qutingizga qo'shish uchun yangi vositalarni ko'rsatmoqchimiz va umid qilamizki, o'zingiz ham ko'proq vositalarni o'rganish (va ehtimol yaratish) uchun sizda ishtiyoq uyg'otamiz. Bizningcha, bu ko'pgina Kompyuter fanlari o'quv dasturida yetishmayotgan semestrdir.
 
-# Class structure
+# Kurs tuzilmasi
 
-The not-for-credit class consists of nine 1-hour lectures, each one
-centering on a [particular topic](/2026/). The lectures are largely
-independent, though as the semester goes on we will presume that you are
-familiar with the content from the earlier lectures. We have lecture
-notes online, but there may be content covered in class (e.g. in the
-form of demos) that may not be in the notes. As for past years, we will
-be recording lectures and posting the recordings
-[online](https://www.youtube.com/@MissingSemester).
+Kredit olinmaydigan ushbu kurs [muayyan mavzuga](/2026/) qaratilgan to'qqizta 1 soatlik ma'ruzadan iborat. Ma'ruzalar asosan bir-biriga bog'liq emas, lekin semestr o'tgan sari siz oldingi ma'ruzalar mazmuni bilan tanishsiz deb faraz qilamiz. Bizda ma'ruza qaydlari onlayn tarzda mavjud, ammo darsda (masalan, demolar ko'rinishida) qaydlarda bo'lmagan mazmun ham qamrab olinishi mumkin. O'tgan yillardagi kabi, biz ma'ruzalarni yozib olamiz va yozuvlarni [onlayn](https://www.youtube.com/@MissingSemester) joylashtiramiz.
 
-We are trying to cover a lot of ground over the course of just a few
-1-hour lectures, so the lectures are fairly dense. To allow you some
-time to get familiar with the content at your own pace, each lecture
-includes a set of exercises that guide you through the lecture's key
-points. We will not be running dedicated office hours, but we encourage
-you to ask questions on the [OSSU Discord](https://ossu.dev/#community),
-in `#missing-semester-forum`, or email us at
-[missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+Biz bir nechta 1 soatlik ma'ruzalar davomida ko'p narsalarni qamrab olishga harakat qilyapmiz, shuning uchun ma'ruzalar juda zich. Kontent bilan o'z tezligingizda tanishish uchun sizga bir oz vaqt berish maqsadida, har bir ma'ruza o'zining asosiy nuqtalariga yo'naltiruvchi mashqlar to'plamini o'z ichiga oladi. Biz doimiy "office hours" (qabul soatlari) o'tkazmaymiz, lekin savollaringizni [OSSU Discord](https://ossu.dev/#community) dagi `#missing-semester-forum` kanalida berishni yoki [missing-semester@mit.edu](mailto:missing-semester@mit.edu) manziliga elektron pochta orqali yuborishni tavsiya qilamiz.
 
-Due to the limited time we have, we won't be able to cover all the tools
-in the same level of detail a full-scale class might. Where possible, we
-will try to point you towards resources for digging further into a tool
-or topic, but if something particularly strikes your fancy, don't
-hesitate to reach out to us and ask for pointers!
+Vaqtimiz cheklanganligi sababli, keng ko'lamli sinfda bo'lgani kabi barcha vositalarni bir xil darajadagi tafsilotlar bilan qamrab ololmaymiz. Iloji bo'lsa, vosita yoki mavzuni chuqurroq o'rganish uchun manbalarga yo'naltirishga harakat qilamiz, lekin e'tiboringizni ko'proq jalb qiladigan narsa bo'lsa, biz bilan bog'lanishdan tortinmang!
 
-Finally, if you have feedback about the class, please send it to us by
-email at [missing-semester@mit.edu](mailto:missing-semester@mit.edu).
+Va nihoyat, kurs haqida fikr-mulohazangiz bo'lsa, uni bizga [missing-semester@mit.edu](mailto:missing-semester@mit.edu) elektron pochta orqali yuboring.
 
-# Topic 1: The Shell
+# 1-mavzu: Shell
 
 {% comment %}
 lecturer: Jon
 {% endcomment %}
 
-## What is the shell?
+## Shell nima?
 
-Computers these days have a variety of interfaces for giving them
-commands; fanciful graphical user interfaces, voice interfaces, AR/VR,
-and more recently: LLMs. These are great for 80% of use-cases, but they
-are often fundamentally restricted in what they allow you to do — you
-cannot press a button that isn't there or give a voice command that
-hasn't been programmed. To take full advantage of the tools your
-computer provides, we have to go old-school and drop down to a textual
-interface: The Shell.
+Bugungi kunda kompyuterlarga buyruq berish uchun turli interfeyslar mavjud; chiroyli grafik interfeyslar, sotsial interfeyslar, AR/VR va yaqinda: LLMlar. Bular 80% holatlarda ishlaydi, ammo ular ko'pincha sizga ruxsat beradigan narsalar bilan fundamental jihatdan cheklangan — siz mavjud bo'lmagan tugmani bosa olmaysiz yoki dasturlanmagan ovozli buyruqni bera olmaysiz. Kompyuteringiz taqdim etadigan vositalardan to'liq foydalanish uchun biz eskilarga qaytishimiz va matnli interfeysga o'tishimiz kerak: Shell.
 
-Nearly all platforms you can get your hands on have a shell in one form
-or another, and many of them have several shells for you to choose from.
-While they may vary in the details, at their core they are all roughly
-the same: they allow you to run programs, give them input, and inspect
-their output in a semi-structured way.
+Deyarli barcha platformalarda u yoki bu shaklda shell mavjud va ularning ko'pchiligida siz tanlashingiz mumkin bo'lgan bir nechta shelllar bor. Ular tafsilotlarida farq qilishi mumkin bo'lsa-da, ularning barchasi taxminan bir xil: ular dasturlarni ishga tushirish, ularga kirish malumotlarini berish va natijalarini yarim tizimli tarzda tekshirish imkonini beradi.
 
-To open a shell _prompt_ (where you can type commands), you first need a
-_terminal_, which is the visual interface to a shell. Your device
-probably shipped with one installed, or you can install one fairly
-easily:
+Shell _so'rov satrini_ (buyruqlarni yozishingiz mumkin bo'lgan joy) ochish uchun avval sizga _terminal_ kerak bo'ladi, bu shellning vizual interfeysi hisoblanadi. Qurilmangiz ehtimol o'rnatilgan terminal bilan kelgan yoki uni juda oson o'rnatishingiz mumkin:
 
 - **Linux:**
-  Press `Ctrl + Alt + T` (works on most distributions). Or search for
-  "Terminal" in your applications menu.
+  `Ctrl + Alt + T` tugmalarini bosing (aksariyat distributivlarda ishlaydi). Yoki ilovalar menyusidan "Terminal"ni qidirib toping.
 - **Windows:**
-  Press `Win + R`, type `cmd` or `powershell`, and press Enter.
-  Alternatively, search "Terminal" or "Command Prompt" in the Start menu.
+  `Win + R` tugmalarini bosing, `cmd` yoki `powershell` yozing va Enter tugmasini bosing.
+  Yoki Start menyusida "Terminal" yoki "Command Prompt"ni qidiring.
 - **macOS:**
-  Press `Cmd + Space` to open Spotlight, type "Terminal", and press Enter.
-  Or find it in Applications → Utilities → Terminal.
+  Spotlight-ni ochish uchun `Cmd + Space` tugmalarini bosing, "Terminal" deb yozing va Enter tugmasini bosing.
+  Yoki uni Ilovalar (Applications) → Utilitlar (Utilities) → Terminal qismidan toping.
 
-On Linux and macOS, this will usually open the Bourne Again SHell, or
-"bash" for short. This is one of the most widely used shells, and its
-syntax is similar to what you will see in many other shells. On Windows,
-you'll be greeted by the "batch" or "powershell" shells, depending on
-which command you ran. These are Windows-specific, and not what we'll be
-focusing on in this class, although it has analogues for most of what
-we'll be teaching. You'll instead want the [Windows Subsystem for
-Linux](https://docs.microsoft.com/en-us/windows/wsl/) or a Linux virtual
-machine.
+Linux va macOS tizimlarida bu odatda Bourne Again SHell yoki qisqacha "bash"ni ochadi. Bu eng ko'p ishlatiladigan shelllardan biri bo'lib, uning sintaksisi boshqa ko'plab shelllarda ko'radiganga o'xshaydi. Windows tizimida, siz qaysi buyruqni ishga tushirganingizga qarab "batch" yoki "powershell" shelllari sizni kutib oladi. Bular Windowsga xos bo'lib, ushbu kursda biz ularga e'tibor qaratmaymiz, garchi unda biz o'rgatadigan narsalarning aksariyati uchun analoglar mavjud. Buning o'rniga siz [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/) yoki Linux virtual mashinasidan foydalanganingiz ma'qul.
 
-Other shells exist, often with many ergonomic improvements over bash
-(fish and zsh are among the most common). While these are very popular
-(all the instructors use one), they're nowhere near as ubiquitous as
-bash, and lean on many of the same concepts, so we won't be focusing on
-those in this lecture.
+Boshqa shelllar ham mavjud, ko'pincha bashga qaraganda ergonomik jihatdan yaxshilangan (fish va zsh eng keng tarqalganlari qatoriga kiradi). Garchi bular juda mashhur bo'lsa-da (barcha o'qituvchilar undan foydalanadi), ular bash kabi keng tarqalmagan va o'xshash tushunchalarga tayanadi, shuning uchun bu ma'ruzada biz ularga to'xtalib o'tmaymiz.
 
-## Why should you care about it?
+## Nima uchun bu sizni qiziqtirishi kerak?
 
-The shell is not just (usually) much faster than "clicking around", it
-also comes with expressive power you can't easily find in any one
-graphical program. As we'll see, the shell gives you the ability to
-_combine_ programs in creative ways to automate nearly any task.
+Shell nafaqat "kliklash"dan (odatda) ancha tezroq, balki u biron bir grafik dasturda osongina topa olmaydigan ifoda kuchi bilan ham keladi. Ko'rib turganimizdek, shell deyarli har qanday vazifani avtomatlashtirish uchun dasturlarni ijodiy usullar bilan _birlashtirish_ imkoniyatini beradi.
 
-Knowing your way around a shell is also very useful to navigate the
-world of open-source software (which often come with install
-instructions that require the shell), building continuous integration
-for your software projects (as described in the [Code Quality
-lecture](/2026/code-quality/)), and debugging errors when other programs
-fail.
+Shellni yaxshi tushunish, shuningdek, ochiq manbali dasturiy ta'minot dunyosida harakatlanish (ular ko'pincha shell talab qiladigan o'rnatish ko'rsatmalari bilan keladi), dasturiy loyihalaringiz uchun uzluksiz integratsiya (CI) o'rnatish ([Kod sifati ma'ruzasi](/2026/code-quality/)da tavsiflanganidek) va boshqa dasturlar ishlamay qolganda xatolarni tuzatish uchun juda foydali.
 
-## Navigating in the shell
+## Shell ichida harakatlanish
 
-When you launch your terminal, you will see a _prompt_ that often looks
-a little like this:
+Terminalni ishga tushirganingizda, siz ko'pincha quyidagiga o'xshash _so'rov satrini_ ko'rasiz:
 
 ```console
 missing:~$
 ```
 
-This is the main textual interface to the shell. It tells you that you
-are on the machine `missing` and that your "current working directory",
-or where you currently are, is `~` (short for "home"). The `$` tells you
-that you are not the root user (more on that later). At this prompt you
-can type a _command_, which will then be interpreted by the shell. The
-most basic command is to execute a program:
+Bu shellning asosiy matnli interfeysi. Bu sizga `missing` nomli mashinada ekanligingizni va "joriy ishchi katalogingiz" yoki siz hozirda qayerda joylashganligingiz `~` ("home" yoki asosiy sahifaning qisqartmasi) ekanligini aytadi. `$` belgisi siz root foydalanuvchisi emasligingizni bildiradi (bu haqda keyinroq). Ushbu so'rov satriga _buyruq_ yozishingiz mumkin va uni shell interpretatsiya qiladi. Eng oddiy buyruq bu dasturni ishga tushirishdir:
 
 ```console
 missing:~$ date
@@ -168,43 +84,20 @@ Fri 10 Jan 2020 11:49:31 AM EST
 missing:~$
 ```
 
-Here, we executed the `date` program, which (perhaps unsurprisingly)
-prints the current date and time. The shell then asks us for another
-command to execute. We can also execute a command with _arguments_:
+Bu yerda biz joriy sana va vaqtni chop etadigan (kutilganidek) `date` dasturini ishga tushirdik. Shundan so'ng shell bizdan bajarish uchun boshqa buyruq so'raydi. Shuningdek, biz buyruqni _argumentlar_ bilan ishga tushirishimiz mumkin:
 
 ```console
 missing:~$ echo hello
 hello
 ```
 
-In this case, we told the shell to execute the program `echo` with the
-argument `hello`. The `echo` program simply prints out its arguments.
-The shell parses the command by splitting it by whitespace, and then
-runs the program indicated by the first word, supplying each subsequent
-word as an argument that the program can access. If you want to provide
-an argument that contains spaces or other special characters (e.g., a
-directory named "My Photos"), you can either quote the argument with `'`
-or `"` (`"My Photos"`), or escape just the relevant characters with `\`
-(`My\ Photos`).
+Bu holatda biz shellga `echo` dasturini `hello` argumenti bilan ishga tushirishni buyurdik. `echo` dasturi shunchaki uning argumentlarini ekranga chiqarib beradi. Shell buyruqni probellar orqali qismlarga ajratadi va keyin birinchi so'z ko'rsatgan dasturni ishga tushiradi, qolgan har bir so'zni dastur kirishi mumkin bo'lgan argument sifatida ta'minlaydi. Agar bo'shliqlarni (probel) yoki boshqa maxsus belgilarni ("Mening rasmlarim" katalogi kabi) o'z ichiga olgan argumentni kiritmoqchi bo'lsangiz, argumentni `'` yoki `"` (`"My Photos"`) bilan tirnoqlash yoki kerakli belgilarni `\` (`My\ Photos`) bilan qochirishingiz (escape) mumkin.
 
-Perhaps the most important command when you're starting out is `man`,
-short for "manual". The `man` program, among other things, lets you look
-up more information about any command on your system. For example, if
-you run `man date`, it'll explain what `date` is, and all of the various
-arguments you can pass it to alter its behavior. You can also usually
-get a short version of the help by passing `--help` as an argument to
-most commands.
+Ehtimol, boshlayotganingizda eng muhim buyruq bu "manual"ning qisqartmasi bo'lgan `man`. `man` dasturi tizimingizdagi ixtiyoriy buyruq haqida ko'proq ma'lumot qidirish imkonini beradi. Masalan, agar `man date` ni ishlatsangiz, u `date` nima ekanligini va uning ishlashini o'zgartirish uchun unga qanday argumentlar uzatishingiz mumkinligini tushuntiradi. Aksariyat buyruqlarga `--help` argumentini o'tkazish orqali yordam ma'lumotining qisqacha versiyasiga ega bo'lishingiz mumkin.
 
-> Consider installing and using [`tldr`](https://tldr.sh/) in addition
-> to `man`, as it shows you common usage examples right there in the
-> terminal. LLMs are also usually very good at explaining how commands
-> work and how you can call them to achieve what you want to accomplish.
+> `man`dan tashqari [`tldr`](https://tldr.sh/) ni o'rnatish va foydalanishni hisobga oling, chunki u terminalning o'zida umumiy foydalanish misollarini ko'rsatadi. LLMlar ham odatda buyruqlar qanday ishlashini va maqsadlaringizga erishish uchun ularni qanday chaqirishingiz mumkinligini tushuntirishda juda yaxshi.
 
-After `man`, the most important command to learn is `cd`, or "change
-directory". This command is actually built into the shell, and isn't a
-separate program (i.e., `which cd` will say "no cd found"). You pass it
-a path, and that path becomes your current working directory. You'll
-also see the working directory reflected in the shell prompt:
+`man` dan keyin o'rganish kerak bo'lgan navbatdagi muhim buyruq bu `cd` yoki "change directory" (katalogni o'zgartirish). Ushbu buyruq aslida shell ichida qurilgan va alohida dastur emas (masalan, `which cd` "no cd found" deb aytadi). Siz unga yo'lni (path) berasiz va bu yo'l sizning joriy ishchi katalogingizga aylanadi. Shuningdek, joriy katalogingizni shell so'rov satrida ham ko'rishingiz mumkin:
 
 ```console
 missing:~$ cd /bin
@@ -213,23 +106,11 @@ missing:/$ cd ~
 missing:~$
 ```
 
-> Note that the shell comes with auto-completion, so you can often
-> complete paths faster by pressing `<TAB>`!
+> Shuni esda tutingki, shellda avtoto'ldirish mavjud, shuning uchun `<TAB>` tugmasini bosib yo'llarni tezroq to'ldirishingiz mumkin!
 
-A lot of commands operate on the current working directory if nothing
-else is specified. If you're ever unsure where you are, you can run
-`pwd` or print the `$PWD` environment variable (with `echo $PWD`), both
-of which produce the current working directory.
+Ko'pgina buyruqlar, agar boshqa narsa ko'rsatilmagan bo'lsa, joriy ishchi katalogi ustida ishlaydi. Agar o'zingiz qayerdaligingizga ishonchingiz komil bo'lmasa, `pwd` ni ishga tushirishingiz yoki `$PWD` muhit o'zgaruvchisini chop etishingiz mumkin ( `echo $PWD` bilan), ikkalasi ham joriy ishchi katalogni ko'rsatadi.
 
-The current working directory also comes in handy in that it allows us to
-use _relative_ paths. All the paths we've seen so far have been
-_absolute_ --- they start with `/` and give the full set of directories
-needed to navigate to some location from the root of the file system
-(`/`). In practice, you'll more commonly work with relative paths; so
-called because they are relative to the current working directory. In a
-relative path (anything _not_ starting with `/`), the first path
-component is looked up in the current working directory, and subsequent
-components traverse as usual. For example:
+Joriy ishchi katalogi *nisbiy* yo'llardan foydalanish imkoniyatini berishi bilan ham foydalidir. Shu paytgacha biz ko'rgan barcha yo'llar _mutlaq yo'l_ edi - ular `/` bilan boshlanadi va fayl tizimining boshidan (`/`) biror joyga harakatlanish uchun zarur bo'lgan barcha kataloglar ro'yxatini to'liq ko'rsatadi. Amalda, siz ko'pincha nisbiy yo'llar bilan ishlaysiz; ular joriy ishchi katalogga nisbatan bo'lgani uchun shunday ataladi. Nisbiy yo'lda (`/` bilan boshlanmagan ixtiyoriy yo'l) birinchi yo'l komponenti joriy ishchi katalogdan qidiriladi, va keyingilari ham xuddi shunday o'tadi. Masalan:
 
 ```console
 missing:~$ cd /
@@ -237,9 +118,7 @@ missing:/$ cd bin
 missing:/bin$
 ```
 
-There are also two "special" components that exist in every directory:
-`.` and `..`. `.` is "this directory", and `..` is "the parent
-directory". So:
+Har bir katalogda ikkita "maxsus" komponent (kataloglar) ham mavjud: `.` va `..`. `.` bu "shu katalog" va `..` "ota katalog" demakdir. Shunday qilib:
 
 ```console
 missing:~$ cd /
@@ -247,21 +126,13 @@ missing:/$ cd bin/../bin/../bin/././../bin/..
 missing:/$
 ```
 
-You can usually use absolute and relative paths interchangeably for any
-command argument, just keep in mind what your current working directory
-is when using a relative one!
+Оdatda buyruq argumenti uchun mutlaq va nisbiy yo'llardan bir-birining o'rnida foydalanishingiz mumkin, shunchaki nisbiy yo'ldan foydalanayotganda joriy ishchi katalogingiz nima ekanligini yodda tuting!
 
-> Consider installing and using
-> [`zoxide`](https://github.com/ajeetdsouza/zoxide) to speed up your
-> `cd`ing --- `z` will remember the paths you frequently visit and let
-> you access with less typing.
+> Kezishni yanada tezlashtirish uchun [`zoxide`](https://github.com/ajeetdsouza/zoxide) o'rnatishni o'ylab ko'ring - `z` tez-tez tashrif buyuradigan joylarni yodda saqlaydi va sizga yozishni qisqartirish imkonini beradi.
 
-## What is available in the shell?
+## Shell ichida nimalar mavjud?
 
-But how does the shell know how to find programs like `date` or `echo`?
-If the shell is asked to execute a command, it consults an _environment
-variable_ called `$PATH` that lists which directories the shell should
-search for programs when it is given a command:
+Ammo shell `date` yoki `echo` kabi dasturlarni topishni qayerdan biladi? Agar shell buyruqni bajarishga so'ralsa, u `$PATH` deb ataladigan _muhit o'zgaruvchisini_ so'raydi, bu esa, buyruq berilganda shell qayerni qidirish kerakligi haqidagi kataloglarni ko'rsatadi:
 
 ```console
 missing:~$ echo $PATH
@@ -272,122 +143,70 @@ missing:~$ /bin/echo $PATH
 /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ```
 
-When we run the `echo` command, the shell sees that it should execute
-the program `echo`, and then searches through the `:`-separated list of
-directories in `$PATH` for a file by that name. When it finds it, it
-runs it (assuming the file is _executable_; more on that later). We can
-find out which file is executed for a given program name using the
-`which` program. We can also bypass `$PATH` entirely by giving the
-_path_ to the file we want to execute.
+`echo` buyrug'ini bajarganimizda, shell `echo` dasturini ishga tushirishi kerakligini ko'radi va bu nomli faylni izlash uchun `$PATH` dagi `:` bilan ajratilgan kataloglar ro'yxatini tekshirib chiqadi. Qachonki topilsa, u uni ishga tushiradi (fayl _bajariladigan_ bo'lsa; bu haqda keyinroq). `which` dasturi yordamida berilgan dastur nomi uchun aynan qaysi fayl bajarilayotganligini aniqlashimiz mumkin. Biz shuningdek, ijro etishni istagan faylning _yo'lini_ ko'rsatish orqali `$PATH`ni chetlab o'tishimiz mumkin.
 
-This also gives a clue for how we can determine _all_ the programs we're
-able to execute in the shell: by listing the contents of all the
-directories on `$PATH`. We can do this by passing a given directory path
-to the `ls` program, which lists files:
+Bu, shuningdek, shell ichida qanday dasturlarni bajarish imkoniyatimiz borligini tekshirish uchun barcha dasturlarni ko'rsatish yo'lini ham bildiradi: `$PATH` da sanab o'tilgan barcha kataloglarning kontentini ko'rsatish orqali. Buning uchun ma'lum bir katalog yo'lini `ls` dasturiga o'tkazish orqali amalga oshirishimiz mumkin, u fayllar ro'yxatini ko'rsatadi:
 
 ```console
 missing:~$ ls /bin
 ```
 
-> Consider installing and using [`eza`](https://eza.rocks/) for a more
-> human-friendly `ls`.
+> Ko'proq odam-o'qiy oladigan (human-friendly) `ls` tajribasi uchun [`eza`](https://eza.rocks/) dasturini o'rnatishni va undan foydalanishni sinab ko'ring.
 
-This will, on most computers, print a _lot_ of programs, but we'll only
-focus on some of the most important ones here. First, some simple ones:
+Bu, aksariyat kompyuterlarda, _juda ko'p_ dasturlarni chop etadi, ammo biz bu yerda eng muhimlariga to'xtalamiz. Birinchi, ba'zi oddiylari:
 
-- `cat file`, which prints the contents of `file`.
-- `sort file`, which prints out the lines of `file` in sorted order.
-- `uniq file`, which eliminates consecutive duplicate lines from `file`.
-- `head file` and `tail file`, which respectively print the first and
-  last few lines of `file`.
+- `cat file`, `file` kontentini ekranga chop etadi.
+- `sort file`, `file` dagi qatorlarni tartiblangan holda chop etadi.
+- `uniq file`, `file` dagi ketma-ket takrorlanadigan qatorlarni olib tashlaydi.
+- `head file` va `tail file`, mos ravishda `file` ning birinchi va oxirgi bir necha qatorlarini chop etadi.
 
-> Consider installing and using [`bat`](https://github.com/sharkdp/bat)
-> over `cat` for syntax highlighting and scrolling.
+> Sintaksis yoritilishi va sahifani aylantirish (scrolling) uchun `cat` o'rniga [`bat`](https://github.com/sharkdp/bat) ni o'rnatishni o'ylab ko'ring.
 
-There's also `grep pattern file`, which finds lines matching `pattern`
-in `file`. This one deserves slightly more attention as it's both _very_
-useful and sports a wider array of features than one may expect.
-`pattern` is actually a _regular expression_ which can express very
-complex patterns --- we'll [cover
-those](/2026/code-quality/#regular-expressions)
-in the code quality lecture. You can also specify a directory instead of a
-file (or leave it off for `.`) and pass `-r` to recursively search all
-the files in a directory.
+Shuningdek, `grep pattern file` mavjud bo'lib, u `file` da `pattern` ga mos qatorlarni topadi. Buning uchun biroz ko'proq e'tibor talab qilinadi, chunki bu _juda_ foydali va kutganidan ko'ra kengroq funktsiyalarga ega. `pattern` aslida juda murakkab naqshlarni ifodalay oladigan _regulyar ifoda_ hisoblanadi - biz bularni kod sifati ma'ruzasida ko'rib chiqamiz. Bundan tashqari, faylning o'rniga katalog nomini ko'rsatishingiz (yoki joy joriy ishchi katalog ekanligini ko'rsatish uchun uni qoldirmaslik) va qidirishni bir katalogdagi barcha fayllar ichidan rekursiv amalga oshirish uchun `-r` parametrini (flag) uzatish kabi imkoniyatlar mavjud.
 
-> Consider installing and using
-> [`ripgrep`](https://github.com/BurntSushi/ripgrep) over `grep` for a
-> faster and more human-friendly (but less portable) alternative.
-> `ripgrep` will also recursively search the current working directory
-> by default!
+> Tezkor va ko'proq o'qilishi oson bo'lgan, ammo boshqa tizimlar bilan kamroq mos keluvchi alternativa o'rniga `grep` o'rniga [`ripgrep`](https://github.com/BurntSushi/ripgrep) ni o'rnatish va ishlatishni ko'rib chiqing. Odatda `ripgrep` o'zining standart holatida joriy katalogni rekursiv qidiradi!
 
-There are also some very useful tools with a slightly more complicated
-interface. First among those is `sed`, which is a programmatic file
-editor. It has its own programming language for making automated edits
-to files, but the most common use of it is:
+Interfeysi biroz murakkab bo'lgan ayrim foydali dasturlar ham mavjud. Ulardan birinchisi `sed` - u o'zining dasturlash tili bo'lgan fayl muharriri hisoblanadi va fayllarni avtomatik tarzda tahrirlovchi o'ziga xos tahrirchi. Biroq, uni eng ko'p ishlatadigan holat quyidagichadir:
 
 ```console
 missing:~$ sed -i 's/pattern/replacement/g' file
 ```
 
-This replaces all instances of `pattern` with `replacement` in `file`.
-The `-i` indicates that we want the substitutions to happen inline (as
-opposed to leaving `file` unmodified and printing the substituted
-contents). The `s/` is the way to express in the sed programming
-language that we want to do a substitution. The `/` separates the
-pattern from the replacement. And the trailing `/g` indicates that we
-want to replace _all_ occurrences on each line rather than just the
-first. As with `grep`, `pattern` here is a regular expression, which
-gives you significant expressive power. Regular expression substitutions
-also allow `replacement` to refer back to parts of the matched pattern;
-we'll see an example of that in a second.
+Bu `file` dagi barcha `pattern` ko'rinishlarni `replacement` ga almashtiradi. `-i` argumentining (flag) ifodalashi, o'zgaruvchilar bevosita ichida o'zgartirilishini bildiradi (ya'ni `file`ni o'zgartirilmagan qoldirib, o'zgartirilgan natijalarni nashr etish o'rniga). `s/` - bu sed dasturlash tilida (substitute) qidirib almashtirishini bilish usulidir. `/` ikkinchi yarmini birinchisidan ajratib turadi. Va orqadagi `/g` argumenti - boshida emas, balki _har bir qatorning_ barcha mosliklarini o'zgartirish kerakligini aytadi. Xудди `grep` kabi `pattern` shu yerdagi regulyar ifoda bo'lib, bu sizga ajoyib ifoda kuchini taqdim etadi. Regulyar ifoda orqasiga `replacement` moslashtirilgan namunaning qismlariga qaytish uchun yana havola imkoniyatini beradi - biz buni qisqa fursatda misol sifatida tushunib olamiz.
 
-Next, we have `find`, which lets you find files (recursively) that match
-certain conditions. For example:
+Keyingi qatorda bizda `find` bor, u ma'lum talablarga javob beradigan (rekursiv suratda topadigan) fayllarni topishga imkon beradi. Misol uchun:
 
 ```console
 missing:~$ find ~/Downloads -type f -name "*.zip" -mtime +30
 ```
 
-Finds ZIP files in the download directory that are older than 30 days.
+Downloads katalogidagi 30 kundan eski ZIP fayllarini topadi.
 
 ```console
 missing:~$ find ~ -type f -size +100M -exec ls -lh {} \;
 ```
 
-Finds files larger than 100M in your home directory and lists them. Note
-that `-exec` takes a _command_ terminated with a stand-alone `;` (which
-we need to escape much like a space) where `{}` is replaced with each
-matching file path by `find`.
+Asosiy ishchi kataloingizdagi (home folder) hajmi 100M dan katta fayllarni topadi va ularni ro'yxatlaydi. Shuni ham aytish o'tish joizki `-exec` oxirgi bajariladigan `;` buyrug'i (probellerdek qochirilishi zarur bo'lgan mustaqil ish) bilan birgalikda so'raladi va qayerdaki `{}` `find` tomonidan har bir mos keladigan faylning yo'li bilan (fayl nomlariga qarab) almashtiriladi.
 
 ```console
 missing:~$ find . -name "*.py" -exec grep -l "TODO" {} \;
 ```
 
-Finds any `.py` files with TODO items in them.
+Barcha joriy `.py` fayllari ichidagi "TODO" ro'yxatlarini tekshirib topadi.
 
-The syntax of `find` can be a little daunting, but hopefully this gives
-you a sense of how useful it can be!
+`find` dasturining sintaksisi biroz qiyin bo'lishi mumkin, ammo ishonamizki bu misol sizga bu vositaning qanchalik foydali bo'lishini bildiradi!
 
-> Consider installing and using [`fd`](https://github.com/sharkdp/fd)
-> instead of `find` for a more human-friendly (but less portable!)
-> experience.
+> `find` vositasidan foydalanishda sizga kerakli natijani (portable lekin unchalik ko'p imkoniyatlarga ega bo'lmagan) tezroq keltirib beradigan [`fd`](https://github.com/sharkdp/fd) dasturidan foydalanishni ham o'ylab ko'rishingiz mumkin.
 
-Next on the docket is `awk`, which, like `sed`, has its own programming
-language. Where `sed` is built for editing files, `awk` is built for
-parsing them. By far the most common use of `awk` is for data files with
-a regular syntax (like CSV files) where you want to extract only certain
-parts of every record (i.e., line):
+Endi navbat `awk` tizimiga u ham, xuddi `sed` singari, o'zining dasturlash tili bo'lgan. `sed` fayllarni faol ko'rinishda tahrirlashga moslashtirilgan holda `awk` esa ularni tahlil etadi. `awk`ning ko'p maishiy vazifalari orasida CSV fayl kabi har qanday jadval, tahliliy sintaksisni ochish jarayonida va asosiy satrlarga tegishli aniq qiymatlarni (ma'lum qismlarni) tanlab berishi ko'proq ishlatiladi:
 
 ```console
 missing:~$ awk '{print $2}' file
 ```
 
-Prints the second whitespace-separated column of every line of `file`.
-If you add `-F,`, it'll print the second comma-separated column of every
-line. `awk` can do much more --- filtering rows, computing aggregates,
-and more --- see the exercises for a taste.
+`file` da probelar bilan ajratiladigan barcha qatorlardagi ikkinchi qiymatni chop etadi. Qo'shimcha ravishda, agar siz `-F,` qo'shsangiz u barchasini vergul bilan ajralib beriladigan satrdan boshlab keyingi yozuvda chiqaradi (masalan, csv dan olingan). `awk` dasturi bundanda yaxshiroq ishlay oladi — barcha qatorlarni filtrlashi va boshqa maxsus vazifalarni (aggregatlar kabi) yig'ishini aytish joiz - uni mashqlarda isbot etishingiz mumkin.
 
-Putting these tools together, we can do fancy things like:
+Ushbu asbob-uskunalarni qo'shish bilan quyidagi vazifalarni birin-ketin tez va qulay o'zgartirib amalga oshiramiz:
 
 ```console
 missing:~$ ssh myserver 'journalctl -u sshd -b-1 | grep "Disconnected from"' \
@@ -398,76 +217,29 @@ missing:~$ ssh myserver 'journalctl -u sshd -b-1 | grep "Disconnected from"' \
 postgres,mysql,oracle,dell,ubuntu,inspur,test,admin,user,root
 ```
 
-This grabs SSH logs from a remote server (we'll talk more about `ssh` in
-the next lecture), searches for disconnect messages, extracts the
-username from each such message, and prints the top 10 usernames
-comma-separated. All in one command! We'll leave dissecting each step as
-an exercise.
+Bu server uzoq masofali SSH jurnallari matnidan ma'lum qismlarni uzish va bog'lash natijasida ulardan tahrir qilib ("ssh" bilan navbatdagi darsda tanishamiz), Disconnected yozuvlariga moslashib foydalanuvchilar ismlarini ajratadi, top 10 vergul qo'yilgan barcha nomlarni yig'ib beradi. Hamma ish bitta buyruq! Buni sinab o'tish uchun yana biz mashqlarga tashrif buyuramiz.
 
-## The shell language (bash)
+## Shell tili (bash)
 
-The previous example introduced a new concept: pipes (`|`). These let
-you string together the output of one program with the input of another.
-This works because most command-line programs will operate on their
-"standard input" (where your keystrokes normally go) if no `file`
-argument is given. `|` takes the "standard output" (what normally gets
-printed to your terminal) of the program before the `|` and makes it be
-the standard input of the program after the `|`. This allows you to
-_compose_ shell programs, and it's part of what makes the shell such a
-productive environment to work in!
+Avvalgi darsimiz - yozuvimiz yangi tushuncha - pipe (`|`) haqida gapirgan holda ochilgan edi. Bular bitta dasturning chiqqan matni - standart chiqish (stdout) natijalarini keyingi ikkinchi matnga kiruvchi - standart kirish (stdin) vazifalarini qondiruvchi zanjirga tiqadi. Ko'pchilik komandali dasturlar, masalan xatolar bermay faqat interfeysi o'zini normal ko'rinishida siz terayotgan narsalar, ya'ni fayllarsiz yoki o'zgachaliklarga ko'ra ishlatsa xuddi ushbuga moslaydi. `|` ikkita chiziq oralarida standart natija va kiritmalarni bog'lasak ushbu jarayon zanjir sifatida aylanib (qarab chiqa oling), ijroli - tez hamda samarali imkoniyat hisoblangan eng mahsuldor funksiyalarni ishlatishingiz uchun eng asosiysilaridan bo'ladi. Shell ni bunchalik ish muhitiga mos ishlab turishiga sababidir!
 
-In fact, most shells implement a full programming language (like bash),
-just like Python or Ruby. It has variables, conditionals, loops, and
-functions. When you run commands in your shell, you are really writing a
-small bit of code that your shell interprets. We won't teach you all of
-bash today, but there are some bits you'll find particularly useful:
+Amalda, ko'pchilik shell'lar ham odatdagi to'liq dasturlarni o'zi ustida ishlashi bashga kabi imkon yaratadi va ham pythonga, ham ruby tiliga boyroq ishlashda katta turtki bo'lgan. Variables(o'zgaruvchilari), shartli (if-else), cikl (loop) operator va yana boshqa qo'shimchasi ham ko'pdir. Buyruq bergan vaqtdagi sizni kod yoki dasturlaringiz shu yerda kichik bir tarjima orqali shellga yetkazuvchi - muhim ishlayotgan shaxslar deb hisoblay qiling. Bu yerda hamma bash vaziyatlarini o'rgatip bermaymiz ammo asosiy holatlarga diqqat axtaramiz:
 
-First, redirects: `>file` lets you take the standard output of a program
-and write it to `file` instead of to your terminal. This makes it easier
-to analyze after the fact. `>>file` will append to `file` rather than
-overwrite it. There's also `<file` which tells the shell to read from
-`file` instead of from your keyboard as the standard input to a program.
+Birinchisi - qayta yo'naltirish ( redirects): >`file` bir kod xulosasini oldindan ma'lum xuddi matnlarga `file` larga oddiy qilib tushirmay natijani `file` yozishingiz haqidadir. Bu uni ancha vaqt tekshirib-chiqishga eng samarali natijalayapti, ko'pincha . . `>>file` ga yozishda ustidan urub ishlash emasu barcha ma'lumot qoldirilganda oxirigisidan boshlayapti. Bundanda oshib <`file` buyrug'i tizimi uni yana odatdagi ( klaviatura orqada) vazifasiga emas , ma'lum `file` larga qaratishda birinchi navbatdagi tushunchalarni ( standart qabul qilib) beradi.
 
-> This is a good time to mention the `tee` program. `tee` will print
-> standard input to standard output (just like `cat`!), but will _also_
-> write it to a file. So `verbose cmd | tee verbose.log | grep CRITICAL`
-> will preserve the full verbose log to a file while keeping your
-> terminal clean!
+> `tee` ni eslab utiladigan yaxshi joyga kelidk. `tee` funksiyasi siz aytgan fayl va oynani parallel chiqarib olib biluvchi ko'pgina funksiyalar hisobiga o'tilganini kuzatsa — fayl va terminallaringiz ham o'z vaziyatini bajarib yo'qovlarsiz ishlab tura olmoqda. . shuning bilan `verbose cmd | tee verbose.log | grep CRITICAL` siz terminallariga kerakli xabarni bermaydida , barcha verbose jarayonining boshidan oxirini ehtiyotan alohida jurnalga yoza oladi.
 
-Next, conditionals: `if command1; then command2; command3; fi` will
-execute `command1`, and if it doesn't result in an error, will run
-`command2` and `command3`. You can also have an `else` branch if you
-wish. The most common command to use as `command1` is the `test`
-command, often abbreviated simply as `[`, which lets you evaluate
-conditions like "does a file exist" (`test -f file` / `[ -f file ]`) or
-"does a string equal another" (`[ "$var" = "string" ]`). In bash,
-there's also `[[ ]]`, which is a "safer" built-in version of `test` that
-has fewer odd behaviours around quoting.
+Navbat - shartlar (conditionals ) uchun kelib qoldi : `if command1; then command2; command3; fi` qachonki `command1` yechila olsa , siz kutgan aytilingan command 2 hamcommand 3 bo'lganini ishonch qilib ko'rasiz va xatosiz yurishlarini bilsa birin - ketin ishlatsada ular shu yerda tushunchalari ustuvor ro'l deb sanaladi. Siz buni else qator bo'limlari ishtirokidasining xohishi bo'lishida ishga tushura olishiz lozim , eng oddiy funksiyalardagi command 1 siz ehtiyotlab test so'rovidan so'ray biluvchi hisobida bir qatorda yordam bilimi . Ushbu `[ file - f ]` faylni bor yoki bo'sh joy kabilarni ham , yoki teng miqdori ( `' [ "$var" = "string" ] '` ) ekanlik vaziyalar ham test yordamchisi ko'rinishi hisobidan eng kerakdir. . Bashta, yana ham yaxshiroq ko'rinishi bo'lmish ikki talik `[[ ]]` test xavfsiz holatdagi bo'lib kotirovka (qo'shtirnoqlardagi) chokib qolmaydigan xossalidir.
 
-Bash also has two forms of loops, `while` and `for`. `while command1; do
-command2; command3; done` functions just like the equivalent `if`
-command, except that it will re-execute the whole thing over and over
-for as long as `command1` does not error. `for varname in a b c d; do
-command; done` executes `command` four times, each time with `$varname`
-set to one of `a`, `b`, `c`, and `d`. Instead of listing the items
-explicitly, you'll often use "command substitution", such as:
+Shuningdek. bash ikkita bo'limidan iborat bo'lgan while va cikl (loop ) uchun `while command1; do command2; command3; done` ishlatsa birinchi jarayoni har doim takrror yuritib va shu bo'yicha ishlanmasini ko'rish bilan command1 o'zi xato (error) qoldirmasa u ish davomiy holati bilan qolajak, - qachon ki command 1 ga tugallash oydin bo'lgunicha deb qo'llamiz, keyin bo'limlari - "a,b,c va d kabi so'zlari aytilgan for orqali `for varname in a b c d; do command; done` - navbati bn har biri 4marta aylanuvchisidan hisoblanib oladi .. Eng avvallo item (qisimlarini ) so'zlarga bermay maxsus vaziyatlaridan foydalanganimiz kabi yana bir xossa command substitution o'rnida `$()` dir. Ya'ni:
 
 ```bash
 for i in $(seq 1 10); do
 ```
 
-This executes the command `seq 1 10` (which prints the numbers from 1 to
-10 inclusive) and then replaces the whole `$()` with that command's
-output, giving you a 10-iteration for loop. In older code you'll
-sometimes see literal backticks (like ``for i in `seq 1 10`; do``)
-instead of `$()`, but you should strongly prefer the `$()` form as it
-can be nested.
+Ushbu jarayonda (seq 1 dan to 10 ) sanash ketma-ketliklarni bir vaqtda bajarilgan (buyruqni) aylanmada va keyin hammadan oshirib shu raqamlargacha natijasi aylanuvchi - $() ni shu javob bilan bo'lishiga o'zgartiradi , siz uni endi for tsiklini ( 10 martta sikl) olgan ko'rashingiz mumkin. Siz eski skriptlarga qaragan paytida odatdagi oddiy tirnoq (' ') ko'rsa agar bunisi ``for i in `seq 1 10`; do`` , lekin endigilikda u ichkari qo'llangani ko'p tarqalgan degani uchun $ () ko'rinishidan afzal qilasiz!
 
-While you _can_ write long shell scripts directly in your prompt, you'll
-usually want to write them into a `.sh` file instead. For example,
-here's a script that will run a program in a loop until it fails,
-printing the output only of the failed run, while stressing your CPU in
-the background (useful to reproduce flaky tests for example):
+Shuningdek uzoq scriptlardan ko`pida tildan uzoq paytlari shellda foydalana olish maqul kelsa endigi hollardi, alohoda bittaga saqlab chiqilgan yaxshiroq holidir .sh deb - ushbu yerda ishlamagan fayllardagi CPU ishini xatosini qulatishga takror tekshirtiladigan script :
 
 ```bash
 #!/bin/bash
@@ -496,161 +268,58 @@ tail -n 20 "$LOGFILE"
 echo "Full log: $LOGFILE"
 ```
 
-This has a number of new things in it that I recommend you spend some
-time diving into, as they're very useful in crafting useful shell
-invocations like background jobs (`&`) to run programs concurrently,
-trickier [shell
-redirections](https://www.gnu.org/software/bash/manual/html_node/Redirections.html),
-and [arithmetic
-expansion](https://www.gnu.org/software/bash/manual/html_node/Arithmetic-Expansion.html).
+Bunda anchagina foydali vositalar qamrab olinganini sezasiz. Tavsiyam uni fon vazifasi (`&`) kabi, bir vaqtning o'zida bir nechta dasturlarni ishlatish uchun kerakli chaqiriqlar, yanada murakkab [shell qayta yo'naltirishlari](https://www.gnu.org/software/bash/manual/html_node/Redirections.html), va [arifmetik kengaytirish](https://www.gnu.org/software/bash/manual/html_node/Arithmetic-Expansion.html) tushunchalari ustida chuqurroq ko'rib chiqishingiz kerak bo'ladi.
 
-It's worth spending a second on the first two lines of the program
-though. The first is the "shebang" -- you'll see this at the top of
-other files than shell scripts too. When a file that starts with the
-magic incantation `#!/path` is executed, the shell will start the
-program at `/path`, and pass it the contents of the file as input. In
-the case of a shell script, this means passing the contents of the shell
-script to `/bin/bash`, but you can also write Python scripts with a
-shebang line of `/usr/bin/python`!
+Biroz e'tiborni dasturning dastlabki ikki qatoriga qaratish muhimdir. Birinchisi — bu “shebang”; siz uni ko'pincha boshqa shell skriptlarining yuqori qismida ko'rishingiz mumkin. Qachonki `#!/path` sehrli yo'li bilan boshlangan fayl bajarilganda, shell `/path` yo'li ko'rsatgan dasturni ishga tushiradi va shu faylning mazmunini unga kiritma (input) tarzida beradi. Boshqacha qilib aytganda bu `bash` deb tushuntirilishini anglatadi, masalan Python uchun esa u shebang sifatida `#!/usr/bin/python` shaklida ifodalanadi!
 
-The second line is a way to make bash "stricter", and mitigate a number
-of footguns when writing shell scripts. `set` can take a whole lot of
-arguments, but briefly: `-e` makes it so that if any command fails, the
-script exits early; `-u` makes it so that use of undefined variables
-crashes the script rather than just using an empty string; and `-o
-pipefail` makes it so that if programs in a `|` sequence fail, the
-shell script as a whole also exits early.
+Ikkinchi qator shell skriptida yozilganda, unga yuzaga kelishi mumkin bo'lgan tasodifiy xatoliklarni oldini olish (mitigate footguns) usulidir, shuningdek skriptimiz "qattiq" yozilishini ta'minlab bash sintaksisiga bog'lanishida katta o'rin beradi: masalan, `-e` parametrini qo'shsangiz buyruq ishlamasa bas deb tez tugashga undaydi; `-u` o'ylangan bo'sh argument borishi bo'lsa uni tekshirishdagi qiynalish o'rnida ish bermay skript xato deb topib tez qulatishi, va`-o pipefail` buyruq bo'limlari - `|` (pipe) quvuringiz ichida ishlayotganda ham barchasini birdan to'xtata olishiga sharoit ko'rsatib xatolik o'yiga ota oladi.
 
-> Shell programming is a deep topic, just as any programming language
-> is, but be warned: bash has an unusual number of gotchas, to the point
-> that there are [multiple](https://tldp.org/LDP/abs/html/gotchas.html)
-> websites dedicated to [listing them](https://mywiki.wooledge.org/BashPitfalls).
-> I highly recommend making heavy use of
-> [shellcheck](https://www.shellcheck.net/) when writing them. LLMs are
-> also great at writing and debugging shell scripts, as well as
-> translating them to a "real" programming language (like Python) when
-> they've grown too unwieldy for bash (100+ lines).
+> Shell dasturlashi — xuddi boshqa har qanday dasturlash tili singari ancha chuqur o'rganilishini talab qiladigan keng soha. Lekin ehtiyot bo'ling: boshqa tildan ko'ra bu tildan topiladigan va yo'lda chalg'ish (gotchas) deyiluvchi - uning ayb-kamchiliklariga ko'p xos saytlar ham bor  [(ularni shu yerda ham topsa bo'ladi)](https://mywiki.wooledge.org/BashPitfalls). Shunday skriptlar yozaotganda  [shellcheck](https://www.shellcheck.net/)-dan unumdorlikda ham katta kuch olishini unutmang. Bundan tashqari, Shell kodlaringiz ( 100 qatordan ham asosiydir ) qanchalik qimmatlasha ketishi ulug'landi, shunda LLM lar kodlar va xatolarni tekshiradigan yagona bo'la oladigan, real "til" bashkabi bo'lishlarda, masalaning halini topar darajada yodlanib tez ishlatishlari ham - ancha foydali isbotan tavsiya beradi.
 
-# Next steps
 
-At this point you know your way around a shell enough to accomplish
-basic tasks. You should be able to navigate around to find files of
-interest and use the basic functionality of most programs. In the next
-lecture, we will talk about how to perform and automate more complex
-tasks using the shell and the many handy command-line programs out
-there.
+# Keyingi qadamlar
 
-# Exercises
+Shu nuqtadagi xolosamizga ko'ra, siz shell sohasida ishlarni amalga oshirishda baza bilmlarni egallaganingizdan dalolat. Bu fayllarni toparligida bilimlari, navigatsiya ishlatiqlariga katta turtki deb umidimizda bilmoq kerakdir. Navbatdagi biz o'zbek ma'ruzamiz - siz o'rgatiluvchi dasturlardan avtomatlashtirishning o'zga va yangi sirlari bilan yanada chuqurlashib  shell bo'limida ish yuritadigan yaxshi bo'limlarda tushuntirib otamiz.
 
-All classes in this course are accompanied by a series of exercises.
-Some give you a specific task to do, while others are open-ended, like
-"try using X and Y programs". We highly encourage you to try them out.
+# Mashqlar
 
-We have not written solutions for the exercises. If you are stuck on
-anything in particular, feel free to post in `#missing-semester-forum`
-on [Discord](https://ossu.dev/#community) or send us an email describing
-what you've tried so far, and we will try to help you out. These
-exercises will also likely work well as initial prompts in a
-conversation with an LLM where you can interactively dive into the
-topic. The real value in these exercises is the journey of discovering
-the answers, not the answer itself. We encourage you to follow tangents
-and ask "why" as you work through them, rather than just looking for the
-shortest path to the solution.
+Shu va boshqa barcha darslarda ishtirokingizni sinab bilish uchun doim asos bo'luvchi qiziqarli ko'rinishdagi o'z maxsus vazifa sinovlari ketma-ketliklarda tavsiya ko'chadi. Ulardan biz kerakligicha har bir amaliyot-topshiriq usullarida qiziqtirishga , qattiq topshiriq yo "X va Y ish ismilariga bo'ling",  ishlanmalarning doim sinab-ishlarida va bajarilganda o'z kuchisini toparkan eng ko'p javobi aytilar ekan!
 
-1. For this course, you need to be using a Unix shell like Bash or ZSH. If
-   you are on Linux or macOS, you don't have to do anything special. If you
-   are on Windows, you need to make sure you are not running cmd.exe or
-   PowerShell; you can use [Windows Subsystem for
-   Linux](https://docs.microsoft.com/en-us/windows/wsl/) or a Linux virtual
-   machine to use Unix-style command-line tools. To make sure you're running
-   an appropriate shell, you can try the command `echo $SHELL`. If it says
-   something like `/bin/bash` or `/usr/bin/zsh`, that means you're running
-   the right program.
+Biz bu savollarga javoblarni to'g'ri bo'lsa, maxsus manbadan yo boshqa tur sahifasi qoldirmaganmiz, ular alohida qo'lda chiqarilgan ish natijani bersinda! Tushunish uchun bosh ko'rinmay turilgan savollar bormi? u holda siz undan savolni - [ Discorddagi ](https://ossu.dev/#community) kanali `#missing-semester-forum` kanalidan ulashishlaga unutmangiz, ulardan  va  qo'shiluvchilar orasida pochta orqali biz bilgan ekanligi-  sinab qidiruvchi, shuning uchun boshqalar fikri natija topshiriqni bersin - ham biz iloji bor  (emailni ko'ring), qo'llashib o'yinlarni boshqotirman holatini sizga qo'ldirib yo'naltamiz. Bundan qanchasi-yoki faqat qidirilsada tushunchalar interaktiv yondashivlarni qo'lidan tutish - yaxshi variant va doim o'rganilgan darslarda "nima uchun/ qanday qilib'ga , qisqacha marshrutli  javoblardanda eng samarali "sayohatli qadamga boylikdir ! 
 
-1. What does the `-l` flag to `ls` do? Run `ls -l /` and examine the output.
-   What do the first 10 characters of each line mean? (Hint: `man ls`)
+1. Ushbu kurs uchun siz Bash yoki ZSH kabi Unix shellidan foydalanishingiz kerak. Agar siz Linux yoki macOS tizimida bo'lsangiz, alohida biror narsa qilishingiz shart emas. Agar siz Windows tizimida bo'lsangiz, cmd.exe yoki PowerShell orqali kirmaganlikni tekshirishingiz zarur, ularning o'rniga u asosida qurilgan [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/) dan Unix turiga xos xizmat funksiyasini ta'minlashingiz yohud linux terminali operatsion tizimlari orqali ishlating. Dastur to'g'ri ishlayotganiga ishonch hosil qilish maqsadida, `echo $SHELL` dan tekshirib foydalaning va `/bin/bash` yoki `/usr/bin/zsh` chiqqani, bu jarayon yaxshi ekanini ko'rsatadi.
 
-1. In the command `find ~/Downloads -type f -name "*.zip" -mtime +30`, the
-   `*.zip` is a "glob". What is a glob? Create a test directory with some
-   files and experiment with patterns like `ls *.txt`, `ls file?.txt`, and
-   `ls {a,b,c}.txt`. See [Pattern
-   Matching](https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html)
-   in the Bash manual.
+1.  `ls` da ko'rsatgan  `-l` bayrog'i (flag) nimani berishi kerak? `ls -l /`ni ishlatish orqali uning qatordagi kelgan har 10 ma'lumotlarini kuzating.   Bular nima degani?  (`man ls` dan mosligini o'rganing)
 
-1. What's the difference between `'single quotes'`, `"double quotes"`, and
-   `$'ANSI quotes'`? Write a command that echoes a string containing a
-   literal `$`, a `!`, and a newline character. See
-   [Quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html).
+1.  Quyidagi `find ~/Downloads -type f -name "*.zip" -mtime +30` -da keltirilgan `*.zip` bu - "glob". O'zi Glob nima degani? Shu turini ishga tushirishda shunday jism bo'lishi - `ls *.txt`, `ls file?.txt`, and `ls {a,b,c}.txt` ekanining turli  fayllarini o'rnatilgan tajriba yaratish bilan sinab biling. .Bashning ruxsatli tushuntirish va ma'lumotda qarang: [Pattern
+   Matching](https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html).
 
-1. The shell has three standard streams: stdin (0), stdout (1), and stderr
-   (2). Run `ls /nonexistent /tmp` and redirect stdout to one file and
-   stderr to another. How would you redirect both to the same file? See
-   [Redirections](https://www.gnu.org/software/bash/manual/html_node/Redirections.html).
+1. Bularning - `'single quotes'` (bitta tirnoqlar), `"double quotes"`(ikkilangan) va `$'ANSI quotes'` ( ANSI tur) uchchasida barcha  fayllari orasida farq  haqidagi nimalar bor? Maxsus tirnoqli ($), maxsus  yangi qatordagi aylanuvchi satrdan kelib chiqadigan qator ishonchini hosil qilishdagi yozuv tayyorlang va shuni ifodalashdagi ko'rinish va o'zgarishini ko'rsating - [Quoting](https://www.gnu.org/software/bash/manual/html_node/Quoting.html) mavzusidan olishni ko'rinib  biling.
 
-1. `$?` holds the exit status of the last command (0 = success). `&&` runs
-   the next command only if the previous succeeded; `||` runs it only if
-   the previous failed. Write a one-liner that creates `/tmp/mydir` only if
-   it doesn't already exist. See [Exit
-   Status](https://www.gnu.org/software/bash/manual/html_node/Exit-Status.html).
+1. Shell uch xil oqimga (stream) o'z yondashuvini qaratadi : standart kirish (stdin)  -( 0)  , standart chiqish (stdout ) - (1)  , va xatolik standart chiqishi (stderr) - (2) .   `ls /nonexistent /tmp` yozing hamda unisini  standart chiqish sifatida, ya'ni fayllardan va bu bilan xatolik uchun bashqalar turida uzating . Qanday qilib fayldagi oqim ko'rinishlari qayta maqsadni qo'ldamchi bittagina  fayliga qاراتsa bo'ladi  ? Shu jarayon haqidan ma'lumoti : [Redirections](https://www.gnu.org/software/bash/manual/html_node/Redirections.html).
 
-1. Why does `cd` have to be built into the shell itself rather than a
-   standalone program? (Hint: think about what a child process can and
-   cannot affect in its parent.)
+1. `$?` bo'lgan belgi orqali oldingi operatsiyalardagi (ish tugaganga qayishning- status kabi) eng so'ngi chiqish holati ko'rinishi (ya'ni `0` tengligi yaxshidan chiqqani ko'paygan natijada beriladi) ushbu `&&` shunda oldin yaxshi deb topilgan xulosa bilan yurib  va `||` usullari keyingilarga ulasha olish haqida edi , siz ko'p marotaba sinagan bo'lsangiz agar, - /tmp/mydir' yaratuvchiga yangi yozuvi o'z vaqtda bo'lmagani yo'q qilish, borasida oddiy bir  ishga tushirivchi amallar kodini (one-liners ni) yoza chiqing ([ Exit status ma'nosidan ](https://www.gnu.org/software/bash/manual/html_node/Exit-Status.html)) qarab bajarishingiz .
 
-1. Write a script that takes a filename as an argument (`$1`) and checks
-   whether the file exists using `test -f` or `[ -f ... ]`. It should print
-   different messages depending on whether the file exists. See [Bash
-   Conditional
-   Expressions](https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html).
+1. `cd` katalogini o'zi maxsus ishlab kelishga - nega uni umuman faqat yangi joydagi shirin joy dasturlardan deb atalar? Buning asosiya sababi- `cd`ning nima asosi yo nimasi bo`lishidadir? (Yordam - bola jarayon nimalargani, ixtiyoriy vazifani - oldin yurgizgan ota jarayon - shunday tushuncha atvorlariga e'tibor)
 
-1. Save the script from the previous exercise to a file (e.g., `check.sh`).
-   Try running it with `./check.sh somefile`. What happens? Now run
-   `chmod +x check.sh` and try again. Why is this step necessary? (Hint:
-   look at `ls -l check.sh` before and after the `chmod`.)
+1. Bizga siz orqali - bir argument uchun yozuv(`$1`) berilib va ular orqali agar rostan ham ko`rmagan ishlarni yo o'sha test - (`test -f` yoxud usul   `[ -f ... ]`) da bo`lgan holat deb bilingchi . Bu xatolik yo'riqnomasida ikki turlicha shartli narsa topilsami fayl o'zi shular kabi harakatlanganga turishidagi bosib olsin  o'z fikrini - ko'rinuvchilarni topib chiqsin. Qarang; -( [Bash Conditional Expressions](https://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html). )
 
-1. What happens if you add `-x` to the `set` flags in a script? Try it with
-    a simple script and observe the output. See [The Set
-    Builtin](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
+1. Siz o'zingiz yozgan shu tayyor qo'llanmadagi kod ishtrokchi dasturni (sh) ni saqlash kerak bo'ladi ( masalan - olingda shunga: `check.sh`). Endi sinov tarzidan boshqarsakchi  `./check.sh somefile`. Ana, qanday o'zgarish guvohi bo'ldingiz ? Uni   `chmod +x check.sh` ko'rinishda o'z qadamini qaytadan ko'ring. Ana , Nima u sababi bu holga kirdi ?  ( Maslahat! fayllarga kelgan shundan `ls -l check.sh` ni ishiga kiradigan oldingisinikiy yo`lini `chmod` ga solishtirib chiqaring . ) 
 
-1. Write a command that copies a file to a backup with today's date in the
-    filename (e.g., `notes.txt` → `notes_2026-01-12.txt`). (Hint: `$(date
-    +%Y-%m-%d)`). See [Command
-    Substitution](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html).
+1. Skriptdagi flaglar ishorasi qachonki `set` bo'linishiga `-x`ni qo`shsangiz ishida , keyin usha amaliy holida natijalarda qayta nimalarda sinaysiz va nimagaga farqlanar ? Bundaylar izlanuvni  oddilashidan (kodlari ko`rinish  beriluvini ) - tushintirish - [ Set  buyruqlari  asosidan bilish mumkin ](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html) .
 
-1. Modify the flaky test script from the lecture to accept the test command
-    as an argument instead of hardcoding `cargo test my_test`. (Hint: `$1`
-    or `$@`). See [Special
-    Parameters](https://www.gnu.org/software/bash/manual/html_node/Special-Parameters.html).
+1. Har qanday va bugungi kundan ( yozib) ishlarga moslangan "bugungi maxsus vaqt sanali " ism ko'pinchalik asosiy qo'shilmasi  (Masalan: `notes.txt` dan to'g'irlab  → `notes_2026-01-12.txt`) deb chiqarishi aytish qilib aylanmasini ko`ring - shunday nusxa (backup ) berish kodi borasida buyruq yarating. (Yordamchi variant - `$(date +%Y-%m-%d)`). Bundan , maxsus  [ Buyruq almashtirish  xulosa bo'limi - ](https://www.gnu.org/software/bash/manual/html_node/Command-Substitution.html)'ni bilsak ish osonlashadi .
 
-1. Use pipes to find the 5 most common file extensions in your home
-    directory. (Hint: combine `find`, `grep` or `sed` or `awk`, `sort`,
-    `uniq -c`, and `head`.)
+1.  Ma'ruzalardagi oldin esda qoldirmagan holda sinab korgan ko'rib qat'iy tekshirgan testimiz - skriptlarning xatosin tuzatib qattiqlanganidan - uni maxsus berilgan xato kodida " cargo test my_test " nomi qaytada hardcoded turgani asno xuddi oldingi ishiga endi o`zingiz argument sifatida aylaninishda berin ko`ringчи :  ( Maslahat  - bu yer `$1` , yoki `$@`) . Maxsus joy [ Parametrlardagini olishda ](https://www.gnu.org/software/bash/manual/html_node/Special-Parameters.html).
 
-1. `xargs` converts lines from stdin into command arguments. Use `find` and
-    `xargs` together (not `find -exec`) to find all `.sh` files in a
-    directory and count the lines in each with `wc -l`. Bonus: make it
-    handle filenames with spaces. (Hint: `-print0` and `-0`). See `man
-    xargs`.
+1. Umumiy ishlashingizga tegishlii `|` xususiyatlik , asosiy `home` nomdagi papkada shunda asosan uchradigan qo'shilgan fayllarni nomini topilishda yordamlashadigan qidiruv zanjiri. (Yordam -  aralash o`rniga qo`ysa ishdir . . `find`, `grep` turidek , yo bo`lmasa `sed` va shuningdek `awk`, keyin ham `sort`, `uniq -c` lari va `head` kabi tildan eng zarurlarga maxsus kombinatsiyalashni amalda - natijasidagini topish ).
 
-1. Use `curl` to fetch the HTML of the course website
-    (`https://missing.csail.mit.edu/`) and pipe it to `grep` to count how
-    many lectures are listed. (Hint: look for a pattern that appears once
-    per lecture; use `curl -s` to silence the progress output.)
+1. `xargs` - standart oqimdagi satrdan chiqarib olishdan oldingi buyruqlarga kerak argument yo'rig'ini qo'yishga . Ikkalsi ham alal oqibat eng yordamli  `find` yo shu bilan `xargs` buyruqlari qiling  -( -exec dan qochgan bo'ling) bu bir katalog joy bo`limini `.sh` ni hammalaridan chiqarib bering-  chi shunda va undagi fayilning hamyoni qatori orqasida  -`wc -l` so'ralishlarining sonlarisiga javob topsin. Endi, katta sovg'asini bilmoq - yo`l oralariga ko'plab boshliqli interval qoldirish nomiga kiradi  : ularga shular qollanisi -- (-print0 ni - va maxsusiga -0 kiriting - yana bir ma'lumot)  -- yordam : `man xargs`.
 
-1. [`jq`](https://jqlang.github.io/jq/) is a powerful tool for processing
-    JSON data. Fetch the sample data at
-    `https://microsoftedge.github.io/Demos/json-dummy-data/64KB.json` with
-    `curl` and use `jq` to extract just the names of people whose version
-    is greater than 6. (Hint: pipe to `jq .` first to see the structure;
-    then try `jq '.[] | select(...) | .name'`)
+1. Asosiysi uni to'g'ri bajaring - `curl` ishi . Siz darslikdagi  shunday onlayn maxsus (saytdagi HTML ko'rinishi ) ma'lumoti orqasini (`https://missing.csail.mit.edu/`) shu zanjir `| `ga grep qo'shib yuborish bilangina uni natijasida usha nomidan biror ismini oqinib "barcha dars - lekitsiyalarni jami-i nechtalik qatorgacha chiqqani haqidan ' hisoblanadigan funksiyasin topishingizdir.   (Maslahat -  ma'ruzalar deb atalib boradi qanday ifodada ; ehtiyot yo`rganda shunday - xabarlar chiqmasga sukut bermoq- `curl -s`).
 
-1. `awk` can filter lines based on column values and manipulate output.
-    For example, `awk '$3 ~ /pattern/ {$4=""; print}'` prints only lines
-    where the third column matches `pattern`, while omitting the fourth
-    column. Write an `awk` command that prints only lines where the second
-    column is greater than 100, and swaps the first and third columns. Test
-    with: `printf 'a 50 x\nb 150 y\nc 200 z\n'`
+1. [`jq`](https://jqlang.github.io/jq/) -JSON kabi hujjatini ko`ruvchi asosiy asbobi. Bu "namuna" yozilma- malumot bilan  (`https://microsoftedge.github.io/Demos/json-dummy-data/64KB.json` dagi manzildada  ) va qilib oling `curl` va albatta yana uni  `jq` orqali- tahliladi - keyin aynan "versiyasi- 6 - kattasi bo'lgan fuqolardan " (person nomlarigani) - ajratsin deydi deganini. . Yana: zanjir `|` va yordam  : `jq .`   qayrilib (struktrasini ko'ring) va maslahatdan (`jq '.[] | select(...) | .name'` deb qidirib barchasining boshqa jarayonlarisiga yo'lni qo'ling).  
 
-1. Dissect the SSH log pipeline from the lecture: what does each step do?
-    Then build something similar to find your most-used shell commands from
-    `~/.bash_history` (or `~/.zsh_history`).
+1. Navbat esa : -  `awk` unga mos filtorli ko'rinish , masalanga asoslanuvchi - shunday ma'lum qatordagilarning ko'rsatilishi haqida  qabuldir . shunda misolni - `awk '$3 ~ /pattern/ {$4=""; print}'` - ushbudan izlanilgan pattern' lari uning uchunchu ustuunligdagi shartnomani yo unisanisini va keyingi qismi  - oxirgisidagi (4 ) ustuunda chiqarilmayotgani holdada. Shuni o'zingzda amaliyot - " faqat va faqat `ikkinchi qiymat-  ikkinchi qator ustuni ' - katta - 100 ligini bilishi holdagani , ammo boshqa o'zgarishda (birinichi bn -3) almashtilishga ish ko`radigan kodga olib chiqaring  . sinoviya kodi bu : `printf 'a 50 x\nb 150 y\nc 200 z\n' `!
+
+1. Ma'ruzadagi biz yaratganday bo'lgan o'sha ko'rgazmada keltirgan (SSH qatorni matnlilari) buyruqdagi ishimizdagi har joyidan- nimasi nechinchi-va sabab nimasligini bo'lishni aytib -o'tib yechilishini tahliling . Lekin ham ishni va o'zi topkan yangilikdek oddiy bilminigzni : siz ish yurotiydigan komandalarga sharoitiy tarix( log /history) va ya'ni aynan shellga maxsus ekani " eng kop buyuruqiingiz "- asosoiy (  `~/.bash_history`yoxud u yerdagi- `~/.zsh_history`. )  bo'lichiga oxshatib yarata chiqishingizmi - kutingan savollaridan biri !

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "2020-yil ma’ruzalari"
+title: "2020-yilgi ma’ruzalar"
 description: >
   Missing Semester 2020 ma’ruza matnlari va videolari
 permalink: /2020/

@@ -12,6 +12,8 @@ Bu kursni o‘zbek tiliga tarjima qilyapmiz. Agar tahrir yoki yangi bobni tarjim
 
 Tarjimaning joriy holatini [shu yerda](https://github.com/missing-semester-uz/missing-semester-uz.github.io?tab=readme-ov-file#loyiha-holati) kuzatib borishingiz mumkin.
 
+Terminlarni tarjima qilishda qulaylik uchun hamma terminlarni [glossariyga](glossary.md) yig'dik. Agar biror termin tarjimasini to'g'irlasak yoki yaxshiroq variantini topsak, uni hamma fayllarda almashtira olamiz.
+
 | # | bo‘limlar | tarjima holati |
 | :-: |   --------   |  :----------:  |
 | 1 | [course-shell.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/course-shell.md)  | `Tarjima jarayonida 🛠️` |

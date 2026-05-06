@@ -79,4 +79,4 @@ Shu va boshqa mavzular 9 ta ma’ruzalar davomida yoritiladi. Har bir ma’ruzad
 Umid qilamizki, yanvar oyida siz bilan virtual yoki shaxsan ko‘rishamiz!
 
 Xakerlikka xush kelibsiz,<br>
-[Anish](https://anish.io/), [Jon](https://thesquareplanet.com/), and [Jose](https://josejg.com/)
+[Anish](https://anish.io/), [Jon](https://thesquareplanet.com/), va [Jose](https://josejg.com/)
