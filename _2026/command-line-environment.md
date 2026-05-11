@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Command-line Environment"
+title: "Buyruqlar satri muhiti"
 description: >
-  Learn how command-line programs work, including input/output streams, environment variables, and remote machines with SSH.
+  Buyruqlar satri qanday ishlashi, jumladan kirish/chiqish oqimlari, muhit o'zgaruvchilari va SSH orqali masofaviy mashinalar bilan ishlashni o'rganamiz.
 thumbnail: /static/assets/thumbnails/2026/lec2.png
 date: 2026-01-13
 ready: true
@@ -11,24 +11,23 @@ video:
   id: ccBGsPedE9Q
 ---
 
-As we covered in the previous lecture, most shells are not a mere launcher to start up other programs,
-but in practice they provide an entire programming language full of common patterns and abstractions.
-However, unlike the majority of programming languages, in shell scripting everything is designed around running programs and getting them to communicate with each other simply and efficiently.
+Oldingi ma'ruzada ko'rib chiqqanimizdek, ko'pgina shell'lar boshqa dasturlarni ishga tushirish uchun oddiy ishga tushiruvchi (launcher) emas, balki amalda ular keng tarqalgan shablonlar va abstraksiyalarga boy bo'lgan to'liq dasturlash tilini taqdim etadi.
+Biroq, ko'pgina dasturlash tillaridan farqli o'laroq, shell skriptlarida hamma dasturlarni ishga tushirish va ularni bir-biri bilan sodda va samarali aloqa qilishiga qaratilgan.
 
-In particular, shell scripting is tightly bound by _conventions_. For a command line interface (CLI) program to play nicely within the broader shell environment there are some common patterns that it needs to follow.
-We will now cover many of the concepts required to understand how command line programs work as well as ubiquitous conventions on how to use and configure them.
+Xususan, shell skriptlari _konvensiyalar_ bilan chambarchas bog'liq. Buyruqlar satri interfeysi (CLI) dasturi kengroq shell muhitida yaxshi ishlashi uchun u rioya qilishi kerak bo'lgan ba'zi umumiy shablonlar mavjud.
+Endi biz buyruqlar satri dasturlari qanday ishlashini tushunish uchun zarur bo'lgan ko'plab tushunchalarni, shuningdek, ulardan qanday foydalanish va sozlash bo'yicha keng tarqalgan konvensiyalarni ko'rib chiqamiz.
 
-# The Command Line Interface
+# Buyruqlar satri interfeysi
 
-Writing a function in most programming languages looks something like:
+Aksariyat dasturlash tillarida funksiya yozish taxminan shunday ko'rinadi:
 
 ```
 def add(x: int, y: int) -> int:
     return x + y
 ```
 
-Here we can explicitly see the inputs and the outputs of the program.
-In contrast, shell scripts can look quite different at first glance.
+Bu yerda biz dasturning kirish va chiqish ma'lumotlarini aniq ko'rishimiz mumkin.
+Bunga farqli o'laroq, shell skriptlari bir qarashda butunlay boshqacha ko'rinishi mumkin.
 
 ```shell
 #!/usr/bin/env bash
@@ -46,39 +45,39 @@ else
 fi
 ```
 
-To properly understand what is going in scripts like this one we first need to introduce a few concepts that appear often when shell programs communicate with each other or with the shell environment:
+Bunga o'xshash skriptlarda nima sodir bo'layotganini to'g'ri tushunish uchun avvalo shell dasturlari bir-biri bilan yoki shell muhiti bilan aloqa qilganda tez-tez uchraydigan bir nechta tushunchalarni kiritishimiz kerak:
 
-- Arguments
-- Streams
-- Environment variables
-- Return codes
-- Signals
+- Argumentlar (Arguments)
+- Oqimlar (Streams)
+- Muhit o'zgaruvchilari (Environment variables)
+- Qaytish kodlari (Return codes)
+- Signallar (Signals)
 
-## Arguments
+## Argumentlar
 
-Shell programs receive a list of arguments when they are executed.
-Arguments are plain strings in shell, and it is up to the program how to interpret them.
-For instance when we do `ls -l folder/`, we are executing the program `/bin/ls` with arguments `['-l', 'folder/']`.
+Shell dasturlari ishga tushirilganda argumentlar ro'yxatini qabul qiladi.
+Argumentlar shell'da oddiy satrlar (string) bo'lib, ularni qanday talqin qilish dasturning o'ziga bog'liq.
+Masalan, biz `ls -l folder/` qilsak, biz `/bin/ls` dasturini `['-l', 'folder/']` argumentlari bilan ishga tushirayotgan bo'lamiz.
 
-From within a shell script we access these via special shell syntax.
-To access the first argument we access the variable `$1`, second argument `$2` and so on and so forth until `$9`. To access all arguments as a list we use `$@` and to retrieve the number of arguments `$#`. Additionally we can also access the name of the program with `$0`.
+Shell skripti ichidan biz ularga maxsus shell sintaksisi orqali murojaat qilamiz.
+Birinchi argumentga murojaat qilish uchun `$1` o'zgaruvchisidan, ikkinchisiga `$2` va hokazo to `$9` gacha murojaat qilamiz. Barcha argumentlarni ro'yxat sifatida olish uchun `$@` va argumentlar sonini olish uchun `$#` dan foydalanamiz. Bundan tashqari, dastur nomiga `$0` orqali murojaat qilishimiz mumkin.
 
-For most programs the arguments will consist of a mixture of _flags_ and regular strings.
-Flags can be identified because they are preceded by a dash (`-`) or double-dash (`--`).
-Flags are usually optional and their role is to modify the behavior of the program.
-For example `ls -l` changes how `ls` formats its output.
+Aksariyat dasturlar uchun argumentlar _bayroqlar_ (flags) va oddiy satrlar aralashmasidan iborat bo'ladi.
+Bayroqlarni aniqlash mumkin, chunki ularning oldida chiziqcha (`-`) yoki qo'sh chiziqcha (`--`) bo'ladi.
+Bayroqlar odatda ixtiyoriy bo'lib, ularning vazifasi dasturning ishlashini o'zgartirishdir.
+Masalan, `ls -l` buyrug'i `ls` o'z chiqishini qanday formatlashini o'zgartiradi.
 
-You will see double dash flags with long names like `--all`, and single dash flags like `-a`, which are most often followed by a single letter.
-The same option might be specified in both formats, `ls -a` and `ls --all` are equivalent.
-Single dash flags are often grouped, so `ls -l -a` and `ls -la` are also equivalent.
-The order of flags usually doesn't matter either, `ls -la` and `ls -al` produce the same result.
-Some flags are quite prevalent and as you get more familiar with the shell environment you'll intuitively reach for them, for example (`--help`, `--verbose`, `--version`).
+Siz `--all` kabi uzun nomli qo'sh chiziqchali bayroqlarni va ko'pincha bitta harf bilan keladigan `-a` kabi bitta chiziqchali bayroqlarni ko'rasiz.
+Bir xil parametr har ikkala formatda ko'rsatilishi mumkin, `ls -a` va `ls --all` ekvivalentdir.
+Bitta chiziqchali bayroqlar ko'pincha guruhlanadi, shuning uchun `ls -l -a` va `ls -la` ham ekvivalentdir.
+Bayroqlarning ketma-ketligi ham odatda muhim emas, `ls -la` va `ls -al` bir xil natijani beradi.
+Ba'zi bayroqlar juda keng tarqalgan va shell muhiti bilan ko'proq tanishganingiz sari siz intuitiv ravishda ularga murojaat qilasiz, masalan (`--help`, `--verbose`, `--version`).
 
-> Flags are a first good example of shell conventions. The shell language does not require that our program uses `-` or `--` in this particular way.
-Nothing prevents us from writing a program with syntax `myprogram +myoption myfile`, but it would lead to confusion since the expectation is that we use dashes.
-> In practice, most programming languages provide CLI flag parsing libraries (e.g. `argparse` in python to parse arguments with the dash syntax).
+> Bayroqlar shell konvensiyalariga yaxshi birinchi misoldir. Shell tili dasturimizdan ma'lum bir tarzda `-` yoki `--` dan foydalanishni talab qilmaydi.
+Bizga `myprogram +myoption myfile` sintaksisiga ega dastur yozishga hech narsa to'sqinlik qilmaydi, lekin bu chalkashlikka olib kelishi mumkin, chunki chiziqchalardan foydalanish kutiladi.
+> Amalda ko'pgina dasturlash tillari CLI bayroqlarini tahlil qilish (parsing) kutubxonalarini taqdim etadi (masalan, chiziqcha sintaksisi bilan argumentlarni tahlil qilish uchun python'da `argparse`).
 
-Another common convention in CLI programs is for programs to accept a variable number of arguments of the same type. When given arguments in this way the command performs the same operation on each one of them.
+CLI dasturlaridagi yana bir keng tarqalgan konvensiya - dasturlar bir xil turdagi o'zgaruvchan sondagi argumentlarni qabul qilishidir. Ushbu usulda argumentlar berilganda buyruq ularning har birida bir xil amaliyotni bajaradi.
 
 ```shell
 mkdir src
@@ -87,10 +86,10 @@ mkdir docs
 mkdir src docs
 ```
 
-This syntax sugar might seem unnecessary at first, but it becomes really powerful when combined with _globbing_.
-Globbing or globs are special patterns that the shell will expand before calling the program.
+Bu sintaksis (syntax sugar) bir qarashda keraksiz bo'lib tuyulishi mumkin, ammo u _glob_ bilan birgalikda ishlatilganda haqiqatan ham kuchli bo'ladi.
+Glob'lar - bu shell dasturni chaqirishdan oldin kengaytiradigan maxsus naqshlar (patterns).
 
-Say we wanted to delete all .py files in the current folder nonrecursively. From what we learned in the previous lecture we could achieve this by running
+Deylik, biz joriy katalogdagi barcha .py fayllarini rekursiv bo'lmagan tarzda o'chirmoqchimiz. Oldingi ma'ruzada o'rganganlarimizdan shuni quyidagicha ishga tushirish orqali amalga oshirishimiz mumkin edi:
 
 ```shell
 for file in $(ls | grep -P '\.py$'); do
@@ -98,16 +97,16 @@ for file in $(ls | grep -P '\.py$'); do
 done
 ```
 
-But we can replace that with just `rm *.py`!
+Lekin biz uni oddiygina `rm *.py` bilan almashtirishimiz mumkin!
 
-When we type `rm *.py` into the terminal, the shell will not call the `/bin/rm` program with arguments `['*.py']`.
-Instead, the shell will search for files in the current folder matching the pattern `*.py` where `*` can match any string of zero or more characters of any type.
-So if our folder has `main.py` and `utils.py` then the `rm` program will receive arguments `['main.py', 'utils.py']`.
+Terminalga `rm *.py` deb yozganimizda, shell `/bin/rm` dasturini `['*.py']` argumenti bilan chaqirmaydi.
+Buning o'rniga, shell joriy katalogda `*.py` namunasiga mos keladigan fayllarni qidiradi, bu yerda `*` istalgan turdagi noldan yoki undan ko'p belgilarga ega satrga mos kelishi mumkin.
+Shunday qilib, agar bizning katalogimizda `main.py` va `utils.py` bo'lsa, u holda `rm` dasturi `['main.py', 'utils.py']` argumentlarini qabul qiladi.
 
-The most common globs you will find are wildcards `*` (zero or more of anything), `?` (exactly one of anything) and curly braces.
-Curly braces `{}` expand a comma-separated list of patterns into multiple arguments.
+Siz uchratadigan eng keng tarqalgan glob'lar bu shablon belgilari (wildcards): `*` (nolinchi yoki istalgancha), `?` (aynan bitta istalgan belgi) va jingalak qavslardir.
+Jingalak qavslar `{}` naqshlarning vergul bilan ajratilgan ro'yxatini bir nechta argumentlarga kengaytiradi.
 
-In practice, globs are best understood with motivating examples.
+Amalda glob'larni misollar yordamida yaxshiroq tushunish mumkin.
 
 ```shell
 touch folder/{a,b,c}.py
@@ -127,25 +126,24 @@ mv *{.py,.sh} folder
 # Will move all *.py and *.sh files
 ```
 
-> Some shells (e.g. zsh) support even more advanced forms of globbing such as `**` that will expand to include recursive paths. So `rm **/*.py` will delete all .py files recursively.
+> Ba'zi shell'lar (masalan, zsh) yanada rivojlangan glob turlarini qo'llab-quvvatlaydi, masalan `**`, bu rekursiv yo'llarni kiritish uchun kengaytiriladi. Ya'ni `rm **/*.py` barcha .py fayllarini rekursiv ravishda o'chirib tashlaydi.
 
+## Oqimlar
 
-## Streams
-
-Whenever we execute a program pipeline like
+Qachonki biz quyidagi kabi pipeline'ni ishga tushirsak
 
 ```shell
 cat myfile | grep -P '\d+' | uniq -c
 ```
 
-we see that the `grep` program is communicating with both the `cat` and `uniq` programs.
+biz `grep` dasturi `cat` va `uniq` dasturlari bilan aloqa qilayotganini ko'ramiz.
 
-An important observation here is that all three programs are executing at once.
-Namely, the shell is not first calling cat, then grep, and then uniq.
-Instead, all three programs are being spawned and the shell is connecting the output of cat to the input of grep and the output of grep to the input of uniq.
-When using the pipe operator `|`, the shell operates on streams of data that flow from one program to the next in the chain.
+Bu yerdagi muhim jihat shundaki, barcha uchala dastur bir vaqtning o'zida ishlamoqda.
+Boshqacha aytganda, shell avval cat'ni, keyin grep'ni va keyin uniq'ni chaqirmayapti.
+Buning o'rniga, uchala dastur ham yaratiladi va shell cat chiqishini grep kirishiga, grep chiqishini esa uniq kirishiga ulaydi.
+`|` operatoridan foydalanganda, shell zanjirdagi bitta dasturdan keyingisiga o'tadigan ma'lumotlar oqimlarida ishlaydi.
 
-We can demonstrate this concurrency, all commands in a pipeline start immediately:
+Biz ushbu parallellikni ko'rsatishimiz mumkin, pipeline'dagi barcha buyruqlar darhol ishga tushadi:
 
 ```console
 $ (sleep 15 && cat numbers.txt) | grep -P '^\d$' | sort | uniq  &
@@ -158,9 +156,9 @@ $ ps | grep -P '(sleep|cat|grep|sort|uniq)'
   32948 pts/1    00:00:00 grep
 ```
 
-We can see that all processes but `cat` are running right away. The shell spawns all processes and connects their streams before any of them finish. `cat` will only get started once sleep finishes, and the output of `cat` will be sent to grep and so on and so forth.
+Biz ko'rib turibmizki, `cat`'dan tashqari barcha jarayonlar darhol ishlamoqda. Shell barcha jarayonlarni yaratadi va ularning birortasi tugashidan oldin ularning oqimlarini ulaydi. `cat` faqat sleep tugagandan so'ng ishga tushadi va `cat` natijasi grep'ga va hokazo uzatiladi.
 
-Every program has an input stream, labeled stdin (for standard input). When piping, stdin is connected automatically. Within a script, many programs accept `-` as a filename to mean "read from stdin":
+Har bir dasturning standart kirish deb ataladigan bitta kirish oqimi mavjud (stdin). Pipeline qilinganida, stdin avtomatik tarzda ulanadi. Skript ichida ko'plab dasturlar fayl nomi sifatida `-` belgisini qabul qiladi, bu "stdin'dan o'qish" ni anglatadi:
 
 ```shell
 # These are equivalent when data comes from a pipe
@@ -168,9 +166,9 @@ echo "hello" | grep "hello"
 echo "hello" | grep "hello" -
 ```
 
-Similarly, every program has two output streams: stdout and stderr.
-The standard output is the one most commonly encountered and it is the one that is used for piping the output of the program to the next command in the pipeline.
-The standard error is an alternative stream that is intended for programs to report warnings and other types of issues, without that output getting parsed by the next command in the chain.
+Xuddi shunday, har bir dasturda ikkita chiqish oqimi mavjud: stdout va stderr.
+Standart chiqish (stdout) eng ko'p uchraydigan hisoblanadi va aynan u dastur chiqishini pipeline'dagi keyingi buyruqqa yo'naltirish (pipe) uchun ishlatiladi.
+Standart xato (stderr) qo'shimcha oqim bo'lib, u chiqish zanjiridagi keyingi buyruq tomonidan tahlil qilinmasdan turib dasturlar ogohlantirishlar va boshqa turdagi muammolar haqida xabar berishlari uchun mo'ljallangan.
 
 ```console
 $ ls /nonexistent
@@ -182,7 +180,7 @@ $ ls /nonexistent 2>/dev/null
 # No output - stderr was redirected to /dev/null
 ```
 
-The shell provides syntax for redirecting these streams. Here are some illustrative examples.
+Shell ushbu oqimlarni qayta yo'naltirish (redirect) uchun sintaksisni taqdim etadi. Buni ko'rsatuvchi ba'zi misollar:
 
 ```shell
 # Redirect stdout to a file (overwrite)
@@ -204,26 +202,25 @@ grep "pattern" < input.txt
 cmd > /dev/null 2>&1
 ```
 
-Another powerful tool that exemplifies the Unix philosophy is [`fzf`](https://github.com/junegunn/fzf), a fuzzy finder. It reads lines from stdin and provides an interactive interface to filter and select:
+Unix falsafasini o'zida mujassam etgan yana bir kuchli vosita - bu [`fzf`](https://github.com/junegunn/fzf), loyqa qidiruv vositasi. U stdin'dan qatorlarni o'qiydi va filtrlash va tanlash uchun interaktiv interfeysni taqdim etadi:
 
 ```console
 $ ls | fzf
 $ cat ~/.bash_history | fzf
 ```
 
-`fzf` can be integrated with many shell operations. We'll see more uses of it when we discuss shell customization.
+`fzf` ni ko'plab shell amallari bilan birlashtirish mumkin. Shell'ni sozlashni muhokama qilganda biz uning ko'proq ishlatilishini ko'ramiz.
 
+## Muhit o'zgaruvchilari
 
-## Environment variables
+Bash'da o'zgaruvchilarga qiymat berish uchun `foo=bar` sintaksisidan foydalanamiz, so'ngra `$foo` sintaksisi bilan o'zgaruvchining qiymatiga murojaat qilamiz.
+E'tibor bering, `foo = bar` yaroqsiz sintaksis hisoblanadi, chunki shell uni `foo` dasturini `['=', 'bar']` argumentlari bilan chaqirish deb qabul qiladi.
+Shell skriptida bo'sh joy belgisining roli argumentlarni ajratishdir.
+Bunday xatti-harakatlar chalkash bo'lishi va unga o'rganish qiyin bo'lishi mumkin, shuning uchun buni yodda tuting.
 
-To assign variables in bash we use the syntax `foo=bar`, and then access the value of the variable with the `$foo` syntax.
-Note that `foo = bar` is invalid syntax as the shell will parse it as calling the program `foo` with arguments `['=', 'bar']`.
-In shell scripting the role of the space character is to perform argument splitting.
-This behavior can be confusing and tricky to get used to, so keep it in mind.
-
-Shell variables do not have types, they are all strings.
-Note that when writing string expressions in the shell single and double quotes are not interchangeable.
-Strings delimited with `'` are literal strings and will not expand variables, perform command substitution, or process escape sequences, whereas `"` delimited strings will.
+Shell o'zgaruvchilarining tiplari yo'q, ularning barchasi satrlardir.
+E'tibor bering, shell'da satrli ifodalarni yozishda bitta tirnoq va qo'shtirnoq o'zaro almashinuvchan emas.
+`'` bilan ajratilgan satrlar literal satrlar bo'lib, o'zgaruvchilarni kengaytirmaydi, buyruq almashtirishni (command substitution) amalga oshirmaydi yoki maxsus ketma-ketliklarni qayta ishlamaydi, ammo `"` bilan ajratilgan satrlar esa bularni bajaradi.
 
 ```shell
 foo=bar
@@ -233,32 +230,34 @@ echo '$foo'
 # prints $foo
 ```
 
-To capture the output of a command into a variable we use _command substitution_.
-When we execute
+Buyruqning chiqishini o'zgaruvchiga saqlash uchun biz _buyruq almashtirish_ (command substitution) ni ishlatamiz.
+Qachonki biz
+
 ```shell
 files=$(ls)
 echo "$files" | grep README
 echo "$files" | grep ".py"
 ```
-the output (concretely the stdout) of ls is placed into the variable `$files` which we can access later.
-The content of the `$files` variable does include the newlines from the ls output, which is how programs like `grep` know to operate on each item independently.
 
-A lesser known similar feature is _process substitution_, `<( CMD )` will execute `CMD` and place the output in a temporary file and substitute the `<()` with that file's name.
-This is useful when commands expect values to be passed by file instead of by STDIN.
-For example, `diff <(ls src) <(ls docs)` will show differences between files in dirs `src` and `docs`.
+ni ishga tushirsak, ls'ning chiqishi (aniqrog'i stdout) keyinchalik kirishimiz mumkin bo'lgan `$files` o'zgaruvchisiga saqlanadi.
+`$files` o'zgaruvchisining tarkibi ls chiqishidagi yangi qator belgilari (newlines) ni o'z ichiga oladi, shuning uchun `grep` kabi dasturlar har bir element bilan alohida ishlashni biladi.
 
-Whenever a shell program calls another program it passes along a set of variables that are often referred to as _environment variables_.
-From within a shell we can find the current environment variables by running `printenv`.
-To pass an environment variable explicitly we can prepend a command with a variable assignment
+Yana bir kamroq ma'lum bo'lgan o'xshash xususiyat bu _jarayonni almashtirish_ (process substitution). `<( CMD )` `CMD` ni ishga tushiradi va chiqishni vaqtinchalik faylga qo'yadi va `<()` ni ushbu faylning nomi bilan almashtiradi.
+Bu buyruqlar ma'lumotlarni STDIN orqali emas, fayl orqali o'tkazishni kutganda foydali bo'ladi.
+Masalan, `diff <(ls src) <(ls docs)` buyrug'i `src` va `docs` kataloglaridagi fayllar o'rtasidagi farqlarni ko'rsatadi.
 
-> Environment variables are conventionally written in ALL_CAPS (e.g., `HOME`, `PATH`, `DEBUG`). This is a convention, not a technical requirement, but following it helps distinguish environment variables from local shell variables which are typically lowercase.
+Qachonki shell dasturi boshqa dasturni chaqirganda u tez-tez _muhit o'zgaruvchilari_ deb ataladigan o'zgaruvchilar to'plamini uzatadi.
+Shell ichidan biz `printenv` buyrug'ini ishga tushirish orqali joriy muhit o'zgaruvchilarini topishimiz mumkin.
+Muhit o'zgaruvchisini to'g'ridan-to'g'ri berish uchun buyruqdan oldin o'zgaruvchini tayinlashimiz mumkin:
+
+> Muhit o'zgaruvchilari odatda BARCHA_BOSH_HARFLAR (masalan, `HOME`, `PATH`, `DEBUG`) da yoziladi. Bu texnik jihatdan talab qilinmasa ham, ko'pincha kichik harflarda bo'ladigan lokal shell o'zgaruvchilaridan muhit o'zgaruvchilarini ajratishga yordam beruvchi konvensiya hisoblanadi.
 
 ```shell
 TZ=Asia/Tokyo date  # prints the current time in Tokyo
 echo $TZ  # this will be empty, since TZ was only set for the child command
 ```
 
-Alternatively, we can use the `export` built-in function that will modify our current environment and thus all child processes will inherit the variable:
+Shu bilan bir qatorda, biz joriy muhitni o'zgartiruvchi, o'rnatilgan `export` funksiyasidan foydalanishimiz mumkin va shunday qilib barcha bola jarayonlar o'zgaruvchini meros qilib oladi:
 
 ```shell
 export DEBUG=1
@@ -267,23 +266,23 @@ bash -c 'echo $DEBUG'
 # prints 1
 ```
 
-To delete a variable use the `unset` built-in command, e.g. `unset DEBUG`.
+O'zgaruvchini o'chirish uchun `unset` buyrug'idan foydalaning, masalan `unset DEBUG`.
 
-> Environment variables are another shell convention. They can be used to modify the behavior of many programs implicitly rather than explicitly. For example, the shell sets the `$HOME` environment variable with the path of the home folder of the current user. Then programs can access this variable to get this information instead of requiring an explicit `--home /home/alice`. Another common example is `$TZ`, which many programs use to format dates and times according to the specified timezone.
+> Muhit o'zgaruvchilari shell konvensiyasining yana bir namunasidir. Ular ko'plab dasturlarning ishlashini to'g'ridan-to'g'ri emas, bilvosita o'zgartirish uchun ishlatilishi mumkin. Masalan, shell joriy foydalanuvchi uy katalogining yo'li bilan `$HOME` muhit o'zgaruvchisini o'rnatadi. Shundan so'ng dasturlar ushbu ma'lumotni olish uchun `—home /home/alice` kabi aniq bayroq talab qilmasdan, ushbu o'zgaruvchiga ulanishi mumkin. Yana bir keng tarqalgan misol bu `$TZ`, ko'pgina dasturlar belgilangan vaqt mintaqasiga ko'ra sana va vaqtlarni formatlash uchun bundan foydalanadilar.
 
-## Return codes
+## Qaytish kodlari
 
-As we saw earlier, the main output of a shell program is conveyed through the stdout/stderr streams and filesystem side effects.
+Oldin ko'rib o'tganimizdek, shell dasturining asosiy natijasi stdout/stderr oqimlari va fayl tizimi ta'sirlari orqali yetkaziladi.
 
-By default a shell script will return exit code zero.
-The convention is that zero means everything went well whereas nonzero means some issues were encountered.
-To return a nonzero exit code we have to use the `exit NUM` shell built-in.
-We can access the return code of the last command that was run by accessing the special variable `$?`.
+Odatiy holda shell skripti nolinchi chiqish kodini qaytaradi.
+Konvensiyaga ko'ra, nol hamma narsa yaxshi o'tganligini bildiradi, noldan farqli qiymat esa qandaydir muammolarga duch kelganini anglatadi.
+Noldan farqli chiqish kodini qaytarish uchun biz `exit NUM` shell buyrug'idan foydalanishimiz kerak.
+Biz `$?` maxsus o'zgaruvchisiga kirish orqali oxirgi bajarilgan buyruqning qaytish kodiga kirishimiz mumkin.
 
-The shell has boolean operators `&&` and `||` for performing AND and OR operations respectively.
-Unlike those encountered in regular programming languages, the ones in the shell operate on the return code of programs.
-Both of these are [short-circuiting](https://en.wikipedia.org/wiki/Short-circuit_evaluation) operators.
-This means that they can be used to conditionally run commands based on the success or failure of previous commands, where success is determined based on whether the return code is zero or not. Some examples:
+Shell'da mos ravishda mantiqiy AND va OR amallarini bajarish uchun `&&` va `||` mantiqiy operatorlari mavjud.
+Oddiy dasturlash tillarida uchraydigan operatorlardan farqli o'laroq, shell'dagi operatorlar dasturlarning qaytish kodlariga asoslanadi.
+Bularning har ikkalasi [qisqa tutashuvchi](https://en.wikipedia.org/wiki/Short-circuit_evaluation) (short-circuiting) operatorlardir.
+Bu shuni anglatadiki, ular avvalgi buyruqlarning muvaffaqiyati yoki muvaffaqiyatsizligiga asoslanib buyruqlarni shartli ravishda ishga tushirish uchun ishlatilishi mumkin, bunda muvaffaqiyat qaytish kodining nol yoki nol emasligi bilan belgilanadi. Ba'zi misollar:
 
 ```shell
 # echo will only run if grep succeeds (finds a match)
@@ -299,7 +298,7 @@ true && echo "This will always print"
 false || echo "This will always print"
 ```
 
-The same principle applies to `if` and `while` statements, they both use return codes to make decisions:
+Xuddi shu tamoyil `if` va `while` operatorlariga ham tegishli bo'lib, ularning ikkalasi ham qaror qabul qilish uchun qaytish kodlaridan foydalanadi:
 
 ```shell
 # if uses the return code of the condition command (0 = true, nonzero = false)
@@ -313,11 +312,11 @@ while read line; do
 done < file.txt
 ```
 
-## Signals
+## Signallar
 
-In some cases you will need to interrupt a program while it is executing, for instance if a command is taking too long to complete.
-The simplest way to interrupt a program is to press `Ctrl-C` and the command will probably stop.
-But how does this actually work and why does it sometimes fail to stop the process?
+Ba'zi hollarda siz dasturni ishlayotganda to'xtatishingiz kerak bo'ladi, masalan, buyruqning bajarilishi juda uzoq vaqt talab qilsa.
+Dasturni to'xtatishning eng oson usuli bu `Ctrl-C` tugmalarini bosishdir va buyruq ehtimol to'xtaydi.
+Lekin bu aslida qanday ishlaydi va nima uchun ba'zida jarayonni to'xtata olmaydi?
 
 ```console
 $ sleep 100
@@ -325,21 +324,20 @@ $ sleep 100
 $
 ```
 
-> Note, here `^C` is how `Ctrl-C` is displayed when typed in the terminal.
+> Esda tuting, bu yerda `^C` terminalda yozilganda `Ctrl-C` qanday ko'rsatilishini bildiradi.
 
-Under the hood, what happened here is the following:
+Ichki tomondan bu yerda nima yuz bergani:
 
-1. We pressed `Ctrl-C`
-2. The shell identified the special combination of characters
-3. The shell process sent a SIGINT signal to the `sleep` process
-4. The signal interrupted the execution of the `sleep` process
+1. Biz `Ctrl-C` ni bosdik
+2. Shell belgilarnning maxsus kombinatsiyasini aniqladi
+3. Shell jarayoni `sleep` jarayoniga SIGINT signalini yubordi
+4. Signal `sleep` jarayonining bajarilishini to'xtatdi
 
-Signals are a special communication mechanism.
-When a process receives a signal it stops its execution, deals with the signal and potentially changes the flow of execution based on the information that the signal delivered. For this reason, signals are _software interrupts_.
+Signallar maxsus aloqa mexanizmi hisoblanadi.
+Jarayon signalni qabul qilganda, u o'z ishini to'xtatadi, signal bilan ishlaydi va potensial ravishda signal bergan ma'lumot asosida bajarilish oqimini o'zgartiradi. Shuning uchun signallar _dasturiy to'xtatilishlardir_ (software interrupts).
 
-
-In our case, when typing `Ctrl-C` this prompts the shell to deliver a `SIGINT` signal to the process.
-Here's a minimal example of a Python program that captures `SIGINT` and ignores it, no longer stopping. To kill this program we can now use the `SIGQUIT` signal instead, by typing `Ctrl-\`.
+Bizning holatda, `Ctrl-C` ni terish shell'ga jarayonga `SIGINT` signalini yuborish so'rovini anglatadi.
+Quyida `SIGINT` ni qamrab oladigan va e'tiborsiz qoldiradigan, endi to'xtamaydigan Python dasturining minimal namunasi keltirilgan. Ushbu dasturni yo'q qilish uchun endi `Ctrl-\` tugmachasini yozib `SIGQUIT` signalidan foydalanishimiz mumkin.
 
 ```python
 #!/usr/bin/env python
@@ -356,7 +354,7 @@ while True:
     i += 1
 ```
 
-Here's what happens if we send `SIGINT` twice to this program, followed by `SIGQUIT`. Note that `^` is how `Ctrl` is displayed when typed in the terminal.
+Bu yerda agar biz ushbu dasturga ikki marta `SIGINT`, so'ngra `SIGQUIT` yuborsak nima bo'ladi. E'tibor bering, `^` belgisini terminalda yozishda `Ctrl` qanday ko'rsatilishi mumkin.
 
 ```console
 $ python sigint.py
@@ -367,25 +365,24 @@ I got a SIGINT, but I am not stopping
 30^\[1]    39913 quit       python sigint.py
 ```
 
-While `SIGINT` and `SIGQUIT` are both usually associated with terminal related requests, a more generic signal for asking a process to exit gracefully is the `SIGTERM` signal.
-To send this signal we can use the [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) command, with the syntax `kill -TERM <PID>`.
+Garchand `SIGINT` va `SIGQUIT` ikkalasi ham odatda terminalga tegishli so'rovlar bilan bog'liq bo'lsa-da, jarayondan chiroyli tarzda chiqishni so'rash uchun umumiyroq signal - `SIGTERM` signali hisoblanadi.
+Ushbu signalni yuborish uchun biz `kill -TERM <PID>` sintaksisiga ega bo'lgan [`kill`](https://www.man7.org/linux/man-pages/man1/kill.1.html) buyrug'idan foydalanishimiz mumkin.
 
-Signals can do other things beyond killing a process. For instance, `SIGSTOP` pauses a process. In the terminal, typing `Ctrl-Z` will prompt the shell to send a `SIGTSTP` signal, short for Terminal Stop (i.e. the terminal's version of `SIGSTOP`).
+Signallar jarayonni o'ldirishdan boshqa amallarni ham bajarishi mumkin. Masalan, `SIGSTOP` jarayonni to'xtatib turadi. Terminalda `Ctrl-Z` deb yozish shell'ni Terminal to'xtatilishi (ya'ni `SIGSTOP` ning terminal uchun versiyasi) ma'nosini bildiruvchi `SIGTSTP` signalini yuborishga majbur qiladi.
 
-We can then continue the paused job in the foreground or in the background using [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) or [`bg`](https://man7.org/linux/man-pages/man1/bg.1p.html), respectively.
+Siz to'xtatilgan vazifani mos ravishda [`fg`](https://www.man7.org/linux/man-pages/man1/fg.1p.html) yoki [`bg`](https://man7.org/linux/man-pages/man1/bg.1p.html) yordamida old (foreground) yoki orqa (background) fonda davom ettirishingiz mumkin.
 
-The [`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) command lists the unfinished jobs associated with the current terminal session.
-You can refer to those jobs using their pid (you can use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find that out).
-More intuitively, you can also refer to a process using the percent symbol followed by its job number (displayed by `jobs`). To refer to the last backgrounded job you can use the `$!` special parameter.
+[`jobs`](https://www.man7.org/linux/man-pages/man1/jobs.1p.html) buyrug'i joriy terminal seansi bilan bog'liq bo'lgan chala vazifalar (jobs) ro'yxatini chiqaradi.
+Siz ularga pidi orqali ham murojaat qilishingiz mumkin (buni bilish uchun [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) dan foydalansangiz bo'ladi).
+Intuitivroq qilib aytganda, siz vazifaga uning `jobs` tomonidan ko'rsatiladigan vazifa raqamidan so'ng foiz belgisini qo'ygan holda ham murojaat qilishingiz mumkin. Orqa fon (background)ga o'tkazilgan oxirgi vazifaga murojaat qilish uchun siz `$!` maxsus parametridan foydalanishingiz mumkin.
 
-One more thing to know is that the `&` suffix in a command will run the command in the background, giving you the prompt back, although it will still use the shell's STDOUT which can be annoying (use shell redirections in that case). Equivalently, to background an already running program you can do `Ctrl-Z` followed by `bg`.
+Yana shuni bilish kerakki, buyruqdagi `&` suffiksi buyruqni orqa fonda ishlatib, sizga so'rov satrini qaytaradi, garchi u baribir shell'ning STDOUT idan foydalansa ham va bu zerikarli bo'lishi mumkin (bunday hollarda shell oqimini qayta yo'naltirish - redirections dan foydalaning). Ekvivalent tarzda, allaqachon ishlayotgan dasturni fonda ishlashga o'tkazish uchun `Ctrl-Z` ni, keyin esa `bg` ni yozishingiz mumkin.
 
+E'tibor bering, orqa fonga (background) tushirilgan jarayonlar hali ham terminalingizning bola jarayonlari hisoblanadi va siz terminalni yopsangiz, ular o'lib qoladi (chunki bu yana boshqa bir `SIGHUP` signalini jo'natadi).
+Buning oldini olish uchun siz dasturni [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (SIGHUPni e'tiborsiz qoldirish uchun ishlatiladigan wrapper) orqali ishga tushirishingiz yoki jarayon allaqachon boshlangan bo'lsa `disown`dan foydalanishingiz mumkin.
+Yoki quyidagi bo'limda ko'rib chiqadiganimizdek, terminal multipleksoridan (terminal multiplexer) foydalansangiz ham bo'ladi.
 
-Note that backgrounded processes are still children processes of your terminal and will die if you close the terminal (this will send yet another signal, `SIGHUP`).
-To prevent that from happening you can run the program with [`nohup`](https://www.man7.org/linux/man-pages/man1/nohup.1.html) (a wrapper to ignore `SIGHUP`), or use `disown` if the process has already been started.
-Alternatively, you can use a terminal multiplexer as we will see in the next section.
-
-Below is a sample session to showcase some of these concepts.
+Quyida ushbu tushunchalarning ba'zilarini ko'rsatish uchun namunaviy seans keltirilgan.
 
 ```
 $ sleep 1000
@@ -412,11 +409,11 @@ $ kill %2
 [2]  + 18745 terminated  nohup sleep 2000
 ```
 
-A special signal is `SIGKILL` since it cannot be captured by the process and it will always terminate it immediately. However, it can have bad side effects such as leaving orphaned children processes.
+`SIGKILL` maxsus signaldir, chunki jarayon uni qabul qila olmaydi va u doimo jarayonni darhol yakunlaydi. Lekin bu yetim (orphaned) bola jarayonlarni qoldirish kabi salbiy ta'sirlarga ega bo'lishi mumkin.
 
-You can learn more about these and other signals [here](https://en.wikipedia.org/wiki/Signal_(IPC)) or typing [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) or `kill -l`.
+Siz bular haqida va boshqa signallar haqida ko'proq ma'lumotni [bu yerdan](https://en.wikipedia.org/wiki/Signal_(IPC)) yoxud [`man signal`](https://www.man7.org/linux/man-pages/man7/signal.7.html) yoki `kill -l` ni yozib bilishingiz mumkin.
 
-Within shell scripts, you can use the `trap` built-in to execute commands when signals are received. This is useful for cleanup operations:
+Shell skriptlarida signallar olinganda buyruqlarni bajarish uchun o'rnatilgan `trap` dan foydalanishingiz mumkin. Bu tozalash amaliyotlari uchun qulay:
 
 ```shell
 #!/usr/bin/env bash
@@ -427,80 +424,18 @@ cleanup() {
 trap cleanup EXIT  # Run cleanup when script exits
 trap cleanup SIGINT SIGTERM  # Also on Ctrl-C or kill
 ```
-{% comment %}
-### Users, Files and Permissions
 
-Lastly, another way programs have to indirectly communicate with each other is using files.
-For a program to be able to correctly read/write/delete files and folders, the file permissions must allow the operation.
+# Masovafiy mashinalar
 
-Listing a specific file will give the following output
-
-```console
-$ ls -l notes.txt
--rw-r--r--  1 alice  users  12693 Jan 11 23:05 notes.txt
-```
-
-Here `ls` is listing what is the owner of the file, user `alice`, and the group `users`. Then the `rw-r--r--` are a shorthand notation for the permissions.
-In this case, the file `notes.txt` has read/write permissions for the user alice `rw-`, and only read permissions for the group and the rest of users in the file system.
-
-```console
-$ ./script.sh
-# permission denied
-$ chmod +x script.sh
-$ ls -l script.sh
--rwxr-xr-x  1 alice  users  3125 Jan 11 23:07 script.sh
-$ ./script.sh
-```
-
-For a script to be executable, the executable rights must be set, hence why we had to use the `chmod` (change mode) program.
-`chmod` syntax, while intuitive, is not obvious when first encountered.
-If you, like me, prefer to learn by example, this is a good usecase of the `tldr` tool (note that you need to install it first).
-
-```console
-❯ tldr chmod
-  Change the access permissions of a file or directory.
-  More information: <https://www.gnu.org/software/coreutils/chmod>.
-
-  Give the [u]ser who owns a file the right to e[x]ecute it:
-
-      chmod u+x path/to/file
-
-  Give the [u]ser rights to [r]ead and [w]rite to a file/directory:
-
-      chmod u+rw path/to/file_or_directory
-
-  Give [a]ll users rights to [r]ead and e[x]ecute:
-
-      chmod a+rx path/to/file
-```
-
-Run `tldr chmod` to see more examples, including recursive operations and group permissions.
-
-> Your shell might show you something like `command not found: tldr`. That is because it is a more modern tool and it is not pre-installed in most systems. A good reference for how to install tools is the [https://command-not-found.com](https://command-not-found.com) website. It contains instructions for a huge collection of CLI tools for popular OS distributions.
-
-Each program is run as a specific user in the system. We can use the `whoami` command to find our user name and `id -u` to find our UID (user id) which is the integer value that the OS associates with the user.
-
-When running `sudo command`, the `command` is run as the root user which can bypass most permissions in the system.
-Try running `sudo whoami` and `sudo id -u` to see how the output changes (you might be prompted for your password).
-To change the owner of a file or folder, we use the `chown` command.
-
-You can learn more about UNIX file permissions [here](https://en.wikipedia.org/wiki/File-system_permissions#Traditional_Unix_permissions)
-
-So far we've focused on your local machine, but many of these skills become even more valuable when working with remote servers.
-
-{% endcomment %}
-
-# Remote Machines
-
-It has become more and more common for programmers to work with remote servers in their everyday work. The most common tool for the job here is SSH (Secure Shell) which will help us connect to a remote server and provide the now familiar shell interface. We connect to a server with a command like:
+Dasturchilar o'z ishlarida masofaviy serverlar bilan ishlashlari tobora kengayib bormoqda. Bunday paytda ishlash uchun eng ko'p qo'llaniladigan vosita SSH (Secure Shell) bo'lib, u bizga masofaviy serverga ulanishga yordam beradi va sizga oldindan ma'lum bo'lgan shell interfeysini taqdim etadi. Biz serverga quyidagi kabi buyruq yordamida ulanamiz:
 
 ```bash
 ssh alice@server.mit.edu
 ```
 
-Here we are trying to ssh as user `alice` in server `server.mit.edu`.
+Bu yerda biz `server.mit.edu` serverida `alice` foydalanuvchisi sifatida ssh orqali ulanishga harakat qilyapmiz.
 
-An often overlooked feature of `ssh` is the ability to run commands non-interactively. `ssh` correctly handles sending the stdin and receiving the stdout of the command, so we can combine it with other commands
+`ssh` ning tez-tez ko'zdan qochiriladigan xususiyatlaridan biri shundaki, buyruqlarni interaktiv bo'lmagan tarzda ishga tushirish qobiliyatidir. `ssh` buyruqning stdin'ni yuborishni va stdout'ni olishni to'g'ri boshqaradi, shuning uchun biz uni boshqa buyruqlar bilan birlashtirishimiz mumkin:
 
 ```shell
 # here ls runs in the remote, and wc runs locally
@@ -511,22 +446,22 @@ ssh alice@server 'ls | wc -l'
 
 ```
 
-> Try installing [Mosh](https://mosh.org/) as a SSH replacement that can handle disconnections, entering/exiting sleep, changing networks and dealing with high latency links.
+> [Mosh](https://mosh.org/) o'rnating, bu uzilishlarni hal qila oladigan, uxlash holatiga kirish / chiqish, tarmoqlarni o'zgartirish va yuqori kechikish tarmoqlari bilan shug'ullanishi mumkin bo'lgan SSH muqobilidir.
 
-For `ssh` to let us run commands in the remote server we need to prove that we are authorized to do so.
-We can do this via passwords or ssh keys.
-Key-based authentication utilizes public-key cryptography to prove to the server that the client owns the secret private key without revealing the key.
-Key based authentication is both more convenient and more secure, so you should prefer it.
-Note that the private key (often `~/.ssh/id_rsa` and more recently `~/.ssh/id_ed25519`) is effectively your password, so treat it like so and never share its contents.
+`ssh` bizga masofaviy serverda buyruqlarni bajarishga ruxsat berishi uchun biz bunga ruxsatimiz borligini isbotlashimiz kerak.
+Biz buni parollar yoki ssh kalitlari orqali amalga oshirishimiz mumkin.
+Kalitlarga asoslangan autentifikatsiya (Key-based authentication) mijozning maxfiy shaxsiy kalitini oshkor qilmasdan serverga ko'rsatishini isbotlash uchun ochiq kalitli kriptografiya (public-key cryptography) dan foydalanadi.
+Kalitlarga asoslangan autentifikatsiya ham qulayroq, ham xavfsizroq bo'lganligi sababli uni afzal ko'rganingiz ma'qul.
+E'tibor bering, shaxsiy kalit (ko'pincha `~/.ssh/id_rsa` va yaqin vaqtlardan beri `~/.ssh/id_ed25519`) samarali ravishda parolingiz vazifasini bajaradi, shuning uchun unga aynan shunday munosabatda bo'ling va uning tarkibini hech qachon baham ko'rmang.
 
-To generate a pair you can run [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html).
+Juftlik hosil qilish uchun siz [`ssh-keygen`](https://www.man7.org/linux/man-pages/man1/ssh-keygen.1.html) ni ishlatishingiz mumkin.
 ```bash
 ssh-keygen -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 ```
 
-If you have ever configured pushing to GitHub using SSH keys, then you have probably done the steps outlined [here](https://help.github.com/articles/connecting-to-github-with-ssh/) and have a valid key pair already. To check if you have a passphrase and validate it you can run `ssh-keygen -y -f /path/to/key`.
+Agar siz qachondir GitHub'ga push qilishni SSH kalitlari orqali sozlagan bo'lsangiz, demak siz [bu yerda](https://help.github.com/articles/connecting-to-github-with-ssh/) tasvirlangan bosqichlarni bajargansiz va sizda yaroqli kalitlar juftligi allaqachon mavjud. Parolingiz (passphrase) bor-yo'qligini tekshirish va uni tasdiqlash uchun `ssh-keygen -y -f /path/to/key` ni bajarishingiz mumkin.
 
-At the server side `ssh` will look into `.ssh/authorized_keys` to determine which clients it should let in. To copy a public key over you can use:
+Server tomonida `ssh` qaysi mijozlarga ruxsat berishini aniqlash uchun `.ssh/authorized_keys` ga qaraydi. Ochiq kalitdan nusxa olish uchun siz quyidagidan foydalanishingiz mumkin:
 
 ```bash
 cat .ssh/id_ed25519.pub | ssh alice@remote 'cat >> ~/.ssh/authorized_keys'
@@ -536,9 +471,9 @@ cat .ssh/id_ed25519.pub | ssh alice@remote 'cat >> ~/.ssh/authorized_keys'
 ssh-copy-id -i .ssh/id_ed25519 alice@remote
 ```
 
-Beyond running commands, the connection that ssh establishes can be used to transfer files from and to the server securely. [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) is the most traditional tool and the syntax is `scp path/to/local_file remote_host:path/to/remote_file`. [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) improves upon `scp` by detecting identical files in local and remote, and preventing copying them again. It also provides more fine grained control over symlinks, permissions and has extra features like the `--partial` flag that can resume from a previously interrupted copy. `rsync` has a similar syntax to `scp`.
+Buyruqlarni ishga tushirishdan tashqari, ssh o'rnatadigan aloqa orqali fayllarni serverga va u yerdan mijozga xavfsiz tarzda o'tkazish uchun foydalanilishi mumkin. [`scp`](https://www.man7.org/linux/man-pages/man1/scp.1.html) eng an'anaviy vosita bo'lib, uning sintaksisi `scp path/to/local_file remote_host:path/to/remote_file` ko'rinishida bo'ladi. [`rsync`](https://www.man7.org/linux/man-pages/man1/rsync.1.html) lokal va masofaviy qurilmalardagi aynan bir xil fayllarni aniqlab, ularni qayta ko'chirib o'tishni oldini olish orqali `scp` dan ko'ra ancha yaxshilanadi. Shuningdek u simvolik havolalar (symlink), ruxsatnomalar ustidan nozikroq boshqaruvni ta'minlaydi hamda ilgarigi to'xtatilgan ko'chirishni davom ettira oladigan `--partial` bayrog'i kabi qo'shimcha imkoniyatlarga ega. `rsync` `scp` bilan bir xil sintaksisga ega.
 
-SSH client configuration is located at `~/.ssh/config` and it lets us declare hosts and set default settings for them. This configuration file is not just read by `ssh` but also other programs like `scp`, `rsync`, `mosh`, &c.
+SSH mijozi sozlamalari `~/.ssh/config` da joylashgan bo'lib, u bizga xostlarni aniqlash hamda ular uchun odatiy sozlamalarni belgilash imkonini beradi. Bu konfiguratsiya faylini faqatgina `ssh` o'qimaydi, u `scp`, `rsync`, `mosh` va boshqa dasturlar tomonidan ham o'qiladi.
 
 ```bash
 Host vm
@@ -552,83 +487,78 @@ Host *.mit.edu
     User alice
 ```
 
-
-
-
 # Terminal Multiplexers
 
-When using the command line interface you will often want to run more than one thing at once.
-For instance, you might want to run your editor and your program side by side.
-Although this can be achieved by opening new terminal windows, using a terminal multiplexer is a more versatile solution.
+Buyruqlar satri interfeysidan foydalanganda ko'pincha bir vaqtning o'zida bir nechta amallarni bajarishni xohlaysiz.
+Masalan, matn muharriri va o'z dasturingizni yonma-yon ishga tushirishni istashingiz mumkin.
+Bunga yangi terminal oynalarini ochish orqali erishish mumkin bo'lsa-da, terminal multipleksoridan foydalanish ko'proq imkoniyatlarga ega yechimdir.
 
-Terminal multiplexers like [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) allow you to multiplex terminal windows using panes and tabs so you can interact with multiple shell sessions in an efficient manner.
-Moreover, terminal multiplexers let you detach a current terminal session and reattach at some point later in time.
-Because of this, terminal multiplexers are really convenient when working with remote machines, as it avoids the need to use `nohup` and similar tricks.
+[`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) kabi terminal multipleksorlari sizga terminal oynalarini panel va qatlamlardan foydalangan holda multiplekslash imkonini beradi, shunda siz bir nechta shell seanslari bilan samarali aloqada bo'lishingiz mumkin.
+Bundan tashqari terminal multipleksorlari joriy terminal seansini uzish (detach) va unga boshqa vaqtda qaytadan ulanish imkonini beradi.
+Shu sababli, masofaviy mashinalar bilan ishlaganda terminal multipleksorlari juda qulaydir, chunki bu `nohup` va shunga o'xshash hiyla-nayranglardan foydalanish zaruriyatidan qutqaradi.
 
-The most popular terminal multiplexer these days is [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html). `tmux` is highly configurable and by using the associated keybindings you can create multiple tabs and panes and quickly navigate through them.
+Bugungi kunda eng ommabop terminal multipleksori bu [`tmux`](https://www.man7.org/linux/man-pages/man1/tmux.1.html) dir. `tmux` juda ham moslashuvchan bo'lib, tegishli klaviatura yorliqlari (keybindings) yordamida siz bir nechta oyna (tab) va panel (pane)larni yaratishingiz va ular orqali tezkor harakatlanishingiz mumkin.
 
-`tmux` expects you to know its keybindings, and they all have the form `<C-b> x` where that means (1) press `Ctrl+b`, (2) release `Ctrl+b`, and then (3) press `x`. `tmux` has the following hierarchy of objects:
-- **Sessions** - a session is an independent workspace with one or more windows
-    + `tmux` starts a new session.
-    + `tmux new -s NAME` starts it with that name.
-    + `tmux ls` lists the current sessions
-    + Within `tmux` typing `<C-b> d`  detaches the current session
-    + `tmux a` attaches the last session. You can use `-t` flag to specify which
+`tmux` siz uning klaviatura qisqartmalarini bilishingizni kutadi va ularning barchasi `<C-b> x` shakliga ega bo'lib, bu (1) `Ctrl+b` ni bosish, (2) `Ctrl+b` ni qo'yib yuborish va (3) `x` ni bosishni bildiradi. `tmux` quyidagi ob'yektlar ierarxiyasiga ega:
+- **Sessions** - seans bitta yoki undan ko'p oynaga ega mustaqil ish stoli hisoblanadi
+    + `tmux` yangi seansni ishga tushiradi.
+    + `tmux new -s NAME` uni belgilangan nom bilan ishga tushiradi.
+    + `tmux ls` joriy seanslarni ko'rsatadi
+    + `tmux` ichida `<C-b> d` deb terish joriy seansni uzadi (detaches)
+    + `tmux a` oxirgi seansga ulaydi (attaches). Qaysi birini belgilash uchun `-t` bayrog'idan foydalanishingiz mumkin
 
-- **Windows** - Equivalent to tabs in editors or browsers, they are visually separate parts of the same session
-    + `<C-b> c` Creates a new window. To close it you can just terminate the shells doing `<C-d>`
-    + `<C-b> N` Go to the _N_ th window. Note they are numbered
-    + `<C-b> p` Goes to the previous window
-    + `<C-b> n` Goes to the next window
-    + `<C-b> ,` Rename the current window
-    + `<C-b> w` List current windows
+- **Windows** - muharrirlar yoki brauzerlardagi oynalarga (tab) o'xshaydi, ular ayni seansning vizual tarzda ajratilgan qismlaridir
+    + `<C-b> c` Yangi oyna yaratadi. Uni yopish uchun shell'larda `<C-d>` ni qilib ularni yakunlashingiz mumkin
+    + `<C-b> N` _N_ inchi oynaga o'tish. E'tibor bering, ular raqamlangan bo'ladi
+    + `<C-b> p` Oldingi oynaga o'tish
+    + `<C-b> n` Keyingi oynaga o'tish
+    + `<C-b> ,` Joriy oynaning nomini o'zgartirish
+    + `<C-b> w` Joriy oynalar ro'yxatini chiqarish
 
-- **Panes** - Like vim splits, panes let you have multiple shells in the same visual display.
-    + `<C-b> "` Split the current pane horizontally
-    + `<C-b> %` Split the current pane vertically
-    + `<C-b> <direction>` Move to the pane in the specified _direction_. Direction here means arrow keys.
-    + `<C-b> z` Toggle zoom for the current pane
-    + `<C-b> [` Start scrollback. You can then press `<space>` to start a selection and `<enter>` to copy that selection.
-    + `<C-b> <space>` Cycle through pane arrangements.
+- **Panes** - vim'dagi split'lar kabi, panellar bitta vizual ekranda bir nechta shell bo'lishiga imkon beradi.
+    + `<C-b> "` Joriy panelni gorizontal ajratish
+    + `<C-b> %` Joriy panelni vertikal ajratish
+    + `<C-b> <direction>` Belgilangan _direction_ dagi panelga o'tish. Bu yerda yo'nalish yo'naltiruvchi klavishlarni anglatadi.
+    + `<C-b> z` Joriy panelni masshtablashni (zoom) ochib-yopadi
+    + `<C-b> [` Scrollback'ni boshlaydi. Keyin siz tanlashni boshlash uchun `<space>` ni va nusxa olish uchun `<enter>` ni bosishingiz mumkin.
+    + `<C-b> <space>` Panel ko'rinishlari orasida navbatma-navbat aylanadi.
 
-> To learn more about tmux, consider reading [this](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) quick tutorial and [this](https://linuxcommand.org/lc3_adv_termmux.php) more detailed explanation.
+> tmux haqida ko'proq ma'lumot olish uchun [ushbu](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) qisqa qo'llanma va [bu](https://linuxcommand.org/lc3_adv_termmux.php) batafsilroq tavsifni o'qib chiqing.
 
-With tmux and SSH in your toolkit, you'll want to make your environment feel like home on any machine. That's where shell customization comes in.
+tmux va SSH kabi vositalar yordamida har qanday mashinada o'z muhitingizni uydagidek his qilishni xohlaysiz. Bu erda shell'ni sozlash bo'limi keladi.
 
 # Customizing the Shell
 
-A wide array of command line programs are configured using plain-text files known as _dotfiles_
-(because the file names begin with a `.`, e.g. `~/.vimrc`, so that they are
-hidden in the directory listing `ls` by default).
+Ko'plab buyruqlar satri dasturlari odatda _nuqtali fayllar_ (dotfiles) deb nomlanuvchi oddiy matnli fayllar orqali sozlanadi
+(chunki fayl nomlari `.` bilan boshlanadi, masalan `~/.vimrc`, shuning uchun u `ls` ko'rsatadigan kataloglar ro'yxatida yashirin bo'ladi).
 
-> Dotfiles are yet another shell convention. The dot in the front is to "hide" them when listing (yes, another convention).
+> Nuqtali fayllar navbatdagi yana bir shell konvensiyasidir. Ularning oldidagi nuqta shunchaki (ro'yxatni chiqarishda) ularni "yashirish" uchun (ha, yana bir konvensiya).
 
-Shells are one example of programs configured with such files. On startup, your shell will read many files to load its configuration.
-Depending on the shell and whether you are starting a login and/or interactive session, the entire process can be quite complex.
-[Here](https://web.archive.org/web/20260329133158/https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) is an excellent resource on the topic.
+Shell'lar bunday fayllar orqali sozlanadigan dasturlar uchun bitta misoldir. Shell ishga tushirilganda o'z sozlamalarini yuklash uchun ko'plab fayllarni o'qiydi.
+Shell turingizga va login hamda interaktiv seans boshlash/boshlamasligingizga qarab bu jarayon ancha murakkablashib ketishi mumkin.
+[Ushbu havola](https://web.archive.org/web/20260329133158/https://blog.flowblok.id.au/2013-02/shell-startup-scripts.html) ushbu mavzu yuzasidan ajoyib resursdir.
 
-For `bash`, editing your `.bashrc` or `.bash_profile` will work in most systems.
-Some other examples of tools that can be configured through dotfiles are:
+`bash` uchun `~/.bashrc` yoki `~/.bash_profile` fayllarini o'zgartirish ko'pgina tizimlarda ishlaydi.
+Nuqtali fayllar orqali sozlanishi mumkin bo'lgan vositalarga boshqa ba'zi misollar:
 
 - `bash` - `~/.bashrc`, `~/.bash_profile`
 - `git` - `~/.gitconfig`
-- `vim` - `~/.vimrc` and the `~/.vim` folder
+- `vim` - `~/.vimrc` va `~/.vim` katalogi
 - `ssh` - `~/.ssh/config`
 - `tmux` - `~/.tmux.conf`
 
-A common configuration change is adding new locations for the shell to find programs. You will encounter this pattern when installing software:
+Shell'ga dasturlarni topishda yangi joylarni (paths) qo'shish keng tarqalgan konfiguratsiya amaliyoti hisoblanadi. Siz dastur o'rnatish davomida quyidagi kabi shablonni uchratishingiz mumkin:
 
 ```shell
 export PATH="$PATH:path/to/append"
 ```
 
-Here, we are telling the shell to set the value of the $PATH variable to its current value plus a new path, and have all children processes inherit this new value for PATH.
-This will allow children processes to find programs located under `path/to/append`.
+Bu yerda biz shell'ga PATH o'zgaruvchisini o'zining joriy qiymatiga yangi qatorni qo'shgan holda yangilash va barcha bola jarayonlarga shu yangi qiymatni meros qilib o'tishni aytmoqdamiz.
+Bu orqali endi bola jarayonlar `path/to/append` orqali yo'llarga yozilgan dasturlarni izlab topa oladi.
 
+Shell'ingizni sozlash ko'pincha yangi buyruqlar satri vositalarini o'rnatishni anglatadi. Paketlar menejeri (Package managers) buni osonlashtiradi. Ular dasturiy ta'minotni yuklab olish, o'rnatish va yangilashni boshqaradi. Turli xil operatsion tizimlarda turli xil paketlar menejeri mavjud: macOS'da [Homebrew](https://brew.sh/), Ubuntu/Debian'da `apt`, Fedora'da `dnf` va Arch'da `pacman` foydalaniladi. Biz kodni yetkazib berish (shipping code) ma'ruzasida paketlar menejerini batafsil ko'rib chiqamiz.
 
-Customizing your shell often means installing new command-line tools. Package managers make this easy. They handle downloading, installing, and updating software. Different operating systems have different package managers: macOS uses [Homebrew](https://brew.sh/), Ubuntu/Debian use `apt`, Fedora uses `dnf`, and Arch uses `pacman`. We'll cover package managers in more depth in the shipping code lecture.
-
-Here's how to install two useful tools using Homebrew on macOS:
+macOS'da Homebrew yordamida ikkita foydali vositani o'rnatish misoli quyidagicha:
 
 ```shell
 # ripgrep: a faster grep with better defaults
@@ -638,19 +568,19 @@ brew install ripgrep
 brew install fd
 ```
 
-With these installed, you can use `rg` instead of `grep` and `fd` instead of `find`.
+Bular o'rnatilgach, siz `grep` o'rniga `rg` dan va `find` o'rniga `fd` dan foydalanishingiz mumkin.
 
-> **Warning about `curl | bash`**: You'll often see installation instructions like `curl -fsSL https://example.com/install.sh | bash`. This pattern downloads a script and immediately executes it, which is convenient but risky; you're running code you haven't inspected. A safer approach is to download first, review, then execute:
+> **`curl | bash` haqida ogohlantirish**: Siz tez-tez `curl -fsSL https://example.com/install.sh | bash` kabi o'rnatish ko'rsatmalarini ko'rasiz. Ushbu usul skriptni yuklab oladi va uni darhol bajaradi, bu qulay, lekin xavfli; siz o'zingiz tekshirmagan kodni ishga tushirayapsiz. Xavfsizroq yondashuv avval yuklab olish, ko'rib chiqish va keyin bajarishdir:
 > ```shell
 > curl -fsSL https://example.com/install.sh -o install.sh
 > less install.sh  # review the script
 > bash install.sh
 > ```
-> Some installers use a slightly safer variant: `/bin/bash -c "$(curl -fsSL https://url)"` which at least ensures bash interprets the script rather than your current shell.
+> Ba'zi o'rnatuvchilar biroz xavfsizroq usuldan foydalanadi: `/bin/bash -c "$(curl -fsSL https://url)"`, bu hech bo'lmaganda joriy shell o'rniga skriptni bash izohlashini ta'minlaydi.
 
-When you try to run a command that isn't installed, your shell will show `command not found`. The website [command-not-found.com](https://command-not-found.com) is a helpful resource you can use to search for any command to find out how to install it across different package managers and distributions.
+Siz tizimga o'rnatilmagan buyruqni ishga tushirmoqchi bo'lsangiz, terminalingizda `command not found` (buyruq topilmadi) degan xabarni ko'rasiz. [command-not-found.com](https://command-not-found.com) veb-sayti istalgan buyruqni turli operatsion tizimlar yoki paketlar menejeri yordamida qanday o'rnatish mumkinligini bilib olishingiz mumkin bo'lgan foydali resursdir.
 
-Another useful tool is [`tldr`](https://tldr.sh/), which provides simplified, example-focused man pages. Instead of reading through lengthy documentation, you can quickly see common usage patterns:
+Yana bir foydali vosita - bu [`tldr`](https://tldr.sh/) bo'lib, u soddalashtirilgan, misollarga yo'naltirilgan qo'llanma (man) sahifalarini taqdim etadi. Uzoq hujjatlarni o'qish o'rniga umumiy foydalanish misollarini tezda ko'rishingiz mumkin:
 
 ```console
 $ tldr fd
@@ -667,19 +597,19 @@ $ tldr fd
       fd --extension txt
 ```
 
-Sometimes you don't need a whole new program, but rather just a shortcut for an existing command with specific flags. That's where aliases come in.
+Ba'zida sizga yangi dastur kerak emas, balki shunchaki ba'zi parametrlari berilgan mavjud dastur uchun qisqartma kerak bo'ladi xolos. Bu erda alias'lar sizga yordamga keladi.
 
-We can also create our own command aliases using the `alias` shell built-in.
-A shell alias is a short form for another command that your shell will replace automatically before evaluating the expression.
-For instance, an alias in bash has the following structure:
+Shuningdek biz o'rnatilgan `alias` shell buyrug'i yordamida buyruqlarning o'z alias'larini (qisqartmalarini) yaratishimiz mumkin.
+Shell alias'i – boshqa buyruqning qisqartmasi bo'lib, iborani baholashdan (evaluate) avval shell o'zi avtomatik tarzda uni keraklisiga almashtiradi.
+Bash'dagi alias quyidagicha tuzilishga ega bo'ladi:
 
 ```bash
 alias alias_name="command_to_alias arg1 arg2"
 ```
 
-> Note that there is no space around the equal sign `=`, because [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) is a shell command that takes a single argument.
+> E'tibor bering, tenglik = belgisining atrofida bo'sh joy bo'lmasligi lozim, chunki [`alias`](https://www.man7.org/linux/man-pages/man1/alias.1p.html) bu bir dona argumentni qabul qiladigan shell buyrug'idir.
 
-Aliases have many convenient features:
+Alias'lar ko'plab qulayliklarga ega:
 
 ```bash
 # Make shorthands for common flags
@@ -711,65 +641,46 @@ alias ll
 # Will print ll='ls -lh'
 ```
 
-Aliases have limitations: they cannot take arguments in the middle of a command. For more complex behavior, you should use shell functions instead.
+Alias'larning ham cheklovlari bor, ular buyruq orasidan turib boshqa bir argumentlar qabul qila olmaydi. Buyruqni batafsil va mukammalroq sozlash uchun asosan shell funksiyalaridan foydalangan ma'qul.
 
-Most shells support `Ctrl-R` for reverse history search. Type `Ctrl-R` and start typing to search through previous commands. Earlier we introduced `fzf` as a fuzzy finder; with fzf's shell integration configured, `Ctrl-R` becomes an interactive fuzzy search through your entire history, far more powerful than the default.
+Aksariyat shell'lar tarixda orqaga qidirish (reverse history search) funksiyasi uchun `Ctrl-R` ni qo'llab-quvvatlaydi. `Ctrl-R` ni bosing va oldingi buyruqlar orasidan qidirish uchun yoza boshlang. Oldinroq fzf haqida tushuncha bergan edik, u noaniq qidirishlar qila oluvchi kuchli uskuna hisoblanadi. Agar shell sozlangan bo'lsa fzf va `Ctrl-R` terminaldagi tarixingizdan noaniq qidiruvlarni amalga oshira oluvchi yanada mukammalroq interaktiv oynaga aylanadi.
 
-How should you organize your dotfiles? They should be in their own folder,
-under version control, and **symlinked** into place using a script. This has
-the benefits of:
+Nuqtali fayllaringizni qanday tashkillashtirishingiz kerak? Ular o'zlarining alohida papkasida saqlanishi lozim va barchasi uchun versiya nazorati **symlink** (simvolik havola) qilinib skriptlangan bo'lishi kerak. Bu quyidagicha afzalliklarga ega:
 
-- **Easy installation**: if you log in to a new machine, applying your
-customizations will only take a minute.
-- **Portability**: your tools will work the same way everywhere.
-- **Synchronization**: you can update your dotfiles anywhere and keep them all
-in sync.
-- **Change tracking**: you're probably going to be maintaining your dotfiles
-for your entire programming career, and version history is nice to have for
-long-lived projects.
+- **O'rnatish oson**: yangi qurilmaga o'tib eski ishlarni qayta tiklash bir necha daqiqa vaqt oladi, xolos.
+- **Portativlik**: sizning uskunangiz qayerda ishlasangiz ham deyarli hamma bilan ishlashga qodir.
+- **Sinxronizatsiya**: xohlagan vaqtingizda ma'lum bir papkani yangilaysiz va qolgan barcha fayllar shu zahoti yangilanadi.
+- **O'zgarishni kuzatish (Change tracking)**: muhandis ekanligingizni hisobga olsak, siz o'zingizning muhandislik tajribangizda ba'zi fayllarga yillar davomida xizmat ko'rsatishingizga to'g'ri keladi, shunday bo'lsada, bunday hollarda tarixni saqlaydigan ilovalarning mavjud bo'lishi ishni tezlashtiradi.
 
-What should you put in your dotfiles?
-You can learn about your tool's settings by reading online documentation or
-[man pages](https://en.wikipedia.org/wiki/Man_page). Another great way is to
-search the internet for blog posts about specific programs, where authors will
-tell you about their preferred customizations. Yet another way to learn about
-customizations is to look through other people's dotfiles: you can find tons of
-[dotfiles
-repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories)
-on GitHub --- see the most popular one
-[here](https://github.com/mathiasbynens/dotfiles) (we advise you not to blindly
-copy configurations though).
-[Here](https://dotfiles.github.io/) is another good resource on the topic.
+Ushbu nuqtali fayllar ichiga qanday papka yoki resurs joylash lozim?
+Turli xil asbob uskunalarning internetdagi manbalaridan yoki bo'lmasa [man pages](https://en.wikipedia.org/wiki/Man_page) orqali ularni sozlashni o'rganishingiz mumkin. O'rganishning yana bir ajoyib usuli - bu maxsus dasturlar haqida internetdagi blog postlarni qidirish, bu yerda mualliflar o'zlarining afzal ko'rgan sozlamalari haqida gapirib berishadi. Nuqtali fayllar haqida va uni o'rganish haqida bilishning yana bir ajoyib usuli boshqalarning qanday tashkillaganligini ko'rib chiqishdir, deyarli ko'p sonli [repositories](https://github.com/search?o=desc&q=dotfiles&s=stars&type=Repositories) GitHub'da mavjud, hamda uning eng ko'p ko'rilgan turini [mana bu havolada ko'rsangiz bo'ladi](https://github.com/mathiasbynens/dotfiles) (albatta hech kim sizga ularning ishlarini butkul ko'chirib olishni maslahat bermaydi). [Bu yerda](https://dotfiles.github.io/) bu haqida yana bitta foydali manba qoldirdik.
 
-All of the class instructors have their dotfiles publicly accessible on GitHub: [Anish](https://github.com/anishathalye/dotfiles),
-[Jon](https://github.com/jonhoo/configs),
-[Jose](https://github.com/jjgo/dotfiles).
+Ma'ruzada qatnashgan va dars berganlarning ham dotfiles manbalari ochiq formatda Github sahifalarida ko'rishga mavjud: [Anish](https://github.com/anishathalye/dotfiles), [Jon](https://github.com/jonhoo/configs), [Jose](https://github.com/jjgo/dotfiles).
 
-**Frameworks and plugins** can improve your shell as well. Some popular general frameworks are [prezto](https://github.com/sorin-ionescu/prezto) or [oh-my-zsh](https://ohmyz.sh/), and smaller plugins that focus on specific features:
+Shell'ni yanada qulaylashtirishda **Fermvorklar va Pluginlar** ning ham o'rni beqiyosdir. Umumiy maqsadlarda foydalanish uchun mashhur bo'lgan frameworklar [prezto](https://github.com/sorin-ionescu/prezto) va [oh-my-zsh](https://ohmyz.sh/), shuningdek alohida xususiyatlarni ishlashini mo'ljallangan Pluginlarga:
 
-- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - colors valid/invalid commands as you type
-- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - suggests commands from history as you type
-- [zsh-completions](https://github.com/zsh-users/zsh-completions) - additional completion definitions
-- [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - fish-like history search
-- [powerlevel10k](https://github.com/romkatv/powerlevel10k) - fast, customizable prompt theme
+- [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting) - to'g'ri/noto'g'ri yozilayotgan buyruqlarni ranglarda ajratib borishni amalga oshiradi
+- [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions) - eski buyruqlar tarixidan so'zni yoza boshlashingizdanoq tavsiya ko'rsatib boradi
+- [zsh-completions](https://github.com/zsh-users/zsh-completions) - kod va buyruqlarni to'liq bajaradi (to'ldiradi)
+- [zsh-history-substring-search](https://github.com/zsh-users/zsh-history-substring-search) - xuddi fish kabi qidirish tarixini qayd etadi
+- [powerlevel10k](https://github.com/romkatv/powerlevel10k) - tezkor, turlanuvchi oyna dizaynini tortiq etadi.
 
-Shells like [fish](https://fishshell.com/) include many of these features by default.
+[fish](https://fishshell.com/) kabi shell'larning o'zida ham qaysidir ma'noda tepadagi imkoniyatlarning ba'zilari beriladi.
 
-> You don't need a massive framework like oh-my-zsh to get these features. Installing individual plugins is often faster and gives you more control. Large frameworks can significantly slow down shell startup time, so consider installing only what you actually use.
-
+> Tepadagi imkoniyatlarga ega bo'lish uchun doim ham katta-katta loyiha yoki feremworklardan (oh-my-zsh kabi) foydalanish shart emas. Ba'zan unga doir bo'lgan maxsus plaginlardan foydalanish, sizga qulaylikdan tashqari tezlik ham in'om etadi. Keng qamrovdagi katta feremworklar shell ishga tushish tezligini sekinlashtirib yuborishi mumkin. Shunday ekan, faqat o'zingiz foydalanadigan maxsus plaginlarni birma bir o'rnating, deb aytgan bo'lardik.
 
 # AI in the Shell
 
-There are many ways to incorporate AI tooling in the shell. Here are a few examples at different levels of integration:
+Terminalda AI (sun'iy intellekt) uskunalarini qo'shishning turli yo'llari mavjud. Bu yerda bir nechta turli darajadagi integratsiya usullari ko'rsatilgan:
 
-**Command generation**: Tools like [`simonw/llm`](https://github.com/simonw/llm) can help generate shell commands from natural language descriptions:
+**Buyruqlarni yaratish (Command generation)**: [`simonw/llm`](https://github.com/simonw/llm) kabi vositalar tabiiy til ta'riflaridan (natural language descriptions) kelib chiqib, terminal buyruqlarini yaratishga yordam berishi mumkin:
 
 ```console
 $ llm cmd "find all python files modified in the last week"
 find . -name "*.py" -mtime -7
 ```
 
-**Pipeline integration**: LLMs can be integrated into shell pipelines to process and transform data. They're particularly useful when you need to extract information from inconsistent formats where regex would be painful:
+**Pipeline'larni integratsiyalash (Pipeline integration)**: LLM'larni terminal pipeline'lariga ma'lumotlarni qayta ishlash yoki o'zgartirish maqsadida ulash mumkin. Ular ayniqsa bir xil qolipga tushmagan turli xildagi qiyin va regular expression'lar bilan ham to'g'irlab bo'lmaydigan holatlarda ishlaganda juda foydalidir:
 
 ```console
 $ cat users.txt
@@ -789,40 +700,37 @@ mike_wilson
 sarah.connor
 ```
 
-Note how we use `"$INSTRUCTIONS"` (quoted) because the variable contains spaces, and `< users.txt` to redirect the file's content to stdin.
+Bu yerda biz o'zgaruvchining oralarida (words, sentences) probel qatnashganligi sababli `"$INSTRUCTIONS"` dan foydalanamiz hamda faylni stdin'ga `< users.txt` fayl mazmunini yo'naltirish (redirect) uchun ishlatamiz.
 
-**AI shells**: Tools like [Claude Code](https://docs.anthropic.com/en/docs/claude-code) act as a meta-shell that accepts English commands and translates them into shell operations, file edits, and more complex multi-step tasks.
+**AI shells**: [Claude Code](https://docs.anthropic.com/en/docs/claude-code) singari vositalar (tools), asosan, meta-shell ko'rinishida bo'lib, ular berilgan inglizcha (natural language) gap va iboralarni shell buyruqlari, harakatlari va shuningdek turli og'ir bosqichli amaliyotlarga olib keladigan buyruqlarga ham tarjima qilib (ya'ni uni asl shell'ning tiliga tushirib) foydalanuvchiga tortiq qila oladi.
 
 # Terminal Emulators
 
-Along with customizing your shell, it is worth spending some time figuring out your choice of **terminal emulator** and its settings.
-A terminal emulator is a GUI program that provides the text-based interface where your shell runs.
-There are many terminal emulators out there.
+Shell'ni moslashtirganingiz bilan bir qatorda, qaysi **terminal emulyatori**dan va uning qanday parametrlari va imkoniyatlaridan foydalanmoqchiligingiz to'g'risida o'ylab ko'rishni maslahat berardik.
+Terminal emulyatori (terminal emulator) sizning shell'ingiz ishga tushadigan grafikli asbob bo'lib xizmat qiluvchi dasturdir. Bunday imkoniyatlarni xususida taklif qila oluvchi ko'plab Terminal emulatorlari mavjud.
 
-Since you might be spending hundreds to thousands of hours in your terminal it pays off to look into its settings. Some of the aspects that you may want to modify in your terminal include:
+Terminalga juda ko'plab yoki yuzlab va minglab ishingiz yuzasidan soatlaringizni ajratganligingiz sababli bu haqda mulohaza yuritish arzimas narsa emas va biz buni foydali ham deya olamiz. Quyidagilarni o'z terminalingizda xohishingizga ko'ra o'zgartira olishingiz mumkin va bu tavsiya ham etiladi:
 
-- Font choice
-- Color Scheme
-- Keyboard shortcuts
-- Tab/Pane support
-- Scrollback configuration
-- Performance (some newer terminals like [Alacritty](https://github.com/alacritty/alacritty) or [Ghostty](https://ghostty.org/) offer GPU acceleration).
+- Shriftlarni tanlash (Font choice)
+- Ranglar jilosi (Color scheme)
+- Tugmalar ketma-ketligi (Keyboard shortcuts)
+- Tablar va Panellarni sozlash (Tab/Pane support)
+- History - orqaga qaytish bo'yicha cheklovlarni tahrirlash (Scrollback configuration)
+- Tezlik va Unumdorlikni (Performance) oshirish (ko'plab [Alacritty](https://github.com/alacritty/alacritty) yoki [Ghostty](https://ghostty.org/) singari yangi terminallar tezlik oshishi jarayonida GPU acceleration dan ham foydalanishadi).
 
+# Mashqlar
 
+## Argumentlar va Globlar
 
-# Exercises
+1. Bazi buyruqlarni terminalingizda shunday holatda uchratishingiz ham mumkin ekan: `cmd --flag -- --notaflag`. Buyruqdagi `--` bayrog'i (flag) ba'zi holatlarda terminaldagi komandalar kiritib bo'linganini anglatadi va ulardan so'ng hech qanday bayroq argumenti deb atalmaydi balki ular komandaning o'zgarmas qismlari argumentlariga (positional argument) aylanadi deydi. Buning foydali tarafi haqida ma'lumot qidirib toping yoki `touch -- -myfile` ni terminalingizda tekshirib ko'ring. Endi, qo'shib yaratib ko'rgan shu faylni terminaldan o'chirishga harakat qiling (`--` belgisiz).
 
-## Arguments and Globs
+1. [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) ni o'qing va quyidagicha tartibda chiqarib beruvchi `ls` buyrug'ini yozing:
+    - Barcha fayllarni (yashirilgan fayllarni ham qoshib) ko'rsatsin.
+    - O'lchami odam tushunadigan shaklda bo'lsin (masalan: 454279954 o'rniga 454M kabi)
+    - Fayllarni eng yangisidan boshlab tartiblasin.
+    - Ranglarda ajratib olib chiqqan holda.
 
-1. You might see commands like `cmd --flag -- --notaflag`. The `--` is a special argument that tells the program to stop parsing flags. Everything after `--` is treated as a positional argument. Why might this be useful? Try running `touch -- -myfile` and then removing it without `--`.
-
-1. Read [`man ls`](https://www.man7.org/linux/man-pages/man1/ls.1.html) and write an `ls` command that lists files in the following manner:
-    - Includes all files, including hidden files
-    - Sizes are listed in human readable format (e.g. 454M instead of 454279954)
-    - Files are ordered by recency
-    - Output is colorized
-
-    A sample output would look like this:
+    Yakuniy natija xuddi mana bunday ko'rinishda bo'lsin:
 
     ```
     -rw-r--r--   1 user group 1.1M Jan 14 09:53 baz
@@ -832,29 +740,15 @@ Since you might be spending hundreds to thousands of hours in your terminal it p
     drwx------+ 47 user group 1.5K Jan 12 18:08 ..
     ```
 
-{% comment %}
-ls -lath --color=auto
-{% endcomment %}
+1. Jarayonni almashtirish (Process substitution) `<(command)` sizga xuddi buyruq chiqishi fayldan uzatilayotganiday his qilish imkonini beradi. `diff` dan `printenv` va `export` buyruqlarining chiqishini tekshirish uchun ushbu `process substitution` dan foydalaning va qanday natijaga erishishni ko'ring. Nima uchun ularning chiqishi har xil bo'ldi? (Maslahat: quyidagi buyruqni tekshirib ko'ring: `diff <(printenv | sort) <(export | sort)`).
 
-1. Process substitution `<(command)` lets you use a command's output as if it were a file. Use `diff` with process substitution to compare the output of `printenv` and `export`. Why are they different? (Hint: try `diff <(printenv | sort) <(export | sort)`).
+## Muhit o'zgaruvchilari
 
-## Environment Variables
+1. Har safar chaqirilganda huddi joriy oynani qaysidir bir usul (xotirada saqlash nazarda tutilgan bo'lishi mumkin) bilan saqlab olib ishlata oladigan bash funksiyasi `marco` yozing. Keyin yana bitta shunaqangi bash funksiyasi `polo` yozing va bu polo o'zida siz hohlagan papkaga yoki qaerga bolsada sizni bir marta polo buyrug'ini tushirishdanoq o'sha `marco` xotirasiga olib borgan papkaga yuborsin. Buni `cd` buyrug'i orqali ishlash eng oson usuli, yoki `marco.sh` yoki `source marco.sh` dan ham foydalansa bo'ladi.
 
-1. Write bash functions `marco` and `polo` that do the following: whenever you execute `marco` the current working directory should be saved in some manner, then when you execute `polo`, no matter what directory you are in, `polo` should `cd` you back to the directory where you executed `marco`. For ease of debugging you can write the code in a file `marco.sh` and (re)load the definitions to your shell by executing `source marco.sh`.
+## Qaytish kodlari
 
-{% comment %}
-marco() {
-    export MARCO=$(pwd)
-}
-
-polo() {
-    cd "$MARCO"
-}
-{% endcomment %}
-
-## Return Codes
-
-1. Say you have a command that fails rarely. In order to debug it you need to capture its output but it can be time consuming to get a failure run. Write a bash script that runs the following script until it fails and captures its standard output and error streams to files and prints everything at the end. Bonus points if you can also report how many runs it took for the script to fail.
+1. Sizning qurilmangizdagi buyruqlaringizdan biri kamdan kam hollardagina xatolik bilan ishlamay to'xtab qoladi deb faraz qilaylik, xato shundaki qachon u aynan nima bo'lganda to'xtashini aniqlashimiz uchun butun boshli operatsiyani qayta tushirish bilan uni muvofaqqiyatsizlikka uchrashini tekshirishimiz vaqtimizni va qimmatli resurslarni talon taroj qilish bo'ladi xolos. Bash terminalni operatsion skriptga almashtiring xotoki skript o'z xatolik va oqimlarni oxirida to'g'ri chop eta olsa ham. Agar script qachon tugashini aniqlab unga hisoblovchini qo'shib quysak ham yaxshi yechim bo'lardi xolos.
 
     ```bash
     #!/usr/bin/env bash
@@ -870,61 +764,47 @@ polo() {
     echo "Everything went according to plan"
     ```
 
-{% comment %}
-#!/usr/bin/env bash
+## Signallar va vazifalarni boshqarish
 
-count=0
-until [[ "$?" -ne 0 ]];
-do
-  count=$((count+1))
-  ./random.sh &> out.txt
-done
+1. Terminalni `sleep 10000` bilan boshlang so'ng uni `Ctrl-Z` qiling va `bg` jarayonini ishga tushiring. Endi o'zingiz uni tekshirib ko'ring o'z pidini uning jarayoni bilan ishlangan yoki ishlash holatiga qaytib ketgan deb, [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) o'z pidida va [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) ham uning jarayonida ishlamagan holda yoki hech narsa qaytarmay deysizmi shunday tekshirib koring (Maslahat - `af` flaglaridan ham foydalanib koring).
 
-echo "found error after $count runs"
-cat out.txt
-{% endcomment %}
+1. Ehtimol sen qachondir nimadir bitmagunicha keyingisini to'xtatib yoki unga ulangan holda ishlash haqida eshitgan bo'lishing mumkun. Uni qanday qilib bitiradi va davomiyligi ham shunda ishlanadi deb so'rab qo'ymoqchisiz. Bularning bari `sleep 60 &` buyrug'i bilan amalga kelsa barchasi qolganini o'zi bitkazadi deb faraz qilmayapsizmi? Aslida ish yechimi uni ishlatib korish va bash komandalari to`g'ri ko'rib chiqilsa uning [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) buyrug'i hamma muammo echimi yordamchi bo'lib xizmat qiladi. Endi `ls` deyarli fon rejimida bitgunicha uni terminaldan chiqaverib yoki qanday ishlaydi o'zingiz tekshirib ishlatib ko'ring.
 
-## Signals and Job Control
+    To'g'ri barcha shunday turli bash sessiyalarday bo'lmagan, lekin undan chiqa olish `wait` ga ishloladigan bash larda bo'lgan kabi boshqa buyruqlar ham o'ziniki kabidir. Keyin kill degan buyrug'imiz boru deya aytishga haqlisan, bazi terminal xususiyatlarini avval gapirmadik uning haqida sababi `kill` boshqa turkum jarayonlarini chiqish jarayonini nolligiga va noldan farqliligiga nisbatan olinadigan buyruqlardandir. Ya'ni terminal signallaridan kelib chiqgan buyruqdirki unga jarayonlarda qanday bitib shunga doir qiziq yechimlarini siz ham ishlatib koring. Oddiygina yana bitmaguncha yoki davomigacha turadigan deb aytib ketadiganlariga qanday misol uchun biron `pidwait` o'zimiz xoxlagancha deb koring, va pid bilan baribir qanday ishlangan unga `sleep` buyruq qo'shilishi oqibatni nima bo'ladi hammasini kuzatib chiqing deyman.
 
-1. Start a `sleep 10000` job in a terminal, background it with `Ctrl-Z` and continue its execution with `bg`. Now use [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html) to find its pid and [`pkill`](https://man7.org/linux/man-pages/man1/pgrep.1.html) to kill it without ever typing the pid itself. (Hint: use the `-af` flags).
+## Fayllar va ruxsatlar
 
-1. Say you don't want to start a process until another completes. How would you go about it? In this exercise, our limiting process will always be `sleep 60 &`. One way to achieve this is to use the [`wait`](https://www.man7.org/linux/man-pages/man1/wait.1p.html) command. Try launching the sleep command and having an `ls` wait until the background process finishes.
+1. (Advanced) Oxirgi ishlangan bir necha ishlangan buyruqlarga qarata papkalar va shuningdek fayllarni qidirib ularning vaqti buyicha saralab uni bash ga yoki shunga o'xshash bo'lsa deydi xamma qanaqib hamma eng yangilarini rekursiv tarizda ishlatishini aniqlab terminalingizda ishlating qani buning ehtiyoji siz uchun ish bera oladimi deydi bu yerda?
 
-    However, this strategy will fail if we start in a different bash session, since `wait` only works for child processes. One feature we did not discuss in the notes is that the `kill` command's exit status will be zero on success and nonzero otherwise. `kill -0` does not send a signal but will give a nonzero exit status if the process does not exist. Write a bash function called `pidwait` that takes a pid and waits until the given process completes. You should use `sleep` to avoid wasting CPU unnecessarily.
+## Terminal multipleksorlari
 
-## Files and Permissions
+1. O'zingiz shunchaki bu [tutorialni](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) ochib o'qib undan asboblarni `tmux` deb va boshqa bo'limini qidirib o'rganib chiqib va ko'rsatmalar asosidagi barcha kerak deb topgan qo'shimchali narsalarni ham [qadamlarga amal qilib sozlab koring](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/) siz uchun qo'shimcha yaxshi bilim bo'la oladi.
 
-1. (Advanced) Write a command or script to recursively find the most recently modified file in a directory. More generally, can you list all files by recency?
+## Aliaslar va nuqlari fayllar
 
-## Terminal Multiplexers
+1. Biz kop narsa yoki yozuvlar yozganimizda doim to'g'ri chiroyli chiqmasligiga yoki uning bashqa sababi oddiy harf almashtirib misol uchun `cd` deb ko'rganmiz. Agar bash deb o'shani `dc` deb yoza boshlaganda shu hato o'rnini almashtiruvchi bash komanda yarating yoki o'shanga o'xshab o'zingiz alias ko'ring deydi terminalda yaratsangiz bo'ladi deymiz.
 
-1. Follow this `tmux` [tutorial](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/) and then learn how to do some basic customizations following [these steps](https://www.hamvocke.com/blog/a-guide-to-customizing-your-tmux-conf/).
+1. Bunga o'xshash xotiralardagi misollarni hammasini ishlatib va top ko'pchilik `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10` kabilarda ishlating koring qandaydir misollar yoqilsa Bash bo'yicha unda yana ko'pi unga o'xshatib qo'llanishiga ham ko'rishingiz mumkinligiga `history 1` qilinishi uni boshqacharoq bo'lishini bildiradi, Bash misolidami yo bu holat undan boshqa misol ZSH yoki boshqadadir.
 
-## Aliases and Dotfiles
+1. Endilikda ushbu ishni amalga oshirishda albatta uning hamma muhim bo'lgan o'sha versiyalarni ham hammasi o'zinikiga deb `dotfiles` da papka ko'ring.
 
-1. Create an alias `dc` that resolves to `cd` for when you type it wrong.
+1. Hozir yana ishlangan o'rnatmalari yoki papka uning o'zini ba'zisini bash`ga (eng kamiga o'zini komanda unga mos qilinish uchun ` $PS1 ` bilan) ni sozlab koring.
 
-1. Run `history | awk '{$1="";print substr($0,2)}' | sort | uniq -c | sort -n | tail -n 10` to get your top 10 most used commands and consider writing shorter aliases for them. Note: this works for Bash; if you're using ZSH, use `history 1` instead of just `history`.
+1. Qo'shimchalarga yana qanday narsa o'rnatmalar uchun siz har hil scriptlar yordamga yoki bironta deb unga osongina yangi joy olib u yerda uni skriptlanganini qo'llab kuring o'zingiz deymiz qiyin emas yoki boshqa deb aytolamiz albatta o'rganishingiz un `ln -s` qilib uni tayyor bo'lgan o'sha joyga `ln -s` da kabi ishlatsangiz bo'ladi o'xshash [tayyor narsalar](https://dotfiles.github.io/utilities/) kabi foydali misol.
 
-1. Create a folder for your dotfiles and set up version control.
+1. Test va ko'plab qurilma bo'ylab terminal skriptiga bir necha mashinalardan olingan holda ishlay olasizmi.
 
-1. Add a configuration for at least one program, e.g. your shell, with some customization (to start off, it can be something as simple as customizing your shell prompt by setting `$PS1`).
+1. Yuqoridagilarga xos dotfiles hamma ishlashinggizdagi resurslarni GitHub da o'z dotfiles manziliga jamlang ko'ring deymiz bunisi haqida
 
-1. Set up a method to install your dotfiles quickly (and without manual effort) on a new machine. This can be as simple as a shell script that calls `ln -s` for each file, or you could use a [specialized utility](https://dotfiles.github.io/utilities/).
+1. Endi yakuni github da qilingan ishlar o'zi ishonch hosil qilishiga ulashish deb ko'ramiz hamma qila oladiganingiz shulardir hozir.
 
-1. Test your installation script on a fresh virtual machine.
+## Masofaviy mashinalar (SSH)
 
-1. Migrate all of your current tool configurations to your dotfiles repository.
+Biror Linux virtual mashinasini (virtual machine) ushbu mashqlar uchun o'rnating yoki boridan foydalanib ham tursangiz bo'laveradi eng osonrog'ini tanlab ishlatgan bo'lardingiz agar o'rnatish haqida to'liq tushunchangiz yoki biron tayyor holingiz kabi o'ylashda unga tayyorlanmoqchi [ushbu (virtual machine](https://hibbard.eu/install-ubuntu-virtual-box/)) deb berilgan darsdan tushunib o'rnating hoziroq uni ishga kirishingiz vaqti.
 
-1. Publish your dotfiles on GitHub.
+1. So'ng `~/.ssh/` larga o'ting u yerdan juftligingiz SSH bo'lishga yo undan kelib ishlanayotgani deb bu erga va ularda bormikin deb ssh-keygenlarni yoki agar o'sha paytida o'sha degan bilan yoki umuman bo'lmasachi deyilganlaridanchi uning ko'rinishi shu `ssh-keygen -a 100 -t ed25519` bo'ladi o'zingiz yarata oling deymiz bular un va uni o'zingiz boshqalarga qulay deb va unda ko'rinishi bo'lib turuvchi parolni himoya uchun ham oling va unga qilingani `ssh-agent` uni yodga saqlash deyilishi bo'ladi xuddi u erdan keluvchi bu[manba havolasidan](https://www.ssh.com/ssh/agent) bilib olsangiz uning ma'nosi.
 
-## Remote Machines (SSH)
-
-Install a Linux virtual machine (or use an already existing one) for these exercises. If you are not familiar with virtual machines check out [this](https://hibbard.eu/install-ubuntu-virtual-box/) tutorial for installing one.
-
-1. Go to `~/.ssh/` and check if you have a pair of SSH keys there. If not, generate them with `ssh-keygen -a 100 -t ed25519`. It is recommended that you use a password and use `ssh-agent`, more info [here](https://www.ssh.com/ssh/agent).
-
-1. Edit `.ssh/config` to have an entry as follows:
+1. Ushbu sozlamalarni endi o'zingizning `.ssh/config` kabi o'rniga kirib bo'lgach quydagi tartib shunga asosan bular uchun deyilgan ko'rinishida berib tuziting deydi ularni:
 
     ```bash
     Host vm
@@ -934,12 +814,12 @@ Install a Linux virtual machine (or use an already existing one) for these exerc
         LocalForward 9999 localhost:8888
     ```
 
-1. Use `ssh-copy-id vm` to copy your ssh key to the server.
+1. Serveringizdagi bo'lish ehtimol qilinuvchilarni keyingilarga ham u qadar deya yuborilishiga yoki qopiyasiga shu serverni ishlatilgan va yo'qni nusxalash yozilganlaringizdan biri ushbu buyruq ishlatilinib qo'yasiz holos serverga ularni qaysingdir uzi `ssh-copy-id vm`.
 
-1. Start a webserver in your VM by executing `python -m http.server 8888`. Access the VM webserver by navigating to `http://localhost:9999` in your machine.
+1. Buyruqlar qatorini yozganingiz bilanoq hozir qanaqilib shu python deb uni ishlata oluvchisida ishlashni xohlayman desangizu uning shuni misoldagi kabilar bilan server qilinuvchida ishga tushing hozir buni `python -m http.server 8888` bu orqali unda unga ko'rinuvchi ishlagan ishiga va keyin borilgandagi holatini ko'rgan kabi ishlatsin keyin o'zingiz qaysi bir brauzeringiz bilan `http://localhost:9999` deb chaqirib ko'rsangiz o'sha siz ishlashini mo'ljallagan joydan to'g'ri ishlanganligi unga chiqadi ishlagan holda bo'ladi shular deb misollar kelajakda kerak deb qilasiz ko'rsatuvda qilinganga hammani bu holati un ishini yengilligi.
 
-1. Edit your SSH server config by doing `sudo vim /etc/ssh/sshd_config` and disable password authentication by editing the value of `PasswordAuthentication`. Disable root login by editing the value of `PermitRootLogin`. Restart the `ssh` service with `sudo service sshd restart`. Try sshing in again.
+1. Asl SSH ga kirilgandagi config deb yozilib uning papkasigacha borilgach endi sizning unga berib chiqargan o'zingiz bilmaysizmi yoki u orqali deysiz va tepadagi ma'lum bo'ladiki buyruq shu `sudo vim /etc/ssh/sshd_config` deb undan ham yana ba'zilarni ya'ni bu ruxsati uchun `PasswordAuthentication` qilib yoki shundan parolingiz umuman qilinishiga rozi holatini `PermitRootLogin` qilamiz deb uniki serveri barcha deyilishini qiling `sudo service sshd restart` ko'rib beruvchisini sozlagan deyilishigayam kabi o'qib tekshiring ko'ring o'xshaydimi serverini bilganiga keyin yana xavfsizini qaytib kiring koring yana xar narsasiga sshing ga qilinuvchi ham ishlash un qila oldingizmi yana bilishni o'sha ssh serverga.
 
-1. (Challenge) Install [`mosh`](https://mosh.org/) in the VM and establish a connection. Then disconnect the network adapter of the server/VM. Can mosh properly recover from it?
+1. (Challenge) Biz shu qilinganiga ko'ra bu ishiga terminal VM mashinalarimiz u ish bo'ladigandan qilinadiganidan qilinmagandan yoki tepadagisi shunday [`mosh`](https://mosh.org/) uning ishlay olishidan va unga aloqaga server va unga boshqacharoq bo'lishlar yo o'chirilish nimasidir orqasida umuman bormay yoxud shunday ekan tarmoqni uzib unga ulab va unga deymizu endi u ulana oldimikin qanaqilib unday ula olsa bu ham server tiklanirolmikin yana deb ulashgami.
 
-1. (Challenge) Look into what the `-N` and `-f` flags do in `ssh` and figure out a command to achieve background port forwarding.
+1. (Challenge) Bunisida endigina qanchadir ulashlardan yoki endi o'rganilganida ssh deganga qo'yilib buni o'z vaqtida bilmoq yoki bormikin `ssh` kabi -N ham flaglari bilan yana -f ham endi ularni foni va yo'naltirish (background port forwarding) yoxud o'zi haqida yo bo'lmasam boshqasi xatto endi siz qo'shimchasini hammasiniki bilan nimada va ishida qandaydir nimasi bor bunisi endi faqat deb o'zingiz buyruq yoqib uni shulardan iborat bir natijani port forwarding bo'yicha ko'rsatuvni bajaring qanaqa amalda yozib bilishda yodlashga arziydi ushbu siz kabi.

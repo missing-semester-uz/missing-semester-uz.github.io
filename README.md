@@ -10,14 +10,17 @@ Bu kursni o‘zbek tiliga tarjima qilyapmiz. Agar tahrir yoki yangi bobni tarjim
 
 ## Loyiha holati
 
-Tarjimaning joriy holatini [shu yerda](https://github.com/missing-semester-uz/missing-semester-uz.github.io?tab=readme-ov-file#loyiha-holati) kuzatib borishingiz mumkin.
+Terminlarni tarjima qilishda qulaylik uchun hamma terminlarni [glossariy](glossary.md)'ga yig'dik. Agar biror termin tarjimasini to'g'irlasak yoki yaxshiroq variantini topsak, uni hamma fayllarda almashtira olamiz.
 
-Terminlarni tarjima qilishda qulaylik uchun hamma terminlarni [glossariyga](glossary.md) yig'dik. Agar biror termin tarjimasini to'g'irlasak yoki yaxshiroq variantini topsak, uni hamma fayllarda almashtira olamiz.
+Tarjimalar quyidagi 3 bosqichdan o'tadi:
+- `Tarjima boshlanmagan ⏳`: Tarjima jarayoni hali boshlanmagan.
+- `Tahrir jarayonida 🛠️`: SI yordamida qilingan dastlabki tarjima. Uni inson o'qib, tahrirlashi kerak.
+- `Tayyor ✔️`: Tahrirdan o'tgan tayyor matn.
 
 | # | bo‘limlar | tarjima holati |
 | :-: |   --------   |  :----------:  |
-| 1 | [course-shell.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/course-shell.md)  | `Tarjima jarayonida 🛠️` |
-| 2 | [command-line-environment.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/command-line-environment.md)  | Tarjima boshlanmagan ⏳ |
+| 1 | [course-shell.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/course-shell.md)  | `Tahrir jarayonida 🛠️` |
+| 2 | [command-line-environment.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/command-line-environment.md)  | `Tahrir jarayonida 🛠️` |
 | 3 | [development-environment.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/development-environment.md)  | Tarjima boshlanmagan ⏳ |
 | 4 | [debugging-profiling.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/debugging-profiling.md)  | Tarjima boshlanmagan ⏳ |
 | 5 | [version-control.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/version-control.md)  | Tarjima boshlanmagan ⏳ |

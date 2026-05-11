@@ -2,22 +2,11 @@
 
 This glossary is used to maintain consistency when translating the MIT "Missing Semester" course into Uzbek. 
 
-## Guidelines for Adding New Terms
-To keep this glossary universal and easy to use for LLMs:
-1. **Nouns must be singular:** Use "file" instead of "files", "permission" instead of "permissions".
-2. **Verbs must be in base form:** Use "execute" instead of "executing", "quote" instead of "quoting".
-3. **Use lowercase:** All terms should be lowercase unless they are acronyms (e.g., `JSON`, `CSV`) or proper nouns.
-4. **Keep it alphabetical:** Always insert new terms in alphabetical order.
-5. **Tag general words:** If the word is not IT-specific, add `[General]` in the Context/Notes column.
-
----
-
-## Glossary
-
 | English | Uzbek | Context/Notes |
 |---------|-------|---------------|
 | absolute path | mutlaq yo'l | Starts with `/` |
 | aggregate | yig'indi / agregat | Context of data processing (e.g., `awk`) |
+| alias | alias | Command shortcut, do not translate |
 | AR/VR | AR/VR | Do not translate |
 | argument | argument | Do not translate |
 | arithmetic expansion | arifmetik kengaytirish | In bash, `((...))` |
@@ -38,6 +27,7 @@ To keep this glossary universal and easy to use for LLMs:
 | curriculum | o'quv dasturi | `[General]` |
 | directory | katalog | Do not use "papka" |
 | disk partition | disk bo'linishi | |
+| dotfile | nuqtali fayl | Hidden configuration file |
 | environment variable | muhit o'zgaruvchisi | e.g., `$PATH` |
 | example | misol | `[General]` |
 | executable | bajariladigan | File permission/property |
@@ -63,39 +53,53 @@ To keep this glossary universal and easy to use for LLMs:
 | loop | sikl | `for`, `while` |
 | manual page | qo'llanma sahifasi | Reference to `man` pages |
 | motivation | motivatsiya | `[General]` |
+| multiplexer | multipleksor | e.g., tmux terminal multiplexer |
 | open-source | ochiq kodli / ochiq manbali | |
 | operating system | operatsion tizim | |
 | option | parametr | Valued flags |
 | output stream | chiqish oqimi | |
+| package manager | paketlar menejeri | e.g., apt, brew |
 | parent process | ota jarayon | |
 | path | yo'l | |
 | permission | ruxsat | `rwx` |
 | pipe / pipeline | pipe / pipeline | Do not translate. Avoid "zanjir" for better IT accuracy. |
+| port forwarding | portni yo'naltirish | SSH connection feature |
+| process substitution | jarayonni almashtirish | In bash, `<()` |
 | productivity | unumdorlik | `[General]` |
 | program | dastur | |
 | prompt | so'rov satri | Or simply "so'rov" |
+| public-key cryptography | ochiq kalitli kriptografiya | |
 | quote | tirnoqlash | Handling spaces/special chars in shell |
 | recording | yozuv | Video recording, `[General]` |
 | recursive | rekursiv | e.g., recursive search in directories |
 | redirect | qayta yo'naltirish | `>`, `<` operators |
 | regular expression | regulyar ifoda | Or "muntazam ifoda" |
 | relative path | nisbiy yo'l | Relative to the current working directory |
+| remote server | masofaviy server | |
 | repetitive task | takroriy vazifa | `[General]` |
 | resource | manba | `[General]` |
+| return code | qaytish kodi | Often synonymous with exit status |
 | root (filesystem) | bosh | e.g., "fayl tizimining boshi" |
 | root (user) | root | Do not translate. Can explain as "bosh foydalanuvchi" |
 | script | skript | |
 | shebang | shebang | `#!/bin/sh`, do not translate |
 | shell | shell | Do not translate |
+| signal | signal | Software interrupt, e.g., SIGINT |
 | solution | yechim | `[General]` |
+| ssh key | ssh kaliti | Authentication keys for SSH |
+| standard error (stderr) | standart xato (stderr) | |
 | standard input (stdin) | standart kirish (stdin) | |
 | standard output (stdout) | standart chiqish (stdout) | |
+| stream | oqim | e.g., stdin, stdout, stderr |
 | structure | tuzilma | `[General]` |
 | super user | super user | e.g., context of `sudo` |
+| symlink | simvolik havola | Symbolic link |
 | syntax | sintaksis | |
 | terminal | terminal | Do not translate |
+| terminal emulator | terminal emulyatori | e.g., Alacritty, iTerm |
 | textual interface | matnli interfeys | |
 | tool | vosita | `[General]` |
 | topic | mavzu | `[General]` |
 | user | foydalanuvchi | `[General]` |
 | variable | o'zgaruvchi | |
+| wildcard | shablon belgisi | Globbing symbol, e.g., `*`, `?` |
