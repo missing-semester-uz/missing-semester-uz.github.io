@@ -21,7 +21,6 @@ jobs:
           tokens: |
             {"https://github.com": "${{ secrets.GITHUB_TOKEN }}"}
           ignore_url: |
-            https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings
             https://vimways.org/2019/
             https://crates.io/
             https://dtrace.org/about/
@@ -47,6 +46,7 @@ jobs:
             https://www.vagrantup.com/
             https://www.nongnu.org/atool/
           ignore_url_re: |
+            ^https://vim.fandom.com/
             ^https://www.brendangregg.com/
             ^https:\/\/help\.github\.com\/
             ^https:\/\/linux\.die\.net\/man\/

@@ -231,7 +231,7 @@ LLM qiyinchiligi kam va oson kiritganligimiz bilan shundaki oddiy yozilgan debag
 - Tavsiyasin qaytadan real bor narsadan debag jarayonlarini amaliyroqda bering izlashingizni tayinlay.
 - Qilgan ishingizning unchalikga zo'rga ishlardan bo'lgan hisob oling izlashingiz emas kodsiz asbob bo'linganda o'tilmadi
 
-> Aslida yuqoridia narsalardan [sun'iy idrok bo'limilarida](/2026/development-environment/#ai-powered-development) shug'urlanma vositasi kursni aytadi emas. Bunda qismi bilan alohida o'z ishi va yondashgani haqda izlandi.
+> Aslida yuqoridia narsalardan [sun'iy idrok bo'limilarida](/2026/development-environment/#si-yordamida-dasturlash) shug'urlanma vositasi kursni aytadi emas. Bunda qismi bilan alohida o'z ishi va yondashgani haqda izlandi.
 
 # Profillash (Profiling)
 

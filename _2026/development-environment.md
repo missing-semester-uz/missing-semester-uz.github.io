@@ -18,7 +18,7 @@ IDE'lar va terminalga asoslangan jarayonlarning har biri o'zining kuchli va zaif
 Ushbu ma'ruzada biz quyidagilarni ko'rib chiqamiz:
 
 - [Matn tahrirlash va Vim](#matn-tahrirlash-va-vim)
-- [Kod intellekti va til serverlari](#kod-intelektu-va-til-serverlari)
+- [Kod intellekti va til serverlari](#kod-intellekti-va-til-serverlari)
 - [Sun'iy intellekt yordamida dasturlash](#si-yordamida-dasturlash)
 - [Kengaytmalar va boshqa IDE funksiyalari](#kengaytmalar-va-boshqa-ide-funksiyalari)
 

@@ -13,7 +13,7 @@ video:
 
 Dasturlash agentlari bu fayllarni o'qish/yozish, veb qidiruv va shell buyruqlarini ishga tushirish kabi vositalarga kirish imkoniga ega bo'lgan suhbatdosh AI modellaridir. Ular IDE'da yoki alohida buyruqlar satri yoxud grafik interfeysli vositalarda yashaydi. Dasturlash agentlari yuqori darajada avtonom va kuchli vositalar bo'lib, turli xil foydalanish holatlarini imkonini beradi.
 
-Bu ma'ruza [Dasturlash muhiti va vositalar](/2026/development-environment/) ma'ruzasidagi AI yordamidagi dasturlash materialiga asoslanadi. Qisqacha misol sifatida [AI yordamidagi dasturlash](/2026/development-environment/#ai-powered-development) bo'limidan namuna bilan davom etamiz:
+Bu ma'ruza [Dasturlash muhiti va vositalar](/2026/development-environment/) ma'ruzasidagi AI yordamidagi dasturlash materialiga asoslanadi. Qisqacha misol sifatida [AI yordamidagi dasturlash](/2026/development-environment/#si-yordamida-dasturlash) bo'limidan namuna bilan davom etamiz:
 
 ```python
 from urllib.request import urlopen
@@ -88,7 +88,7 @@ Can prompt coding agent with:
 
 Get it to commit the changes.
 {% endcomment %}
-- **Refaktor qilish.** Dasturlash agentlaridan kodni turli xil usullarda refaktor qilish uchun foydalanishingiz mumkin, metodni nomini o'zgartirish kabi oddiy vazifalardan tortib (bu turdagi refaktor qilish [kod intellekti](/2026/development-environment/#code-intelligence-and-language-servers) orqali ham qo'llab-quvvatlanadi), funksionallikni alohida modulga ajratish kabi murakkabroq vazifalargacha.
+- **Refaktor qilish.** Dasturlash agentlaridan kodni turli xil usullarda refaktor qilish uchun foydalanishingiz mumkin, metodni nomini o'zgartirish kabi oddiy vazifalardan tortib (bu turdagi refaktor qilish [kod intellekti](/2026/development-environment/#kod-intellekti-va-til-serverlari) orqali ham qo'llab-quvvatlanadi), funksionallikni alohida modulga ajratish kabi murakkabroq vazifalargacha.
     > Biz agentic coding'ni o'zining alohida ma'ruzasiga [ajratish](https://github.com/missing-semester/missing-semester/pull/344) uchun Claude Code'dan foydalandik.
 {%- comment %}
 Show usage in Missing Semester, point out that the agent did make some mistakes.
