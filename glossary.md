@@ -5,10 +5,12 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | English | Uzbek | Context/Notes |
 |---------|-------|---------------|
 | absolute path | mutlaq yo'l | Starts with `/` |
+| agent harness | agent harness | AI agent execution environment, do not translate |
 | aggregate | yig'indi / agregat | Context of data processing (e.g., `awk`) |
 | alias | alias | Command shortcut, do not translate |
 | AR/VR | AR/VR | Do not translate |
 | argument | argument | Do not translate |
+| argument parsing | argumentlarni tahlil qilish | |
 | arithmetic expansion | arifmetik kengaytirish | In bash, `((...))` |
 | artifact | artefakt | Software deliverable |
 | autocomplete | avtoto'ldirish | Synonym for auto-completion |
@@ -27,18 +29,22 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | clone | klonlash | Git repository loading |
 | code completion | kodni to'ldirish | IDE feature |
 | code formatting | kodni formatlash | |
+| code review | kodni ko'rib chiqish | |
 | coding agent | dasturlash agenti | AI-assisted development tools |
 | command | buyruq | |
 | command substitution | buyruq almashtirish | In bash, `$()` |
 | comment | izoh | Using `#` in shell scripts |
 | commit | commit | Git snapshot/operation, do not translate |
+| compaction | siqish | Context of LLM context window |
 | compile | kompilyatsiya qilish | |
 | compiler | kompilyator | |
+| computational thinking | hisoblashli fikrlash | |
 | computer scientist | kompyuter mutaxassisi | `[General]` |
 | conditional | shartli operator | `if`, `else`, etc. |
 | conflict | ziddiyat / konflikt | Version control merge context |
 | container | konteyner | e.g., Docker container |
 | content | mazmun | `[General]` |
+| context window | kontekst oynasi | LLM memory capacity |
 | continuous integration | uzluksiz integratsiya | Or CI (do not translate abbreviation) |
 | course | kurs | `[General]` |
 | crash | halokat | Program failure |
@@ -50,6 +56,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | debugging | debag qilish / nosozliklarni izlash | Process of resolving bugs |
 | dependency | qaramlik | Software libraries or packages required to run a program |
 | deployment | yoyish / joylashtirish | Software deployment |
+| devcontainer | devkonteyner | Development container |
 | development environment | dasturlash muhiti | |
 | directed acyclic graph | yo'naltirilgan asiklik graf | DAG (Git history model) |
 | directory | katalog | Do not use "papka" |
@@ -80,6 +87,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | history | tarix | `[General]` |
 | host | xost | |
 | image | tasvir | Container image context |
+| inference | inferensiya | LLM generation process |
 | inline | inline / joylashgan | Context-dependent (e.g., `sed -i` for inline edit) |
 | input stream | kirish oqimi | |
 | instruction | ko'rsatma | Machine or program instruction |
@@ -128,6 +136,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | profiling | profillash | Performance analysis |
 | program | dastur | |
 | prompt | so'rov satri | Or simply "so'rov" |
+| protocol | protokol | |
 | public-key cryptography | ochiq kalitli kriptografiya | |
 | pull | pull | Git operation, do not translate |
 | pull request | pull request | GitHub context, do not translate |
@@ -138,6 +147,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | recording | yozuv | Video recording, `[General]` |
 | recursive | rekursiv | e.g., recursive search in directories |
 | redirect | qayta yo'naltirish | `>`, `<` operators |
+| refactor | refaktor qilish | Restructuring code without changing its behavior |
 | reference | havola | Git commits pointer |
 | register | registr | CPU memory location |
 | registry | reyestr | Package registry |
@@ -156,6 +166,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | root (user) | root | Do not translate. Can explain as "bosh foydalanuvchi" |
 | runtime | runtime | Execution environment, do not translate |
 | sampling | namuna olish | Profiler context |
+| sandbox | sandbox | Isolated testing environment |
 | sanitizer | sanitayzer | Tool for analyzing memory/threads, do not translate |
 | script | skript | |
 | semantic versioning | semantik versiyalash | |
@@ -172,6 +183,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | standard output (stdout) | standart chiqish (stdout) | |
 | stream | oqim | e.g., stdin, stdout, stderr |
 | structure | tuzilma | `[General]` |
+| subagent | subagent | Agent invoked by another agent |
 | super user | super user | e.g., context of `sudo` |
 | symlink | simvolik havola | Symbolic link |
 | syntax | sintaksis | |
@@ -179,18 +191,23 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | system call | tizim chaqiruvi | Kernel request made by program |
 | terminal | terminal | Do not translate |
 | terminal emulator | terminal emulyatori | e.g., Alacritty, iTerm |
+| test-driven development | testlarga asoslangan dasturlash | Software development process |
 | textual interface | matnli interfeys | |
 | thread | oqim | Context of concurrency |
 | tool | vosita | `[General]` |
 | topic | mavzu | `[General]` |
 | tracing | izlash | Profiler context |
 | tree | daraxt | Git data model context |
+| type annotation | tur annotatsiyasi | Type hinting in code |
+| type checker | turni tekshiruvchi dastur | e.g., mypy |
 | type checking | turni tekshirish | Process of verifying program types |
 | user | foydalanuvchi | `[General]` |
 | variable | o'zgaruvchi | |
 | version control | versiyalarni boshqarish | e.g., Version Control System (VCS) |
 | versioning | versiyalash | |
+| vibe coding | vibe coding | Generating code mostly with AI without manual writing, do not translate |
 | virtual machine | virtual mashina | |
 | watchpoint | kuzatish nuqtasi | Debugger breakpoint linked to memory changes |
 | wheel | wheel | Python package format, do not translate |
 | wildcard | shablon belgisi | Globbing symbol, e.g., `*`, `?` |
+| worktree | worktree | Git concept, do not translate |
