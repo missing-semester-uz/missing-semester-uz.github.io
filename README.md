@@ -21,7 +21,7 @@ Tarjimalar quyidagi 3 bosqichdan o'tadi:
 | :-: |   --------   |  :----------:  |
 | 1 | [course-shell.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/course-shell.md)  | `Tahrir jarayonida 🛠️` |
 | 2 | [command-line-environment.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/command-line-environment.md)  | `Tahrir jarayonida 🛠️` |
-| 3 | [development-environment.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/development-environment.md)  | Tarjima boshlanmagan ⏳ |
+| 3 | [development-environment.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/development-environment.md)  | `Tahrir jarayonida 🛠️` |
 | 4 | [debugging-profiling.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/debugging-profiling.md)  | Tarjima boshlanmagan ⏳ |
 | 5 | [version-control.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/version-control.md)  | Tarjima boshlanmagan ⏳ |
 | 6 | [shipping-code.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/shipping-code.md)  | Tarjima boshlanmagan ⏳ |

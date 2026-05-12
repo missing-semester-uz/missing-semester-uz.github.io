@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Development Environment and Tools"
+title: "Dasturlash muhiti va vositalar"
 description: >
-  Learn about IDEs, Vim, language servers, and AI-powered development tools.
+  IDE'lar, Vim, til serverlari va SI yordamidagi dasturlash vositalari haqida bilib oling.
 thumbnail: /static/assets/thumbnails/2026/lec3.png
 date: 2026-01-14
 ready: true
@@ -11,121 +11,121 @@ video:
   id: QnM1nVzrkx8
 ---
 
-A _development environment_ is a set of tools for developing software. At the heart of a development environment is text editing functionality, along with accompanying features such as syntax highlighting, type checking, code formatting, and autocomplete. _Integrated development environments_ (IDEs) such as [VS Code][vs-code] bring together all of this functionality into a single application. Terminal-based development workflows combine tools such as [tmux](https://github.com/tmux/tmux) (a terminal multiplexer), [Vim](https://www.vim.org/) (a text editor), [Zsh](https://www.zsh.org/) (a shell), and language-specific command-line tools, such as [Ruff](https://docs.astral.sh/ruff/) (a Python linter and code formatter) and [Mypy](https://mypy-lang.org/) (a Python type checker).
+_Dasturlash muhiti_ (development environment) dasturiy ta'minot ishlab chiqish uchun yordamchi vositalar to'plamidir. Dasturlash muhitining markazida matn tahrirlash funksiyasi, shuningdek, sintaksisni yoritish (syntax highlighting), turni tekshirish (type checking), kodni formatlash va avtoto'ldirish kabi qo'shimcha imkoniyatlar yotadi. [VS Code][vs-code] kabi _integratsiyalashgan dasturlash muhitlari_ (IDE'lar) bu funksiyalarning barchasini bitta ilovada birlashtiradi. Terminalga asoslangan dasturlash jarayonlari tmux (terminal multipleksori), Vim (matn muharriri), Zsh (shell) kabi vositalarni hamda Ruff (Python linter'i va kodni formatlovchisi) va Mypy (Python uchun turni tekshiruvchi) kabi tilga xos buyruqlar satri vositalarini o'zida birlashtiradi.
 
-IDEs and terminal-based workflows each have their strengths and weaknesses. For example, graphical IDEs can be easier to learn, and today's IDEs generally have better out-of-the-box AI integrations like AI autocomplete; on the other hand, terminal-based workflows are lightweight, and they may be your only option in environments where you don't have a GUI or can't install software. We recommend you develop basic familiarity with both and develop mastery of at least one. If you don't already have a preferred IDE, we recommend starting with [VS Code][vs-code].
+IDE'lar va terminalga asoslangan jarayonlarning har biri o'zining kuchli va zaif tomonlariga ega. Masalan, grafik interfeysli IDE'larni o'rganish osonroq bo'lishi mumkin va bugungi IDE'lar odatda AI avtoto'ldirish kabi o'zida tayyor o'rnatilgan SI integratsiyalariga ega; boshqa tomondan, terminalga asoslangan jarayonlar yengil va grafik interfeysga ega bo'lmagan yoki dastur o'rnata olmaydigan muhitlarda yagona tanlovingiz bo'lishi mumkin. Biz har ikkalasi bilan ham har qalay tanishishni va kamida bittasini mukammal o'zlashtirishni tavsiya qilamiz. Agar sizda hali sevimli IDE bo'lmasa, [VS Code][vs-code] bilan boshlashni tavsiya qilamiz.
 
-In this lecture, we'll cover:
+Ushbu ma'ruzada biz quyidagilarni ko'rib chiqamiz:
 
-- [Text editing and Vim](#text-editing-and-vim)
-- [Code intelligence and language servers](#code-intelligence-and-language-servers)
-- [AI-powered development](#ai-powered-development)
-- [Extensions and other IDE functionality](#extensions-and-other-ide-functionality)
+- [Matn tahrirlash va Vim](#matn-tahrirlash-va-vim)
+- [Kod intellekti va til serverlari](#kod-intelektu-va-til-serverlari)
+- [Sun'iy intellekt yordamida dasturlash](#si-yordamida-dasturlash)
+- [Kengaytmalar va boshqa IDE funksiyalari](#kengaytmalar-va-boshqa-ide-funksiyalari)
 
 [vs-code]: https://code.visualstudio.com/
 
-# Text editing and Vim
+# Matn tahrirlash va Vim
 
-When programming, you spend most of your time navigating through code, reading snippets of code, and making edits to code, rather than writing long streams or reading files top-to-bottom. [Vim] is a text editor that is optimized for this distribution of tasks.
+Dasturlash jarayonida vaqtingizning aksariyat qismi fayllarni yuqoridan pastgacha uzluksiz o'qish yoki uzun kodlar yozish bilan emas, balki kod bo'ylab harakatlanish, kodning ayrim qismlarini o'qish va kodga o'zgartirishlar kiritish bilan o'tadi. [Vim] aynan shu vazifalarni taqsimlash uchun optimallashtirilgan matn muharriridir.
 
-**The philosophy of Vim.** Vim has a beautiful idea as its foundation: its interface is itself a programming language, designed for navigating and editing text. Keystrokes (with mnemonic names) are commands, and these commands are composable. Vim avoids the use of the mouse, because it's too slow; Vim even avoids use of the arrow keys because it requires too much movement. The result: an editor that feels like a brain-computer interface and matches the speed at which you think.
+**Vim falsafasi.** Vim o'zining negizida ajoyib bir g'oyaga ega: uning interfeysining o'zi matn bo'ylab harakatlanish va tahrirlash uchun mo'ljallangan dasturlash tilidir. Tugmalar (mnemonik nomlar bilan) buyruqlar bo'lib xizmat qiladi va bu buyruqlarni bir-biri bilan birlashtirish mumkin. Vim sichqonchadan foydalanishdan qochadi, chunki u juda sekin; Vim hatto yo'nalish tugmalaridan (arrow keys) foydalanishdan ham qochadi, chunki bu ortiqcha harakatni talab qiladi. Natija: miya-kompyuter interfeysiga o'xshaydigan va fikrlash tezligingizga mos keladigan muharrir.
 
-**Vim support in other software.** You don't have to use [Vim] itself to benefit from the ideas at its core. Many programs that involve any kind of text editing support "Vim mode", either as built-in functionality or as a plugin. For example, VS Code has the [VSCodeVim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) plugin, Zsh has [built-in support](https://zsh.sourceforge.io/Guide/zshguide04.html) for Vim emulation, and even Claude Code has [built-in support](https://code.claude.com/docs/en/interactive-mode#vim-editor-mode) for Vim editor mode. Chances are that any tool you use that involves text editing supports Vim mode in one way or another.
+**Boshqa dasturlarda Vim'ni qo'llab-quvvatlash.** Uning asosidagi g'oyalardan foydalanish uchun bevosita [Vim]'ning o'zidan foydalanishingiz shart emas. Har qanday matn tahrirlash bilan bog'liq bo'lgan ko'plab dasturlar "Vim rejimi" (Vim mode)ni ichki funksiya yoki plagin sifatida qo'llab-quvvatlaydi. Masalan, VS Code'da [VSCodeVim](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) plagini, Zsh'da Vim emulyatsiyasi uchun [ichki yordam](https://zsh.sourceforge.io/Guide/zshguide04.html), va hatto Claude Code'da Vim muharriri rejimi uchun [ichki yordam](https://code.claude.com/docs/en/interactive-mode#vim-editor-mode) mavjud. Katta ehtimol bilan, matn tahrirlashni o'z ichiga olgan siz ishlatadigan har qanday vosita qaysidir ma'noda Vim rejimini qo'llab-quvvatlaydi.
 
-## Modal editing
+## Rejimlardagi tahrirlash (Modal editing)
 
-Vim is a _modal editor_: it has different operating modes for different classes of tasks.
+Vim _rejimli muharrir_ (modal editor) hisoblanadi: u turli toifadagi vazifalar uchun turli xil ishlash rejimlariga ega.
 
-- **Normal**: for moving around a file and making edits
-- **Insert**: for inserting text
-- **Replace**: for replacing text
-- **Visual** (plain, line, or block): for selecting blocks of text
-- **Command-line**: for running a command
+- **Normal**: fayl bo'ylab harakatlanish va o'zgartirishlar kiritish uchun
+- **Insert** (Kiritish): matn kiritish uchun
+- **Replace** (O'zgartirish): matnni o'zgartirish uchun
+- **Visual** (oddiy, qator yoki blok): matn bloklarini tanlash uchun
+- **Command-line** (Buyruqlar satri): buyruqni ishga tushirish uchun
 
-Keystrokes have different meanings in different operating modes. For example, the letter `x` in Insert mode will just insert a literal character "x", but in Normal mode, it will delete the character under the cursor, and in Visual mode, it will delete the selection.
+Tugmalar turli ishlash rejimlarida farqli ma'nolarni anglatadi. Masalan, Insert rejimida `x` harfi shunchaki "x" belgisini kiritadi, lekin Normal rejimda u kursor tagidagi belgini o'chiradi, Visual rejimda esa tanlangan qismni o'chiradi.
 
-In its default configuration, Vim shows the current mode in the bottom left. The initial/default mode is Normal mode. You'll generally spend most of your time between Normal mode and Insert mode.
+Standart sozlamalarda, Vim joriy rejimni pastki chap burchakda ko'rsatadi. Dastlabki/standart rejim Normal rejimdir. Odatda siz vaqtingizning ko'p qismini Normal rejim va Insert rejimida o'tkazasiz.
 
-You change modes by pressing `<ESC>` (the escape key) to switch from any mode back to Normal mode. From Normal mode, enter Insert mode with `i`, Replace mode with `R`, Visual mode with `v`, Visual Line mode with `V`, Visual Block mode with `<C-v>` (Ctrl-V, sometimes also written `^V`), and Command-line mode with `:`.
+`<ESC>` (escape tugmasi) bosish orqali ixtiyoriy rejimdan Normal rejimga qaytishingiz mumkin. Normal rejimdan turib Insert rejimiga `i`, Replace rejimiga `R`, Visual rejimiga `v`, Visual Line rejimiga `V`, Visual Block rejimiga `<C-v>` (Ctrl-V, ba'zan `^V` deb ham yoziladi) va Command-line rejimiga `:` orqali o'tasiz.
 
-You use the `<ESC>` key a lot when using Vim: consider remapping Caps Lock to Escape ([macOS instructions](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)) or create an [alternative mapping](https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings) for `<ESC>` with a simple key sequence.
+Vim'dan foydalanganda `<ESC>` tugmasidan juda ko'p foydalanasiz: Caps Lock tugmasini Escape'ga o'zgartirishni ko'rib chiqing ([macOS uchun qo'llanma](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_macOS)) yoki oddiy tugmalar ketma-ketligi bilan `<ESC>` uchun [muqobil bog'lash](https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings) qilib oling.
 
-## Basics: inserting text
+## Asoslar: matn kiritish
 
-From Normal mode, press `i` to enter Insert mode. Now, Vim behaves like any other text editor, until you press `<ESC>` to return to Normal mode. This, along with the basics explained above, are all you need to start editing files using Vim (though not particularly efficiently, if you're spending all your time editing from Insert mode).
+Normal rejimdan Insert rejimiga o'tish uchun `i` tugmasini bosing. Endi Vim xuddi boshqa har qanday matn muharriri kabi ishlaydi, toki siz `<ESC>` ni bosib Normal rejimga qaytmaguningizgacha. Bularning barchasi va yuqoridagi asoslar Vim bilan fayllarni tahrirlashni boshlash uchun yetarli (agar butun vaqtingizni asosan Insert rejimida o'tkazmoqchi bo'lsangiz unchalik samarali emas, albatta).
 
-## Vim's interface is a programming language
+## Vim interfeysi – bu dasturlash tili
 
-Vim's interface is a programming language. Keystrokes (with mnemonic names) are commands, and these commands _compose_. This enables efficient movement and edits, especially once the commands become muscle memory, just like typing becomes super efficient once you've learned your keyboard layout.
+Vim interfeysi xuddi dasturlash tili kabi ishlaydi. Tugmalar (mnemonik nomlar bilan) buyruqlar bo'lib, ular bir-birini _to'ldiradi_ (compose). Bu tezкор harakatlanish va o'zgartirishlar kiritish imkonini beradi, ayniqsa klaviaturingizni o'rgangandan so'ng xuddi mushaklar xotirasi kabi ishlaydi.
 
-### Movement
+### Harakatlanish (Movement)
 
-You should spend most of your time in Normal mode, using movement commands to navigate the file. Movements in Vim are also called "nouns", because they refer to chunks of text.
+Siz vaqtingizning aksariyat qismini fayllar bo'ylab harakatlanish uchun Normal rejimda o'tkazishingiz kerak. Vim'dagi harakatlanishlar ham "otlar" (nouns) deyiladi, chunki ular matn bo'laklarini ifodalaydi.
 
-- Basic movement: `hjkl` (left, down, up, right)
-- Words: `w` (next word), `b` (beginning of word), `e` (end of word)
-- Lines: `0` (beginning of line), `^` (first non-blank character), `$` (end of line)
-- Screen: `H` (top of screen), `M` (middle of screen), `L` (bottom of screen)
-- Scroll: `Ctrl-u` (up), `Ctrl-d` (down)
-- File: `gg` (beginning of file), `G` (end of file)
-- Line numbers: `:{number}<CR>` or `{number}G` (line {number})
-    - `<CR>` refers to the carriage return / enter key
-- Misc: `%` (matching item, like parenthesis or brace)
-- Find: `f{character}`, `t{character}`, `F{character}`, `T{character}`
-    - find/to forward/backward {character} on the current line
-    - `,` / `;` for navigating matches
-- Search: `/{regex}`, `n` / `N` for navigating matches
+- Asosiy harakatlar: `hjkl` (chap, past, tepa, o'ng)
+- So'zlar: `w` (keyingi so'z), `b` (so'zning boshi), `e` (so'zning oxiri)
+- Qatorlar: `0` (qator boshi), `^` (birinchi bo'sh bo'lmagan belgi), `$` (qatorning oxiri)
+- Ekran: `H` (ekranning yuqori qismi), `M` (ekranning o'rta qismi), `L` (ekranning pastki qismi)
+- Skrolling: `Ctrl-u` (tepaga), `Ctrl-d` (pastga)
+- Fayl: `gg` (faylning boshi), `G` (faylning oxiri)
+- Qator raqamlari: `:{number}<CR>` yoki `{number}G` ({number} qatoriga)
+    - `<CR>` enter tugmasi vazifasini bildiradi
+- Turli xil: `%` (mos keladigan juftlik, qavs va hakazo)
+- Izlash (Find): `f{belgi}`, `t{belgi}`, `F{belgi}`, `T{belgi}`
+    - joriy qatorda {belgini} oldinga/orqaga qarab qidirish
+    - natijalar bo'ylab yurish uchun `,` / `;`
+- Qidiruv (Search): `/{regulyar ifoda}`, mosliklar orasida yurish uchun `n` / `N`
 
-### Selection
+### Tanlash (Selection)
 
-Visual modes:
+Visual rejimlar:
 
 - Visual: `v`
-- Visual Line: `V`
-- Visual Block: `Ctrl-v`
+- Visual qator (Visual Line): `V`
+- Visual blok (Visual Block): `Ctrl-v`
 
-Can use movement keys to make selection.
+Tanlash uchun harakatlantirish tugmalaridan foydalansangiz bo'ladi.
 
-### Edits
+### Tahrirlash (Edits)
 
-Everything that you used to do with the mouse, you now do with the keyboard using editing commands that compose with movement commands. Here's where Vim's interface starts to look like a programming language. Vim's editing commands are also called "verbs", because verbs act on nouns.
+Ilgari sichqoncha bilan qilingan barcha amallarni endi klaviatura orqali, harakatlantirish amallariga biriktirilgan holda amalga oshirasiz. Aynan shu yerda Vim interfeysi dasturlash tiliga o'xshashni boshlaydi. Vim'ning tahrir amallari "fe'llar" (verbs) deyiladi.
 
-- `i` enter Insert mode
-    - but for manipulating/deleting text, want to use something more than backspace
-- `o` / `O` insert line below / above
-- `d{motion}` delete {motion}
-    - e.g. `dw` is delete word, `d$` is delete to end of line, `d0` is delete to beginning of line
-- `c{motion}` change {motion}
-    - e.g. `cw` is change word
-    - like `d{motion}` followed by `i`
-- `x` delete character (equivalent to `dl`)
-- `s` substitute character (equivalent to `cl`)
-- Visual mode + manipulation
-    - select text, `d` to delete it or `c` to change it
-- `u` to undo, `<C-r>` to redo
-- `y` to copy / "yank" (some other commands like `d` also copy)
-- `p` to paste
-- Lots more to learn: for example, `~` flips the case of a character, and `J` joins together lines
+- `i` Insert rejimga o'tish
+    - lekin matnni o'chirish/manipulyatsiya qilishda sizga backspace'dan ko'proq narsa kerak bo'ladi
+- `o` / `O` pastda / yuqorida yangi qator ochish
+- `d{motion}` {motion} bo'yicha o'chirish
+    - masalan, `dw` - so'zni o'chirish, `d$` - qatorning oxirigacha, `d0` - boshigacha o'chirish
+- `c{motion}` {motion} qismini o'zgartirish
+    - masalan, `cw` so'zni o'zgartirish
+    - `d{motion}` keyin esa `i` kabi ishlaydi
+- `x` belgini o'chirish (bu `dl` ekvivalenti)
+- `s` belgini almashtirish (bu `cl` ekvivalenti)
+- Visual rejim + manipulyatsiya
+    - matnni tanlang, o'chirish uchun `d` o'zgartirish uchun `c` bosing
+- `u` ortga qaytarish, `<C-r>` qayta bajarish
+- `y` nusxalash yoxud "yank" (`d` kabi boshqa amallar ham nusxa oladi)
+- `p` joylashtirish (paste)
+- Ko'proq o'rganish uchun: masalan, `~` harfning registrini o'zgartiradi, `J` qatorlarni birlashtiradi
 
-### Counts
+### Sanoqlar (Counts)
 
-You can combine nouns and verbs with a count, which will perform a given action a number of times.
+Siz otlar va fe'llarni marta (count) soni yordamida birlashtirishingiz mumkin va bu harakat bir necha bor takrorlanadi.
 
-- `3w` move 3 words forward
-- `5j` move 5 lines down
-- `7dw` delete 7 words
+- `3w` 3 ta so'z oldinga yurish
+- `5j` 5 qator pastga siljish
+- `7dw` 7 ta so'zni o'chirish
 
-### Modifiers
+### Modifikatorlar (Modifiers)
 
-You can use modifiers to change the meaning of a noun. Some modifiers are `i`, which means "inner" or "inside", and `a`, which means "around".
+Otlarning ma'nosini o'zgartirish uchun modifikatorlardan foydalanishingiz mumkin. Bular "ichki" degan ma'noni beruvchi `i` yoki "atrofi" degan ma'noni anglatuvchi `a` kabi belgilar.
 
-- `ci(` change the contents inside the current pair of parentheses
-- `ci[` change the contents inside the current pair of square brackets
-- `da'` delete a single-quoted string, including the surrounding single quotes
+- `ci(` qavslar ichidagi qatorni o'zgartiradi
+- `ci[` to'rtburchak qavslar ichidagi qatorni o'zgartiradi
+- `da'` bitta tirnoqli string'ni (qo'shtirnoqlarsiz stringni o'zi bilan) uzilish bilan o'chiradi
 
-## Putting it all together
+## Hammasini bir joyga jamlaganda
 
-Here is a broken [fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz) implementation:
+Bu yerda xato ishlangan [fizz buzz](https://en.wikipedia.org/wiki/Fizz_buzz) realizatsiyasi keltirilgan:
 
 ```python
 def fizz_buzz(limit):
@@ -142,73 +142,73 @@ def main():
     fizz_buzz(20)
 ```
 
-We use the following sequence of commands to fix the issues, beginning in Normal mode:
+Ishni Normal rejimdan boshlab muammolarni bartaraf qilish uchun biz quyidagi ketma-ketlikdan foydalanamiz:
 
-- Main is never called
-    - `G` to jump to the end of the file
-    - `o` to **o**pen a new line below
-    - Type in `if __name__ == "__main__": main()`
-        - If your editor has Python language support, it might do some auto-indentation for you in Insert mode
-    - `<ESC>` to go back to Normal mode
-- Starts at 0 instead of 1
-    - `/` followed by `range` and `<CR>` to search for "range"
-    - `ww` to move forward two **w**ords (you could also use `2w`, but in practice, for small counts it's common to repeat the key instead of using the count functionality)
-    - `i` to switch to **i**nsert mode, and add `1,`
-    - `<ESC>` to go back to Normal mode
-    - `e` to jump to the **e**nd of the next word
-    - `a` to start **a**ppending text, and add `+ 1`
-    - `<ESC>` to go back to Normal mode
-- Prints "fizz" for multiples of 5
-    - `:6<CR>` to go to line 6
-    - `ci"` to **c**hange **i**nside the '**"**', change to `"buzz"`
-    - `<ESC>` to go back to Normal mode
+- Main umuman chaqirilmagan
+    - Fayl oxiriga sakrash uchun `G`
+    - Pastroqda yangi qator ochish uchun **o** (open)
+    - `if __name__ == "__main__": main()` deb yozing
+        - Muharriringizda Python tiliga ega bo'lsangiz o'zi surib to'g'irlab qo'yishi mumkin
+    - Normal rejimga qaytish uchun `<ESC>`
+- U 1 o'rniga 0 dan boshlanyapti
+    - `/` orqasidan `range` va qidirish uchun `<CR>`
+    - Ikki **s**o'z oldiga yurish uchun `ww` (shuningdek, `2w` ishlatsa ham bo'ladi)
+    - K**i**ritish (insert) rejimi uchun `i`, ustiga `1,` yozish
+    - Normal rejimga qaytish uchun `<ESC>`
+    - Keyingi so'zning o**x**iriga o'tish (end) uchun `e`
+    - Qo'shish (**a**ppend) qilib boshlash uchun `a` bosiladi, qatorga `+ 1` qo'shiladi
+    - Normal rejimga qaytish uchun `<ESC>`
+    - 5 karrali qismi "fizz" qaytaryapti
+    - 6-qatorga borish uchun `:6<CR>`
+    - Qo'shtirnoqni i**ch**ini (**i**) almashtirish (change) `ci"`, uni `"buzz"` deb o'zgartiramiz
+    - Normal rejimga qaytish uchun `<ESC>`
 
-## Learning Vim
+## Vim'ni o'rganish
 
-The best way to learn Vim is to learn the fundamentals (what we've covered so far) and then just enable Vim mode in all your software and start using it in practice. Avoid the temptation to use the mouse or the arrow keys; in some editors, you can unbind the arrow keys to force yourself to build good habits.
+Vim'ni o'rganishning eng yaxshi usuli uning asoslarini tushunib olish, keyin esa barcha dasturlaringizda Vim rejimini yoqish va uni amalda qo'llashdan iboratdir. Sichqoncha va ko'rsatkich tugmalaridan voz kechish juda foydali bo'ladi.
 
-### Additional resources
+### Qo'shimcha manbalar
 
-- The [Vim lecture](/2020/editors/) from the previous iteration of this class --- we have covered Vim in more depth there
-- `vimtutor` is a tutorial that comes installed with Vim --- if Vim is installed, you should be able to run `vimtutor` from your shell
-- [Vim Adventures](https://vim-adventures.com/) is a game to learn Vim
+- Kursning o'tgan safargi nashridan [Vim ma'ruzasi](/2020/editors/) --- biz u yerda yana ham batafsil o'tdik
+- `vimtutor` bu Vim o'rnatilganda keladigan darslik --- agar Vim o'rnatilgan bo'lsa uni terminalda ishga tushirish mumkin
+- [Vim Adventures](https://vim-adventures.com/) bu Vim'ni o'yinda o'rganish
 - [Vim Tips Wiki](https://vim.fandom.com/wiki/Vim_Tips_Wiki)
-- [Vim Advent Calendar](https://vimways.org/2019/) has various Vim tips
-- [VimGolf](https://www.vimgolf.com/) is [code golf](https://en.wikipedia.org/wiki/Code_golf), but where the programming language is Vim's UI
+- [Vim Advent Calendar](https://vimways.org/2019/) Vim hiylalari asosan
+- [VimGolf](https://www.vimgolf.com/) Vim UI orqali qilingan [kod golfi](https://en.wikipedia.org/wiki/Code_golf).
 - [Vi/Vim Stack Exchange](https://vi.stackexchange.com/)
 - [Vim Screencasts](http://vimcasts.org/)
-- [Practical Vim](https://pragprog.com/titles/dnvim2/) (book)
+- [Practical Vim](https://pragprog.com/titles/dnvim2/) (kitob)
 
 [Vim]: https://www.vim.org/
 
-# Code intelligence and language servers
+# Kod intellekti va til serverlari
 
-IDEs generally offer language-specific support that requires semantic understanding of the code through IDE extensions that connect to _language servers_ that implement [Language Server Protocol](https://microsoft.github.io/language-server-protocol/). For example, the [Python extension for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-python.python) relies on [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance), and the [Go extension for VS Code](https://marketplace.visualstudio.com/items?itemName=golang.go) relies on the first-party [gopls](https://go.dev/gopls/). By installing the extension and language server for the languages you work with, you can enable many language-specific features in your IDE, such as:
+IDE'lar odatda [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) protokoliga asoslangan interfeyslarni, ya'ni IDE kengaytmalari va til serverlarini amalga oshirishni taklif etadi. Ularda kodning semantik anglashini talab qiluvchi tilga xos amallar amalga oshiriladi. Masalan, VS Codedagi [Python kengaytmasi](https://marketplace.visualstudio.com/items?itemName=ms-python.python) bevosita [Pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) yordamida yoki [Go](https://marketplace.visualstudio.com/items?itemName=golang.go) kengaytmalari orqali ishlatilishi mumkin va h.k. O'zingiz ishlaydigan tillar bo'yicha serverlarni ulab kod yozganingizda, avtoto'ldirish singari ba'zi afzalliklarga erishasiz:
 
-- **Code completion.** Better autocomplete and autosuggest, such as being able to see an object's fields and methods after typing `object.`.
-- **Inline documentation.** Seeing documentation on hover and autosuggest.
-- **Jump-to-definition.** Jumping from a use site to the definition, such as being able to go from a field reference `object.field` to the definition of the field.
-- **Find references.** The inverse of the above, find all sites where a particular item such as a field or type is referenced.
-- **Help with imports.** Organizing imports, removing unused imports, flagging missing imports.
-- **Code quality.** These tools can be used standalone, but this functionality is often provided by language servers as well. Code formatting auto-indents and auto-formats code, and type checkers and linters find errors in your code, as you type. We will cover this class of functionality in greater depth in the [lecture on code quality](/2026/code-quality/).
+- **Kodni to'ldirish.** Avtoto'ldiruvchi kabi (object. yozilgan zahoti siz uni davomini ko'rasiz).
+- **Inline documentation (Ichki hujjatlar).** Sichqonchangizni u yerga olib borsangiz ko'rish mumkin.
+- **Jump-to-definition (O'rnatish nuqtasiga o'tish).** Qaysidir field qa'yerdan olingan bo'lsa huddi shu yerga sakrab o'tish imkonini beradi.
+- **Find references (Bog'liqliklar qidiruvi).** Eng osoni kod qayerlarda ishlatilayapti ko'rsatib turadi.
+- **Import bilan yordam.** O'chirib yuborilgan yoki yangi importlarni aytadi.
+- **Kod sifati.** Avtomatik formatlashni berishi kabi afzalliklari bor. Bularning barchasini [Kod sifati](/2026/code-quality/) bo'limida yana ko'rib o'tamiz.
 
-## Configuring language servers
+## Til serverlarini sozlash
 
-For some languages, all you need to do is install the extension and language server, and you'll be all set. For others, to get the maximum benefit from the language server, you need to tell the IDE about your environment. For example, pointing VS Code to your [Python environment](https://code.visualstudio.com/docs/python/environments) will enable the language server to see your installed packages. Environments are covered in more depth in our [lecture on packaging and shipping code](/2026/shipping-code/).
+Ba'zi tillar o'z-o'zidan sozlanadi. Boshqalari esa ishqalanish yuzaga keltirishi mumkin. Masalan, Python qanday ishlatilishini va qay manzilda paketlar bog'langanligini ko'rsatish darkor. Bu kabi mavzuni o'zimizning [dastur yetkazib berish](/2026/shipping-code/) darslarida ko'proq yoritamiz.
 
-Depending on the language, there might be some settings you can configure for your language server. For example, using the Python support in VS Code, you can disable static type checking for projects that don't make use of Python's optional type annotations.
+Tilga qarab turli xil sozlamalar mavjud bo'lishi mumkin. Masalan, Python type-checking shart bo'lmasa uni o'chirib qo'yishni taklif etadi.
 
-# AI-powered development
+# SI yordamida dasturlash
 
-Since the introduction of [GitHub Copilot][github-copilot] using OpenAI's [Codex model](https://openai.com/index/openai-codex/) in mid 2021, [LLMs](https://en.wikipedia.org/wiki/Large_language_model) have become widely adopted in software engineering. There are three main form factors in use right now: autocomplete, inline chat, and coding agents.
+[GitHub Copilot][github-copilot] e'lon qilingandan buyon dasturlashda [LLM'lar](https://en.wikipedia.org/wiki/Large_language_model) ishlatilishni boshladi. Ayni paytda uchta eng ommabop variant bor: avtoto'ldirish, ichki suhbat (inline chat) va dasturlash agentlari (coding agents).
 
 [github-copilot]: https://github.com/features/copilot/ai-code-editor
 
-## Autocomplete
+## Avtoto'ldirish (Autocomplete)
 
-AI-powered autocomplete has the same form factor as traditional autocomplete in your IDE, suggesting completions at your cursor position as you type. Sometimes, it's used as a passive feature that "just works". Beyond that, AI autocomplete is generally [prompted](https://en.wikipedia.org/wiki/Prompt_engineering) using code comments.
+SI orqali to'ldirish an'anaviy kod muharrirlarida xuddi shunday formatga egaki, kursorni oldinga olgan sari u variantlarni chiaraveradi. Masalan, buni izohlardan orqali [prompt'lar bilan boshqarsh](https://en.wikipedia.org/wiki/Prompt_engineering) oson.
 
-For example, let's write a script to download the contents of these lecture notes and extract all the links. We can start with:
+Masalan skript yozmoqchimiz deylik:
 
 ```python
 import requests
@@ -216,34 +216,34 @@ import requests
 def download_contents(url: str) -> str:
 ```
 
-The model will autocomplete the body of the function:
+Model qolganini davom ettiradi:
 
 ```python
     response = requests.get(url)
     return response.text
 ```
 
-We can further guide completions using comments. For example, if we start writing a function to extract all Markdown links, but it doesn't have a particularly descriptive name:
+Siz izohlarda tushuntirish kiritishingiz mumkin:
 
 ```python
 def extract(contents: str) -> list[str]:
 ```
 
-The model will autocomplete something like this:
+Bunga bunday natija beradi:
 
 ```python
     lines = contents.splitlines()
     return [line for line in lines if line.strip()]
 ```
 
-We can guide the completion through code comments:
+Biz o'z sharhlarimizni izohlarga kiritsak bo'ladi:
 
 ```python
 def extract(content: str) -> list[str]:
-    # extract all Markdown links from the content
+    # contentdan barcha Markdown havolalarinig oling
 ```
 
-This time, the model gives a better completion:
+Bu marta esa yaxshiroq natija olamiz:
 
 ```python
     import re
@@ -251,27 +251,25 @@ This time, the model gives a better completion:
     return re.findall(pattern, content)
 ```
 
-Here, we see one downside of this AI coding tool: it can only provide completions at the cursor. In this case, it would be better practice to put the `import re` at the module level, rather than inside the function.
+Bu modelni aybi shu yerda ko'rinadi - faqatgina kursorda aytilgan joyini u ko'rishi mumkin xolos va module bo'limlariga ta'sir qilmaydi. Shuning uchun ham amaliyotda odatda eng asosiysi funksiyalarni aniq ravan nomlar, misol uchun `extract_links` qilib nomlash va docstrings qo'shish kabi qulay bo'ladigan tarzda xizmat ko'rsatishlari shart bo'ladi.
 
-The example above used a poorly-named function to demonstrate how code completion can be steered using comments; in practice, you'd want to write code with functions named more descriptively, like `extract_links`, and you'd want to write docstrings (and based on this, the model should generate a completion analogous to the one above).
-
-For demonstration purposes, we can complete the script:
+Va bu hamma narsani tugatadi:
 
 ```python
 print(extract(download_contents("https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/development-environment.md")))
 ```
 
-## Inline chat
+## Ichki chat (Inline chat)
 
-Inline chat lets you select a line or block and then directly prompt the AI model to propose an edit. In this interaction mode, the model can make changes to existing code (which differs from autocomplete, which only completes code beyond the cursor).
+Block ko'rnishini ajratib olib sun'iy intellekt modelidan ushbu joriy amallarni tahrir qilishni taklif qilish mumkin. Masalan aytaylik siz har qanday qatorlarni to'g'rilamoqchisiz.
 
-Continuing the example from above, suppose we decided not to use the third-party `requests` library. We could select the relevant three lines of code, invoke inline chat, and say something like:
+Davomi sifatida ko'rsak biz `requests` o'rniga boshqasini ishlata qolamiz. Satrni tanlaymiz va shunday yozamiz:
 
 ```
 use built-in libraries instead
 ```
 
-The model proposes:
+Model shuni beradi:
 
 ```python
 from urllib.request import urlopen
@@ -281,25 +279,25 @@ def download_contents(url: str) -> str:
         return response.read().decode('utf-8')
 ```
 
-## Coding agents
+## Dasturlash agentlari (Coding agents)
 
-Coding agents are covered in depth in the [Agentic Coding](/2026/agentic-coding/) lecture.
+Bular chuqur ravishda [Agentic dasturlash](/2026/agentic-coding/) bo'limida o'rnatilgan.
 
-## Recommended software
+## Tavsiya qilinadigan dastur
 
-Some popular AI IDEs are [VS Code][vs-code] with the [GitHub Copilot][github-copilot] extension and [Cursor](https://cursor.com/). GitHub Copilot is currently available [for free for students](https://github.com/education/students), teachers, and maintainers of popular open source projects. This is a rapidly evolving space. Many of the leading products have roughly equivalent functionality.
+Mashxur IDE kengaytmalar orasidan [GitHub Copilot][github-copilot] yoki [Cursor](https://cursor.com/) ni ayta olamiz. Talabalar uchun GitHub platformasida talabalik va ustozlar uchun [bepul beriladi](https://github.com/education/students). Bu joy uzluksiz integratsiya qilinadigan muhit.
 
-# Extensions and other IDE functionality
+# Kengaytmalar va boshqa IDE funksiyalari
 
-IDEs are powerful tools, made even more powerful by _extensions_. We can't cover all of these features in a single lecture, but here we provide some pointers to a couple popular extensions. We encourage you to explore this space on your own; there are many lists of popular IDE extensions available online, such as [Vim Awesome](https://vimawesome.com/) for Vim plugins and [VS Code extensions sorted by popularity](https://marketplace.visualstudio.com/search?target=VSCode&category=All%20categories&sortBy=Installs).
+Bu muhitlarni aynan _kengaytmalar_ (extensions) kuchaytirib beradi. Va ularga o'xshagan asosan qilinadigan ishlarga oqimning [VS Code kengaytmalar ommabopligi](https://marketplace.visualstudio.com/search?target=VSCode&category=All%20categories&sortBy=Installs) kiritilgan.
 
-- [Development containers](https://containers.dev/): supported by popular IDEs (e.g., [supported by VS Code](https://code.visualstudio.com/docs/devcontainers/containers)), dev containers let you use a container to run development tools. This can be helpful for portability or isolation. The [lecture on packaging and shipping code](/2026/shipping-code/) covers containers in more depth.
-- Remote development: do development on a remote machine using SSH (e.g., with the [Remote SSH plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)). This can be handy, for example, if you want to develop and run code on a beefy GPU machine in the cloud.
-- Collaborative editing: edit the same file, Google Docs style (e.g., with the [Live Share plugin for VS Code](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare)).
+- [Dasturlash muhiti konteynerlari](https://containers.dev/): [VS Code da saqlanadigan o'rnatma](https://code.visualstudio.com/docs/devcontainers/containers) va boshqalr hammasi bor. Shuningdek konteynerlarda [kodni yetkazish](/2026/shipping-code/) yaxshi yorilib berilgan.
+- Masofaviy dasturlash (remote serverlar) asosida ishlar ([Masofaviy SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)) ko'rsatib o'tilgan va bu orqali masalan GPU li katta qutulishli qismlarga kirishishingiz mumkin.
+- Hamkorlikda (collaborative) tahrirlash kabi bir vaqtni ichida ishlash qismi ham plagin tufayli ta'minlanadi, masalan [Live Share](https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsliveshare).
 
-# Exercises
+# Mashqlar
 
-1. Enable Vim mode in all the software you use that supports it, such as your editor and your shell, and use Vim mode for all your text editing for the next month. Whenever something seems inefficient, or when you think "there must be a better way", try Googling it, there probably is a better way.
-1. Complete a challenge from [VimGolf](https://www.vimgolf.com/).
-1. Configure an IDE extension and language server for a project that you're working on. Ensure that all the expected functionality, such as jump-to-definition for library dependencies, works as expected. If you don't have code that you can use for this exercise, you can use some open-source project from GitHub (such as [this one](https://github.com/spf13/cobra)).
-1. Browse a list of IDE extensions and install one that seems useful to you.
+1. Barcha dasturlaringiz va ish instrumentlaringiz, masalan, fayllaringiz yoki shell, ichida Vim rejimini o'rnating, hamma tahrirlashda shundan bir oy davomida foydalaning. Agar nimadir sizni ko'proq qiynamoqchi bo'lsa, uni internet orqali tekshirish mumkin.
+1. [VimGolf](https://www.vimgolf.com/) platformasidagi challlenjelarni bajaring.
+1. O'zingiz kiritadigan loyihalar uchun qandaydir kengaytma o'rnating. U ishlashini bilish misol masalan bog'lanishlarga (dependencies) o'tib ko'ring. Agar kodingiz yo'q bo'lsa buni mana bunday ochiq kodli base ustida qilshingiz mumkin (misol, [mana buni](https://github.com/spf13/cobra)).
+1. O'zingiz qiziqqan biror IDE kengaytmasi orqali shug'ullaning o'rganing.

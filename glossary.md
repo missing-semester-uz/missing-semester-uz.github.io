@@ -10,23 +10,31 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | AR/VR | AR/VR | Do not translate |
 | argument | argument | Do not translate |
 | arithmetic expansion | arifmetik kengaytirish | In bash, `((...))` |
+| autocomplete | avtoto'ldirish | Synonym for auto-completion |
 | auto-completion | avtoto'ldirish | e.g., pressing `<TAB>` |
 | background job | fon vazifasi | e.g., using `&` in shell |
 | bash | bash | Bourne Again SHell, do not translate |
 | child process | bola jarayon | |
+| code completion | kodni to'ldirish | IDE feature |
+| code formatting | kodni formatlash | |
+| coding agent | dasturlash agenti | AI-assisted development tools |
 | command | buyruq | |
 | command substitution | buyruq almashtirish | In bash, `$()` |
 | comment | izoh | Using `#` in shell scripts |
 | computer scientist | kompyuter mutaxassisi | `[General]` |
 | conditional | shartli operator | `if`, `else`, etc. |
+| container | konteyner | e.g., Docker container |
 | content | mazmun | `[General]` |
 | continuous integration | uzluksiz integratsiya | Or CI (do not translate abbreviation) |
 | course | kurs | `[General]` |
 | CSV | CSV | Do not translate |
 | current working directory | joriy ishchi katalog | Can be shortened to "joriy katalog" |
 | curriculum | o'quv dasturi | `[General]` |
+| dependency | qaramlik | Software libraries or packages required to run a program |
+| development environment | dasturlash muhiti | |
 | directory | katalog | Do not use "papka" |
 | disk partition | disk bo'linishi | |
+| docstring | docstring | Documentation string in code, do not translate |
 | dotfile | nuqtali fayl | Hidden configuration file |
 | environment variable | muhit o'zgaruvchisi | e.g., `$PATH` |
 | example | misol | `[General]` |
@@ -34,6 +42,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | execute / run | ishga tushirish / bajarish | |
 | exercise | mashq | `[General]` |
 | exit status | chiqish holati | e.g., `$?` |
+| extension | kengaytma | e.g., VS Code extension |
 | feedback | fikr-mulohaza | `[General]` |
 | file | fayl | |
 | file system | fayl tizimi | |
@@ -44,14 +53,19 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | hint | maslahat | `[General]` |
 | inline | inline / joylashgan | Context-dependent (e.g., `sed -i` for inline edit) |
 | input stream | kirish oqimi | |
+| integrated development environment | integratsiyalashgan dasturlash muhiti | IDE |
 | interface | interfeys | |
 | interpreter | interpretator | |
 | JSON | JSON | Do not translate |
 | kernel | kernel | Do not translate |
+| language server | til serveri | e.g., Language Server Protocol (LSP) |
 | lecture | ma'ruza | `[General]` |
+| linter | linter | Tool for analyzing code quality, do not translate |
 | LLM | LLM | Large Language Model, do not translate |
 | loop | sikl | `for`, `while` |
 | manual page | qo'llanma sahifasi | Reference to `man` pages |
+| mode | rejim | e.g., Normal mode, Insert mode in Vim |
+| module | modul | File containing Python definitions and statements |
 | motivation | motivatsiya | `[General]` |
 | multiplexer | multipleksor | e.g., tmux terminal multiplexer |
 | open-source | ochiq kodli / ochiq manbali | |
@@ -63,6 +77,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | path | yo'l | |
 | permission | ruxsat | `rwx` |
 | pipe / pipeline | pipe / pipeline | Do not translate. Avoid "zanjir" for better IT accuracy. |
+| plugin | plagin | Software add-on |
 | port forwarding | portni yo'naltirish | SSH connection feature |
 | process substitution | jarayonni almashtirish | In bash, `<()` |
 | productivity | unumdorlik | `[General]` |
@@ -95,11 +110,13 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | super user | super user | e.g., context of `sudo` |
 | symlink | simvolik havola | Symbolic link |
 | syntax | sintaksis | |
+| syntax highlighting | sintaksisni yoritish | Text editor feature |
 | terminal | terminal | Do not translate |
 | terminal emulator | terminal emulyatori | e.g., Alacritty, iTerm |
 | textual interface | matnli interfeys | |
 | tool | vosita | `[General]` |
 | topic | mavzu | `[General]` |
+| type checking | turni tekshirish | Process of verifying program types |
 | user | foydalanuvchi | `[General]` |
 | variable | o'zgaruvchi | |
 | wildcard | shablon belgisi | Globbing symbol, e.g., `*`, `?` |
