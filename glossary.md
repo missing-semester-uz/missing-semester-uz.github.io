@@ -16,18 +16,23 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | backtrace | backtrace | Call stack snapshot, do not translate |
 | bash | bash | Bourne Again SHell, do not translate |
 | binary | binar | Executable binary file |
+| blob | blob | Git data model object, do not translate |
+| branch | shox / tarmoq | Git branch |
 | breakpoint | to'xtash nuqtasi | Debugger feature |
 | buffer overflow | bufer to'lib ketishi | Memory bug |
 | child process | bola jarayon | |
+| clone | klonlash | Git repository loading |
 | code completion | kodni to'ldirish | IDE feature |
 | code formatting | kodni formatlash | |
 | coding agent | dasturlash agenti | AI-assisted development tools |
 | command | buyruq | |
 | command substitution | buyruq almashtirish | In bash, `$()` |
 | comment | izoh | Using `#` in shell scripts |
+| commit | commit | Git snapshot/operation, do not translate |
 | compile | kompilyatsiya qilish | |
 | computer scientist | kompyuter mutaxassisi | `[General]` |
 | conditional | shartli operator | `if`, `else`, etc. |
+| conflict | ziddiyat / konflikt | Version control merge context |
 | container | konteyner | e.g., Docker container |
 | content | mazmun | `[General]` |
 | continuous integration | uzluksiz integratsiya | Or CI (do not translate abbreviation) |
@@ -40,6 +45,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | debugging | debag qilish / nosozliklarni izlash | Process of resolving bugs |
 | dependency | qaramlik | Software libraries or packages required to run a program |
 | development environment | dasturlash muhiti | |
+| directed acyclic graph | yo'naltirilgan asiklik graf | DAG (Git history model) |
 | directory | katalog | Do not use "papka" |
 | disk partition | disk bo'linishi | |
 | docstring | docstring | Documentation string in code, do not translate |
@@ -52,15 +58,19 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | exit status | chiqish holati | e.g., `$?` |
 | extension | kengaytma | e.g., VS Code extension |
 | feedback | fikr-mulohaza | `[General]` |
+| fetch | fetch | Git operation, do not translate |
 | file | fayl | |
 | file system | fayl tizimi | |
 | flag | bayroq | Command-line argument, e.g., `-l` |
 | flame graph | flame graph | Performance visualization, usually do not translate |
+| fork | fork | GitHub context, do not translate |
 | framework | freymvork | |
 | function | funksiya | |
 | glob | glob | Do not translate |
 | graphical user interface | grafik interfeys | |
+| hash | xesh | e.g., SHA-1 hash in Git |
 | hint | maslahat | `[General]` |
+| history | tarix | `[General]` |
 | inline | inline / joylashgan | Context-dependent (e.g., `sed -i` for inline edit) |
 | input stream | kirish oqimi | |
 | instruction | ko'rsatma | Machine or program instruction |
@@ -77,6 +87,8 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | loop | sikl | `for`, `while` |
 | manual page | qo'llanma sahifasi | Reference to `man` pages |
 | memory leak | xotira sizib chiqishi | |
+| merge | birlashtirish | Git operation |
+| metadata | metama'lumot | |
 | mode | rejim | e.g., Normal mode, Insert mode in Vim |
 | module | modul | File containing Python definitions and statements |
 | motivation | motivatsiya | `[General]` |
@@ -101,18 +113,26 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | program | dastur | |
 | prompt | so'rov satri | Or simply "so'rov" |
 | public-key cryptography | ochiq kalitli kriptografiya | |
+| pull | pull | Git operation, do not translate |
+| pull request | pull request | GitHub context, do not translate |
+| push | push | Git operation, do not translate |
 | quote | tirnoqlash | Handling spaces/special chars in shell |
 | race condition | poyga holati | Concurrency bug |
+| rebase | rebase | Git operation, do not translate |
 | recording | yozuv | Video recording, `[General]` |
 | recursive | rekursiv | e.g., recursive search in directories |
 | redirect | qayta yo'naltirish | `>`, `<` operators |
+| reference | havola | Git commits pointer |
 | register | registr | CPU memory location |
 | regular expression | regulyar ifoda | Or "muntazam ifoda" |
 | relative path | nisbiy yo'l | Relative to the current working directory |
+| remote | masofaviy repozitoriy | Or 'remote' in Git context |
 | remote server | masofaviy server | |
 | repetitive task | takroriy vazifa | `[General]` |
+| repository | repozitoriy | Version control database |
 | resource | manba | `[General]` |
 | return code | qaytish kodi | Often synonymous with exit status |
+| revision | reviziya / versiya | |
 | root (filesystem) | bosh | e.g., "fayl tizimining boshi" |
 | root (user) | root | Do not translate. Can explain as "bosh foydalanuvchi" |
 | sampling | namuna olish | Profiler context |
@@ -121,9 +141,11 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | shebang | shebang | `#!/bin/sh`, do not translate |
 | shell | shell | Do not translate |
 | signal | signal | Software interrupt, e.g., SIGINT |
+| snapshot | snapshot | Version control context, do not translate |
 | solution | yechim | `[General]` |
 | ssh key | ssh kaliti | Authentication keys for SSH |
 | stack | stek | Memory structure or call stack |
+| staging area | staging area | Git concept, do not translate |
 | standard error (stderr) | standart xato (stderr) | |
 | standard input (stdin) | standart kirish (stdin) | |
 | standard output (stdout) | standart chiqish (stdout) | |
@@ -141,8 +163,10 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | tool | vosita | `[General]` |
 | topic | mavzu | `[General]` |
 | tracing | izlash | Profiler context |
+| tree | daraxt | Git data model context |
 | type checking | turni tekshirish | Process of verifying program types |
 | user | foydalanuvchi | `[General]` |
 | variable | o'zgaruvchi | |
+| version control | versiyalarni boshqarish | e.g., Version Control System (VCS) |
 | watchpoint | kuzatish nuqtasi | Debugger breakpoint linked to memory changes |
 | wildcard | shablon belgisi | Globbing symbol, e.g., `*`, `?` |

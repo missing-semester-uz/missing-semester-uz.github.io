@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Version Control and Git"
+title: "Versiyalarni boshqarish va Git"
 description: >
-  Learn Git's data model and how to use Git for version control and collaboration.
+  Git'ning ma'lumotlar modelini va versiyalarni boshqarish hamda hamkorlikda ishlash uchun Git'dan qanday foydalanishni o'rganing.
 thumbnail: /static/assets/thumbnails/2026/lec5.png
 date: 2026-01-16
 ready: true
@@ -11,63 +11,33 @@ video:
   id: 9K8lB61dl3Y
 ---
 
-Version control systems (VCSs) are tools used to track changes to source code
-(or other collections of files and folders). As the name implies, these tools
-help maintain a history of changes; furthermore, they facilitate collaboration.
-Logically, VCSs track changes to a folder and its contents in a series of
-_snapshots_, where each snapshot encapsulates the entire state of files/folders
-within a top-level directory. VCSs also maintain metadata like who created each
-snapshot, messages associated with each snapshot, and so on.
+Versiyalarni boshqarish tizimlari (VCS) manba kodidagi (yoki boshqa fayl va kataloglar to'plamidagi) o'zgarishlarni kuzatish uchun ishlatiladigan vositalardir. Nomi aytib turganidek, bu vositalar o'zgarishlar tarixini saqlashga yordam beradi; bundan tashqari, ular hamkorlikda ishlashni osonlashtiradi. Mantiqiy jihatdan, VCS'lar katalog va uning tarkibidagi o'zgarishlarni bir qator _snapshot_'lar sifatida kuzatib boradi, bunda har bir snapshot eng yuqori darajadagi katalog ichidagi fayllar/kataloglarning butun holatini qamrab oladi. VCS'lar shuningdek, har bir snapshot'ni kim yaratganligi, har bir snapshot bilan bog'liq xabarlar va shunga o'xshash metama'lumotlarni saqlaydi.
 
-Why is version control useful? Even when you're working by yourself, it can let
-you look at old snapshots of a project, keep a log of why certain changes were
-made, work on parallel branches of development, and much more. When working
-with others, it's an invaluable tool for seeing what other people have changed,
-as well as resolving conflicts in concurrent development.
+Nima uchun versiyalarni boshqarish foydali? Hattoki o'zingiz yolg'iz ishlayotganingizda ham, u sizga loyihaning eski snapshot'larini ko'rishga, nima uchun ma'lum o'zgarishlar qilinganligi jurnalini yuritishga, parallel tarmoqlarda ishlashga va boshqa ko'plab ishlarni bajarishga imkon beradi. Boshqalar bilan ishlaganda esa, u boshqa odamlar nimalarni o'zgartirganini ko'rish, shuningdek, parallel dasturlashdagi ziddiyatlarni hal qilish uchun bebaho vositadir.
 
-Modern VCSs also let you easily (and often automatically) answer questions
-like:
+Zamonaviy VCS'lar quyidagi kabi savollarga osonlik bilan (va ko'pincha avtomatik ravishda) javob topishga imkon beradi:
 
-- Who wrote this module?
-- When was this particular line of this particular file edited? By whom? Why
-  was it edited?
-- Over the last 1000 revisions, when/why did a particular unit test stop
-working?
+- Bu modulni kim yozgan?
+- Ushbu ma'lum faylning ushbu ma'lum qatori qachon tahrirlangan? Kim tomonidan? Nima uchun tahrirlangan?
+- So'nggi 1000 ta reviziya davomida qachon/nima uchun ma'lum bir unit test ishlashdan to'xtadi?
 
-While other VCSs exist, **Git** is the de facto standard for version control.
-This [XKCD comic](https://xkcd.com/1597/) captures Git's reputation:
+Boshqa VCS'lar ham mavjud bo'lsa-da, **Git** versiyalarni boshqarish uchun amaldagi standart (de facto) hisoblanadi. Ushbu [XKCD komiksi](https://xkcd.com/1597/) Git'ning obro'sini aks ettiradi:
 
 ![xkcd 1597](https://imgs.xkcd.com/comics/git.png)
 
-Because Git's interface is a leaky abstraction, learning Git top-down (starting
-with its interface / command-line interface) can lead to a lot of confusion.
-It's possible to memorize a handful of commands and think of them as magic
-incantations, and follow the approach in the comic above whenever anything goes
-wrong.
+Git'ning interfeysi yetarlicha mukammal bo'lmagan abstraksiya (leaky abstraction) bo'lgani uchun, Git'ni yuqoridan pastga (interfeysidan / buyruqlar satridan boshlab) o'rganish ko'p chalkashliklarga olib kelishi mumkin. Bir nechta buyruqlarni yodlab olish va ularni sehrli afsun sifatida tasavvur qilish, hamda biror narsa noto'g'ri ketganda yuqoridagi komiksdagi yondashuvga amal qilish oson.
 
-While Git admittedly has an ugly interface, its underlying design and ideas are
-beautiful. While an ugly interface has to be _memorized_, a beautiful design
-can be _understood_. For this reason, we give a bottom-up explanation of Git,
-starting with its data model and later covering the command-line interface.
-Once the data model is understood, the commands can be better understood in
-terms of how they manipulate the underlying data model.
+Garchi Git interfeysi xunuk bo'lsa-da, uning asosiy dizayni va g'oyalari chiroyli. Xunuk interfeysni _yodlash_ kerak bo'lsa, chiroyli dizaynni _tushunish_ mumkin. Shu sababli, biz Git'ni uning ma'lumotlar modelidan boshlab va keyinroq buyruqlar satri interfeysini qamrab olgan holda pastdan yuqoriga qarab tushuntiramiz. Ma'lumotlar modeli tushunilgandan so'ng, buyruqlarni ular asosiy ma'lumotlar modelini qanday o'zgartirishi orqali yaxshiroq tushunish mumkin.
 
-# Git's data model
+# Git'ning ma'lumotlar modeli
 
-Git's ingenuity is in its well-thought-out data model that enables all the nice
-features of version control, like maintaining history, supporting branches, and
-enabling collaboration.
+Git'ning ixtirosi uning yaxshi o'ylangan ma'lumotlar modelida bo'lib, u versiyalarni boshqarishning tarixni saqlash, tarmoqlarni qo'llab-quvvatlash va hamkorlik qilishga imkon berish kabi barcha ajoyib xususiyatlarini ta'minlaydi.
 
-## Snapshots
+## Snapshot'lar
 
-Git models the history of a collection of files and folders within some
-top-level directory as a series of snapshots. In Git terminology, a file is
-called a "blob", and it's just a bunch of bytes. A directory is called a
-"tree", and it maps names to blobs or trees (so directories can contain other
-directories). A snapshot is the top-level tree that is being tracked. For
-example, we might have a tree as follows:
+Git biror yuqori darajadagi katalog ichidagi fayllar va kataloglar to'plami tarixini snapshot'lar seriyasi sifatida modellashtiradi. Git terminologiyasida fayl "blob" deb ataladi va u shunchaki baytlar to'plamidir. Katalog esa "daraxt" deb ataladi va u nomlarni blob'lar yoki daraxtlarga xaritalaydi (shuning uchun kataloglar ichida boshqa kataloglar bo'lishi mumkin). Snapshot esa kuzatilayotgan eng yuqori darajadagi daraxtdir. Masalan, bizda quyidagicha daraxt bo'lishi mumkin:
 
-```
+```text
 <root> (tree)
 |
 +- foo (tree)
@@ -77,40 +47,24 @@ example, we might have a tree as follows:
 +- baz.txt (blob, contents = "git is wonderful")
 ```
 
-The top-level tree contains two elements, a tree "foo" (that itself contains
-one element, a blob "bar.txt"), and a blob "baz.txt".
+Eng yuqori darajadagi daraxt ikkita elementni o'z ichiga oladi: "foo" daraxti (u o'z ichida bitta "bar.txt" blob'ini saqlaydi) va "baz.txt" blob'i.
 
-## Modeling history: relating snapshots
+## Tarixni modellashtirish: snapshot'larni bog'lash
 
-How should a version control system relate snapshots? One simple model would be
-to have a linear history. A history would be a list of snapshots in time-order.
-For many reasons, Git doesn't use a simple model like this.
+Versiyalarni boshqarish tizimi snapshot'larni qanday bog'lashi kerak? Bitta oddiy model tarixni chiziqli qilib yaratish bo'lishi mumkin. Tarix vaqt tartibida joylashgan snapshot'lar ro'yxati bo'ladi. Ko'pgina sabablarga ko'ra, Git bunday oddiy modeldan foydalanmaydi.
 
-In Git, a history is a directed acyclic graph (DAG) of snapshots. That may
-sound like a fancy math word, but don't be intimidated. All this means is that
-each snapshot in Git refers to a set of "parents", the snapshots that preceded
-it. It's a set of parents rather than a single parent (as would be the case in
-a linear history) because a snapshot might descend from multiple parents, for
-example, due to combining (merging) two parallel branches of development.
+Git'da tarix snapshot'larning yo'naltirilgan asiklik grafidir (DAG). Bu qandaydir murakkab matematik atama bo'lib tuyulishi mumkin, ammo qo'rqmang. Bu shunchaki Git'dagi har bir snapshot o'zidan oldingi snapshot'lar to'plamiga, ya'ni "ota-ona" (parents) larga ishora qilishini anglatadi. Bu yagona ota-ona emas (chiziqli tarixda bo'lgani kabi), balki ota-onalar to'plamidir, chunki bitta snapshot bir nechta ota-onadan kelib chiqqan bo'lishi mumkin, masalan, ikkita parallel dasturlash tarmog'ini birlashtirish (merge) natijasida.
 
-Git calls these snapshots "commit"s. Visualizing a commit history might look
-something like this:
+Git bu snapshot'larni "commit" deb ataydi. Commit'lar tarixini vizualizatsiya qilish taxminan shunday ko'rinishi mumkin:
 
-```
+```text
 o <-- o <-- o <-- o
             ^
              \
               --- o <-- o
 ```
 
-In the ASCII art above, the `o`s correspond to individual commits (snapshots).
-The arrows point to the parent of each commit (it's a "comes before" relation,
-not "comes after"). After the third commit, the history branches into two
-separate branches. This might correspond to, for example, two separate features
-being developed in parallel, independently from each other. In the future,
-these branches may be merged to create a new snapshot that incorporates both of
-the features, producing a new history that looks like this, with the newly
-created merge commit shown in bold:
+Yuqoridagi ASCII tasvirlarda `o` lar alohida commit'larga (snapshot'larga) mos keladi. O'qlar har bir commit'ning ota-onasiga ishora qiladi (bu "keyin keladi" emas, balki "oldin keladi" munosabatidir). Uchinchi commit'dan so'ng tarix ikkita alohida tarmoqqa bo'linadi. Bu, masalan, bir-biridan mustaqil ravishda parallel ishlab chiqilayotgan ikkita alohida xususiyatga mos kelishi mumkin. Kelajakda bu tarmoqlar har ikkala xususiyatni o'z ichiga olgan yangi snapshot yaratish uchun birlashtirilishi mumkin, va buning natijasida quyidagicha yangi tarix hosil bo'ladi, bu yerda yangi yaratilgan birlashtirilgan commit qalin qilib ko'rsatilgan:
 
 <pre class="highlight">
 <code>
@@ -121,16 +75,13 @@ o <-- o <-- o <-- o <---- <strong>o</strong>
 </code>
 </pre>
 
-Commits in Git are immutable. This doesn't mean that mistakes can't be
-corrected, however; it's just that "edits" to the commit history are actually
-creating entirely new commits, and references (see below) are updated to point
-to the new ones.
+Git'da commit'lar o'zgarmasdir (immutable). Biroq, bu xatolarni to'g'irlab bo'lmaydi degani emas; shunchaki commit tarixidagi "tahrirlar" aslida mutlaqo yangi commit'larni yaratadi va havolalar (quyiga qarang) yangilariga ishora qilish uchun yangilanadi.
 
-## Data model, as pseudocode
+## Ma'lumotlar modeli, psevdokod sifatida
 
-It may be instructive to see Git's data model written down in pseudocode:
+Git'ning ma'lumotlar modelini psevdokodda yozib ko'rish foydali bo'lishi mumkin:
 
-```
+```text
 // a file is a bunch of bytes
 type blob = array<byte>
 
@@ -146,20 +97,19 @@ type commit = struct {
 }
 ```
 
-It's a clean, simple model of history.
+Bu tarixning toza va oddiy modelidir.
 
-## Objects and content-addressing
+## Obyektlar va kontentni manzillash
 
-An "object" is a blob, tree, or commit:
+"Obyekt" bu blob, daraxt yoki commit'dir:
 
-```
+```text
 type object = blob | tree | commit
 ```
 
-In Git's data store, all objects are content-addressed by their [SHA-1
-hash](https://en.wikipedia.org/wiki/SHA-1).
+Git'ning ma'lumotlar omborida barcha obyektlar [SHA-1 xeshi](https://en.wikipedia.org/wiki/SHA-1) orqali kontent bilan manzillanadi.
 
-```
+```text
 objects = map<string, object>
 
 def store(object):
@@ -170,40 +120,28 @@ def load(id):
     return objects[id]
 ```
 
-Blobs, trees, and commits are unified in this way: they are all objects. When
-they reference other objects, they don't actually _contain_ them in their
-on-disk representation, but have a reference to them by their hash.
+Blob'lar, daraxtlar va commit'lar shu tarzda birlashtiriladi: ularning barchasi obyektlardir. Ular boshqa obyektlarga havola berganda, ularni haqiqatda diskdagi ko'rinishida _o'z ichiga olmaydi_, balki ularga xeshlari orqali havola qiladi.
 
-For example, the tree for the example directory structure [above](#snapshots)
-(visualized using `git cat-file -p 698281bc680d1995c5f4caaf3359721a5a58d48d`),
-looks like this:
+Masalan, [yuqoridagi](#snapshotlar) misol katalog tuzilmasi uchun daraxt (`git cat-file -p 698281bc680d1995c5f4caaf3359721a5a58d48d` yordamida vizualizatsiya qilingan) quyidagicha ko'rinadi:
 
-```
+```text
 100644 blob 4448adbf7ecd394f42ae135bbeed9676e894af85    baz.txt
 040000 tree c68d233a33c5c06e0340e4c224f0afca87c8ce87    foo
 ```
 
-The tree itself contains pointers to its contents, `baz.txt` (a blob) and `foo`
-(a tree). If we look at the contents addressed by the hash corresponding to
-baz.txt with `git cat-file -p 4448adbf7ecd394f42ae135bbeed9676e894af85`, we get
-the following:
+Daraxt o'z ichiga olgan elementlariga, `baz.txt` (blob) va `foo` (daraxt) ga ko'rsatkichlarni saqlaydi. Agar biz `baz.txt` ga mos keluvchi xesh bilan manzillangan kontentga `git cat-file -p 4448adbf7ecd394f42ae135bbeed9676e894af85` bilan qarasak, quyidagini ko'ramiz:
 
-```
+```text
 git is wonderful
 ```
 
-## References
+## Havolalar
 
-Now, all snapshots can be identified by their SHA-1 hashes. That's inconvenient,
-because humans aren't good at remembering strings of 40 hexadecimal characters.
+Endi, barcha snapshot'lar o'zlarining SHA-1 xeshlari orqali aniqlanishi mumkin. Ammo bu noqulay, chunki odamlar 40 ta o'n oltilik tizimdagi belgilardan iborat qatorlarni eslab qolishga usta emas.
 
-Git's solution to this problem is human-readable names for SHA-1 hashes, called
-"references". References are pointers to commits. Unlike objects, which are
-immutable, references are mutable (can be updated to point to a new commit).
-For example, the `master` reference usually points to the latest commit in the
-main branch of development.
+Git'ning bu muammoga yechimi SHA-1 xeshlari uchun "havolalar" deb ataluvchi inson o'qiy oladigan nomlarni taqdim etishdir. Havolalar commit'larga ko'rsatkichlardir. O'zgarmas (immutable) bo'lgan obyektlardan farqli o'laroq, havolalar o'zgaruvchandir (yangi commit'ga ishora qilish uchun yangilanishi mumkin). Masalan, `master` havolasi odatda asosiy ish tarmog'idagi oxirgi commit'ga ishora qiladi.
 
-```
+```text
 references = map<string, string>
 
 def update_reference(name, id):
@@ -219,214 +157,120 @@ def load_reference(name_or_id):
         return load(name_or_id)
 ```
 
-With this, Git can use human-readable names like "master" to refer to a
-particular snapshot in the history, instead of a long hexadecimal string.
+Buning yordamida, Git tarixning qaysidir bir qismiga uzundan-uzoq o'n oltilik satr bilan emas, balki "master" kabi odam o'qiy oladigan nomlardan foydalanib havola qilishi mumkin.
 
-One detail is that we often want a notion of "where we currently are" in the
-history, so that when we take a new snapshot, we know what it is relative to
-(how we set the `parents` field of the commit). In Git, that "where we
-currently are" is a special reference called "HEAD".
+Yana bir detal shundaki, biz yangi snapshot yaratganimizda, u nimaga nisbatan olinganligini (commit'ning `parents` maydonini qanday o'rnatishimizni) bilishimiz uchun ko'pincha tarixda "hozir qayerdaligimiz" haqida tushunchaga ega bo'lishni xohlaymiz. Git'da o'sha "hozir qayerdamiz" degan tushuncha "HEAD" deb ataluvchi maxsus havoladir.
 
-## Repositories
+## Repozitoriylar
 
-Finally, we can define what (roughly) is a Git _repository_: it is the data
-`objects` and `references`.
+Nihoyat, biz Git _repozitoriysi_ (taxminan) nima ekanligini ta'riflashimiz mumkin: bu `objects` (obyektlar) va `references` (havolalar) ma'lumotlaridir.
 
-On disk, all Git stores are objects and references: that's all there is to Git's
-data model. All `git` commands map to some manipulation of the commit DAG by
-adding objects and adding/updating references.
+Diskda Git butunlay faqat obyektlar va havolalarni saqlaydi: Git'ning ma'lumotlar modeli faqat shulardan iborat. Barcha `git` buyruqlari obyektlar qo'shish va havolalarni qo'shish/yangilash orqali commit DAG'ini (yo'naltirilgan asiklik grafini) qandaydir tahrirlashga mos keladi.
 
-Whenever you're typing in any command, think about what manipulation the
-command is making to the underlying graph data structure. Conversely, if you're
-trying to make a particular kind of change to the commit DAG, e.g. "discard
-uncommitted changes and make the 'master' ref point to commit `5d83f9e`", there's
-probably a command to do it (e.g. in this case, `git checkout master; git reset
---hard 5d83f9e`).
+Har qanday buyruqni kiritganingizda, o'ylab ko'ringki bu buyruq ostidagi graf ma'lumotlar tuzilmasida qanday o'zgartirishlar qilmoqda. Va aksincha, agar siz commit DAG'ida biror o'zgartirish kiritmoqchi bo'lsangiz, masalan, "commit qilinmagan o'zgarishlarni bekor qilish va 'master' havolasini `5d83f9e` commit'ga o'tkazish", bu uchun ham, ehtimol, buyruq mavjud (masalan, ushbu holatda, `git checkout master; git reset --hard 5d83f9e`).
 
 # Staging area
 
-This is another concept that's orthogonal to the data model, but it's a part of
-the interface to create commits.
+Bu ma'lumotlar modeliga bevosita bog'liq bo'lmagan yana bir tushuncha, lekin u commit'larni yaratish uchun mo'ljallangan interfeysning bir qismidir.
 
-One way you might imagine implementing snapshotting as described above is to have
-a "create snapshot" command that creates a new snapshot based on the _current
-state_ of the working directory. Some version control tools work like this, but
-not Git. We want clean snapshots, and it might not always be ideal to make a
-snapshot from the current state. For example, imagine a scenario where you've
-implemented two separate features, and you want to create two separate commits,
-where the first introduces the first feature, and the next introduces the
-second feature. Or imagine a scenario where you have debugging print statements
-added all over your code, along with a bugfix; you want to commit the bugfix
-while discarding all the print statements.
+Siz yuqorida ta'riflanganidek, snapshot yaratishni ishchi katalogning _joriy holatiga_ asoslangan yangi snapshot yaratadigan "snapshot yaratish" buyrug'i bo'lishi deb o'ylashingiz mumkin. Ba'zi versiyalarni boshqarish vositalari shunday ishlaydi, ammo Git emas. Bizga toza snapshot'lar kerak, va doim ham mavjud holatdan snapshot yaratish eng to'g'ri tanlov bo'lmasligi mumkin. Masalan, ikkita turli xususiyat qo'shganingizni va bittasi faqat birinchi xususiyatni, ikkinchisi esa faqat ikkinchisini qo'shadigan ikkita alohida commit yaratmoqchi ekanligingizni tasavvur qiling. Yoki butun kodingiz bo'ylab xatoliklarni topish (debugging) uchun print ko'rsatmalari va qo'shimcha ravishda xatolik tuzatmasi (bugfix) bor deylik; barcha print'larni chetga surib faqat bugfix'ni commit qilmoqchi bo'lishingiz mumkin.
 
-Git accommodates such scenarios by allowing you to specify which modifications
-should be included in the next snapshot through a mechanism called the "staging
-area".
+Git bunday ssenariylarga "staging area" deb ataladigan mexanizm orqali navbatdagi snapshot'ga aynan qaysi o'zgarishlar kiritilishini aniq ko'rsatishga ruxsat berish orqali moslashadi.
 
-# Git command-line interface
+# Git buyruqlar satri interfeysi
 
-To avoid duplicating information, we're not going to explain the commands below
-in detail in these lecture notes. See the highly recommended [Pro
-Git](https://git-scm.com/book/en/v2) for more information, or watch the lecture
-video.
+Ma'lumotlarni takrorlamaslik uchun, quyidagi buyruqlarni ushbu ma'ruza matnlarida batafsil tushuntirmaymiz. Ko'proq ma'lumot olish uchun tavsiya etilgan [Pro Git](https://git-scm.com/book/en/v2) kitobini o'qing yoki ma'ruza videosini ko'ring.
 
-## Basics
+## Asoslar
 
-- `git help <command>`: get help for a git command
-- `git init`: creates a new git repo, with data stored in the `.git` directory
-- `git status`: tells you what's going on
-- `git add <filename>`: adds files to staging area
-- `git commit`: creates a new commit
-    - Write [good commit messages](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)!
-    - Even more reasons to write [good commit messages](https://chris.beams.io/posts/git-commit/)!
-- `git log`: shows a flattened log of history
-- `git log --all --graph --decorate`: visualizes history as a DAG
-- `git diff <filename>`: show changes you made relative to the staging area
-- `git diff <revision> <filename>`: shows differences in a file between snapshots
-- `git checkout <revision>`: updates HEAD (and current branch if checking out a branch)
+- `git help <command>`: git buyrug'i uchun yordam oling
+- `git init`: `.git` katalogida saqlanadigan ma'lumotlarga ega yangi git repozitoriysini yaratadi
+- `git status`: nima bo'layotganini ko'rsatadi
+- `git add <filename>`: fayllarni staging area'ga qo'shadi
+- `git commit`: yangi commit yaratadi
+    - [Yaxshi commit xabarlarini](https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) yozing!
+    - [Yaxshi commit xabarlarini](https://chris.beams.io/posts/git-commit/) yozish uchun yana ko'proq sabablar!
+- `git log`: tarixning tekislangan jurnalini ko'rsatadi
+- `git log --all --graph --decorate`: tarixni DAG sifatida tasvirlaydi
+- `git diff <filename>`: siz kiritgan o'zgarishlarni staging area'ga nisbatan ko'rsatadi
+- `git diff <revision> <filename>`: snapshot'lar orasidagi fayldagi farqlarni ko'rsatadi
+- `git checkout <revision>`: HEAD'ni (va agar tarmoqqa o'tilayotgan bo'lsa, joriy tarmoqni) yangilaydi
 
-## Branching and merging
+## Tarmoqlash va birlashtirish
 
-- `git branch`: shows branches
-- `git branch <name>`: creates a branch
-- `git switch <name>`: switches to a branch
-- `git checkout -b <name>`: creates a branch and switches to it
-    - same as `git branch <name>; git switch <name>`
-- `git merge <revision>`: merges into current branch
-- `git mergetool`: use a fancy tool to help resolve merge conflicts
-- `git rebase`: rebase set of patches onto a new base
+- `git branch`: tarmoqlarni ko'rsatadi
+- `git branch <name>`: tarmoq yaratadi
+- `git switch <name>`: tarmoqqa o'tadi
+- `git checkout -b <name>`: tarmoq yaratadi va unga o'tadi
+    - `git branch <name>; git switch <name>` bilan bir xil
+- `git merge <revision>`: joriy tarmoqqa birlashtiradi
+- `git mergetool`: ziddiyatlarni hal qilishga yordam beruvchi maxsus vositadan foydalaning
+- `git rebase`: yamoqlar (patches) to'plamini yangi bazaga o'tkazish (rebase)
 
-## Remotes
+## Masofaviy repozitoriylar
 
-- `git remote`: list remotes
-- `git remote add <name> <url>`: add a remote
-- `git push <remote> <local branch>:<remote branch>`: send objects to remote, and update remote reference
-- `git branch --set-upstream-to=<remote>/<remote branch>`: set up correspondence between local and remote branch
-- `git fetch`: retrieve objects/references from a remote
-- `git pull`: same as `git fetch; git merge`
-- `git clone`: download repository from remote
+- `git remote`: masofaviy repozitoriylarni ro'yxatlaydi
+- `git remote add <name> <url>`: masofaviy repozitoriy qo'shish
+- `git push <remote> <local branch>:<remote branch>`: obyektlarni masofaviy repozitoriyga yuborish va masofaviy havolani yangilash
+- `git branch --set-upstream-to=<remote>/<remote branch>`: mahalliy va masofaviy tarmoqlar o'rtasidagi bog'liqlikni o'rnatish
+- `git fetch`: masofaviy repozitoriydan obyektlar/havolalarni yuklab olish
+- `git pull`: `git fetch; git merge` bilan bir xil
+- `git clone`: masofaviy repozitoriyni yuklab olish
 
-## Undo
+## Bekor qilish (Undo)
 
-- `git commit --amend`: edit a commit's contents/message
-- `git reset <file>`: unstage a file
-- `git restore`: discard changes
+- `git commit --amend`: commit'ning tarkibini/xabarini tahrirlash
+- `git reset <file>`: faylni staging area'dan chiqarib tashlash
+- `git restore`: o'zgarishlarni bekor qilish
 
-# Advanced Git
+# Murakkab Git
 
-- `git config`: Git is [highly customizable](https://git-scm.com/docs/git-config)
-- `git clone --depth=1`: shallow clone, without entire version history
-- `git add -p`: interactive staging
-- `git rebase -i`: interactive rebasing
-- `git blame`: show who last edited which line
-- `git stash`: temporarily remove modifications to working directory
-- `git bisect`: binary search history (e.g. for regressions)
-- `git revert`: create a new commit that reverses the effect of an earlier commit
-- `git worktree`: check out multiple branches at the same time
-- `.gitignore`: [specify](https://git-scm.com/docs/gitignore) intentionally untracked files to ignore
+- `git config`: Git [yuqori darajada moslashtiriladigan (customizable)](https://git-scm.com/docs/git-config) tizimdir
+- `git clone --depth=1`: barcha versiyalar tarixini olmaydigan yuzaki (shallow) klonlash
+- `git add -p`: interaktiv tarzda staging area'ga qo'shish
+- `git rebase -i`: interaktiv rebase
+- `git blame`: qaysi qatorni oxirgi marta kim tahrirlaganini ko'rsatadi
+- `git stash`: ishchi katalogga kiritilgan o'zgartirishlarni vaqtinchalik olib tashlash
+- `git bisect`: tarix bo'yicha binar qidiruv (masalan, regressiyalarni topish uchun)
+- `git revert`: avvalgi commit ta'sirini teskarisiga o'zgartiradigan yangi commit yaratish
+- `git worktree`: bir vaqtning o'zida bir nechta tarmoqlarni ochib ishlash
+- `.gitignore`: ataylab kuzatilmaydigan fayllarni e'tiborsiz qoldirishni [belgilash](https://git-scm.com/docs/gitignore)
 
-# Miscellaneous
+# Turli xil narsalar
 
-- **GUIs**: there are many [GUI clients](https://git-scm.com/downloads/guis)
-out there for Git. We personally don't use them and use the command-line
-interface instead.
-- **Shell integration**: it's super handy to have a Git status as part of your
-shell prompt ([zsh](https://github.com/olivierverdier/zsh-git-prompt),
-[bash](https://github.com/magicmonty/bash-git-prompt)). Often included in
-frameworks like [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh).
-- **Editor integration**: similarly to the above, handy integrations with many
-features. [fugitive.vim](https://github.com/tpope/vim-fugitive) is the standard
-one for Vim.
-- **Workflows**: we taught you the data model, plus some basic commands; we
-didn't tell you what practices to follow when working on big projects (and
-there are [many](https://nvie.com/posts/a-successful-git-branching-model/)
-[different](https://www.endoflineblog.com/gitflow-considered-harmful)
-[approaches](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)).
-- **GitHub**: Git is not GitHub. GitHub has a specific way of contributing code
-to other projects, called [pull
-requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
-- **Other Git providers**: GitHub is not special: there are many Git repository
-hosts, like [GitLab](https://about.gitlab.com/) and
-[BitBucket](https://bitbucket.org/).
+- **GUI'lar**: Git uchun juda ko'p [GUI (grafik interfeys) mijozlari](https://git-scm.com/downloads/guis) mavjud. Shaxsan biz ulardan foydalanmaymiz va uning o'rniga buyruqlar satri interfeysidan foydalanamiz.
+- **Shell integratsiyasi**: shell so'rovida Git holati ko'rinib turishi juda qulay ([zsh](https://github.com/olivierverdier/zsh-git-prompt), [bash](https://github.com/magicmonty/bash-git-prompt)). Ko'pincha [Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh) kabi freymvorklar tarkibiga kiradi.
+- **Tahrirlovchi (Editor) integratsiyasi**: xuddi yuqoridagiga o'xshab, juda ko'p imkoniyatlarga ega qulay integratsiyalar mavjud. [fugitive.vim](https://github.com/tpope/vim-fugitive) Vim uchun standart hisoblanadi.
+- **Ish oqimlari (Workflows)**: biz sizga ma'lumotlar modelini, hamda ba'zi asosiy buyruqlarni o'rgatdik; yirik loyihalarda ishlaganda qanday amaliyotlarga rioya qilish kerakligini aytmadik (buning [ko'plab](https://nvie.com/posts/a-successful-git-branching-model/) [turli xil](https://www.endoflineblog.com/gitflow-considered-harmful) [yondashuvlari mavjud](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)).
+- **GitHub**: Git bu GitHub emas. GitHub boshqa loyihalarga kod qo'shishning o'ziga xos usuliga ega bo'lib, u [pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) deb ataladi.
+- **Boshqa Git provayderlari**: GitHub yagona emas: [GitLab](https://about.gitlab.com/) va [BitBucket](https://bitbucket.org/) kabi ko'plab boshqa Git repozitoriylari xostlari ham mavjud.
 
-# Resources
+# Manbalar
 
-- [Pro Git](https://git-scm.com/book/en/v2) is **highly recommended reading**.
-Going through Chapters 1--5 should teach you most of what you need to use Git
-proficiently, now that you understand the data model. The later chapters have
-some interesting, advanced material.
-- [Oh Shit, Git!?!](https://ohshitgit.com/) is a short guide on how to recover
-from some common Git mistakes.
-- [Git for Computer
-Scientists](https://eagain.net/articles/git-for-computer-scientists/) is a
-short explanation of Git's data model, with less pseudocode and more fancy
-diagrams than these lecture notes.
-- [Git from the Bottom Up](https://jwiegley.github.io/git-from-the-bottom-up/)
-is a detailed explanation of Git's implementation details beyond just the data
-model, for the curious.
-- [How to explain git in simple
-words](https://smusamashah.github.io/blog/2017/10/14/explain-git-in-simple-words)
-- [Learn Git Branching](https://learngitbranching.js.org/) is a browser-based
-game that teaches you Git.
+- [Pro Git](https://git-scm.com/book/en/v2) ni o'qish **jiddiy tavsiya etiladi**. Ma'lumotlar modelini tushunib olganingizdan so'ng, 1-5 boblarni o'qib chiqish sizga Git'dan qanday professional tarzda foydalanish kerakligi bo'yicha ko'p narsani o'rgatadi. Keyingi boblar qiziqarli, murakkab materiallarni o'z ichiga oladi.
+- [Oh Shit, Git!?!](https://ohshitgit.com/) bu ba'zi umumiy Git xatolarini qanday to'g'irlash bo'yicha qisqacha qo'llanma.
+- [Kompyuter mutaxassislari uchun Git](https://eagain.net/articles/git-for-computer-scientists/) Git'ning ma'lumotlar modeli bo'yicha qisqacha tushuntirish bo'lib, ushbu ma'ruza matnlaridan ko'ra kamroq psevdokod va chiroyliroq diagrammalardan iborat.
+- [Pastdan yuqoriga Git](https://jwiegley.github.io/git-from-the-bottom-up/) (Git from the Bottom Up) Git qanday amalga oshirilgani haqida qiziquvchilar uchun faqat ma'lumotlar modelidan tashqari batafsil tushuntirishdir.
+- [Git'ni oddiy so'zlar bilan qanday tushuntirish mumkin](https://smusamashah.github.io/blog/2017/10/14/explain-git-in-simple-words)
+- [Learn Git Branching](https://learngitbranching.js.org/) brauzer orqali Git'ni o'rgatuvchi o'yin.
 
-# Exercises
+# Mashqlar
 
-1. If you don't have any past experience with Git, either try reading the first
-   couple chapters of [Pro Git](https://git-scm.com/book/en/v2) or go through a
-   tutorial like [Learn Git Branching](https://learngitbranching.js.org/). As
-   you're working through it, relate Git commands to the data model.
-1. Clone the [repository for the
-class website](https://github.com/missing-semester/missing-semester).
-    1. Explore the version history by visualizing it as a graph.
-    1. Who was the last person to modify `README.md`? (Hint: use `git log` with
-       an argument).
-    1. What was the commit message associated with the last modification to the
-       `collections:` line of `_config.yml`? (Hint: use `git blame` and `git
-       show`).
-1. One common mistake when learning Git is to commit large files that should
-   not be managed by Git or adding sensitive information. Try adding a file to
-   a repository, making some commits and then deleting that file from _history_
-   (not just the latest commit). You may want to look at
-   [this](https://help.github.com/articles/removing-sensitive-data-from-a-repository/).
-1. Clone some repository from GitHub, and modify one of its existing files.
-   What happens when you do `git stash`? What do you see when running `git log
-   --all --oneline`? Run `git stash pop` to undo what you did with `git stash`.
-   In what scenario might this be useful?
-1. Like many command line tools, Git provides a configuration file (or dotfile)
-   called `~/.gitconfig`. Create an alias in `~/.gitconfig` so that when you
-   run `git graph`, you get the output of `git log --all --graph --decorate
-   --oneline`. You can do this by directly
-   [editing](https://git-scm.com/docs/git-config#Documentation/git-config.txt-alias)
-   the `~/.gitconfig` file, or you can use the `git config` command to add the
-   alias. Information about git aliases can be found
-   [here](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases).
-1. You can define global ignore patterns in `~/.gitignore_global` after running
-   `git config --global core.excludesfile ~/.gitignore_global`. This sets the
-   location of the global ignore file that Git will use, but you still need to
-   manually create the file at that path. Set up your global gitignore file to
-   ignore OS-specific or editor-specific temporary files, like `.DS_Store`.
-1. Fork the [repository for the class
-   website](https://github.com/missing-semester/missing-semester), find a typo
-   or some other improvement you can make, and submit a pull request on GitHub
-   (you may want to look at [this](https://github.com/firstcontributions/first-contributions)).
-   Please only submit PRs that are useful (don't spam us, please!). If you
-   can't find an improvement to make, you can skip this exercise.
-1. Practice resolving merge conflicts by simulating a collaborative scenario:
-    1. Create a new repository with `git init` and create a file called
-       `recipe.txt` with a few lines (e.g., a simple recipe).
-    1. Commit it, then create two branches: `git branch salty` and `git branch
-       sweet`.
-    1. In the `salty` branch, modify a line (e.g., change "1 cup sugar" to "1
-       cup salt") and commit.
-    1. In the `sweet` branch, modify the same line differently (e.g., change "1
-       cup sugar" to "2 cups sugar") and commit.
-    1. Now switch to `master` and try `git merge salty`, then `git merge
-       sweet`. What happens? Look at the contents of `recipe.txt` - what do the
-       `<<<<<<<`, `=======`, and `>>>>>>>` markers mean?
-    1. Resolve the conflict by editing the file to keep the content you want,
-       removing the conflict markers, and completing the merge with `git add`
-       and `git commit` (or `git merge --continue`). Alternatively, try using
-       `git mergetool` to resolve the conflict with a graphical or
-       terminal-based merge tool.
-    1. Use `git log --graph --oneline` to visualize the merge history you just
-       created.
+1. Agar siz Git bilan oldin ishlash tajribasiga ega bo'lmasangiz, [Pro Git](https://git-scm.com/book/en/v2) ning dastlabki bir necha bobini o'qishga yoki [Learn Git Branching](https://learngitbranching.js.org/) kabi qo'llanmadan o'tishga harakat qiling. O'qish jarayonida Git buyruqlarini ma'lumotlar modeliga bog'lab o'rganing.
+1. [Kurs veb-sayti repozitoriysini](https://github.com/missing-semester/missing-semester) klonlang.
+    1. Versiyalar tarixini graf sifatida tasvirlab o'rganing.
+    1. `README.md` faylini oxirgi marta kim o'zgartirgan? (Maslahat: argument bilan `git log` dan foydalaning).
+    1. `_config.yml` faylidagi `collections:` qatoriga kiritilgan oxirgi o'zgartirish bilan bog'liq commit xabari nima edi? (Maslahat: `git blame` va `git show` dan foydalaning).
+1. Git'ni o'rganayotgandagi eng keng tarqalgan xatolardan biri bu Git tomonidan boshqarilmasligi kerak bo'lgan katta hajmdagi fayllarni yoki maxfiy ma'lumotlarni commit qilishdir. Repozitoriyga bitta fayl qo'shishga urinib ko'ring, bir nechta commit'lar yarating va so'ngra ushbu faylni _tarixdan_ butunlay o'chirib tashlang (nafaqat so'nggi commit'dan). Buni qanday qilishni bilish uchun [buni](https://help.github.com/articles/removing-sensitive-data-from-a-repository/) o'qib chiqsangiz bo'ladi.
+1. GitHub'dan biron bir repozitoriyni klonlang va undagi mavjud fayllardan birini o'zgartiring. Agar siz `git stash` ni bajarsangiz nima sodir bo'ladi? `git log --all --oneline` ni bajarganda nimani ko'ryapsiz? `git stash` orqali qilgan amalingizni orqaga qaytarish uchun `git stash pop` buyrug'ini bajaring. Bu qaysi ssenariyda foydali bo'lishi mumkin?
+1. Ko'pgina buyruqlar satri vositalari singari, Git ham `~/.gitconfig` nomli konfiguratsiya fayli (yoki nuqtali fayl) ni taqdim etadi. `~/.gitconfig` ichida qisqartma (alias) yarating, shu tufayli qachonki `git graph` buyrug'ini bersangiz, sizga `git log --all --graph --decorate --oneline` natijasi chiqadigan bo'lsin. Buni `~/.gitconfig` faylini bevosita [tahrirlash](https://git-scm.com/docs/git-config#Documentation/git-config.txt-alias) orqali yoki alias qo'shish uchun `git config` buyrug'ini ishlatish bilan amalga oshirishingiz mumkin. Git alias'lari bo'yicha ma'lumotlarni [bu yerdan](https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases) topsangiz bo'ladi.
+1. `git config --global core.excludesfile ~/.gitignore_global` buyrug'ini berib, `~/.gitignore_global` faylida global e'tiborsiz qoldirish naqshlari (ignore patterns) ni aniqlashingiz mumkin. Bu Git foydalanadigan global ignore fayli manzilini o'rnatadi, biroq siz baribir o'sha manzilda faylni qo'lda yaratishingiz kerak. O'zingizning operatsion tizimingiz yoki tahrirlovchingizga xos vaqtinchalik fayllarni, masalan, `.DS_Store` ni e'tiborsiz qoldirish (ignore qilish) uchun global gitignore faylingizni sozlang.
+1. [Kurs veb-sayti repozitoriysini](https://github.com/missing-semester/missing-semester) fork qiling, imlo xatosini (typo) yoki o'zingiz kiritishingiz mumkin bo'lgan boshqa yaxshilanishni topib, GitHub'da pull request jo'nating (Buning uchun [buni](https://github.com/firstcontributions/first-contributions) ko'rishingiz mumkin). Iltimos, faqatgina foydali bo'lgan PR'larni yuboring (iltimos, bizga spam yubormang!). Agar hech qanday yaxshilanish topa olmasangiz, bu mashqni o'tkazib yuborishingiz mumkin.
+1. Hamkorlikdagi stsenariyni simulyatsiya qilib, ziddiyatlarni (merge conflicts) hal qilishni amalda sinab ko'ring:
+    1. `git init` orqali yangi repozitoriy yarating va ichida bir nechta qator (masalan, retsept) dan iborat `recipe.txt` degan fayl yarating.
+    1. Uni commit qiling, so'ngra ikkita tarmoq (branch) yarating: `git branch salty` va `git branch sweet`.
+    1. `salty` tarmog'ida bir qatorni o'zgartiring (masalan, "1 piyola shakar" ni "1 piyola tuz" ga o'zgartiring) va commit qiling.
+    1. `sweet` tarmog'ida ham xuddi shu qatorni boshqacha qilib o'zgartiring (masalan, "1 piyola shakar" ni "2 piyola shakar" ga o'zgartiring) va commit qiling.
+    1. Endi `master` tarmog'iga qayting va avval `git merge salty`, so'ng `git merge sweet` ni bajarib ko'ring. Nima sodir bo'ladi? `recipe.txt` faylining tarkibini ko'ring - undagi `<<<<<<<`, `=======` va `>>>>>>>` belgilari nimani anglatadi?
+    1. O'zingiz qoldirmoqchi bo'lgan tarkibni saqlab faylni tahrirlash orqali ziddiyatni hal qiling, ziddiyat belgilarini olib tashlang va birlashtirishni `git add` va `git commit` (yoki `git merge --continue`) orqali yakunlang. Muqobil variant sifatida, grafik yoki terminal asosidagi merge vositalaridan foydalanib ziddiyatni hal qilish uchun `git mergetool` ni ishlating.
+    1. O'zingiz hozirgina yaratgan birlashish tarixini (merge history) ko'rish uchun `git log --graph --oneline` dan foydalaning.
