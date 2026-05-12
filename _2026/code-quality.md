@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Code Quality"
+title: "Kod Sifati"
 description: >
-  Learn about formatting, linting, testing, continuous integration, and more.
+  Formatlash, linter'lar, testlash, uzluksiz integratsiya va boshqalar haqida bilib oling.
 thumbnail: /static/assets/thumbnails/2026/lec9.png
 date: 2026-01-23
 ready: true
@@ -11,124 +11,124 @@ video:
   id: XBiLUNx84CQ
 ---
 
-There are a variety of tools and techniques that support developers in writing high-quality code. In this lecture, we'll cover:
+Dasturchilarga yuqori sifatli kod yozishda yordam beradigan turli xil vosita va usullar mavjud. Ushbu ma'ruzada biz quyidagilarni ko'rib chiqamiz:
 
-- [Formatting](#formatting)
-- [Linting](#linting)
-- [Testing](#testing)
-- [Pre-commit hooks](#pre-commit-hooks)
-- [Continuous integration](#continuous-integration)
-- [Command runners](#command-runners)
+- [Formatlash](#formatlash)
+- [Lintlash](#lintlash)
+- [Testlash](#testlash)
+- [Pre-commit hook'lar](#pre-commit-hook)
+- [Uzluksiz integratsiya](#uzluksiz-integratsiya)
+- [Buyruq ishga tushiruvchilar (Command runners)](#buyruq-ishga-tushiruvchilar)
 
-As a bonus topic, we'll also cover [regular expressions](#regular-expressions), a cross-cutting topic that has applications in code quality (e.g., for running a subset of tests that match a pattern) as well as other domains like IDEs (e.g., for search and replace).
+Qo'shimcha mavzu sifatida biz [regulyar ifodalarni](#regular-expressions) (regular expressions) ham ko'rib chiqamiz. Bu turli sohalarni qamrab oluvchi mavzu bo'lib, u kod sifati sohasida (masalan, shablonga mos keladigan testlarning ma'lum qismini ishga tushirish uchun) hamda IDE'lar kabi boshqa joylarda (masalan, qidirish va o'rniga qo'yish uchun) qo'llaniladi.
 
-Many of these tools will be language-specific (e.g., the [Ruff](https://docs.astral.sh/ruff/) linter/formatter for Python). In some cases, tools will support multiple languages (e.g., the [Prettier](https://prettier.io/) code formatter). The concepts, however, are near universal --- you can find code formatters, linters, testing libraries, and so on for any programming language.
+Ushbu vositalarning ko'pchiligi aniq bir dasturlash tiliga bog'liq bo'ladi (masalan, Python uchun [Ruff](https://docs.astral.sh/ruff/) linter'i/formater'i). Ba'zi hollarda vositalar bir nechta tillarni qo'llab-quvvatlashi mumkin (masalan, [Prettier](https://prettier.io/) kod formater'i). Biroq, g'oyalar deyarli universaldir --- siz har qanday dasturlash tili uchun kod formater'lari, linter'lar, testlash kutubxonalari va hokazolarni topishingiz mumkin.
 
-# Formatting
+# Formatlash
 
-Code auto-formatters automatically prettify surface syntax. This way, you can focus on the more deep and challenging problems, while the auto-formatting tool handles mundane details such as consistency of `'` versus `"` syntax for strings, having spaces surrounding binary operators (`x + y` instead of `x+y`), having `import` statements in sorted order, and avoiding over-length lines. One major benefit of code formatters is that they standardize code style across all developers working on a codebase.
+Kodni avtomatik formatlovchi vositalar dasturning tashqi sintaksisini avtomatik ravishda tartibga soladi. Shu tariqa, siz e'tiboringizni chuqurroq va murakkabroq muammolarga qaratishingiz mumkin. Avto-formatlash vositasi esa qatorlar uchun `'` o'rniga `"` ishlatilishi, binar operatorlar atrofida bo'sh joy qoldirilishi (`x+y` o'rniga `x + y`), `import` ko'rsatmalarining alifbo tartibida bo'lishi va qatorlarning juda uzun bo'lib ketishini oldini olish kabi oddiy ishlarni o'z zimmasiga oladi. Kod formater'larining asosiy afzalliklaridan biri shundaki, ular bitta repozitoriy ustida ishlayotgan barcha dasturchilar uchun kod yozish uslubini birxillashtiradi.
 
-Some tools such as Prettier are [highly configurable](https://prettier.io/docs/configuration); you should check in the configuration file into [version control](/2026/version-control/) for your project. Other tools, such as [Black](https://github.com/psf/black) and [gofmt](https://pkg.go.dev/cmd/gofmt) have limited or no configurability, to reduce [bikeshedding](https://en.wikipedia.org/wiki/Law_of_triviality).
+Prettier kabi ba'zi vositalar [juda moslashuvchan va ko'p sozlanishi mumkin](https://prettier.io/docs/configuration); siz o'z loyihangiz uchun sozlamalar faylini [versiyalarni boshqarish](/2026/version-control/) tizimiga kiritishingiz kerak. [Black](https://github.com/psf/black) va [gofmt](https://pkg.go.dev/cmd/gofmt) kabi boshqa vositalarda esa sozlash imkoniyati cheklangan yoki umuman yo'q, bu [bikeshedding'ni](https://en.wikipedia.org/wiki/Law_of_triviality) (kichik detallar ustida ortiqcha tortishishni) kamaytirish uchun qilingan.
 
-You can set up [IDE integration](/2026/development-environment/#code-intelligence-and-language-servers) with your code formatter, so that your code will be auto-formatted as you type or when you save a file. You can also add an [EditorConfig](https://editorconfig.org/) file to your project, which communicates to your IDE certain project-level settings like indent size for each file type.
+Siz kod formater'i bilan [IDE integratsiyasini](/2026/development-environment/#code-intelligence-and-language-servers) sozlashingiz mumkin, shunda kodingizni yozayotganingizda yoki faylni saqlaganingizda u avtomatik ravishda formatlanadi. Shuningdek, loyihangizga [EditorConfig](https://editorconfig.org/) faylini qo'shishingiz ham mumkin, bu IDE'ga har bir fayl turi uchun xatboshi (indent) o'lchami kabi umumiy loyiha darajasidagi sozlamalarni yetkazadi.
 
-# Linting
+# Lintlash
 
-Linters run static analysis (analyze your code without running it) to find antipatterns and potential issues in your code. These tools go deeper than autoformatters, looking beyond surface syntax. The level of depth of analysis varies by tool.
+Linter'lar kodingizdagi anti-pattern'larni va yuzaga kelishi mumkin bo'lgan muammolarni topish uchun statik tahlil (kodingizni ishga tushirmasdan tahlil qilish) o'tkazadi. Ushbu vositalar avtoformater'larga qaraganda chuqurroq ishlaydi va shunchaki tashqi sintaksisdan nariga o'tadi. Tahlilning chuqurlik darajasi asbobga qarab farq qiladi.
 
-Linters come equipped with lists of _rules_, with presets that can be configured on a project-level basis. Some linter rules produce false positives, so you can disable them on a per-file or per-line basis.
+Linter'lar qoidalar ro'yxati bilan birga keladi va bu qoidalar to'plamlari har bir loyiha uchun alohida sozlanishi mumkin. Ba'zi linter qoidalari noto'g'ri xatoliklarni (false positives) keltirib chiqarishi mumkin, shuning uchun ularni fayl yoki qator darajasida o'chirib qo'yishingiz mumkin.
 
-Good linters will have built-in help or documentation that explains each linter rule --- what the rule is looking for, why it's bad, and what's a better alternative for the code pattern. For example, see the documentation for the [SIM102](https://docs.astral.sh/ruff/rules/collapsible-if/) rule in [Ruff](https://docs.astral.sh/ruff/) which catches unnecessarily nested `if` statements in Python code.
+Yaxshi linter'lar o'rnatilgan yordam yoki har bir linter qoidasini tushuntirib beruvchi hujjatlarga ega bo'ladi --- qoida nimani qidirayotgani, nima uchun u yomon ekanligi va shu kod shabloni uchun yaxshiroq muqobil nima bo'lishi haqida ma'lumot beradi. Masalan, Python kodida keraksiz ketma-ket (nested) `if` operatorlarini aniqlaydigan [Ruff'dagi](https://docs.astral.sh/ruff/) [SIM102](https://docs.astral.sh/ruff/rules/collapsible-if/) qoidasi hujjatini ko'ring.
 
-Some linters can not only flag issues but also automatically fix certain issues for you.
+Ba'zi linter'lar nafaqat muammolarni aniqlay oladi, balki ba'zi xatolarni avtomatik ravishda tuzatishi ham mumkin.
 
-Aside from language-specific linters, another tool that might come in handy is [semgrep](https://github.com/semgrep/semgrep), a "semantic grep" tool that works at the AST level (rather than character level, like grep) and supports many languages. You can use semgrep to easily write custom linter rules for your projects. For example, if you wanted to prevent the dangerous `subprocess.Popen(..., shell=True)` in Python, you could find that code pattern with:
+Tilga xos linter'lardan tashqari yana bir qo'l kelishi mumkin bo'lgan vosita bu [semgrep](https://github.com/semgrep/semgrep) deb nomlanuvchi "semantik grep" vositasidir. U (grep kabi belgilar darajasida emas) AST darajasida ishlaydi va ko'plab tillarni qo'llab-quvvatlaydi. Semgrep yordamida loyihalaringiz uchun shaxsiy linter qoidalarini osongina yozishingiz mumkin. Masalan, Python'da xavfli bo'lgan `subprocess.Popen(..., shell=True)` funksiyasining oldini olishni istasangiz, u holda quyidagi buyruq bilan shu kod shablonini topishingiz mumkin:
 
 ```bash
 semgrep -l python -e "subprocess.Popen(..., shell=True, ...)"
 ```
 
-# Testing
+# Testlash
 
-Software testing is a standard technique to increase your confidence in the correctness of your code. You write code, and then you write code that exercises the code you wrote and raises an error if the code doesn't work as expected.
+Dasturiy ta'minotni testlash – bu kodingizning to'g'riligiga ishonchingizni oshirish uchun ishlatiladigan standart texnikadir. Siz kod yozasiz, so'ngra siz yozgan kodni tekshiradigan va kod kutilgandek ishlamasa, xato chiqaradigan kod (test) yozasiz.
 
-You can write tests for chunks of code at different levels of granularity: _unit tests_ for individual functions, _integration tests_ for interaction between modules or services, and _functional tests_ for end-to-end scenarios. You can do _test-driven development_, where you write tests before you write any implementation code. When you find bugs in your code, you can write _regression tests_, so you'll catch if the functionality ever breaks in the future. You can write _property-based tests_, pioneered in [QuickCheck](https://hackage.haskell.org/package/QuickCheck) in Haskell, and implemented in many libraries, like [Hypothesis](https://hypothesis.readthedocs.io/) for Python. Which approach to testing is right depends on your project; likely, you will adopt some combination.
+Kodni turli darajalardagi bo'laklarga ajratib testlashingiz mumkin: alohida funksiyalar uchun _unit testlar_, modullar yoki xizmatlar o'rtasidagi o'zaro ta'sirni tekshirish uchun _integratsion testlar_, va jarayonni to'liq tekshirish uchun _funksional testlar_. Shuningdek, _test-driven development_ (testga asoslangan dasturlash) usulidan foydalanishingiz mumkin, ya'ni haqiqiy kodni yozishdan oldin uning testini yozasiz. Kodingizda xatolik topsangiz, kelajakda shu funksiya yana buzilsa ushlab qolishi uchun _regression testlar_ yozishingiz mumkin. Xaskell'dagi [QuickCheck'da](https://hackage.haskell.org/package/QuickCheck) o'ylab topilgan va Python uchun [Hypothesis](https://hypothesis.readthedocs.io/) kabi ko'plab kutubxonalarda qo'llaniladigan xususiyatlarga asoslangan testlarni (_property-based tests_) yozishingiz mumkin. Qaysi testlash yondashuvi to'g'ri ekanligi loyihangizga bog'liq; ehtimol, siz ularning kombinatsiyasidan foydalanasiz.
 
-If your program has external dependencies like a database or web API, it may be helpful to _mock_ those dependencies in your tests, rather than have your code interact with third-party dependencies at test time.
+Agar dasturingiz ma'lumotlar bazasi yoki veb API kabi tashqi tizimlarga qaram (dependency) bo'lsa, testlash paytida uchinchi tomon vositalari bilan o'zaro aloqa qilish o'rniga testlarda bu qaramliklarni _mock_ qilish (ya'ni taqlidini yaratish) foydali bo'lishi mumkin.
 
-## Code coverage
+## Kod qamrovi
 
-Code coverage is a metric by which you can measure how good your tests are. Code coverage looks at which lines of your code are executed when your tests are run, so you can ensure you are covering all code paths. Code coverage tools can show you line-by-line coverage to guide you in writing tests. Services such as [Codecov](https://app.codecov.io) provide web interfaces for tracking and viewing code coverage over the history of a project.
+Kod qamrovi (code coverage) – bu kodingizdagi testlarning qanchalik yaxshi yozilganligini o'lchaydigan metrika. Kod qamrovi testlar ishlaganda kodingizning qaysi qatorlari bajarilganligini ko'rsatib beradi, shunda siz barcha ehtimoliy holatlarni hisobga olganingizga ishonch hosil qilishingiz mumkin. Kod qamrovi vositalari sizga test yozishda yordam berish uchun qatorma-qator qamrovni ko'rsata oladi. [Codecov](https://app.codecov.io) kabi xizmatlar loyiha tarixi davomida kod qamrovini kuzatish va ko'rish uchun veb-interfeyslarni taqdim etadi.
 
-Like any metric, code coverage is not perfect; don't over-index on coverage, focus on writing high-quality tests.
+Boshqa har qanday metrika singari, kod qamrovi ham mukammal emas; unga ortiqcha bog'lanib qolmang, ko'proq yuqori sifatli testlar yozishga e'tibor qarating.
 
-# Pre-commit hooks
+# Pre-commit hook
 
-Git pre-commit [hooks](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks), made easier by the [pre-commit](https://pre-commit.com/) framework, automatically run user-specified code prior to every Git commit. Projects commonly use pre-commit hooks to run formatters and linters, and sometimes tests, automatically before every commit, to ensure that committed code matches the project code style and is free of certain issues.
+[pre-commit](https://pre-commit.com/) freymvorki orqali osonlashtirilgan Git pre-commit [hook'lar](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) foydalanuvchi tomonidan belgilangan kodni har bir Git commit'dan oldin avtomatik ravishda ishga tushiradi. Loyihalar ko'pincha pre-commit hook'lardan formater'lar va linter'larni, ba'zan esa testlarni har bir commit'dan oldin avtomatik ishga tushirish uchun foydalanadi. Bu commit qilinayotgan kodning loyiha uslubiga mos kelishini va ayrim xatolardan xoli bo'lishini ta'minlaydi.
 
-# Continuous integration
+# Uzluksiz integratsiya
 
-Continuous integration (CI) services like [GitHub Actions](https://github.com/features/actions) can run scripts for you every time you push code (or on every pull request, or on a schedule). Developers commonly use CI services to run code quality tools including formatters, linters, and tests. For compiled languages, you can ensure code compiles; for statically typed languages, you can make sure it type checks. Running CI every push of new commits can catch errors introduced into the main version of the code; running on pull requests can catch issues with contributor submissions; running on a schedule can catch issues with external dependencies (e.g., a developer accidentally releases a breaking change as [semver-compatible](/2026/shipping-code/#releases--versioning)).
+[GitHub Actions](https://github.com/features/actions) kabi uzluksiz integratsiya (continuous integration - CI) xizmatlari siz kodni push qilganingizda (yoki har bir pull request'da, yoki jadval bo'yicha) siz uchun skriptlarni avtomatik ravishda ishga tushirishi mumkin. Dasturchilar odatda formater, linter va testlarni o'z ichiga olgan kod sifatini tekshiruvchi vositalarni yurgizish uchun CI xizmatlaridan foydalanadilar. Kompilyatsiya qilinadigan tillar uchun siz kodning to'g'ri kompilyatsiya bo'lishini ta'minlashingiz mumkin; statik turlarga ega tillar uchun uni tur (type checking) bo'yicha tekshirishingiz mumkin. Har safar yangi commit push qilinganda CI'ni ishga tushirish kodning asosiy versiyasiga tushgan xatolarni tezda aniqlashi mumkin; pull request'lar ustida ishlaganda kontribyutorlarning yuborgan o'zgarishlaridagi muammolarni topish; ularni ma'lum jadval asosida yurgizish tashqi qaramliklar bilan bog'liq muammolarni aniqlashi mumkin (masalan, kutilmaganda buzuvchi o'zgarish (breaking change) e'lon qilinib ketilganda).
 
-Because CI scripts run separately from developer machines, you can easily run long-running jobs there. This can be leveraged, for example, to run a _matrix_ of tests across different operating systems and programming language versions to ensure that the software works properly across all of them.
+CI skriptlari dasturchilarning shaxsiy kompyuterlaridan alohida ishlagani uchun, siz bemalol u yerda uzoq davom etadigan vazifalarni bajarishingiz mumkin. Bundan turli xil operatsion tizimlar va dasturlash tilining turli versiyalarida testlar _matritsasini_ (matrix) yurgizib, dastur ularning barchasida to'g'ri ishlashini tekshirish uchun foydalanish mumkin.
 
-Generally, the script running in CI will not directly make changes to your code: it will run tools in "check-only" mode rather than "fix" mode, so for example, the auto-formatter will raise an error when the code is not compliant with the format.
+Odatda, CI'da ishlaydigan skript kodingizga bevosita o'zgartirish kiritmaydi: u vositalarni "tuzatish" o'rniga faqat "tekshirish" rejimida ishga tushiradi. Shuning uchun, masalan, agar kod formati talabga mos kelmasa, avto-formater xatolik haqida signal beradi.
 
-Repositories often include [status badges](https://docs.github.com/en/actions/how-tos/monitor-workflows/add-a-status-badge) in their README, showing CI status and other information such as code coverage. For example, below is Missing Semester's current build status.
+Repozitoriylarning README qismida ko'pincha CI holatini va kod qamrovi kabi boshqa ma'lumotlarni ko'rsatadigan [holat nishonlari (status badges)](https://docs.github.com/en/actions/how-tos/monitor-workflows/add-a-status-badge) bo'ladi. Masalan, quyida "Missing Semester" ning joriy build holati ko'rsatilgan.
 
 [![Build Status](https://github.com/missing-semester/missing-semester/actions/workflows/build.yml/badge.svg)](https://github.com/missing-semester/missing-semester/actions/workflows/build.yml) [![Links Status](https://github.com/missing-semester/missing-semester/actions/workflows/links.yml/badge.svg)](https://github.com/missing-semester/missing-semester/actions/workflows/links.yml)
 
-> Our [links checker](https://github.com/missing-semester/missing-semester/blob/master/.github/workflows/links.yml), which uses the [proof-html](https://github.com/anishathalye/proof-html) GitHub Action is often failing, usually due to issues with third-party websites. Still, it has helped us catch and fix many broken links (sometimes due to typos, most of the time due to websites moving around content without adding redirects or websites disappearing).
+> Bizning [havolalar tekshirgichimiz](https://github.com/missing-semester/missing-semester/blob/master/.github/workflows/links.yml) (u [proof-html](https://github.com/anishathalye/proof-html) GitHub Action'dan foydalanadi) ko'pincha tashqi veb-saytlardagi muammolar sababli xato beradi. Shunga qaramay, u bizga ko'plab buzilgan havolalarni (ba'zan imlo xatolar tufayli, lekin asosan veb-saytlar tarkibni ko'chirganda redirect qo'shmagani yoxud butunlay g'oyib bo'lgani sababli) ushlash va tuzatishda yordam berdi.
 
-A good way to learn the particulars of CI services, formatters, linters, and testing libraries is by example. Find high-quality open-source projects on GitHub---the more similar to your project in programming language, domain, size and scope, and so on, the better---and study their `pyproject.toml`, `.github/workflows/`, `DEVELOPMENT.md`, and other relevant files.
+CI xizmatlari, formater'lar, linter'lar va testlash kutubxonalarini o'rganishning eng yaxshi usuli misollarni ko'rishdir. GitHub'dan yuqori sifatli ochiq manbali loyihalarni (open-source) toping — u dasturlash tili, sohasi, o'lchami va ko'lami bo'yicha siznikiga qanchalik yaqin bo'lsa shuncha yaxshi — va ularning `pyproject.toml`, `.github/workflows/`, `DEVELOPMENT.md` kabi muhim fayllarini o'rganib chiqing.
 
-## Continuous deployment
+## Uzluksiz yoyish (Continuous deployment)
 
-Continuous deployment makes use of CI infrastructure to actually _deploy_ changes. For example, the Missing Semester repository uses continuous deployment to GitHub pages so that whenever we `git push` updated lecture notes, the site is automatically built and deployed. You can build other types of [artifacts](/2026/shipping-code/) in CI, such as binaries for applications or Docker images for services.
+Uzluksiz yoyish (Continuous deployment) tizimi kod o'zgarishlarini asboblar yordamida haqiqatda _joylashtirish_ (deploy) uchun CI infratuzilmasidan foydalanadi. Masalan, Missing Semester repozitoriyasi GitHub pages'ga uzluksiz yoyishdan foydalanadi, natijada qachonki yangilangan ma'ruzalar matnini `git push` qilsak, sayt avtomatik ravishda qurilib foydalanuvchilar ommasiga joylashtiriladi. Siz CI'da ilovalar uchun binar fayllar yoki xizmatlar uchun Docker tasvirlari kabi boshqa turdagi [artefaktlarni](/2026/shipping-code/) ham yig'ishingiz (build qilishingiz) mumkin.
 
-# Command runners
+# Buyruq ishga tushiruvchilar
 
-Command runners like [just](https://github.com/casey/just) simplify the task of running commands in the context of a project. As you build up code quality infrastructure for your project, you don't want to make your developers memorize commands like `uv run ruff check --fix`. With a command runner, this can turn into `just lint`, and you can have analogous invocations like `just format`, `just typecheck`, etc., for all the different tools a developer might want to run for your project.
+[just](https://github.com/casey/just) kabi buyruq ishga tushiruvchilar loyiha doirasida buyruqlarni chaqirish vazifasini soddalashtiradi. Loyihangiz uchun kod sifati bo'yicha turli instrumentlarni sozlaganingizdan so'ng, ehtimol, siz jamoangiz dasturchilaridan `uv run ruff check --fix` kabi uzun buyruqlarni yodlab olishini xohlamassiz. Buyruq yurgizuvchilar yordamida bu oddiygina `just lint` ko'rinishiga keladi va dasturchi o'z ishi uchun ehtiyoj sezishi mumkin bo'lgan barcha vositalar uchun `just format`, `just typecheck` kabi soddalashtirilgan komandalarni shakllantirishingiz mumkin.
 
-Some language-specific project or package managers have built-in support for such functionality, which means you don't need to use a language-agnostic tool like `just`. For example, the `scripts` section of a `package.json` for [npm](https://nodejs.org/en/learn/getting-started/an-introduction-to-the-npm-package-manager) (Node.js) and the `tool.hatch.envs.*.scripts` sections of a `pyproject.toml` for [Hatch](https://hatch.pypa.io/) (Python) support this functionality.
+Ba'zi tillar uchun maxsus loyiha yoki paket menejerlari bunday funksiyalarni avvaldan o'zida mujassam qilgan bo'lishi mumkin, bu esa tilga bog'lanmagan `just` kabi universal asboblarga muhtojlik yo'qligini bildiradi. Masalan, [npm](https://nodejs.org/en/learn/getting-started/an-introduction-to-the-npm-package-manager) (Node.js) uchun `package.json` faylining `scripts` qismi va [Hatch](https://hatch.pypa.io/) (Python) uchun `pyproject.toml` faylining `tool.hatch.envs.*.scripts` qismlari ushbu funksiyani bajaradi.
 
-# Regular expressions
+# Regulyar ifodalar (Regular expressions)
 
-_Regular expressions_, commonly abbreviated as "regex", is a language used to represent sets of strings. Regex patterns are commonly used for pattern matching in various contexts such as command-line tools and IDEs. For example, [ag](https://github.com/ggreer/the_silver_searcher) supports regex patterns for codebase-wide search (e.g., `ag "import .* as .*"` will find all renamed imports in Python), and [go test](https://pkg.go.dev/cmd/go#hdr-Test_packages) supports a `-run [regexp]` option for selecting a subset of tests. Furthermore, programming languages have built-in support or third-party libraries for regular expression matching, so you can use regexes for functionality such as pattern matching, validation, and parsing.
+_Regulyar ifodalar_, qisqacha "regex" yoki "regexp", qatorlarning ma'lum to'plamlarini ifodalash uchun ishlatiladigan til hisoblanadi. Regex shablonlari turli xil asboblar, masalan, buyruqlar qatori dasturlari va IDE'larda qidiruv va moslikni (pattern matching) tekshirish uchun ko'p qo'llaniladi. Masalan, [ag](https://github.com/ggreer/the_silver_searcher) butun kodlar bazasi bo'ylab qidirish uchun regex shablonlarini qo'llab-quvvatlaydi (masalan, `ag "import .* as .*"` Pythondagi barcha qayta nomlangan import'larni topadi), [go test](https://pkg.go.dev/cmd/go#hdr-Test_packages) asbobi esa testlarning ma'lum bir guruhini tanlab yurgizish uchun `-run [regexp]` parametrini taqdim etadi. Shu bilan birga dasturlash tillari regex uchun o'rnatilgan yoki qo'shimcha kutubxonalarga ega, shuning uchun regex'dan pattern matching, tekshirish (validation) va parsing ishlarida qulayroq foydalanishingiz mumkin.
 
-To help build intuition, below are some examples of regex patterns. In this lecture, we use [Python regex syntax](https://docs.python.org/3/library/re.html). There are many flavors of regex, with slight variation between them, especially in the more sophisticated functionality. You can use an online regex tester like [regex101](https://regex101.com/) to develop and debug regular expressions.
+Bu narsa bo'yicha tushunchalarni rivojlantirish uchun quyida ba'zi regex misollari berilgan. Ushbu ma'ruzada biz [Python regex sintaksisidan](https://docs.python.org/3/library/re.html) foydalanamiz. Regex'ning ko'plab turlari bo'lib, ular orasida, ayniqsa chuqurlashtirilgan funksionalligida biroz farqlar mavjud. O'zingizni regulyar ifodalaringizni yozish va tekshirish uchun [regex101](https://regex101.com/) kabi onlayn regex tekshiruvchilaridan foydalanishingiz mumkin.
 
-- `abc` --- matches the literal "abc".
-- `missing|semester` --- matches the string "missing" or the string "semester".
-- `\d{4}-\d{2}-\d{2}` --- matches dates in YYYY-MM-DD format, such as "2026-01-14". Beyond ensuring that the string consists of four digits, a dash, two digits, a dash, and two digits, this does not validate the date, so "2026-01-99" matches this regex pattern too.
-- `.+@.+` --- matches email addresses, strings that contain some text, then an "@", and then some more text. This does only the most basic validation and matches strings like "nonsense@@@email". A regex that matches email addresses with no false positives or negatives [exists](https://pdw.ex-parrot.com/Mail-RFC822-Address.html) but is impractical.
+- `abc` --- "abc" so'zining aynan o'ziga mos keladi.
+- `missing|semester` --- "missing" yoki "semester" so'zlariga mos keladi.
+- `\d{4}-\d{2}-\d{2}` --- "2026-01-14" kabi YYYY-MM-DD formatidagi sanalarga mos keladi. Matnda to'rtta raqam, chiziqcha, ikkita raqam, chiziqcha va yana ikkita raqamdan iborat ekanligini ta'minlashdan tashqari, u sananing haqiqiyligini tekshirmaydi, shuning uchun "2026-01-99" ham shu regex naqshiga to'g'ri tushaveradi.
+- `.+@.+` --- elektron pochta manzillariga (qandaydir matn, keyin "@", va yana qandaydir matn bo'lgan qatorlar) mos keladi. Bu juda oddiy darajada bo'lib, "bema'nilik@@@email" kabi bo'lmag'ur manzillarni ham o'tkazib yuboradi. Har qanday xatolik (false positive yoki negative)siz email'ni ushlaydigan regex [mavjud](https://pdw.ex-parrot.com/Mail-RFC822-Address.html), lekin u amaliyotda noqulay.
 
-## Regex syntax
+## Regex sintaksisi
 
-You can find a comprehensive guide to regex syntax in [this documentation](https://docs.python.org/3/library/re.html#regular-expression-syntax) (or one of many other resources available online). Here are some of the basic building blocks:
+Regex sintaksisi bo'yicha keng qamrovli qo'llanmani [ushbu hujjatdan](https://docs.python.org/3/library/re.html#regular-expression-syntax) (yoki internetdagi boshqa ochiq manbalardan) topishingiz mumkin. Mana ba'zi asosiy elementlar:
 
-- `abc` matches the literal string, when the characters have no special meaning (in this example, "abc")
-- `.` matches any single character
-- `[abc]` matches a single character contained in the brackets (in this example, "a", "b", or "c")
-- `[^abc]` matches a single character except those contained in the brackets (e.g., "d")
-- `[a-f]` matches a single character contained in the range indicated in the brackets (e.g., "c", but not "q")
-- `a|b` matches either pattern (e.g., "a" or "b")
-- `\d` matches any digit character (e.g., "3")
-- `\w` matches any word character (e.g., "x")
-- `\b` matches any word _boundary_ (e.g., in the string "missing semester", matches just before the "m", just after the "g", just before the "s", and just after the "r")
-- `(...)` matches the group of a pattern
-- `...?` matches zero or one of a pattern, such as `words?` to match "word" or "words"
-- `...*` matches any number of a pattern, such as `.*` to match any number of any character
-- `...+` matches one or more of a pattern, such as `\d+` to match any non-zero number of digits
-- `...{N}` matches exactly N of a pattern, such as `\d{4}` for 4 digits
-- `\.` matches a literal "."
-- `\\` matches a literal "\\"
-- `^` matches the start of the line
-- `$` matches the end of the line
+- `abc` agar belgilarga maxsus ma'no yuklatilmagan bo'lsa ularga aynan mos tushadi (bu holda "abc")
+- `.` har qanday yagona belgiga mos keladi
+- `[abc]` qavs ichida keltirilgan belgilardan istalgan birortasiga mos keladi (masalan, "a", "b", yoki "c")
+- `[^abc]` qavs ichidagi belgilardan TASHQARI istalgan bitta belgiga mos keladi (masalan, "d")
+- `[a-f]` qavs ichida belgilangan oraliqdagi bitta belgiga mos keladi (masalan, "c", lekin "q" emas)
+- `a|b` qaysi birining mavjudligidan qat'iy nazar ("a" yoki "b") shablonga mos tushadi
+- `\d` har qanday raqam (masalan, "3") bilan mos tushadi
+- `\w` har qanday so'z harfi (masalan, "x") ga mos keladi
+- `\b` so'z _chegaralariga_ mos tushadi (masalan, "missing semester" so'zida, aynan "m" dan oldin, "g" dan keyin, "s" dan oldin va "r" dan keyin turgan o'rin)
+- `(...)` shablonning guruh qilingan ko'rinishi
+- `...?` guruhning yoki shablonning nol yoki bitta variantiga mos keladi. Misol uchun `words?` shabloni "word" yoxud "words" qatorlaridan istalganini anglatishi mumkin.
+- `...*` nol yoxud ixtiyoriy miqdordagi narsalarni anglatadi, masalan `.*` deb yozsangiz istalgan belgi ixtiyoriy miqdorda kelaveradi
+- `...+` shablondan bir yoki undan ko'proq takrorlanishiga mos keladi, masalan `\d+` deb yozsangiz ixtiyoriy noldan farqli uzunlikdagi son ushlab olinadi
+- `...{N}` shablonda aynan N marotaba takrorlanish. Misol uchun `\d{4}` bu - to'rt xonali son degani
+- `\.` haqiqiy nuqta belgisiga (".") mos keladi
+- `\\` haqiqiy backslash belgisiga ("\\") mos keladi
+- `^` qatorning boshlanishiga ishora qiladi
+- `$` qatorning oxiriga ishora qiladi
 
-## Capture groups and references
+## Capture group'lar va referenslar
 
-If you use regex groups `(...)`, you can refer to sub-parts of the match for extraction or search-and-replace purposes. For example, to extract just the month from a YYYY-MM-DD style date, you can use the following Python code:
+Agar siz regex group'lardan `(...)` foydalansangiz, ushlab olingan moslikning sub-qismlariga qayta referensiya berib malumot ajratib olishingiz yoki o'rniga boshqa narsa almashtirishingiz (search-and-replace) mumkin. Masalan, YYYY-MM-DD ko'rinishidagi sanadan faqat oy raqamini sug'urib olish uchun siz Python'da shunday yoza olasiz:
 
 ```python
 >>> import re
@@ -136,31 +136,31 @@ If you use regex groups `(...)`, you can refer to sub-parts of the match for ext
 '01'
 ```
 
-In your text editor, you can use reference capture groups in replace patterns. The syntax might vary between IDEs. For example, in VS Code, you can use variables like `$1`, `$2`, etc., and in Vim, you can use `\1`, `\2`, etc., to reference groups.
+Kodni tahrirlovchi IDE larda moslikka almashtirayotganingizda capture group'larni raqam orqali belgilashingiz mumkin. Sintaksis IDE larda turlicha bo'ladi. Masalan, VS Code'da guruhlarga ishora qilish uchun `$1`, `$2` va hokazo, Vim'da esa `\1`, `\2` lardan foydalanishingiz mumkin.
 
-## Limitations
+## Cheklovlar
 
-[Regular languages](https://en.wikipedia.org/wiki/Regular_language) are powerful but limited; there are classes of strings that cannot be expressed as a standard regex (e.g., it is [not possible](https://en.wikipedia.org/wiki/Pumping_lemma_for_regular_languages) to write a regular expression that matches the set of strings {a^n b^n \| n &ge; 0}, the set of strings of a number of "a"s followed by the same number of "b"s; more practically, languages like HTML are not regular languages). In practice, modern regex engines support features like lookahead and backreferences that extend support beyond regular languages, and they are practically extremely useful, but it is important to know that they are still limited in their expressive power. For more sophisticated languages, you might need to reach for a more capable type of parser (for one example, see [pyparsing](https://github.com/pyparsing/pyparsing), a [PEG](https://en.wikipedia.org/wiki/Parsing_expression_grammar) parser).
+[Regulyar tillar](https://en.wikipedia.org/wiki/Regular_language) qudratli bo'lsa-da cheklangandir; ularni standart regex ko'rinishida yozib bo'lmaydigan simvollar ketma-ketliklari bor. (Masalan, siz hech qachon shunday regulyar ifoda yoza olmaysizki [u qatorga](https://en.wikipedia.org/wiki/Pumping_lemma_for_regular_languages) {a^n b^n \| n &ge; 0} mos kelsin — ya'ni, nechta "a" bo'lsa keyin shuncha "b" simvoli keladigan hollar guruhini; shuningdek HTML kabi tillar regex guruhiga ham kirmaydi). Amalda zamonaviy regex dvigatellari (engines) cheklovlardan chetga chiqqan qarab olish (lookahead) yoki backreference kabi kuchli qo'shimcha mexanizmlarni o'z ichiga olgan. Bular ishlatishga nihoyatda samarali hamdir. Biroq chuqurroq tizimli yozishmalar uchun ba'zida rivojlangan parser xizmatlariga murojaat qilish o'rinli (ularga misol uchun qarang: [pyparsing](https://github.com/pyparsing/pyparsing) yoki [PEG](https://en.wikipedia.org/wiki/Parsing_expression_grammar) parser).
 
-## Learning regex
+## Regex o'rganish
 
-We recommend learning the fundamentals (what we have covered in this lecture), and then looking at regex references as you need them, rather than memorizing the entirety of the language.
+Boshida butun texnologiyani to'liq yodlab olish o'rniga, asoslarini (ma'ruzada aytib o'tilgan qismlarni) chuqur tushunishni va qachon zarurat tug'ilsa spravkalardan shablonlarga qarab olib ishlashni tavsiya qilamiz.
 
-Conversational AI tools can be effective at helping you generating regex patterns. For example, try prompting your favorite LLM with the following query:
+Sun'iy intellekt xizmatlari regex shablonlari yaratishda qo'l kelishi ham mumkin. O'zingiz qiziqqan LLM ni quyidagicha so'rov (prompt) yordamida tekshirib ko'rishingiz mumkin:
 
 ```
-Write a Python-style regex pattern that matches the requested path from log lines from Nginx. Here is an example log line:
+Nginx jurnallaridan (log) yo'l(path) manzilini ushlab olish uchun Python stilida regex pattern yozib ber. Masalan quyidagicha log qatori bor deb tasavvur qil:
 
 169.254.1.1 - - [09/Jan/2026:21:28:51 +0000] "GET /feed.xml HTTP/2.0" 200 2995 "-" "python-requests/2.32.3"
 ```
 
-# Exercises
+# Mashqlar
 
-1. Configure a formatter, linter, and pre-commit hooks for a project you're working on. If you have lots of errors: autoformatting should take care of the format errors. For the linter errors, try using an [AI agent](/2026/agentic-coding/) to fix all the linter errors. Make sure the AI agent can run the linter and observe the results, so that it can run in an iterative loop to fix all the issues. Check the results carefully to ensure the AI doesn't break your code!
-1. Learn a testing library for a language you know and write a unit test for a project you're working on. Run a code coverage tool, generate an HTML-formatted coverage report, and observe the results. Can you find the lines that are covered? Your code coverage will likely be very low. Try manually writing some tests to improve it. Try using an [AI agent](/2026/agentic-coding/) to improve coverage; make sure the coding agent can run tests with coverage and produce a line-by-line coverage report, so it knows where to focus. Are the AI-generated tests actually good?
-1. Set up continuous integration to run on every push for a project you're working on. Have CI run formatting, linting, and tests. Break your code on purpose (e.g., introduce a linter violation), and ensure that CI catches it.
-1. Try writing a [regex pattern](#regular-expressions) and use the `grep` [command-line tool](/2026/course-shell/) to find occurrences of `subprocess.Popen(..., shell=True)` in your code. Now, try to "break" the regex pattern. Does [semgrep](#linting) still successfully match the dangerous code that trips up your grep invocation?
-1. Practice regex search-and-replace in your IDE or text editor by replacing the `-` [Markdown bullet markers](https://spec.commonmark.org/0.31.2/#bullet-list-marker) with `*` bullet markers in [these lecture notes](https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/code-quality.md). Note that just replacing all the "-" characters in the file would be incorrect, as there are many uses of that character that are not bullet markers.
-1. Write a regex to capture from JSON structures of the form `{"name": "Alyssa P. Hacker", "college": "MIT"}` the name (e.g., `Alyssa P. Hacker`, in this example). Hint: in your first attempt, you might end up writing a regex that extracts `Alyssa P. Hacker", "college": "MIT`; read about greedy quantifiers in the [Python regex docs](https://docs.python.org/3/library/re.html) to figure out how to fix it.
-    1. Make the regex pattern work even in situations where the name has a `"` character in it (double quotes can be escaped in JSON with `\"`).
-    1. We do **not** recommend using regular expressions for sophisticated parsing problems in practice. Figure out how to use your programming language's JSON parser for this task. Write a command-line program that takes as input, on stdin, a JSON structure of the form described above, and output, on stdout, the name. You should only need a couple lines of code to do this. In Python, you can do it easily in one line of code beyond `import json`.
+1. O'zingiz hozirda ustida ishlayotgan loyiha uchun formater, linter va pre-commit hook'larni sozlang. Agar kodingizda yuzlab xatoliklar qolib ketgan bo'lsa: formater ko'rinish xatolarini avtomatik to'g'rilab berishi mumkin. Linter xatolari uchun esa hammasini bittada tuzatish niyatida sun'iy idrokka asoslangan [dasturlash agentidan](/2026/agentic-coding/) foydalanib ko'ring. Agenti linter'ni ishlab tekshira oladigan, takrorlanuvchi jarayonlar xatolarni tuzatgunga qadar ishlashi kerak. Keyin ehtiyotkorlik bilan sun'iy idrok sizga yangi muammolar tug'dirmaganiga ishonch hosil qiling!
+1. O'zingiz bilgan biror til uchun testlash kutubxonasini o'rganing va loyihangizdagi ba'zi kodlarni tekshirish uchun unit test yozing. Kod qamrovini ishga tushiring, qamrov haqida HTML ko'rinishidagi hisobot yarating va natijani baholang. Kodingizning qaysi joylari qamrab olinganini seza oldingizmi? Katta ehtimol bilan hozir hisobot past bo'ladi. Unit testlarni o'zingiz yozish orqali hisobot qamrovini yaxshilab borishga urining. Ushbu muammoni yaxshilash maqsadida testning kod qamrovi haqida line-by-line hisobot bera oluvchi va kodlarni testlay oluvchi sun'iy intellekt (dasturlash agenti) [bilan ishlab ko'ring](/2026/agentic-coding/). Sizningcha AI yozgan kod tekshiruv testlari chin dildan ishlanganiga amin bo'lasizmi?
+1. O'zingiz ishlayotgan loyiha uchun uzluksiz integratsiyani sozlang, shunda har safar push qilinganda ishlashini ta'minlaysiz. CI uchun avtoformat, linter hamda test skriptlarini ishga soling. Ataylab xato ishlangan kod o'zgarishini yarating (masalan linter talablariga zid o'zgarish kiriting) hamda haqiqatdan ham uning buzilishini CI bilib qolishini ko'ring.
+1. Shaxsiy loyihangizni birortasida "dangerous pattern" hisoblangan `subprocess.Popen(..., shell=True)` qatorlari ishtirok etishini tekshirish uchun `grep` [buyrug'i](/2026/course-shell/) orqali ishlashi mumkin bo'lgan regex [shablon qidiruvchisini](#regular-expressions) o'ylab toping. Keyin bu qidiruv tizimini biror xato yo'li bilan chetlab o'tish (buzish) mumkinligini aniqlang. Endi xuddi o'sha tekshiruvdagi buzilgan joylarni baribir o'tkazib yubormasdan ishlashda [semgrep](#linting) vositasidan umid qilib ko'rasizmi?
+1. O'z IDE yoki matn muharriringiz yordamida quyidagi [ushbu darslik matnidagi](https://raw.githubusercontent.com/missing-semester/missing-semester/refs/heads/master/_2026/code-quality.md) har bir [Markdown qator yozuvi (bullet marker)](https://spec.commonmark.org/0.31.2/#bullet-list-marker) bo'lgan `-` chiziqchalarini `*` yulduzchalari bilan regex yordamida qidirib o'rniga qo'yishni mashq qiling. Ammo eslab qoling: hujjat ichidagi barcha "-" larni ham to'laligicha yulduzga aylantirmoqchi bo'lsangiz xatoga yo'l qilasiz. Chunki faqatgina bullet formatdagi emas balki ko'plab boshqa hollarda qator oxirlari chiziqcha bo'ladi.
+1. Shunday maxsus regex yozingki unda `{"name": "Alyssa P. Hacker", "college": "MIT"}` shablonidagi kabi JSON yozuvlari kelsa ulardan malumot egalarini, ya'ni bizning misol uchun `Alyssa P. Hacker` isimlarini tushunib tortib ola bilsin. Qo'shimcha e'tibor: bu kabi testning dastlabkisida `Alyssa P. Hacker", "college": "MIT` degan kabi keraksiz simvollarni ham o'zlashtirgan variant qilib qo'yishingiz mumkin bo'lib; shunga shunday bo'lmasligi uchun greedy quantifiers (ko'p miqdor egallaydigan vositalar) to'g'risida [Python regex doclaridan](https://docs.python.org/3/library/re.html) o'qishingiz tavsiya qilinadi.
+    1. Hatto ba'zi ismlarda (`\"`) formatida keladigan simvollar aralashgan hollarda ham ishlaydigan mukammal moslik topuvchisini ishlab chiqing.
+    1. Ammo murakkab parsing kabi mashaqqat talab qilinuvchi o'rinlarda biz aslo regex instrumentlaridan doimiy ishlab borishni tavsiya qilmaymiz. O'z programmingiz yordamida qanday qilib JSON vositalarini tahlillash orqali buni oddiy muammo xususiga o'tkazishni aniqlab chiqing. Yuqoridagiga asoslanib faqat bir ikkita qator kod yozish yordamida buyruqlar satri(stdin) orqali yozilgan har qanday JSON faylni o'qish (stdout) natijasiga faqat kerak ismni olib chiqaruvchi funksiya loyihalashtiring. Pythonda ushbu masala shunchaki `import json` qilingandan keyin asosan bir satrlik funksiya bo'la oladi xolos.

@@ -137,6 +137,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | pipe / pipeline | pipe / pipeline | Do not translate. Avoid "zanjir" for better IT accuracy. |
 | plugin | plagin | Software add-on |
 | port forwarding | portni yo'naltirish | SSH connection feature |
+| pre-commit hook | pre-commit hook | Git feature, do not translate |
 | process substitution | jarayonni almashtirish | In bash, `<()` |
 | productivity | unumdorlik | `[General]` |
 | profiling | profillash | Performance analysis |
