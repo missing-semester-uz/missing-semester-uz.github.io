@@ -98,7 +98,7 @@ Bu nosozliklarni izlashda ajoyib tarzda qo'l keladi. Dastur bir marta buzildi de
 - Dasturdagi takrorlanishi qiyin bo'lgan halokatlarda (crashes)
 - Siz "orqaga qaytishni" xohlaydigan nosozliklarda
 
-> Eslatma: rr faqat Linux'da ishlaydi va uskuna (hardware) ma'lumotlarini kuzatib boradi. U uskuna hisoblagichlarini ko'rsatib bermaydigan VM'larda, masalan, aksariyat AWS EC2 instanslarida ishlamaydi va u GPU interfeysiga ruxsat bermaydi. macOS muhiti uchun esa, [Warpspeed](https://warpspeed.dev/) resursidan tanishib chiqing.
+> Eslatma: rr faqat Linux'da ishlaydi va uskuna (hardware) ma'lumotlarini kuzatib boradi. U uskuna hisoblagichlarini ko'rsatib bermaydigan VM'larda, masalan, aksariyat AWS EC2 instanslarida ishlamaydi va u GPU interfeysiga ruxsat bermaydi. macOS muhiti uchun esa, [Warpspeed](https://github.com/kallsyms/warpspeed) loyihasidan tanishib chiqing.
 
 > **rr va parallellik (concurrency)**: rr dastur bajarilishlarini qat'iy mantiqiy darajada yozib olganligi bois oqim rejalashtirishni izchil bajaradi. Bu degani, agar ular muayyan vaqt bilan hamqadam ketsa poygalik sharoitlariga tushib qolmasligining ehtimoli mavjud. rr o'sha holatlarni debag qilish uchun o'ta qulay dastur—agar buzilishga tushib qolgan vaziyatni qo'lga tushirolsangiz, bu jarayonni oson bartaraf qilasiz—lekin yashirilgan debaglarni izlashda biroz marta harakat qilishingizga to'g'ri kelishi mumkin. Poygalik jarayonlariga daxli yo'q holatlarga ham rr'ning sezilarsiz afzalligi bisyor: doim jarayonni ishlashi ortga debag yuzaga kelishini orqaga ko'rsatish mumkin.
 

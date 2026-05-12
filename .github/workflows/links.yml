@@ -21,6 +21,8 @@ jobs:
           tokens: |
             {"https://github.com": "${{ secrets.GITHUB_TOKEN }}"}
           ignore_url: |
+            https://vim.fandom.com/wiki/Avoid_the_escape_key#Mappings
+            https://vimways.org/2019/
             https://crates.io/
             https://dtrace.org/about/
             https://blogs.oracle.com/linux/strace-the-sysadmins-microscope-v2
