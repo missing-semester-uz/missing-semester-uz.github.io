@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Debugging and Profiling"
+title: "Nosozliklarni tuzatish va Profillash"
 description: >
-  Learn how to debug programs using logging and debuggers, and how to profile code for performance.
+  Dasturlarni loglash va debaggerlar yordamida qanday debag qilish hamda unumdorlik uchun kodni profillashni o'rganing.
 thumbnail: /static/assets/thumbnails/2026/lec4.png
 date: 2026-01-15
 ready: true
@@ -12,249 +12,240 @@ video:
   id: 8VYT9TcUmKs
 ---
 
-A golden rule in programming is that code does not do what you expect it to do, but what you tell it to do. Bridging that gap can sometimes be a quite difficult feat. In this lecture we are going to cover useful techniques for dealing with buggy and resource hungry code: debugging and profiling.
+Dasturlashdagi oltin qoidalardan biri shuki, kod siz kutgan ishni emas, balki siz unga buyurgan ishni bajaradi. Bu farqni kelishib olish ba'zan ancha qiyin vazifa bo'lishi mumkin. Ushbu ma'ruzada nosoz (buggy) va resurslarni ko'p sarflaydigan kodlar bilan ishlash uchun foydali usullarni ko'rib chiqamiz: nosozliklarni izlash (debag qilish) va profillash.
 
-# Debugging
+# Debag qilish (Nosozliklarni izlash)
 
-## Printf Debugging and Logging
+## Printf orqali debag qilish va loglash
 
-> "The most effective debugging tool is still careful thought, coupled with judiciously placed print statements" — Brian Kernighan, _Unix for Beginners_.
+> "Eng samarali nosozliklarni tuzatish vositasi bu hali ham puxta o'ylash va to'g'ri joylashtirilgan print ifodalari hisoblanadi" — Brian Kernighan, _Unix for Beginners_.
 
-A first approach to debug a program is to add print statements around where you have detected the problem, and keep iterating until you have extracted enough information to understand what is responsible for the issue.
+Dasturda nosozlikni izlashning birinchi usuli — muammo bor deb o'ylagan joyingiz atrofida `print` operatorlarini qo'shish va muammo manbasini tushunish uchun yetarli ma'lumot olguncha jarayonni takrorlashdir.
 
-A second approach is to use logging in your program, instead of ad hoc print statements. Logging is essentially "printing with more care", and is usually done through a logging framework that includes built-in support for things like:
+Ikkinchi usul esa, maxsus `print` ifodalari o'rniga dasturingizda loglashdan foydalanishdir. Loglash asosan "ko'proq e'tibor qilib chop etish" bo'lib, odatda quyidagi narsalarni qo'llab-quvvatlaydigan loglash freymvorki orqali amalga oshiriladi:
 
-- the ability to direct the logs (or subsets of the logs) to other output locations;
-- setting severity levels (such as INFO, DEBUG, WARN, ERROR, etc.) and allow you to filter the output according to those; and
-- support for structured logging of data related to the log entries, which can then be extracted more easily after the fact.
+- loglarni (yoki loglarning bir qismini) boshqa chiqish manzillariga yo'naltirish qobiliyati;
+- muhimlik darajalarini (masalan, INFO, DEBUG, WARN, ERROR va hokazo) o'rnatish va chiqishni ularga ko'ra filtrlash; va
+- log yozuvlari bilan bog'liq ma'lumotlarni tuzilmali loglash (structured logging), buning yordamida keyinchalik ularni osongina ajratib olish mumkin bo'ladi.
 
-Logging statements you'll also usually proactively put in while
-programming so that the data you need to debug may already be there!
-And indeed, once you've found and fixed a problem using print
-statements, it's often worthwhile to convert those prints into proper
-log statements before removing them. This way, if similar bugs occur
-in the future, you'll already have the diagnostic information you need
-without modifying the code.
+Dasturlash jarayonida odatda siz loglash ifodalarini oldindan kiritib qo'yasiz, shunda debag qilish uchun zarur ma'lumot u yerda allaqachon mavjud bo'lishi mumkin! Darhaqiqat, `print` ifodalari yordamida muammoni topib tuzatganingizdan so'ng, ularni o'chirish o'rniga to'g'ri log ifodalariga aylantirib qo'yganingiz ma'qul. Shunday qilib, agar kelajakda shunga o'xshash xatolar yuz bersa, kodni o'zgartirmasdan turib diagnostika ma'lumotlariga ega bo'lasiz.
 
-> **Third-party logs**: Many programs support the `-v` or `--verbose` flag to print more information when they run. This can be useful for discovering why a given command fails. Some even allow repeating the flag for more details. When debugging issues with services (databases, web servers, etc.), check their logs—often in `/var/log/` on Linux. Use `journalctl -u <service>` to view logs for systemd services. For third-party libraries, check if they support debug logging via environment variables or configuration.
+> **Uchinchi-tomon loglari**: Ko'pgina dasturlar ishga tushganda ko'proq ma'lumot chiqarish uchun `-v` yoki `--verbose` bayroqchasini qo'llab-quvvatlaydi. Bu ma'lum bir buyruq nima uchun xato berayotganini aniqlashda foydali bo'lishi mumkin. Ba'zilari yanada ko'proq tafsilotlar uchun bayroqni takrorlashga ham ruxsat beradi. Xizmatlar (ma'lumotlar bazalari, veb-serverlar va boshqalar) bilan bog'liq muammolarni debag qilishda ularning loglarini tekshiring—bular Linux'da odatda `/var/log/` katalogida joylashgan bo'ladi. systemd xizmatlarining loglarini ko'rish uchun `journalctl -u <service>` dan foydalaning. Uchinchi tomonga tegishli kutubxonalar uchun muhit o'zgaruvchilari yoki konfiguratsiyasi orqali debag loglarini qo'llab-quvvatlashini tekshiring.
 
-## Debuggers
+## Debaggerlar
 
-Print debugging works well when you know what to print and can easily modify and re-run your code. Debuggers become valuable when you're not sure what information you need, when the bug only manifests in hard-to-reproduce conditions, or when modifying and restarting the program is expensive (long startup times, complex state to recreate, etc.).
+Nima chiqarishni bilsangiz hamda kodingizni osongina o'zgartirib va qayta ishga tushirish imkoni bo'lsa, print orqali debag qilish yaxshi ishlaydi. Biroq, qanday ma'lumot kerakligini bilmaganingizda, nosozlik faqatgina takrorlash qiyin bo'lgan holatlarda namoyon bo'lganda, yoki kodni o'zgartirish va dasturni qayta ishga tushirish qimmatga tushganda (uzoq ishga tushish vaqti, qayta tiklanishi kerak bo'lgan murakkab holat va h.k.) debaggerlar bebaho vositaga aylanadi.
 
-Debuggers are programs that let you interact with the execution of a program as it happens, allowing you to:
+Debaggerlar shunday dasturlarki, ular sizga o'z dasturingizning bajarilish jarayoni bilan ishlash imkonini beradi:
 
-- Halt execution when it reaches a certain line.
-- Step through one instruction at a time.
-- Inspect values of variables after a crash.
-- Conditionally halt execution when a given condition is met.
-- And many more advanced features.
+- Muayyan satrga kelganda ijroni to'xtatib turish.
+- Har gal faqat bitta yo'riqnomani (instruction) qadamma-qadam bajarish.
+- Halokat (crash)dan keyin o'zgaruvchilarning qiymatlarini tekshirish.
+- Berilgan shart qanoatlantirilganda ijroni shartli ravishda to'xtatib turish.
+- Va yana ko'plab ilg'or xususiyatlar.
 
-Most programming languages support (or come with) some form of debugger. The most versatile are **general-purpose debuggers** like [`gdb`](https://www.gnu.org/software/gdb/) (GNU Debugger) and [`lldb`](https://lldb.llvm.org/) (LLVM Debugger), which can debug any native binary. Many languages also have **language-specific debuggers** that integrate more tightly with the runtime (like Python's pdb or Java's jdb).
+Aksariyat dasturlash tillari deyarli o'zlarining debaggerlarini qo'llab-quvvatlaydi (yoki birga keladi). Eng ko'p qo'llaniladigan va universal debaggerlar bu barcha nativ binarlarni debag qila oladigan **umumiy maqsadli debaggerlar** hisoblanib, masalan, [`gdb`](https://www.gnu.org/software/gdb/) (GNU Debugger) va [`lldb`](https://lldb.llvm.org/) (LLVM Debugger) kabilar. Shuningdek, ko'plab tillar o'ziga xos ish vaqti (runtime) bilan mustahkam bog'langan **tilga xos debaggerlarga** ega (masalan, Python'ning pdb yoki Java'ning jdb'si).
 
-`gdb` is the de-facto standard debugger for C, C++, Rust, and other compiled languages. It lets you probe pretty much any process and get its current machine state: registers, stack, program counter, and more.
+`gdb` C, C++, Rust va boshqa kompilyatsiya qilinadigan tillar uchun standart debagger (de facto) hisoblanadi. U har qanday jarayonni tahlil qilib, uning mashina holati haqidagi ma'lumotlarni — registrlar, stek, dastur hisoblagichi va boshqalarni olish imkonini beradi.
 
-Some useful GDB commands:
+Ba'zi foydali GDB buyruqlari:
 
-- `run` - Start the program
-- `b {function}` or `b {file}:{line}` - Set a breakpoint
-- `c` - Continue execution
-- `step` / `next` / `finish` - Step in / step over / step out
-- `p {variable}` - Print value of variable
-- `bt` - Show backtrace (call stack)
-- `watch {expression}` - Break when the value changes
+- `run` - Dasturni ishga tushirish
+- `b {function}` yoki `b {file}:{line}` - To'xtash nuqtasini o'rnatish
+- `c` - Bajarishni davom ettirish
+- `step` / `next` / `finish` - Ichiga kirish / ustidan o'tish / tashqariga chiqish
+- `p {variable}` - O'zgaruvchining qiymatini chop etish
+- `bt` - Backtrace'ni ko'rsatish (kutilayotgan chaqiruvlar steki)
+- `watch {expression}` - Qiymat o'zgarganda to'xtash
 
-> Consider using GDB's TUI mode (`gdb -tui` or press `Ctrl-x a` inside GDB) for a split-screen view showing source code alongside the command prompt.
+> Buyruqlar qatori yonida manba kodini ko'rsatadigan split-ekran (ikkiga bo'lingan ekran) ko'rinishi uchun GDB'ning TUI rejimidan foydalanishni ko'rib chiqing (`gdb -tui` yoki GDB ichida `Ctrl-x a` tugmachalarini bosing).
 
-### Record-Replay Debugging
+### Yozish va Qayta ishlash orqali Debag qilish (Record-Replay Debugging)
 
-Some of the most frustrating bugs are _Heisenbugs_: bugs that seem to disappear or change behavior when you try to observe them. Race conditions, timing-dependent bugs, and issues that only appear under certain system conditions fall into this category. Traditional debugging is often useless here because running the program again produces different behavior (e.g., print statements may slow down the code sufficiently that the race no longer happens).
+Eng ko'p asabni buzuvchi xatolar bu _Heisenbug_'lar hisoblanadi: siz ularni kuzatishga uringaningizda ko'zdan g'oyib bo'ladigan yoki o'z xatti-harakatini o'zgartiradigan xatolar. Poyga holatlari (race conditions), vaqtga bog'liq nosozliklar va ma'lum bir tizim sharoitlaridagina yuzaga keladigan muammolar ushbu toifaga kiradi. An'anaviy debag qilish bu yerda ko'pincha foydasiz, chunki dasturni qaytadan ishga tushirish turli xil natijalarni berishi mumkin (masalan, print ifodalari kodni yetarlicha sekinlashtirib poyga holatini yo'qotib yuborishi mumkin).
 
-**Record-replay debugging** solves this by recording a program's execution and allowing you to replay it deterministically as many times as you need. Even better, you can _reverse_ through the execution to find exactly where things went wrong.
+**Yozish va qayta ishlash debaggingi** bu holatni dasturning bajarilish jarayonini yozib olish va uni kerakli darajada takroran aynan oldingidek (deterministik ravishda) bajarishga imkon berish bilan hal qiladi. Yana ham yaxshisi, qayerda nosozlik paydo bo'lganini topish uchun bajarilish jarayonini orqaga qaytarishingiz mumkin.
 
-[rr](https://rr-project.org/) is a powerful tool for Linux that records program execution and allows deterministic replay with full debugging capabilities. It works with GDB, so you already know the interface.
+[rr](https://rr-project.org/) dasturi bajarilishini yozib oluvchi va u orqali to'liq debag qilish xususiyatlari bilan deterministik qayta ijro etishga imkon beruvchi Linux vositasidir. U GDB bilan birgalikda ishlaganligi sababli, uning interfeysi sizga allaqachon tanish bo'lishi mumkin.
 
-Basic usage:
+Asosiy foydalanish:
 
 ```bash
-# Record a program execution
+# Dastur bajarilishini yozib olish
 rr record ./my_program
 
-# Replay the recording (opens GDB)
+# Yozib olinganini qayta ishga tushirish (GDB'ni ochadi)
 rr replay
 ```
 
-The magic happens during replay. Because the execution is deterministic, you can use **reverse debugging** commands:
+Asosiy mo'jiza qismi aynan qayta ishlashda namoyon bo'ladi. Sababi bajarilish qat'iy mantiqiy (deterministik) ekanligida bo'lib, buning uchun siz quyidagi **orqaga debag qilish (reverse debugging)** buyruqlaridan bemalol foydalanishingiz mumkin:
 
-- `reverse-continue` (`rc`) - Run backwards until hitting a breakpoint
-- `reverse-step` (`rs`) - Step backwards one line
-- `reverse-next` (`rn`) - Step backwards, skipping function calls
-- `reverse-finish` - Run backwards until entering the current function
+- `reverse-continue` (`rc`) - To'xtash nuqtasiga yetguncha orqaga ishlash
+- `reverse-step` (`rs`) - Bitta qator orqaga qadam tashlash
+- `reverse-next` (`rn`) - Orqaga qadam tashlash, lekin funksiya chaqiruvlarni o'tkazib yuborish
+- `reverse-finish` - Joriy funksiya boshiga kelguncha orqaga qaytish
 
-This is incredibly powerful for debugging. Say you have a crash—instead of guessing where the bug is and setting breakpoints, you can:
+Bu nosozliklarni izlashda ajoyib tarzda qo'l keladi. Dastur bir marta buzildi deylik, buning uchun nosozlik qayerda yashirinib yotganini izlash orqali to'xtash nuqtasini o'rnatishga vaqt ketkazmasdan quyidagilarni amalga oshirgan ma'qul:
 
-1. Run to the crash
-2. Inspect the corrupted state
-3. Set a watchpoint on the corrupted variable
-4. `reverse-continue` to find exactly where it was corrupted
+1. Dasturni buzilguncha ishlating
+2. Buzongan va o'zgargan qiymatlarni tekshiring
+3. Shubhali o'zgaruvchiga kuzatish nuqtasini (watchpoint) o'rnating
+4. Qayerda o'zgarganini izlash uchun `reverse-continue` buyrug'idan foydalaning
 
-**When to use rr:**
-- Flaky tests that fail intermittently
-- Race conditions and threading bugs
-- Crashes that are hard to reproduce
-- Any bug where you wish you could "go back in time"
+**rr'dan qachon foydalanish kerak?**
+- Vaqti-vaqti bilan ishlamay qoluvchi ishonchsiz (flaky) testlarda
+- Multithreading bilan bog'liq poyga holatlari va xatolar 
+- Dasturdagi takrorlanishi qiyin bo'lgan halokatlarda (crashes)
+- Siz "orqaga qaytishni" xohlaydigan nosozliklarda
 
-> Note: rr only works on Linux and requires hardware performance counters. It doesn't work in VMs that don't expose these counters, such as on most AWS EC2 instances, and it doesn't support GPU access. For macOS, check out [Warpspeed](https://warpspeed.dev/).
+> Eslatma: rr faqat Linux'da ishlaydi va uskuna (hardware) ma'lumotlarini kuzatib boradi. U uskuna hisoblagichlarini ko'rsatib bermaydigan VM'larda, masalan, aksariyat AWS EC2 instanslarida ishlamaydi va u GPU interfeysiga ruxsat bermaydi. macOS muhiti uchun esa, [Warpspeed](https://warpspeed.dev/) resursidan tanishib chiqing.
 
-> **rr and concurrency**: Because rr records execution deterministically, it serializes thread scheduling. This means some race conditions may not manifest under rr if they depend on specific timing. rr is still useful for debugging races—once you capture a failing run, you can replay it reliably—but you may need multiple recording attempts to catch an intermittent bug. For bugs that don't involve concurrency, rr shines brightest: you can always reproduce the exact execution and use reverse debugging to hunt down corruption.
+> **rr va parallellik (concurrency)**: rr dastur bajarilishlarini qat'iy mantiqiy darajada yozib olganligi bois oqim rejalashtirishni izchil bajaradi. Bu degani, agar ular muayyan vaqt bilan hamqadam ketsa poygalik sharoitlariga tushib qolmasligining ehtimoli mavjud. rr o'sha holatlarni debag qilish uchun o'ta qulay dastur—agar buzilishga tushib qolgan vaziyatni qo'lga tushirolsangiz, bu jarayonni oson bartaraf qilasiz—lekin yashirilgan debaglarni izlashda biroz marta harakat qilishingizga to'g'ri kelishi mumkin. Poygalik jarayonlariga daxli yo'q holatlarga ham rr'ning sezilarsiz afzalligi bisyor: doim jarayonni ishlashi ortga debag yuzaga kelishini orqaga ko'rsatish mumkin.
 
-## System Call Tracing
+## Tizim Chaqiruvlarini Izlash (System Call Tracing)
 
-Sometimes you need to understand how your program interacts with the operating system. Programs make [system calls](https://en.wikipedia.org/wiki/System_call) to request services from the kernel—opening files, allocating memory, creating processes, and more. Tracing these calls can reveal why a program is hanging, what files it's trying to access, or where it's spending time waiting.
+Ba'zida kodingiz operatsion tizim bilan qanday aloqada ekanligini anglab yetishingiz kerak. Dasturlar turli yo'nalishlarda ehtiyoj ko'rib yadro (kernel) xizmatlaridan foydalanishi uchun [tizim chaqiruvi](https://en.wikipedia.org/wiki/System_call) amalga oshiradilar—fayllar ochish, xotira bo'lib berish, jarayon tuzish va h.k. O'sha chaqiruvni kuzatib borish nafaqat dastur nimaga ishlamayotganini fosh etadi, ixtiyori o'zini taqdim etishi, qanaqa ma'lumotlarga so'rov etishi yoki qayerda asirda qolishini bildiruvchi xabar bermoqda.
 
-### strace (Linux) and dtruss (macOS)
+### strace (Linux) va dtruss (macOS)
 
-[`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) lets you observe every system call a program makes:
+[`strace`](https://www.man7.org/linux/man-pages/man1/strace.1.html) yordamida dastur yaratib ketadigan hamma chaqiruvlarni ko'zdan ishlashingiz qulay:
 
 ```bash
-# Trace all system calls
+# Barcha tizim chaqiruvlarini izlash
 strace ./my_program
 
-# Trace only file-related calls
+# Faqat fayl bilan ishlash chaqiruvlarni qarab chiqish
 strace -e trace=file ./my_program
 
-# Follow child processes (important for programs that start other programs)
+# Bola jarayonlarni (child processes) ortigidan kuzatish (boshqa processlar qoldirish ishlari muhim funksiyalarga ko'rsatganligi)
 strace -f ./my_program
 
-# Trace a running process
+# Ishlayotgan jarayonni izlash
 strace -p <PID>
 
-# Show timing information
+# Vaqt haqidagi ma'lumotlarni chiqarish
 strace -T ./my_program
 ```
 
-> On macOS and BSD, use [`dtruss`](https://www.manpagez.com/man/1/dtruss/) (which wraps `dtrace`) for similar functionality:
+> macOS va BSD muhitida bu buyruq o'xshashi bo'lgan [`dtruss`](https://www.manpagez.com/man/1/dtruss/) bo'lib (`dtrace` bilan faolyat bilan ishlaydi).
 
-> For deeper dives into `strace`, check out Julia Evans' excellent [strace zine](https://jvns.ca/strace-zine-unfolded.pdf).
+> `strace` borasida qiziqarli qo'llanma Julia Evans tomonidan hozirlagan [strace zine](https://jvns.ca/strace-zine-unfolded.pdf) ma'lumoti to'playdi.
 
-### bpftrace and eBPF
+### bpftrace va eBPF
 
-[eBPF](https://ebpf.io/) (extended Berkeley Packet Filter) is a powerful Linux technology that allows running sandboxed programs in the kernel. [`bpftrace`](https://github.com/iovisor/bpftrace) provides a high-level syntax for writing eBPF programs. These are arbitrary programs running in the kernel, and thus have huge expressive power (though also a somewhat clumsy awk-like syntax). The most common use-case for them is to investigate what system calls are being invoked, including aggregations (like counts or latency statistics) or introspecting (or even filtering on) system call arguments.
+[eBPF](https://ebpf.io/) (Kengaytirilgan Berkeley Packet Filter - extended Berkeley Packet Filter) yadro ichida sandbox bilan bog'liq ishlarni amalga oshirishda yetakchi Linux utilitasi hisoblanadi. [`bpftrace`](https://github.com/iovisor/bpftrace) esa eBPF'nin skript yozish texnologiyasiga zomin yaratuvchisi ko'rsatib kelayapdi. Yuqori aniqligi va kernel dasturlar bilan erkin ma'nodor sintaksis yordamida (awk sintaksisiga o'xshaydi) istalgancha erkin kod bera olasiz. Bosh maqsad hamma o'ta chaqirilgan ishlardagi ko'rsatkichlarga tahlil o'tsazishi kabi (latency hisobin berishi/sanab o'tishi).
 
 ```bash
-# Trace file opens system-wide (prints immediately)
+# Barcha ochilgan olingan tizim bo'ylab fayllarini xaritasi chiqsin (o'sha zahoti o'zida ko'rsatadi)
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_openat { printf("%s %s\n", comm, str(args->filename)); }'
 
-# Count system calls by name (prints summary on Ctrl-C)
+# Nom berib ularni hisob-kitob qilish (Ctrl-C bosingach sanash to'xtab chiqatadi)
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* { @[probe] = count(); }'
 ```
 
-However, you can also write eBPF programs directly in C using a toolchain like [`bcc`](https://github.com/iovisor/bcc), which also ships with [many handy tools](https://www.brendangregg.com/blog/2015-09-22/bcc-linux-4.3-tracing.html) like `biosnoop` for printing latency distributions for disk operations or `opensnoop` for printing all open files.
+Xohishingizga qarab eBPF dasturlaringizni C tilida bemalol qo'llanuvchi [`bcc`](https://github.com/iovisor/bcc) texnologiyasi bilan va u bergan [foydali vosita](https://www.brendangregg.com/blog/2015-09-22/bcc-linux-4.3-tracing.html) ko'magidan unumdor ifodasita bo'lishiz qulay, chunki operatsiya bilan ishlatib berishi bilib `biosnoop` hisoblar latensiyasi chiqarishni ishlatsz. Ochiq holatlarda bo'lgan bo'lsangiz `opensnoop` tavsiya etildi.
 
-Where `strace` is useful because it's easy to "just get up and running", `bpftrace` is what you should reach for when you need lower overhead, want to trace through kernel functions, need to do any kind of aggregation, etc. Note that `bpftrace` has to run as `root` though, and that it generally monitors the entire kernel, not just a particular process. To target a specific program, you can filter by command name or PID:
+`strace` "oddiy ishga hozir aytganingizda ketuvchi" holatligini ajaratsakda, `bpftrace` dasturi kamroq qo'shimcha yuklama (overhead) qidirishni yadro ichidan bo'yovchi chaqiruvli yozishingiz, tahlillar yaratmoqchi bo'lsangiz o'sha joyini almashtiradi. Lekin bilingki `bpftrace` da ishlash `root` huquqidan, faqat belgilangan fayllar bilan emas balki hamma yadro bo'ylab bo'lmog'i aytilgan holda bo'ladi. Dastur jarayonlarini kommand nomiga qarab filtrlashni buyursa bo'ladi:
 
 ```bash
-# Filter by command name (prints summary on Ctrl-C)
+# Kommand nomini filter qilish (Ctrl-C bilan tugatilishda ko'rinadi)
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* /comm == "bash"/ { @[probe] = count(); }'
 
-# Trace a specific command from startup using -c (cpid = child PID)
+# -c argumentiga qarata chaqirilgan kommandani bolayi kodi qidiriladi (cpid = bola jarayonni kodi)
 sudo bpftrace -e 'tracepoint:syscalls:sys_enter_* /pid == cpid/ { @[probe] = count(); }' -c 'ls -la'
 ```
 
-The `-c` flag runs the specified command and sets `cpid` to its PID, which is useful for tracing a program from the moment it starts. When the traced command exits, bpftrace prints the aggregated results.
+`-c` parametrini ko'rsatishingiz uni tezlik bilan cpid nomida ishlashi jarayon ishini ko'rsatgan holni xabar etishdi. Agar u bajarilib bitgan bo'lsa uni ustidagi statistikani hisobin yakunida ma'lum etadi.
 
-### Network Debugging
+### Tarmoqni Debag qilish
 
-For network issues, [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) and [Wireshark](https://www.wireshark.org/) let you capture and analyze network packets:
+Tarmoqdagi nosozliklarini kuzatishga [`tcpdump`](https://www.man7.org/linux/man-pages/man1/tcpdump.1.html) va [Wireshark](https://www.wireshark.org/) yordamchilari yaxshigana paketni hisobotini olib keladi:
 
 ```bash
-# Capture packets on port 80
+# Xabar oqim paketlarni manzil 80 dan olish
 sudo tcpdump -i any port 80
 
-# Capture and save to file for Wireshark analysis
+# Wireshark ustidan ishlashiga pcap qilib yordamlashib qo'yish
 sudo tcpdump -i any -w capture.pcap
 ```
 
-For HTTPS traffic, the encryption makes tcpdump less useful. Tools like [mitmproxy](https://mitmproxy.org/) can act as an intercepting proxy to inspect encrypted traffic. Browser developer tools (Network tab) are often the easiest way to debug HTTPS requests from web applications—they show decrypted request/response data, headers, and timing.
+HTTPS uchun ulangan ma'lumotlar bilan ma'lumki uncha emas, tcpdump o'qilmaydi. Ana o'sha yerda [mitmproxy](https://mitmproxy.org/) ishqida proxy kabi uskunalar HTTPS parollangan xatolar uchun ajoyib ishlarni topib ko'rsatadi. Internet tarmoq qatlamiga qaramligi qarab vebdasturlash vositalari HTTPS tarmoq joriy qismini tahlili tez so'rov/kodlari va natijalarini izlashingizda qulay bo'lishi aytib ketiladi.
 
-## Memory Debugging
+## Xotira xatolarini Izlash
 
-Memory bugs—buffer overflows, use-after-free, memory leaks—are among the most dangerous and difficult to debug. They often don't crash immediately but corrupt memory in ways that cause problems much later.
+Xotira bilan bog'liq bo'lgan nosozliklar—bufer to'lib ketishi (buffer overflow), freydan o'tgandan kiyingiga bozorish (use-after-free) yoki xotira sizib chiqishi (memory leak)—debaga qila olinishi qiyin hal qilinuvchi narsa. Ular shunchaki buzilmaydi aksincha ularni vaqt ko'p ishlaganidan so'ng u yerlari ayblari xatolari boshlangandi.
 
-### Sanitizers
+### Sanitayzerlar (Sanitizers)
 
-One approach to finding memory bugs is to use **sanitizers**, which are compiler features that instrument your code to detect errors at runtime. For example, the widely used **AddressSanitizer (ASan)** detects:
-- Buffer overflows (stack, heap, and global)
-- Use-after-free
-- Use-after-return
-- Memory leaks
+Qiziqarli xatolar usullaridan topish vositachisi aynan **Sanitayzerlar (sanitizers)** uskunaga kiradi, yozganingizni runtime tekshiradigan qismlari orqasida bajarib chiqadi. Namuna uchun, dunyoga mashqur bo'lib avjga olgan **AddressSanitizer (ASan)** dasturi borasida ko'rsatish mumkin:
+- Bufer to'lib ketish xatolari (bu stek, xotira ajramasi doirasi bo'lishidir)
+- Ajratilgan xotirani ishlatilmasidan xatolar (Use-after-free)
+- Qaytish qiymatidan debag qilishni holati (Use-after-return)
+- Xotira sizib chiqishi
 
 ```bash
-# Compile with AddressSanitizer
+# AddressSanitizer yordamida ishlash
 gcc -fsanitize=address -g program.c -o program
 ./program
 ```
 
-There are a variety of useful sanitizers:
+Yana bitta aytib o'tilishga kerakli jihati mavjud:
 
-- **ThreadSanitizer (TSan)**: Detects data races in multithreaded code (`-fsanitize=thread`)
-- **MemorySanitizer (MSan)**: Detects reads of uninitialized memory (`-fsanitize=memory`)
-- **UndefinedBehaviorSanitizer (UBSan)**: Detects undefined behavior like integer overflow (`-fsanitize=undefined`)
+- **ThreadSanitizer (TSan)**: Bunga Thread muammoligini izlash qolgan (`-fsanitize=thread`)
+- **MemorySanitizer (MSan)**: Qiymat bermagan bo'lsa nosog'ligini topadi (`-fsanitize=memory`)
+- **UndefinedBehaviorSanitizer (UBSan)**: Aniq qilib aytmaganida arifmetikalikka nisbatan nosozligini hisoblaydi (`-fsanitize=undefined`)
 
-Sanitizers require recompilation but are fast enough to use in CI pipelines and during regular development.
+Kompilyatsiyaga keraklikni topadi shuningdek rivojla-tish o'tirishga CI va uzluksiz o'z ishlarini davomiga to'liq ish tutishingiz ma'muru sanalardi.
 
-### Valgrind: When You Can't Recompile
+### Valgrind: Qayta Kompilyatsiya qilish Ilojisiz bo'lganda
 
-[Valgrind](https://valgrind.org/) instead runs your program in something akin to a virtual machine to detect memory errors. It's slower than sanitizers but doesn't require recompilation:
+[Valgrind](https://valgrind.org/) xotirani buzadiganlar ustida turuvchi bo'lib vm darajasida yodini yoqishni talab bo'lmay kompilyatsiyasi ham bermay ko'rib chikqoladi:
 
 ```bash
 valgrind --leak-check=full ./my_program
 ```
 
-Use Valgrind when:
-- You don't have source code
-- You can't recompile (third-party libraries)
-- You need specific tools not available as sanitizers
+Uni keraklik ishlarini qila olish xulosalarini topishi:
+- Tizimingda source xatosi ochmaganda
+- Qayta qura bo'la ishlashingiz mumkini
+- Sanitaserda hamma imkoni yo'q vositachi qidirilmay qolinsa o'shayni
 
-Valgrind is actually a really powerful controlled execution environment, and we'll see more of it later when we get to profiling!
+Valgrind amaliyot olib yomonliklari izlab topsada siz ko'rgan profillarni ham barcha yollaridayin yaxshisini anglitishga imkoni juda bisyor bo'lgan!
 
-## AI for Debugging
+## Debag qilishda SI (AI) dan foydalanish
 
-Large language models have become surprisingly useful debugging assistants. They excel at certain debugging tasks that complement traditional tools.
+LLM qiyinchiligi kam va oson kiritganligimiz bilan shundaki oddiy yozilgan debagchilarni ishlarini topila asboblarni kuchga ko'chardi.
 
-**Where LLMs shine:**
+**Suhbat model (LLM) lari yaxshi bajaradigan joyi:**
 
-- **Explaining cryptic error messages**: Compiler errors, especially from C++ templates or Rust's borrow checker, can be notoriously cryptic. LLMs can translate them into plain English and suggest fixes.
+- **Tushunarsiz xatolarini ayta qilishi**: Qator va hato kodlarda yordim izlangandi maslahat tilini ochqoyishi tushuntirmoqda.
+- **Til ustida til va ustidan chigilini debaga qo'shishingiz**: Ish bilan farqli muhitlar bo'lganlar (misoli C yoki Python daraja) shunga oiddan LLM izlashi juda qiyinib ko'rsatkichlar deb o'tgangin. Qisqa o'tqanda qaramligimiz ustalaridan bilishingiz masalan.
+- **Nihoyatlar manbasigada muqarrarliga ko'ra ochiqlamochi**: "Men ishim joyidagi tizim shular shunaqa ekanligidan o'sha debog qilsam" - shu holati shunchaki ommabob narsaga boqilib berib qo'yilsachi yozishlar kelmoqda.
+- **Avariyani ko'ra boshgan stack o'zining tahlilga (Analyzing crash dumps and stack traces)**: Stack'dan xabar bo'lsada xatoni so'rov qilib ko'ring nimalar bo'lganni bilinganida ko'rishdi.
 
-- **Traversing language and abstraction boundaries**: If you're debugging a problem that spans multiple languages (say, a bug in a C library that manifests through a Python binding), LLMs can help navigate the different layers. They're particularly good at understanding FFI boundaries, build system issues, and cross-language debugging (e.g., my program errors, but I believe it is because of a bug in one of my dependencies).
+> **Debag symbollar shartimi deysizmi**: Stack deb qo'yishlaringiz haqiqiy qo'llashingizda (binoq binarga -g bilan tayyor ko'rish uchun maxsusligi bilan shugʻurlanardi. O'tkaziladigan debug yordam symbollari odatda DWARF yozuvida bo'lishdi. Shu darajala ko'rsatkichi profilator (`-fno-omit-frame-pointer`) shundan to'g'ri bo'ladi agarda qilsak shundan. Ular yo'q u shuncha sonlar borasida (xotira joylaridan iboratligin aytmasa faqat bo'ladi). Albatta Compiled kodlarda bo'lganligik kabi talabi berilganiga (C++, Python).
 
-- **Correlating symptoms with root causes**: "My program works fine but uses 10x more memory than expected" is the kind of vague symptom that LLMs can help investigate, suggesting likely causes and what to look for.
+**Ularni kamchilik va muommoligizni e'tidan bering:**
+- Modellar to'g'ri gaplarni ham noo'rin va o'tkazib ishla-ko'payga yolg'onsi aytishi bililadi.
+- Noto'g'ri ishlashgan muqobillash bilan taklif qilishi imkoni ko'p yozilib o'tganda borildi.
+- Tavsiyasin qaytadan real bor narsadan debag jarayonlarini amaliyroqda bering izlashingizni tayinlay.
+- Qilgan ishingizning unchalikga zo'rga ishlardan bo'lgan hisob oling izlashingiz emas kodsiz asbob bo'linganda o'tilmadi
 
-- **Analyzing crash dumps and stack traces**: Paste a stack trace and ask what might have caused it.
+> Aslida yuqoridia narsalardan [sun'iy idrok bo'limilarida](/2026/development-environment/#ai-powered-development) shug'urlanma vositasi kursni aytadi emas. Bunda qismi bilan alohida o'z ishi va yondashgani haqda izlandi.
 
-> **Note on debug symbols**: For meaningful stack traces and debugging, ensure your binaries (and any linked libraries) are compiled with debug symbols (`-g` flag). Debug information is typically stored in DWARF format. Additionally, compiling with frame pointers (`-fno-omit-frame-pointer`) makes stack traces more reliable, especially for profiling tools. Without these, stack traces may show only memory addresses or be incomplete. This matters more for natively compiled programs (C++, Rust) than Python or Java.
+# Profillash (Profiling)
 
-**Limitations to keep in mind:**
-- LLMs can hallucinate plausible-sounding but wrong explanations
-- They may suggest fixes that mask the bug rather than fix it
-- Always verify suggestions with actual debugging tools
-- They work best as a complement to, not replacement for, understanding your code
+Kodingiz siz kutgandek yaxshi natijada o'sha jarayonlarda qilib chiqilsada bu ko'p prosessordan, xotiradan sarfida olindish bo'lsangiz yomon odat bo'ldi. Dasturlash kurslariga nisbatan _O_ moshinasi dars kabi ishlagan qismi faqat ularga profaylligini bo'liniga o'tmaydigan ekan, izlar o'tolmadingizdan deyilishi muammoladi. Buning sababi o'zi, [vaqtli optimallashtirgan yomon qator asosiya ekaniga izlanmish](https://wiki.c2.com/?PrematureOptimization) asos bo'lib kelganda profiling bo'lim va tekshirgan monitorlardan bilimingiz ko'p darajada yoziladi asboblar berib keldi. Siz bu ustunli va joying qismini to'g'irlab optimal qilinishingizni taqdim qilguvshdiradi.
 
-> This is distinct from the [general AI coding capabilities](/2026/development-environment/#ai-powered-development) covered in the Development Environment lecture. Here we're specifically talking about using LLMs as a debugging aid.
+## Vaqtni Hisoblash
 
-# Profiling
+Ko'rsatish ishida unumdorlik aniq debag qilish bo'limidan usularini ajratish qismidir bo'lganda, ularning oddigina joy qilib ish bajariligacha nechtaligini `print` da olish ehtimoli kamligicha u yordamini qilib beringani qulaydir!
 
-Even if your code functionally behaves as you would expect, that might not be good enough if it takes all your CPU or memory in the process. Algorithms classes often teach big _O_ notation but not how to find hot spots in your programs. Since [premature optimization is the root of all evil](https://wiki.c2.com/?PrematureOptimization), you should learn about profilers and monitoring tools. They will help you understand which parts of your program are taking most of the time and/or resources so you can focus on optimizing those parts.
+Lekin muammolarni ba'zida soatni hisoblash holatiga o'zingizda adashiga kompyuterlar yechishga jarayon ishdan yoki muommalarga qo'shimchisida muvafqqiyatiga tayyordilar u ishlardi so'rab boqiladi qismlar `time` ko'ratgiga qo'shi:
 
-## Timing
-
-The simplest way to measure performance is to time things. In many scenarios it can be enough to just print the time it took your code between two points.
-
-However, wall clock time can be misleading since your computer might be running other processes at the same time or waiting for events to happen. The `time` command distinguishes between _Real_, _User_, and _Sys_ time:
-
-- **Real** - Wall clock time from start to finish, including time spent waiting
-- **User** - Time spent in the CPU running user code
-- **Sys** - Time spent in the CPU running kernel code
+- **Real** - Real hisoblash u kompyuter uchun jarayongachi ishdan tugatilganini qilib kutib turishingisani bo'ldi.
+- **User** - Barcha kodi user tomondan bo'ladi protsessor ishlani bajarib qaytadi.
+- **Sys** - Yadroda sistem tomondan (kernel code) ishlagani protsessor tomonidan yozilmadi.
 
 ```bash
 $ time curl https://missing.csail.mit.edu &> /dev/null
@@ -263,58 +254,53 @@ user	0m0.079s
 sys	    0m0.028s
 ```
 
-Here the request took nearly 300 milliseconds (real time) but only 107ms of CPU time (user + sys). The rest was waiting for the network.
+Hozirgi bu komanda so'rovi borligi natijani 300 millisoniyadan tezda qo'l ishini yakunlagandir lekin aniq 107ms hiso CPU'dan to'liqlardi. Boshqa farqi tarmog'ni ulangan deb xulosa bilan qoldi!
 
-## Resource Monitoring
+## Resurslarni Kuzatish (Resource Monitoring)
 
-Sometimes the first step towards analyzing the performance of your program is to understand what its actual resource consumption is. Programs often run slowly when they are resource constrained.
+Performansen unumdorligi sabab ba'zi ustidan maqsad ishlarining aniqligin dasturni asl yeb olinishi kuzatish birda muhim hisobladi. Manba qo'ymaganga yoki kamligi sababli yomon izlay o'tandi u bo'lish o'zi sekinlikda.
 
-- **General Monitoring**: [`htop`](https://htop.dev/) is an improved version of `top` that presents various statistics for currently running processes. Useful keybinds: `<F6>` to sort processes, `t` to show tree hierarchy, `h` to toggle threads. There's also [`btop`](https://github.com/aristocratos/btop) which monitors _way_ more things.
+- **Umumiy Kuzatish**: [`htop`](https://htop.dev/) ishning turlari qulay qilib statistik o'zini yaxshilanmish `top` holatli. Buniki bindlar: `<F6>` ro'yxati sort qilishga jarayolari uchun ketyapdi, `t` bilan treega, `h` kelsa bo'lsa iplarni o'chiq-yonasiz. Bizga ham yana o'sha kabi unumlar bo'lgan [`btop`](https://github.com/aristocratos/btop) ham yoqadi o'rtidan ishlarga ko'ra hamma.
+- **I/O Operatsiyalari**: Kuzatishi tezligi tiriklarcha ustida ma'luot yo'li [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) da tasnif izlay ko'radi.
+- **Xotira o'lsami (Memory Usage)**: Xotiraga [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) o'zi umumqilib topa oldik ishlayapti qoldi qilingnchi.
+- **Ochiq ishlangan fayllari (Open Files)**: [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html) vositasiz qanaqa narsa nimagada kodi qo'yilganligi haqila. Foydali jihati ayirib olarimizni bo'lib ishimiz aniqlasish yozilar ishlarni ochgani sanalasi u.
+- **Tarmoq usullari (Network Connections)**: Qayerga borilishi o'ylaydiga o'ringa [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) turlarni u qidirganda tarmonq holid qolar u asan keladiga shudur ko'p ma'lumga joyini `ss -tlnp | grep :8080`.
+- **Tarmoqning Ishlatilishi (Network Usage)**: Boshqarish interfeys ishladi terminal ish bo'lishi bu ustidan qo'shimcha u process hisobida yaxshisini [`nethogs`](https://github.com/raboof/nethogs) va u bopni [`iftop`](https://pdw.ex-parrot.com/iftop/) foydasi yordamidir uslublarni kuzatadi bo'lgan.
 
-- **I/O Operations**: [`iotop`](https://www.man7.org/linux/man-pages/man8/iotop.8.html) displays live I/O usage information.
+## Unumdorlik ma'lumotlarini viziullashtirish (Visualizing Performance Data)
 
-- **Memory Usage**: [`free`](https://www.man7.org/linux/man-pages/man1/free.1.html) displays total free and used memory.
+Odamlar ro'yxati ko'rganida ular graph holati raqamlashda ishlarni tahlil oladi qilib sekin yoki yuqorilashi qismini ishlaganda chizma tuzishini foydasiz hisoblab qoldik o'rtasida yaxshilik namoyon borildi yo'q joylariga qolib yo'qildi farqi topiladi raqamdan xulosam.
 
-- **Open Files**: [`lsof`](https://www.man7.org/linux/man-pages/man8/lsof.8.html) lists file information about files opened by processes. Useful for checking which process has opened a specific file.
+**Tahlilchilar qulay bo'ldimi ish qilish maqsad qilishida**: Dasturlarga jadvallab bera qilib tahlillar ko'rish qismida qolib izohta izlash oson o'tqizi unga log joyidaga print qo'shila ularga debagchimi oson bo'lgandi ishlandi ko'rinsligi tushunish. `1705012345,42.5` yozishingiz farqli so'z bilan joydilarida ish bo'lgandan csv ga. U yerini izlanmasa formatdan JSON hisobi ko'ngilcha tushirila tushish u borishini qilinur [ma'lumotidan farqiga chiroyli yuz](https://vita.had.co.nz/papers/tidy-data.pdf)
 
-- **Network Connections**: [`ss`](https://www.man7.org/linux/man-pages/man8/ss.8.html) lets you monitor network connections. A common use case is figuring out what process is using a given port: `ss -tlnp | grep :8080`.
-
-- **Network Usage**: [`nethogs`](https://github.com/raboof/nethogs) and [`iftop`](https://pdw.ex-parrot.com/iftop/) are good interactive CLI tools for monitoring network usage per process.
-
-## Visualizing Performance Data
-
-Humans spot patterns in graphs much faster than in tables of numbers. When analyzing performance, plotting your data often reveals trends, spikes, and anomalies that would be invisible in raw numbers.
-
-**Making data plottable**: When adding print or log statements for debugging, consider formatting the output so it can be easily graphed later. A simple timestamp and value in CSV format (`1705012345,42.5`) is much easier to plot than a prose sentence. JSON-structured logs can also be parsed and plotted with minimal effort. In other words, log your data [in a tidy way](https://vita.had.co.nz/papers/tidy-data.pdf).
-
-**Quick plotting with gnuplot**: For simple command-line plotting, [`gnuplot`](http://www.gnuplot.info/) can generate graphs directly from data files:
+**Quvvatli qilishta gnuplot**: U osongina aslini olardi holatlarni interfeys yozish bilan [`gnuplot`](http://www.gnuplot.info/) hisob fayli grafik o'qilgagina chiqqan holdan ish bajarib u:
 
 ```bash
-# Plot a simple CSV with timestamp,value
+# Oddiy tarzda chizma ustida comma va ishlarni yozasi bilan chiqarib bera qiling u
 gnuplot -e "set datafile separator ','; plot 'latency.csv' using 1:2 with lines"
 ```
 
-**Iterative exploration with matplotlib and ggplot2**: For deeper analysis, Python's [`matplotlib`](https://matplotlib.org/) and R's [`ggplot2`](https://ggplot2.tidyverse.org/) enable iterative exploration. Unlike one-off plotting, these tools let you quickly slice and transform data to investigate hypotheses. ggplot2's facet plots are particularly powerful—you can split a single dataset across multiple subplots by category (e.g., faceting request latency by endpoint or time-of-day) to tease out patterns that would otherwise be hidden.
+**Matplotlib va ggplot2 tahlildagi iterativ jarayonlar (Iterative exploration)**: U yanada ko'ra u ulanishga yechim hisobi unga qarab uzga tilining [`matplotlib`](https://matplotlib.org/) (Pythondaginichi) bilan o'sha tilde [`ggplot2`](https://ggplot2.tidyverse.org/) izlasih maqsad bera xulosa hisobga aylanadi bo'lgan bo'lib ish. Tasvir qilgani ko'ra joylangan shartda tezda toifada fasetlar ishlanga tahlilchilarida ehtimolda izlab vaqti uchi (latensiyali qolib holatlari ishini boshlanma va kategoriysi tahlil bo'yicha) ustini o'rganilishi yasharin ochiq topilshi.
 
-**Example use cases:**
-- Plotting request latency over time reveals periodic slowdowns (garbage collection, cron jobs, traffic patterns) that raw percentiles obscure
-- Visualizing insert times for a growing data structure can expose algorithmic complexity issues—a plot of vector insertions will show characteristic spikes when the backing array doubles in size
-- Faceting metrics by different dimensions (request type, user cohort, server) often reveals that a "system-wide" problem is actually isolated to one category
+**Foydalanish namunasi bo'lgan:**
+- Chiqarib olish tezligi yozilgan uzilishingni topa olmaganda yomonlash hisobi sekinligini aytmaymikaniga qarab ko'rib bo'linishingan ish u kelsa sababligacha kelindi.
+- Massiv va element oshigach farqi borilgan kompleks holati ishidan katta hajmidagi vektorga ko'paygacha graf xabar chiqildi
+- Kategoriyalik dimension hisobdada kelingansicha uni har xil yechish ishlangan turlicha jarayondayda o'sha joydan katta ishni hisobi yoq deb o'zinga ajrasib bo'linib turardi.
 
-## CPU Profilers
+## CPU profayllash (CPU Profilers)
 
-Most of the time when people refer to _profilers_ they mean _CPU profilers_. There are two main types:
+Barcha vaqt bilan holati biron kishi aytgandaga _profillash_ qilinadi u maqsada izlasiz demishdi o'zi _CPU profiler_ bo'lmoqga to'gri hisobiga:
 
-- **Tracing profilers** keep a record of every function call your program makes
-- **Sampling profilers** probe your program periodically (commonly every millisecond) and record the program's stack
+- **Izlashda qarayotgan izlaydiganlar (Tracing profilers)** izlayman o'zi yordam bor chaqirsa to'plam bilan barini har birisini ko'rib yozasan borasan deya topdi kodi u dasturingdan.
+- **Qisqa vaqtli ajratadi ko'rishda (Sampling profilers)** holati ma'lum vaqtning har daqiqigidiga namuna olish qilini unga dasturning qanday vaqtdagi ishidagini (stackini) oladi namuna qo'shilish hisobi ko'rgani ish yozdi ko'paydi qachonga!
 
-Sampling profilers have lower overhead and are generally preferred for production use.
+Ishning samarali ekanida oddiy bo'lgangalar unumiga yengilligi hisoblanganga bo'ladi pastligi ishlari ustida ish berar u ishda ish ko'rinishi tavsiyamiz ishlanish u namunalidirish bo'lmoqchi deb!
 
-### perf: the sampling profiler
+### perf: namunaviy ish o'zi
 
-[`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) is the standard Linux profiler. It can profile any program without recompilation:
+Qidiruv tizimi bo'lgancha uni qolib aslahali uzatish bo'ldigacha [`perf`](https://www.man7.org/linux/man-pages/man1/perf.1.html) Linux o'tishi asosiga qo'yildi kompilyatsiyasini qaytalasiya uni boshida debishni tekshirilmay yozsa bo'ldi.
 
-`perf stat` gives you a quick overview of where time is spent:
+Tahlil vaqtlarning umumiy ishlari unumiga qayeriga etiladi yozilgan degan haqiqatin ko'rinib `perf stat` chiqib u holatidan u izlatdi:
 
 ```bash
 $ perf stat ./slow_program
@@ -331,61 +317,59 @@ $ perf stat ./slow_program
        12,345,678      branch-misses             #    1.00% of all branches
 ```
 
-Profiler output for real world programs will contain large amounts of information. Humans are visual creatures and are quite terrible at reading large amounts of numbers. [Flame graphs](https://www.brendangregg.com/flamegraphs.html) are a visualization that makes profiling data much easier to understand.
-
-A flame graph displays a hierarchy of function calls across the Y axis and time taken proportional to the X axis. They're interactive—you can click to zoom into specific parts of the program.
+Bu tahlillar insonlarga real deb topilagan narsalar katta raqamni hisobda qarib bo'lganda o'qishi yomon qoldi deya ma'noniga qarshi ishlangandi raqamlarga vizual holati yo'q u tabiatan bor. Shuning [flame graphlarlik (Flame graphs)](https://www.brendangregg.com/flamegraphs.html) vizuallashtirma yuzasida yaxshiga kelgan chiroyli bo'lishi ishlay topganga sababi tez ish. Flame graph o'zi iyerarxiyalik ishga y o'si bo'ylab funksiya deb hisoblari u orqasidandan ish bajarsa u o'shanga x bo'linganda qaram ish holatini moliqda vaqt proporsiyaniga chiqardi izlab ishida topildi. Ular orqasigaga uzoom hisobingda ishkana izlay oling qo'l urishda ishga yoqin!
 
 [![FlameGraph](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)](https://www.brendangregg.com/FlameGraphs/cpu-bash-flamegraph.svg)
 
-To generate a flame graph from `perf` data:
+Tasavvur chizma `perf` tahlillash asosiy maqsad topilishida qiling:
 
 ```bash
-# Record profile
+# Ma'lumoti joyi profile ga kirar saqlashi
 perf record -g ./my_program
 
-# Generate flame graph (requires flamegraph scripts)
+# flame graphni tizimidan topilsa (flamegraph dagi uni skriptni berish yozishi kerekliga bo'lganligi kerak deb bo'lsinda ishidan borib qilinajak u)
 perf script | stackcollapse-perf.pl | flamegraph.pl > flamegraph.svg
 ```
 
-> Consider using [Speedscope](https://www.speedscope.app/) for an interactive web-based flame graph viewer, or [Perfetto](https://perfetto.dev/) for comprehensive system-level analysis.
+> Ko'rib web-darsturga hisob izlani chiqardi ishta [Speedscope](https://www.speedscope.app/) qarab interactiv ayti asbobi yo unversal tahlili [Perfetto](https://perfetto.dev/) bopda tavsiya ko'rishlaga yoyilib bilar ko'rilsin deb.
 
-### Valgrind's Callgrind: the tracing profiler
+### Valgrind'ning Callgrind dagi vositasi: the tracing profiler ekani
 
-[`callgrind`](https://valgrind.org/docs/manual/cl-manual.html) is a profiling tool that records the call history and instruction counts of your program. Unlike sampling profilers, it provides exact call counts and can show the relationship between callers and callees:
+Biz hisobin callarni dasturni buyruqigida raqamlari soni aytib ketadigan xizmat qo'shimchasi borki uni [`callgrind`](https://valgrind.org/docs/manual/cl-manual.html) berolishi unumli holatan profilator u uchin bo'ladi va shundan yozadiganlari qilinganiga namunalarga nisbati u qo'shimchasi izlab u yozuv ko'rdi chiquvchi chaqirishlarda aniqlaga (caller, callee) bir ishini ko'rib qat'iy yozadi izladi uni bo'la chiqar u!
 
 ```bash
-# Run with callgrind
+# Dastur ishidan uni qo'shilgan hollangan yozgandi u qilib 
 valgrind --tool=callgrind ./my_program
 
-# Analyze with callgrind_annotate (text) or kcachegrind (GUI)
+# uni ko'rib chaqqan asbobni (GUI bo'ladan callgrind_annotate (text) yo ishlangana borgan o'ziniki uning u kcachegrind)
 callgrind_annotate callgrind.out.<pid>
 kcachegrind callgrind.out.<pid>
 ```
 
-Callgrind is slower than sampling profilers but provides precise call counts and can optionally simulate cache behavior (with `--cache-sim=yes`) if you need that information.
+U sekin ishidan profiling (sampling) bo'lib ketsa-da to'gri topilsa ishga kerak ishiga ajoyib callarni haqiqatdan agar deb bilsa u nima ish bilan qilib uni asbob o'zingacha kesh ishlarga moslashtiryaptan `--cache-sim=yes` qilishdan u yoq ishonchga ishondi chindan!
 
-> If you're using a particular language, there may be more specialized profilers. For example, Python has [`cProfile`](https://docs.python.org/3/library/profile.html) and [`py-spy`](https://github.com/benfred/py-spy), Go has [`go tool pprof`](https://pkg.go.dev/cmd/pprof), and Rust has [`cargo-flamegraph`](https://github.com/flamegraph-rs/flamegraph) (which actually works for any compiled program!).
+> Ko'plabi tilini ishlattirsagiz ko'proq u yerga o'zlashtirmasga vositasi u o'zi qo'shilgan profillerlar ishida uchib ko'rinmagandigacha bo'lar ekan. Uni o'yish qisinda Pithon o'zi uchun bor bo'lgani [`cProfile`](https://docs.python.org/3/library/profile.html) va [`py-spy`](https://github.com/benfred/py-spy), Goga debaglanga yozgan bu bilan [`go tool pprof`](https://pkg.go.dev/cmd/pprof), hamda hamma ishi ehtimolli xohish kompilyatsiya topa barcha `[cargo-flamegraph](https://github.com/flamegraph-rs/flamegraph) (Rustdanga!).
 
-## Memory Profilers
+## Xotira profillatorlari
 
-Memory profilers help you understand how your program uses memory over time and find memory leaks.
+Odamlarda xotiralarni uzilishi hisobi xotira sizib chiqishi qaerdin buzilganini o'tkan ishda ma'lum u qilib profillator sizboga topayab ishida o'rganilagan holga oqlandi.
 
-### Valgrind's Massif
+### Valgrind Massifi
 
-[`massif`](https://valgrind.org/docs/manual/ms-manual.html) profiles heap memory usage:
+Heap ishi xotiraini yodlanganiga maqoladiki ish qilishini o'zni masslab profilla unida [`massif`](https://valgrind.org/docs/manual/ms-manual.html):
 
 ```bash
 valgrind --tool=massif ./my_program
 ms_print massif.out.<pid>
 ```
 
-This shows you heap usage over time, helping identify memory leaks and excessive allocation.
+Orqali xotirasini kattalashtirib yodi joyidagi vaqtda izlab tekshirganligin tahlildari ishidami bu u holatini yoq joy qilib ko'rib bering!
 
-> For Python, [`memory-profiler`](https://pypi.org/project/memory-profiler/) provides line-by-line memory usage information.
+> Pithonga deb unum topmochi xotira ustidagi bu line-by-line ish ko'rib ajralishlilar profilator [`memory-profiler`](https://pypi.org/project/memory-profiler/) bu asbobi ekan u zo'rgina tahlil.
 
-## Benchmarking
+## Benchmark qilish (Benchmarking)
 
-When you need to compare the performance of different implementations or tools, [`hyperfine`](https://github.com/sharkdp/hyperfine) is excellent for benchmarking command-line programs:
+Ikkita alohidadagin yoki ish ko'rinishi nimasidan unumini izlar uni turdagi [`hyperfine`](https://github.com/sharkdp/hyperfine) orqasiki benchmark xabar tahlili command-line kodi unga o'rin olab u ko'ratish qoldi bor o'zi!
 
 ```bash
 $ hyperfine --warmup 3 'fd -e jpg' 'find . -iname "*.jpg"'
@@ -402,13 +386,13 @@ Summary
    21.89 ± 2.33 times faster than 'find . -iname "*.jpg"'
 ```
 
-> For web development, browser developer tools include excellent profilers. See the [Firefox Profiler](https://profiler.firefox.com/docs/) and [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools) documentation.
+> Agarki u brauzering u yo joylari Web rivoji vositaridan ajoyibni uni topilar ishdan ishlab izla bor! Uniki u `[Firefox Profiler](https://profiler.firefox.com/docs/)` u shuningda dev yo qo'ya aslahini ko'rib bo'lib `[Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/rendering-tools)`.
 
-# Exercises
+# Mashqlar
 
-## Debugging
+## Nosozliklarni izlash (Debugging)
 
-1. **Debug a sorting algorithm**: The following pseudocode implements merge sort but contains a bug. Implement it in a language of your choice, then use a debugger (gdb, lldb, pdb, or your IDE's debugger) to find and fix the bug.
+1. **Saralash algoritmini debag qiling**: Quyidagi psevdokodda `merge_sort` yozilgan, ammo noto'g'ri ishlash xatosi u erda yotdi tahriri. Tilingizga yoqqanidagini implement qilasizmi keyin ishlatgan qo'lli debagger yordamcha uni (ide, pdb, gdb, lldb u kabi bironnisi) shundan foydalanb kodingni to'ziligi qilib u xatosin topishinga u ko'proq yoram qilganga izlardi topisang u bo'ldi.
 
    ```
    function merge_sort(arr):
@@ -433,9 +417,10 @@ Summary
        return result
    ```
 
-   Test vector: `merge_sort([3, 1, 4, 1, 5, 9, 2, 6])` should return `[1, 1, 2, 3, 4, 5, 6, 9]`. Use breakpoints and step through the merge function to find where the incorrect element is being selected.
+   `merge_sort([3, 1, 4, 1, 5, 9, 2, 6])` uning masalasining qatiy ish qiymatlar vektori u hisoblida natija olish `[1, 1, 2, 3, 4, 5, 6, 9]` aylandi chiqadi qo'yganini qiling teshirilarishini to'xtash nuqtasididan yurgizganda ustini qadamini bosing bu u muammosisini izlashiga ko'zlani.
 
-1. Install [`rr`](https://rr-project.org/) and use reverse debugging to find a corruption bug. Save this program as `corruption.c`:
+1. Nosozlik izlashning orqasiqidan yozib holatga `rr` bop ishlayu u borman uni buzingach u ko'ring o'zi uchun fayli bilan `corruption.c` ga u holatdan o'zinging u saqlab olinga bu bilar!
+    [`rr`](https://rr-project.org/):
 
    ```c
    #include <stdio.h>
@@ -486,9 +471,9 @@ Summary
    }
    ```
 
-   Compile with `gcc -g corruption.c -o corruption` and run it. Student 1's ID gets corrupted, but the corruption happens in a function that only touches student 0. Use `rr record ./corruption` and `rr replay` to find the culprit. Set a watchpoint on `students[1].id` and use `reverse-continue` after the corruption to find exactly which line of code overwrote it.
+   Xatomi shu ishdi yozib bo'lish uni topilishi buni uning buzilyapti qoshiz uning xabarin ko'rinishi o'ylani ustini o'zinging ishida u `gcc -g corruption.c -o corruption` deb komplaylangan run ishini unga o'rin ko'rmagan buzilib tushganidan u faqat bir o'rgandi funksiya bu buzayotdi ishlar `student 0` ko'tarilganida bo'lgani u `rr record ./corruption` uzi qoldi uningda va `rr replay`. Keling aytchi funksiyasida yozilmadi xatocini qo'yamiz va tahrishi orqasi ish qilmoqchi o'shanda qayerda nmasidan o'zgardi ayb uning ekan kuzatish nuqtasi (`students[1].id` da) borisizlar. Yana `reverse-continue` qaytirab.
 
-1. Debug a memory error with AddressSanitizer. Save this as `uaf.c`:
+1. Olib sanitayzer bilan izlangan yozilishi xatoligini topadigan debag AddressSanitizer `uaf.c` deb olinga:
 
    ```c
    #include <stdlib.h>
@@ -509,17 +494,17 @@ Summary
    }
    ```
 
-   First compile and run without sanitizers: `gcc uaf.c -o uaf && ./uaf`. It may appear to work. Now compile with AddressSanitizer: `gcc -fsanitize=address -g uaf.c -o uaf && ./uaf`. Read the error report. What bug does ASan find? Fix the issue it identifies.
+   Endini asosi nima ko'rinmadi undan bilishing o'zi ishin topildiku bu uaf dastangandan keyin u `gcc uaf.c -o uaf && ./uaf` uni ishlab. Ammo ko'rip AddressSanitizer orqasida: `gcc -fsanitize=address -g uaf.c -o uaf && ./uaf`. Ushbularda report topib shuni tahrirlashi asosi nega shundan unumdorini ayta?
 
-1. Use `strace` (Linux) or `dtruss` (macOS) to trace the system calls made by a command like `ls -l`. What system calls is it making? Try tracing a more complex program and see what files it opens.
+1. MacOS dagi `dtruss` o'shalisi (Linuxda) `strace` tizim chaqiruvida yozgandi u qayerligida chaqiradi bir qarangchi u `ls -l` aytib. Kompleksroq yozilganni orqasida chiqadigan barchasiga yana chaqirga yoritasiz bo'lib chaqirsami ocholadiku faylarni farqin tahriri ko'rasa bilamiza.
 
-1. Use an LLM to help debug a cryptic error message. Try copying a compiler error (especially from C++ templates or Rust) and asking for an explanation and fix. Try putting some of the output from `strace` or the address sanitizer into it.
+1. Biron yashar tilida izlo'shiLLM aytilgan ishmas deb bu shuningda o'zi debig izla kompyuter u izlay qilib bozorga chiqazshi (bu u izlasaligiga o'rnidagi rust va c++ bu u dildagi xatosi so'rasi) va bu chiqar u sanitszer yo `strace` borishi bergangini tushuningini ishlatiz bilizsiz!
 
-## Profiling
+## Profillash (Profiling)
 
-1. Use `perf stat` to get basic performance statistics for a program of your choice. What do the different counters mean?
+1. Performans hisobidan xulosa izlamoqliga bosh statistinkani topsa `perf stat` da o'zimiz asboki bilganga. Unumdor counter lari aytingiz nimagacha?
 
-1. Profile with `perf record`. Save this as `slow.c`:
+1. Profile ma'lumoti izlanga topila saqlandi bu yozgandi qilib oltingi orqadan `slow.c`:
 
    ```c
    #include <math.h>
@@ -545,10 +530,10 @@ Summary
    }
    ```
 
-   Compile with debug symbols: `gcc -g -O2 slow.c -o slow -lm`. Run `perf record -g ./slow`, then `perf report` to see where time is spent. Try generating a flame graph using the flamegraph scripts.
+   Debagin ma'lumotlar usti olib bilingish u kompliyalashi ishi: `gcc -g -O2 slow.c -o slow -lm`. Ularda vaqt uchi qayiga bilaman ishni qolinglar u `perf report` da u `perf record -g ./slow` bilan izida ko'rib o'qi yozilib o'sha! Skriptlarni yozish qilingiz orqadami flame graph da o'zingni chiqarma topsin!
 
-1. Use `hyperfine` to benchmark two different implementations of the same task (e.g., `find` vs `fd`, `grep` vs `ripgrep`, or two versions of your own code).
+1. Keling ikki xil qatlam u usullar ko'rsatkichi ikkinchisni farqhlarini `hyperfine` bilan u birinchi bir yechimi benchlarini chiqish (`find` yo `fd`, `grep` ga daxon bo'lgangan `ripgrep`, asbob qilib u yoq o'zingizki hisob bering!).
 
-1. Use `htop` to monitor your system while running a resource-intensive program. Try using `taskset` to limit which CPUs a process can use: `taskset --cpu-list 0,2 stress -c 3`. Why doesn't `stress` use three CPUs?
+1. Uni boqish bor holiga ishladilar usular bilish CPU jarayoni izlanga aytadi topib ber uni u bo'lgan kommandali narsa `htop` og'irchi shunday. Unga uni yagona bir mallashti ko'ratar u jarayni holati limitlar bilan u `taskset` yordamishi yoziliga uni topilariz: `taskset --cpu-list 0,2 stress -c 3`. Xotira uzlasihida sababi shunchaki izla uni farqinchi nega 3 CPU ko'rinmangin stress dagi?
 
-1. A common issue is that a port you want to listen on is already taken by another process. Learn how to discover that process: First execute `python -m http.server 4444` to start a minimal web server on port 4444. On a separate terminal run `ss -tlnp | grep 4444` to find the process. Terminate it with `kill <PID>`.
+1. O'qingchi muommani izlangchi kimdir olib bo'layaptisida o'ylangi portnida kuzating shularnida eshitishdan o'rniga. Ehtimoli port u jarayon hisobida uni topsangz bilimi uni qo'yasi `python -m http.server 4444` bu 4444 portga. Ko'rishing yodiga terminal bering uning ishlatirsa u izidan qidirchi nimasi bo'lganda `ss -tlnp | grep 4444` qilsiz qarab u yopingshi uni ishladiga `kill <PID>`.

@@ -39,7 +39,7 @@ Hozirgi kunda sun’iy intellektga (SI) asoslangan va u bilan takomillashtirilga
 {% endfor %}
 </ul>
 
-## Special topics from previous years
+## O'tgan yillardagi ba'zi maxsus mavzular
 
 Biz yoritadigan mavzular yildan yilga o‘zgarib turadi. Yillar davomida o‘tilgan mavzularimizning to‘liq ro‘yxati bilan tanishmoqchi bo‘lgan talabalar uchun avvalgi yillarda o‘tilgan, lekin 2026-yilda o‘tilmagan mavzularni alohida keltirib o‘tamiz.
 
@@ -73,8 +73,6 @@ Agar 2026-yil yanvarigacha kuta olmasangiz, ko‘plab o‘xshash mavzularni o‘
 **O‘qituvchilar**: Bu kursni [Anish](https://www.anishathalye.com/), [Jon](https://thesquareplanet.com/) va [Jose](http://josejg.com/) hamkorlikda olib boradi.<br>
 **Savollar**: [missing-semester@mit.edu](mailto:missing-semester@mit.edu) emailiga orqali murojaat qiling.
 **Muhokama**: [OSSU Discord](https://ossu.dev/#community) (`#missing-semester-forum` kanali va `#missing-semester` chati)
-
-## Special topics from previous years
 
 # MIT'dan tashqarida
 
@@ -111,7 +109,7 @@ Ushbu resurslardan MIT talabalaridan boshqalar ham foydalanishi uchun uni turli 
 - [Shvedcha](https://den-saknade-terminen.l10n.se/)
 - [Tailandcha](https://missing-semester-th.github.io/)
 - [Turkcha](https://missing-semester-tr.github.io/)
-- [Vetnamcha](https://missing-semester-vn.github.io/)
+- [Vyetnamcha](https://missing-semester-vn.github.io/)
 
 Eslatma: bu hamjamiyat a’zolari tomonidan qilingan tarjimalar. Biz ularni tekshirib chiqmaganmiz.
 
