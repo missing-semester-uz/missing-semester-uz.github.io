@@ -10,6 +10,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | AR/VR | AR/VR | Do not translate |
 | argument | argument | Do not translate |
 | arithmetic expansion | arifmetik kengaytirish | In bash, `((...))` |
+| artifact | artefakt | Software deliverable |
 | autocomplete | avtoto'ldirish | Synonym for auto-completion |
 | auto-completion | avtoto'ldirish | e.g., pressing `<TAB>` |
 | background job | fon vazifasi | e.g., using `&` in shell |
@@ -20,6 +21,8 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | branch | shox / tarmoq | Git branch |
 | breakpoint | to'xtash nuqtasi | Debugger feature |
 | buffer overflow | bufer to'lib ketishi | Memory bug |
+| cache | kesh | |
+| changelog | o'zgarishlar jurnali | |
 | child process | bola jarayon | |
 | clone | klonlash | Git repository loading |
 | code completion | kodni to'ldirish | IDE feature |
@@ -30,6 +33,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | comment | izoh | Using `#` in shell scripts |
 | commit | commit | Git snapshot/operation, do not translate |
 | compile | kompilyatsiya qilish | |
+| compiler | kompilyator | |
 | computer scientist | kompyuter mutaxassisi | `[General]` |
 | conditional | shartli operator | `if`, `else`, etc. |
 | conflict | ziddiyat / konflikt | Version control merge context |
@@ -41,15 +45,18 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | CSV | CSV | Do not translate |
 | current working directory | joriy ishchi katalog | Can be shortened to "joriy katalog" |
 | curriculum | o'quv dasturi | `[General]` |
+| database | ma'lumotlar bazasi | |
 | debugger | debagger | Or "nosozliklarni tuzatish dasturi" |
 | debugging | debag qilish / nosozliklarni izlash | Process of resolving bugs |
 | dependency | qaramlik | Software libraries or packages required to run a program |
+| deployment | yoyish / joylashtirish | Software deployment |
 | development environment | dasturlash muhiti | |
 | directed acyclic graph | yo'naltirilgan asiklik graf | DAG (Git history model) |
 | directory | katalog | Do not use "papka" |
 | disk partition | disk bo'linishi | |
 | docstring | docstring | Documentation string in code, do not translate |
 | dotfile | nuqtali fayl | Hidden configuration file |
+| environment | muhit | Execution or dependency environment |
 | environment variable | muhit o'zgaruvchisi | e.g., `$PATH` |
 | example | misol | `[General]` |
 | executable | bajariladigan | File permission/property |
@@ -71,6 +78,8 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | hash | xesh | e.g., SHA-1 hash in Git |
 | hint | maslahat | `[General]` |
 | history | tarix | `[General]` |
+| host | xost | |
+| image | tasvir | Container image context |
 | inline | inline / joylashgan | Context-dependent (e.g., `sed -i` for inline edit) |
 | input stream | kirish oqimi | |
 | instruction | ko'rsatma | Machine or program instruction |
@@ -81,14 +90,18 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | kernel | kernel | Do not translate |
 | language server | til serveri | e.g., Language Server Protocol (LSP) |
 | lecture | ma'ruza | `[General]` |
+| library | kutubxona | Software library |
 | linter | linter | Tool for analyzing code quality, do not translate |
 | LLM | LLM | Large Language Model, do not translate |
+| lock file | lock fayli | Dependency lock file |
 | logging | loglash / jurnallash | |
 | loop | sikl | `for`, `while` |
+| manifest | manifest | Package/project manifest |
 | manual page | qo'llanma sahifasi | Reference to `man` pages |
 | memory leak | xotira sizib chiqishi | |
 | merge | birlashtirish | Git operation |
 | metadata | metama'lumot | |
+| microservice | mikroservis | |
 | mode | rejim | e.g., Normal mode, Insert mode in Vim |
 | module | modul | File containing Python definitions and statements |
 | motivation | motivatsiya | `[General]` |
@@ -97,10 +110,13 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | open-source | ochiq kodli / ochiq manbali | |
 | operating system | operatsion tizim | |
 | option | parametr | Valued flags |
+| orchestration | orkestratsiya | Container orchestration |
 | output stream | chiqish oqimi | |
 | overhead | qo'shimcha yuklama | Performance context |
+| package | paket | |
 | package manager | paketlar menejeri | e.g., apt, brew |
 | parent process | ota jarayon | |
+| patch | patch | Software update, usually do not translate |
 | path | yo'l | |
 | performance | unumdorlik | Context of code execution speed |
 | permission | ruxsat | `rwx` |
@@ -124,6 +140,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | redirect | qayta yo'naltirish | `>`, `<` operators |
 | reference | havola | Git commits pointer |
 | register | registr | CPU memory location |
+| registry | reyestr | Package registry |
 | regular expression | regulyar ifoda | Or "muntazam ifoda" |
 | relative path | nisbiy yo'l | Relative to the current working directory |
 | remote | masofaviy repozitoriy | Or 'remote' in Git context |
@@ -132,12 +149,16 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | repository | repozitoriy | Version control database |
 | resource | manba | `[General]` |
 | return code | qaytish kodi | Often synonymous with exit status |
+| reverse proxy | teskari proksi | |
 | revision | reviziya / versiya | |
+| rollback | orqaga qaytarish | Deployment rollback |
 | root (filesystem) | bosh | e.g., "fayl tizimining boshi" |
 | root (user) | root | Do not translate. Can explain as "bosh foydalanuvchi" |
+| runtime | runtime | Execution environment, do not translate |
 | sampling | namuna olish | Profiler context |
 | sanitizer | sanitayzer | Tool for analyzing memory/threads, do not translate |
 | script | skript | |
+| semantic versioning | semantik versiyalash | |
 | shebang | shebang | `#!/bin/sh`, do not translate |
 | shell | shell | Do not translate |
 | signal | signal | Software interrupt, e.g., SIGINT |
@@ -168,5 +189,8 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | user | foydalanuvchi | `[General]` |
 | variable | o'zgaruvchi | |
 | version control | versiyalarni boshqarish | e.g., Version Control System (VCS) |
+| versioning | versiyalash | |
+| virtual machine | virtual mashina | |
 | watchpoint | kuzatish nuqtasi | Debugger breakpoint linked to memory changes |
+| wheel | wheel | Python package format, do not translate |
 | wildcard | shablon belgisi | Globbing symbol, e.g., `*`, `?` |

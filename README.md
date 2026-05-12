@@ -24,7 +24,7 @@ Tarjimalar quyidagi 3 bosqichdan o'tadi:
 | 3 | [development-environment.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/development-environment.md) | `Tahrir jarayonida 🛠️` |
 | 4 | [debugging-profiling.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/debugging-profiling.md) | `Tahrir jarayonida 🛠️` |
 | 5 | [version-control.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/version-control.md) | `Tahrir jarayonida 🛠️` |
-| 6 | [shipping-code.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/shipping-code.md) | Tarjima boshlanmagan ⏳ |
+| 6 | [shipping-code.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/shipping-code.md) | `Tahrir jarayonida 🛠️` |
 | 7 | [agentic-coding.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/agentic-coding.md) | Tarjima boshlanmagan ⏳ |
 | 8 | [beyond-code.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/beyond-code.md) | Tarjima boshlanmagan ⏳ |
 | 9 | [code-quality.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2026/code-quality.md) | Tarjima boshlanmagan ⏳ |
@@ -34,9 +34,9 @@ Tarjimalar quyidagi 3 bosqichdan o'tadi:
 | 13 | [qa.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2020/qa.md) | Tarjima boshlanmagan ⏳ |
 | 14 | [backups.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/backups.md) | Tarjima boshlanmagan ⏳ |
 | 15 | [automation.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/automation.md) | Tarjima boshlanmagan ⏳ |
-| 16 | [automation.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/automation.md) | Tarjima boshlanmagan ⏳ |
-| 17 | [machine-introspection.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/machine-introspection.md) | Tarjima boshlanmagan ⏳ |
-| 18 | [os-customization.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/os-customization.md) | Tarjima boshlanmagan ⏳ |
+| 16 | [machine-introspection.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/machine-introspection.md) | Tarjima boshlanmagan ⏳ |
+| 17 | [os-customization.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/os-customization.md) | Tarjima boshlanmagan ⏳ |
+| 18 | [web.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/web.md) | Tarjima boshlanmagan ⏳ |
 | 19 | [security.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/_2019/security.md) | Tarjima boshlanmagan ⏳ |
 | * | [index.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/index.md) | `Tayyor ✔` |
 | * | [about.md](https://github.com/missing-semester-uz/missing-semester-uz.github.io/blob/master/about.md) | `Tayyor ✔` |

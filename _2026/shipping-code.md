@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Packaging and Shipping Code"
+title: "Kodni paketlash va yetkazib berish"
 description: >
-  Learn about project packaging, environments, versioning, and deploying libraries, applications, and services.
+  Loyiha paketlari, muhitlar, versiyalash va kutubxonalar, dasturlar hamda xizmatlarni yoyishni o'rganing.
 thumbnail: /static/assets/thumbnails/2026/lec6.png
 date: 2026-01-20
 ready: true
@@ -11,32 +11,32 @@ video:
   id: KBMiB-8P4Ns
 ---
 
-Getting code to work as intended is hard; getting that same code to run on a machine different from your own is often harder.
+Kodni kutilganidek ishlashini ta'minlash qiyin; aynan o'sha kodni o'zingiznikidan farq qiluvchi mashinada ishga tushirish odatda undan ham qiyinroq.
 
-Shipping code means taking the code you wrote and converting it into a usable form that someone else can run without your computer's exact setup.
-Shipping code takes many forms and depends on the choices of programming language, system libraries, and operating system, among many other factors.
-It also depends on what you are building: a software library, a command line tool, and a web service all have different requirements and deployment steps.
-Regardless, there is a common pattern between all these scenarios: we need to define what the deliverable is --- a.k.a. the _artifact_ --- and what assumptions it makes about the environment around it.
+Kodni yetkazib berish (shipping) degani, siz yozgan kodni olib, uni kompyuteringizdagi aniq sozlamalarsiz boshqa kishi ishga tushira oladigan yaroqli shaklga keltirishni anglatadi.
+Kodni yetkazib berish ko'plab shakllarda bo'ladi va boshqa ko'plab omillar qatorida dasturlash tili, tizim kutubxonalari va operatsion tizim tanloviga bog'liq.
+Bu shuningdek, nima qurayotganingizga ham bog'liq: dasturiy kutubxona, buyruqlar satri vositasi va veb-xizmat turli xil talablar va yoyish (deployment) bosqichlariga ega.
+Shunga qaramay, bu ssenariylarning barchasida umumiy qonuniyat bor: biz yetkazib beriladigan mahsulot, ya'ni _artefakt_ nima ekanligini va uning atrofidagi muhit haqida qanday farazlar borligini aniqlashimiz kerak.
 
-In this lecture, we'll cover:
+Ushbu ma'ruzada biz quyidagilarni ko'rib chiqamiz:
 
-- [Dependencies & Environments](#dependencies--environments)
-- [Artifacts & Packaging](#artifacts--packaging)
-- [Releases & Versioning](#releases--versioning)
-- [Reproducibility](#reproducibility)
-- [VMs & Containers](#vms--containers)
-- [Configuration](#configuration)
-- [Services & Orchestration](#services--orchestration)
-- [Publishing](#publishing)
+- [Qaramliklar va muhitlar](#qaramliklar-va-muhitlar)
+- [Artefaktlar va paketlash](#artefaktlar-va-paketlash)
+- [Relizlar va versiyalash](#relizlar-va-versiyalash)
+- [Qayta tiklanuvchanlik](#qayta-tiklanuvchanlik)
+- [Virtual mashinalar va konteynerlar](#virtual-mashinalar-va-konteynerlar)
+- [Konfiguratsiya](#konfiguratsiya)
+- [Xizmatlar va orkestratsiya](#xizmatlar-va-orkestratsiya)
+- [Nashr qilish](#nashr-qilish)
 
-We'll explain these concepts through examples from the Python ecosystem, as concrete examples are helpful for understanding. While the tools are different for other programming language ecosystems, the concepts will largely be the same.
+Biz bu tushunchalarni Python ekotizimidagi misollar orqali tushuntiramiz, chunki aniq misollar tushunishga yordam beradi. Garchi boshqa dasturlash tillari ekotizimlari uchun vositalar farq qilsa ham, tushunchalar asosan bir xil bo'ladi.
 
-# Dependencies & Environments
+# Qaramliklar va muhitlar
 
-In modern software development, layers of abstraction are ubiquitous.
-Programs naturally offload logic to other libraries or services.
-However, this introduces a _dependency_ relationship between your program and the libraries it requires to function.
-For instance, in Python, to fetch the content of a website we often do:
+Zamonaviy dasturiy ta'minotni dasturlashda abstraksiya qatlamlari hamma joyda uchraydi.
+Dasturlar tabiiy ravishda mantiqni boshqa kutubxonalar yoki xizmatlarga yuklaydi.
+Biroq, bu sizning dasturingiz va uning ishlashi uchun kerak bo'lgan kutubxonalar o'rtasida _qaramlik_ munosabatini kiritadi.
+Masalan, Python'da veb-sayt tarkibini olish uchun ko'pincha quyidagilarni bajaramiz:
 
 ```python
 import requests
@@ -44,7 +44,7 @@ import requests
 response = requests.get("https://missing.csail.mit.edu")
 ```
 
-Yet the `requests` library does not come bundled with the Python runtime, so if we try to run this code without having `requests` installed, Python will raise an error:
+Biroq, `requests` kutubxonasi Python runtime bilan birga kelmaydi, shuning uchun agar biz bu kodni `requests`ni o'rnatmasdan ishga tushirishga harakat qilsak, Python xato beradi:
 
 ```console
 $ python fetch.py
@@ -54,14 +54,14 @@ Traceback (most recent call last):
 ModuleNotFoundError: No module named 'requests'
 ```
 
-To make this library available we need to first run `pip install requests` to install it.
-`pip` is the command line tool that the Python programming language provides for installing packages.
-Executing `pip install requests` produces the following sequence of actions:
+Ushbu kutubxonadan foydalanish uchun avval uni o'rnatish maqsadida `pip install requests` buyrug'ini ishga tushirishimiz kerak.
+`pip` - bu Python dasturlash tili paketlarni o'rnatish uchun taqdim etadigan buyruqlar satri vositasi.
+`pip install requests` buyrug'ini bajarish quyidagi harakatlar ketma-ketligini hosil qiladi:
 
-1. Search for requests in the Python Package Index ([PyPI](https://pypi.org/))
-1. Search for the appropriate artifact for the platform we are running under
-1. Resolve dependencies --- the `requests` library itself depends on other packages, so the installer must find compatible versions of all transitive dependencies and install them beforehand
-1. Download the artifacts, then unpack and copy the files into the right places in our filesystem
+1. Python Package Index ([PyPI](https://pypi.org/)) da requests ni qidirish
+1. Biz ishlayotgan platformaga mos artefaktni qidirish
+1. Qaramliklarni hal qilish --- `requests` kutubxonasining o'zi boshqa paketlarga bog'liq bo'ladi, shuning uchun o'rnatuvchi barcha tranzitiv qaramliklarning mos versiyalarini topishi va ularni oldindan o'rnatishi kerak
+1. Artefaktlarni yuklab olish, keyin o'ramdan chiqarish va fayllarni fayl tizimimizdagi to'g'ri joylarga ko'chirish
 
 ```console
 $ pip install requests
@@ -79,8 +79,8 @@ Installing collected packages: urllib3, idna, charset-normalizer, certifi, reque
 Successfully installed certifi-2024.8.30 charset-normalizer-3.4.0 idna-3.10 requests-2.32.3 urllib3-2.2.3
 ```
 
-Here we can see that `requests` has its own dependencies such as `certifi` or `charset-normalizer` and that they have to be installed before `requests` can be installed.
-Once installed, the Python runtime can find this library when importing it.
+Bu yerda ko'rishimiz mumkinki, `requests` o'zining `certifi` yoki `charset-normalizer` kabi qaramliklariga ega va ular `requests` o'rnatilishidan oldin o'rnatilishi kerak.
+O'rnatilgandan so'ng, Python runtime uni import qilganda ushbu kutubxonani topa oladi.
 
 ```console
 $ python -c 'import requests; print(requests.__path__)'
@@ -90,19 +90,19 @@ $ pip list | grep requests
 requests        2.32.3
 ```
 
-Programming languages have different tools, conventions and practices for installing and publishing libraries.
-In some languages like Rust, the toolchain is unified --- `cargo` handles building, testing, dependency management, and publishing.
-In others like Python, the unification happens at a specification level --- rather than a single tool, there are standardized specifications that define how packaging works, allowing multiple competing tools for each task (`pip` vs [`uv`](https://docs.astral.sh/uv/), `setuptools` vs [`hatch`](https://hatch.pypa.io/) vs [`poetry`](https://python-poetry.org/)).
-And in some ecosystems like LaTeX, distributions like TeX Live or MacTeX come bundled with thousands of packages pre-installed.
+Dasturlash tillarida kutubxonalarni o'rnatish va nashr qilish uchun turli xil vositalar, konvensiyalar va amaliyotlar mavjud.
+Rust kabi ba'zi tillarda vositalar to'plami (toolchain) birlashtirilgan --- `cargo` qurish, testlash, qaramlikni boshqarish va nashr qilish bilan shug'ullanadi.
+Python kabi boshqa tillarda birlashish spetsifikatsiya darajasida sodir bo'ladi --- bitta vosita o'rniga paketlash qanday ishlashini belgilaydigan standartlashtirilgan spetsifikatsiyalar mavjud bo'lib, bu har bir vazifa uchun bir nechta raqobatlashuvchi vositalarga imkon beradi (`pip` va [`uv`](https://docs.astral.sh/uv/) , `setuptools` va [`hatch`](https://hatch.pypa.io/) va [`poetry`](https://python-poetry.org/) ).
+LaTeX kabi ba'zi ekotizimlarda esa TeX Live yoki MacTeX kabi tarqatmalar minglab oldindan o'rnatilgan paketlar bilan birga keladi.
 
-Introducing dependencies also introduces dependency conflicts.
-Conflicts happen when programs require incompatible versions of the same dependency.
-For example, if `tensorflow==2.3.0` requires `numpy>=1.16.0,<1.19.0` and `pandas==1.2.0`  requires `numpy>=1.16.5`, then any version satisfying `numpy>=1.16.5,<1.19.0` will be valid.
-But if another package in your project requires `numpy>=1.19`, you have a conflict with no valid version that satisfies all constraints.
+Qaramliklarni joriy etish qaramlik ziddiyatlarini ham keltirib chiqaradi.
+Ziddiyatlar (conflict) dasturlar bir xil qaramlikning mos kelmaydigan versiyalarini talab qilganda yuzaga keladi.
+Masalan, agar `tensorflow==2.3.0` `numpy>=1.16.0,<1.19.0` ni talab qilsa va `pandas==1.2.0` `numpy>=1.16.5` ni talab qilsa, `numpy>=1.16.5,<1.19.0` ni qanoatlantiradigan har qanday versiya yaroqli bo'ladi.
+Ammo agar loyihangizdagi boshqa paket `numpy>=1.19` ni talab qilsa, sizda barcha cheklovlarni qanoatlantiradigan yaroqli versiyasi bo'lmagan ziddiyat paydo bo'ladi.
 
-This situation --- where multiple packages require mutually incompatible versions of shared dependencies --- is commonly referred to as _dependency hell_.
-One way to deal with conflicts is to isolate the dependencies of each program into their own _environment_.
-In Python we create a virtual environment by running:
+Bu holat --- ya'ni bir nechta paketlar umumiy qaramliklarning o'zaro mos kelmaydigan versiyalarini talab qilishi --- ko'pincha _dependency hell_ (qaramlik do'zaxi) deb ataladi.
+Ziddiyatlarni hal qilishning bir usuli har bir dasturning qaramliklarini o'zlarining shaxsiy _muhit_iga ajratishdir.
+Python'da biz quyidagini ishga tushirish orqali virtual muhit yaratamiz:
 
 ```console
 $ which python
@@ -124,17 +124,17 @@ Package Version
 pip     24.0
 ```
 
-You can think of an environment as an entire standalone version of the language runtime with its own set of installed packages.
-This virtual environment or venv isolates the installed dependencies from the global Python installation.
-It is a good practice to have a virtual environment for each project, containing the dependencies it requires.
+Muhitni tili runtimening o'rnatilgan paketlar to'plamiga ega bo'lgan to'liq mustaqil versiyasi deb o'ylashingiz mumkin.
+Ushbu virtual muhit yoki venv o'rnatilgan qaramliklarni global Python o'rnatilishidan ajratib turadi.
+Har bir loyiha uchun o'zi talab qiladigan qaramliklarni o'z ichiga olgan virtual muhitga ega bo'lish yaxshi amaliyotdir.
 
-> While many modern operating systems ship with installations of programming language runtimes like Python, it is unwise to modify these installations since the OS might rely on them for its own functionality. Prefer using separate environments instead.
+> Garchi ko'pgina zamonaviy operatsion tizimlar Python kabi dasturlash tillari runtimelarining o'rnatilmalari bilan birga kelsa ham, bu o'rnatilmalarni o'zgartirish oqilona emas, chunki operatsion tizim o'z funksionalligi uchun ularga tayanishi mumkin. O'rniga alohida muhitlardan foydalanishni afzal ko'ring.
 
-In some languages, the installation protocol is not defined by a tool but as a specification.
-In Python [PEP 517](https://peps.python.org/pep-0517/) defines the build system interface and [PEP 621](https://peps.python.org/pep-0621/) specifies how project metadata is stored in `pyproject.toml`.
-This has enabled developers to improve upon `pip` and produce more optimized tools like `uv`. To install `uv` it suffices to do `pip install uv`.
+Ba'zi tillarda o'rnatish protokoli vosita bilan emas, balki spetsifikatsiya sifatida aniqlanadi.
+Python'da [PEP 517](https://peps.python.org/pep-0517/) qurish tizimi interfeysini belgilaydi va [PEP 621](https://peps.python.org/pep-0621/) loyiha metama'lumoti `pyproject.toml`da qanday saqlanishini ko'rsatadi.
+Bu dasturchilarga `pip`ni yaxshilash va `uv` kabi optimallashtirilgan vositalarni ishlab chiqish imkonini berdi. `uv`ni o'rnatish uchun `pip install uv` qilish kifoya.
 
-Using `uv` instead of `pip` follows the same interface but is significantly faster:
+`pip` o'rniga `uv`dan foydalanish xuddi shu interfeysga amal qiladi, lekin ancha tezroq:
 
 ```console
 $ uv pip install requests
@@ -148,9 +148,9 @@ Installed 5 packages in 8ms
  + urllib3==2.2.3
 ```
 
-> We strongly recommend using `uv pip` instead of `pip` whenever possible as it dramatically reduces the installation time.
+> Iloji boricha `pip` o'rniga `uv pip`dan foydalanishni qat'iy tavsiya qilamiz, chunki u o'rnatish vaqtini keskin qisqartiradi.
 
-Beyond dependency isolation, environments also allow you to have different versions of your programming language runtime.
+Qaramliklarni izolyatsiya qilishdan tashqari, muhitlar sizning dasturlash tili runtimeingizning turli xil versiyalariga ega bo'lish imkonini ham beradi.
 
 ```console
 $ uv venv --python 3.12 venv312
@@ -168,15 +168,15 @@ $ source venv311/bin/activate && python --version
 Python 3.11.10
 ```
 
-This helps when you need to test your code across multiple Python versions or when a project requires a specific version.
+Bu kodingizni bir nechta Python versiyalarida sinab ko'rishingiz kerak bo'lganda yoki loyiha ma'lum bir versiyani talab qilganda yordam beradi.
 
-> In some programming languages, each project automatically gets its own environment for its dependencies rather than you creating it manually, but the principle is the same. Most languages these days also have a mechanism for managing multiple versions of the language on a single system, and then specifying which version to use for individual projects.
+> Ba'zi dasturlash tillarida, har bir loyiha uning qaramliklari uchun o'zingiz qo'lda yaratishingiz o'rniga avtomatik ravishda o'z muhitini oladi, lekin tamoyil bir xil. Hozirgi kunda aksariyat tillarda bitta tizimda tilning bir nechta versiyalarini boshqarish mexanizmi mavjud va u yerdan alohida loyihalar uchun qaysi versiyadan foydalanishni ko'rsatib beradi.
 
-# Artifacts & Packaging
+# Artefaktlar va paketlash
 
-In software development we differentiate between source code and artifacts. Developers write and read source code, while artifacts are the packaged, distributable outputs produced from that source code --- ready to be installed or deployed.
-An artifact can be as simple as a file of code that we run, and as complex as an entire Virtual Machine that contains all the necessary bits and bobs of an application.
-Consider this example where we have a Python file `greet.py` in our current directory:
+Dasturiy ta'minotni ishlab chiqishda biz manba kodi (source code) va artefaktlar o'rtasida farq qilamiz. Dasturchilar manba kodini yozadilar va o'qiydilar, artefaktlar esa shu manba kodidan olingan o'rnatishga yoki yoyishga tayyor bo'lgan paketlangan, tarqatiladigan natijalardir.
+Artefakt biz ishga tushiradigan kod fayli kabi oddiy bo'lishi ham, ilovaning barcha zaruriy qismlari va elementlarini o'z ichiga olgan butun Virtual mashina kabi murakkab bo'lishi ham mumkin.
+Joriy katalogimizda Python fayli `greet.py` bo'lgan ushbu misolni ko'rib chiqing:
 
 ```console
 $ cat greet.py
@@ -191,15 +191,15 @@ $ python -c "from greet import greet; print(greet('World'))"
 ModuleNotFoundError: No module named 'greet'
 ```
 
-The import fails once we move to a different directory because Python only searches for modules in specific locations (the current directory, installed packages, and paths in `PYTHONPATH`). Packaging solves this by installing the code into a known location.
+Biz boshqa katalogga o'tganimizdan so'ng import qilish muvaffaqiyatsizlikka uchraydi, chunki Python faqat ma'lum joylardagi (joriy katalog, o'rnatilgan paketlar va `PYTHONPATH` dagi yo'llar) modullarni qidiradi. Paketlash bu muammoni kodni ma'lum qilingan joyga o'rnatish orqali hal qiladi.
 
-In Python, packaging a library involves producing an artifact that package installers like `pip` or `uv` can use to install the relevant files.
-Python artifacts are called _wheels_ and contain all the necessary information to install a package: the code files, metadata about the package (name, version, dependencies), and instructions for where to place files in the environment.
-Building an artifact requires that we write a project file (also often known as manifest) detailing the specifics of the project, the required dependencies, the version of the package, and other information. In Python, we use `pyproject.toml` for this purpose.
+Python'da kutubxonani paketlash `pip` yoki `uv` kabi paket o'rnatuvchilar tegishli fayllarni o'rnatish uchun foydalanishi mumkin bo'lgan artefakt ishlab chiqarishni o'z ichiga oladi.
+Python artefaktlari _wheel_lar deb ataladi va paketni o'rnatish uchun zarur bo'lgan barcha ma'lumotlarni o'z ichiga oladi: kod fayllari, paket haqida metama'lumotlar (nomi, versiyasi, qaramliklari) va fayllarni muhitda qayerga joylashtirish bo'yicha ko'rsatmalar.
+Artefaktni qurish loyihaning o'ziga xos xususiyatlari, kerakli qaramliklar, paket versiyasi va boshqa ma'lumotlarni batafsil bayon qiluvchi loyiha faylini (ko'pincha manifest sifatida tanilgan) yozishimizni talab qiladi. Python'da biz bu maqsad uchun `pyproject.toml`dan foydalanamiz.
 
-> `pyproject.toml` is the modern and recommended way. While earlier packaging methods like `requirements.txt` or `setup.py` are still supported, you should prefer `pyproject.toml` whenever possible.
+> `pyproject.toml` zamonaviy va tavsiya etilgan usuldir. `requirements.txt` yoki `setup.py` kabi oldingi paketlash usullari hali ham qo'llab-quvvatlansa-da, iloji bo'lsa, `pyproject.toml` ni afzal ko'rishingiz kerak.
 
-Here's a minimal `pyproject.toml` for a library that also provides a command-line tool:
+Bu yerda buyruqlar satri vositasini ham taqdim etuvchi kutubxona uchun minimal `pyproject.toml` keltirilgan:
 
 ```toml
 [project]
@@ -216,9 +216,9 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 ```
 
-The `typer` library is a popular Python package for creating command-line interfaces with minimal boilerplate.
+`typer` kutubxonasi minimal boilerplate bilan buyruqlar satri interfeyslarini yaratish uchun mashhur Python paketidir.
 
-And the corresponding `greeting.py`:
+Va mos keladigan `greeting.py`:
 
 ```python
 import typer
@@ -236,7 +236,7 @@ if __name__ == "__main__":
     cli()
 ```
 
-With this file, we can now build the wheel:
+Ushbu fayl bilan biz endi wheel'ni qura olamiz:
 
 ```console
 $ uv build
@@ -250,9 +250,9 @@ greeting-0.1.0-py3-none-any.whl
 greeting-0.1.0.tar.gz
 ```
 
-The `.whl` file is the wheel (a zip archive with a specific structure), and the `.tar.gz` is a source distribution for systems that need to build from source.
+`.whl` fayli bu wheel (ma'lum bir tuzilishga ega zip arxivi) va `.tar.gz` manbadan qurilishi kerak bo'lgan tizimlar uchun manba taqsimotidir.
 
-You can inspect the contents of a wheel to see what gets packaged:
+Nima paketlanishini ko'rish uchun wheel tarkibini tekshirishingiz mumkin:
 
 ```console
 $ unzip -l dist/greeting-0.1.0-py3-none-any.whl
@@ -268,7 +268,7 @@ Archive:  dist/greeting-0.1.0-py3-none-any.whl
       998                     5 files
 ```
 
-Now if we were to give this wheel to someone else, they could install it by running:
+Endi agar biz ushbu wheel'ni boshqa birovga bersak, ular uni quyidagini ishga tushirish orqali o'rnatishlari mumkin edi:
 
 ```console
 $ uv pip install ./greeting-0.1.0-py3-none-any.whl
@@ -276,72 +276,72 @@ $ greet Alice
 Hello, Alice!
 ```
 
-This would install the library we built earlier into their environment, including the `greet` cli tool.
+Bu biz avval qurgan kutubxonani o'z muhitiga, jumladan `greet` cli vositasini ham o'rnatadi.
 
-There are limitations to this approach. In particular if our library depends on platform-specific libraries, e.g. CUDA for GPU acceleration, then our artifact only works on systems with those specific libraries installed, and we may need to build separate wheels for different platforms (Linux, macOS, Windows) and architectures (x86, ARM).
-
-
-When installing software, there's an important distinction between installing from source and installing a prebuilt binary. Installing from source means downloading the original code and compiling it on your machine --- this requires having a compiler and build tools installed, and can take significant time for large projects.
-
-Installing a prebuilt binary means downloading an artifact that was already compiled by someone else --- faster and simpler, but the binary must match your platform and architecture.
-For example, [ripgrep's releases page](https://github.com/BurntSushi/ripgrep/releases) shows prebuilt binaries for Linux (x86_64, ARM), macOS (Intel, Apple Silicon), and Windows.
+Bu yondashuvda cheklovlar mavjud. Xususan, agar kutubxonamiz platformaga xos kutubxonalarga bog'liq bo'lsa, masalan GPU tezlashtirish uchun CUDA, unda bizning artefaktimiz faqat o'sha maxsus kutubxonalar o'rnatilgan tizimlarda ishlaydi va turli platformalar (Linux, macOS, Windows) hamda arxitekturalar (x86, ARM) uchun alohida wheellarni qurishimiz kerak bo'lishi mumkin.
 
 
-# Releases & Versioning
+Dasturiy ta'minotni o'rnatishda manbadan o'rnatish (installing from source) va oldindan qurilgan binarni (prebuilt binary) o'rnatish o'rtasida muhim farq bor. Manbadan o'rnatish degani original kodni yuklab olish va uni kompyuteringizda kompilyatsiya qilish demakdir --- bu kompilyator va o'rnatilgan qurish vositalarini talab qiladi va katta loyihalar uchun ancha vaqt talab qilishi mumkin.
 
-Code is built in a continuous process but is released on a discrete basis.
-In software development there is a clear distinction between development and production environments.
-Code needs to be proven to work in a dev environment before getting _shipped_ to prod.
-The release process involves many steps, including testing, dependency management, versioning, configuration, deployment and publishing.
+Oldindan qurilgan binarni o'rnatish boshqa kishi tomonidan kompilyatsiya qilingan artefaktni yuklab olishni anglatadi --- bu tezroq va soddaroq, lekin binar sizning platformangiz va arxitekturangizga mos kelishi kerak.
+Masalan, [ripgrep'ning relizlar sahifasi](https://github.com/BurntSushi/ripgrep/releases) da Linux (x86_64, ARM), macOS (Intel, Apple Silicon) va Windows uchun oldindan qurilgan binarlar ko'rsatilgan.
 
 
-Software libraries are not static and evolve over time getting fixes and new features.
-We track this evolution by discrete version identifiers that correspond to the state of the library at a certain point in time.
-Changes in the behavior of a library can range from patches that fix noncritical functionality, new features that extend its functionality, to changes breaking backwards compatibility.
-Changelogs document what changes a version introduces --- these are documents that software developers use to communicate the changes associated with a new release.
+# Relizlar va versiyalash
 
-However, keeping track of the ongoing changes in each and every dependency is impractical, even more so when we consider the transitive dependencies --- i.e. the dependencies of our dependencies.
+Kod doimiy jarayon tarzida quriladi, lekin aniq (diskret) asosda reliz qilinadi.
+Dasturiy ta'minot ishlab chiqishda (development) va ishlab chiqarish (production) muhitlari o'rtasida aniq farq bor.
+Kodni prod'ga _yetkazib berish_dan oldin dev muhitida ishlashi isbotlanishi kerak.
+Reliz jarayoni ko'plab bosqichlarni, shu jumladan testlash, qaramliklarni boshqarish, versiyalash, konfiguratsiya, yoyish va nashr qilishni o'z ichiga oladi.
 
-> You can visualize the entire dependency tree of your project with `uv tree`, which shows all packages and their transitive dependencies in a tree format.
 
-To simplify this problem there are conventions on how to version software, and one of the most prevalent is [Semantic Versioning](https://semver.org/) or SemVer.
-Under Semantic Versioning a version has an identifier of the form MAJOR.MINOR.PATCH where each one of the values takes an integer value. The short version is that upgrading:
+Dasturiy kutubxonalar statik emas va vaqt o'tishi bilan xatolarni to'g'rilash (fixes) hamda yangi xususiyatlarni olgan holda rivojlanadi.
+Biz bu evolyutsiyani kutubxonaning ma'lum bir vaqtdagi holatiga mos keladigan diskret versiya identifikatorlari orqali kuzatib boramiz.
+Kutubxonaning xulq-atvoridagi o'zgarishlar muhim bo'lmagan funksiyalarni tuzatuvchi patchlardan (patchlar), o'z funksionalligini kengaytiruvchi yangi xususiyatlardan, eski versiyalar bilan moslashuvchanlikni (backwards compatibility) buzuvchi o'zgarishlargacha bo'lishi mumkin.
+O'zgarishlar jurnali (changelog) versiyada qanday o'zgarishlar kiritilganini hujjatlashtiradi --- bular dasturchilar yangi reliz bilan bog'liq o'zgarishlarni yetkazish uchun ishlatadigan hujjatlardir.
 
-- PATCH (e.g., 1.2.3 → 1.2.4) should only contain bug fixes and be fully backwards compatible
-- MINOR (e.g., 1.2.3 → 1.3.0) adds new functionality in a backwards-compatible way
-- MAJOR (e.g., 1.2.3 → 2.0.0) indicates breaking changes that may require code modifications
+Biroq, har bir qaramlikdagi davom etayotgan o'zgarishlarni kuzatib borish amaliy emas, ayniqsa biz tranzitiv qaramliklarni --- ya'ni bizning qaramliklarimizning qaramliklarini ko'rib chiqsak.
 
-> This is a simplification and we encourage reading the full SemVer specification to understand for instance why going from 0.1.3 to 0.2.0 might cause breaking changes or what 1.0.0-rc.1 means.
-Python packaging supports semantic versioning natively, so when we specify the versions of our dependencies we can use various specifiers:
+> Loyihangizning butun qaramlik daraxtini `uv tree` yordamida tasavvur qilishingiz mumkin, bu barcha paketlar va ularning tranzitiv qaramliklarini daraxt ko'rinishida ko'rsatadi.
 
-In the `pyproject.toml` we have different ways of constraining the ranges of compatible versions of our dependencies:
+Ushbu muammoni soddalashtirish uchun dasturiy ta'minotni qanday versiyalash haqida konvensiyalar mavjud va eng keng tarqalganlaridan biri [Semantik versiyalash](https://semver.org/) yoki SemVer.
+Semantik versiyalash ostida versiya MAJOR.MINOR.PATCH ko'rinishidagi identifikatorga ega bo'ladi, bunda qiymatlarning har biri butun son qiymatini oladi. Qisqasi, yangilash:
+
+- PATCH (masalan, 1.2.3 → 1.2.4) faqat xatoliklarni tuzatishlarni o'z ichiga olishi va to'liq orqaga mos bo'lishi kerak
+- MINOR (masalan, 1.2.3 → 1.3.0) yangi funksiyalarni orqaga mos keladigan tarzda qo'shadi
+- MAJOR (masalan, 1.2.3 → 2.0.0) kodni o'zgartirishni talab qilishi mumkin bo'lgan buzadigan (breaking) o'zgarishlarni bildiradi
+
+> Bu soddalashtirish hisoblanadi va biz to'liq SemVer spetsifikatsiyasini o'qib chiqishni tavsiya qilamiz, masalan 0.1.3 dan 0.2.0 ga o'tish nima uchun buzuvchi o'zgarishlarga olib kelishi mumkinligini yoki 1.0.0-rc.1 nimani anglatishini tushunish uchun.
+Python'ning paketlash qismi semantik versiyalashni mahalliy darajada qo'llab-quvvatlaydi, shuning uchun qaramliklarimizning versiyalarini ko'rsatganimizda turli xil spetsifikatorlardan foydalanishimiz mumkin:
+
+`pyproject.toml` da qaramliklarimizning mos keluvchi versiyalari diapazonlarini cheklashning turli usullari mavjud:
 
 ```toml
 [project]
 dependencies = [
-    "requests==2.32.3",  # Exact version - only this specific version
-    "click>=8.0",        # Minimum version - 8.0 or newer
-    "numpy>=1.24,<2.0",  # Range - at least 1.24 but less than 2.0
-    "pandas~=2.1.0",     # Compatible release - >=2.1.0 and <2.2.0
+    "requests==2.32.3",  # Aniq versiya - faqat mana shu ma'lum versiya
+    "click>=8.0",        # Minimal versiya - 8.0 yoki undan yangi
+    "numpy>=1.24,<2.0",  # Diapazon - kamida 1.24, lekin 2.0 dan kichik
+    "pandas~=2.1.0",     # Mos reliz - >=2.1.0 va <2.2.0
 ]
 ```
 
-Version specifiers exist across many package managers (npm, cargo, etc.) with varying exact semantics. The `~=` operator is Python's "compatible release" operator --- `~=2.1.0` means "any version that is compatible with 2.1.0", which translates to `>=2.1.0` and `<2.2.0`. This is roughly equivalent to the caret (`^`) operator in npm and cargo, which follows SemVer's notion of compatibility.
+Versiya spetsifikatorlari ko'plab paketlar menejerlarida (npm, cargo, va hokazo) turlicha aniq semantikalar bilan mavjud. `~=` operatori Python'ning "mos reliz" operatoridir --- `~=2.1.0` degani "2.1.0 bilan mos keladigan har qanday versiya" ni bildiradi, bu `>=2.1.0` va `<2.2.0` ga tengdir. Bu taxminan SemVer ning moslik tushunchasiga amal qiluvchi npm va cargo dagi karetka (`^`) operatoriga ekvivalentdir.
 
-Not all software uses semantic versioning. A common alternative is Calendar Versioning (CalVer), where versions are based on release dates rather than semantic meaning. For example, Ubuntu uses versions like `24.04` (April 2024) and `24.10` (October 2024). CalVer makes it easy to see how old a release is, though it doesn't communicate anything about compatibility.  Lastly, semantic versioning is not infallible, and sometimes maintainers inadvertently introduce breaking changes in minor or patch releases.
+Barcha dasturiy ta'minotlar ham semantik versiyalashdan foydalanmaydi. Keng tarqalgan alternativ - taqvim versiyalashi (CalVer), bunda versiyalar semantik ma'noga emas, balki reliz sanalariga asoslanadi. Masalan, Ubuntu `24.04` (Aprel 2024) va `24.10` (Oktyabr 2024) kabi versiyalardan foydalanadi. CalVer relizning qanchalik eski ekanligini ko'rishni osonlashtiradi, garchi u moslik haqida hech narsa bildirmasa ham.  Va nihoyat, semantik versiyalash ham bexato emas va ba'zida maintainer'lar minor yoki patch relizlarida bilib-bilmay buzuvchi o'zgarishlarni kiritib qo'yadilar.
 
 
-# Reproducibility
+# Qayta tiklanuvchanlik
 
-In modern software development the code you write sits atop a significant number of layers of abstraction.
-This includes things like your programming language runtime, third party libraries, the operating system, or even the hardware itself.
-Any difference across any of these layers might change the behavior of your code or even prevent it from working as intended.
-Furthermore, even differences in the underlying hardware impact your ability to ship software.
+Zamonaviy dasturiy ta'minot ishlanmalarida siz yozgan kod juda ko'p miqdordagi abstraksiya qatlamlari ustida yotadi.
+Bunga dasturlash tilingiz runtime'i, uchinchi tomon kutubxonalari, operatsion tizim yoki hatto apparaturaning (hardware) o'zi ham kiradi.
+Ushbu qatlamlarning birortasidagi har qanday farq kodingizning ishlash tarzini o'zgartirishi yoki hatto kutilganidek ishlashini to'xtatishi mumkin.
+Bundan tashqari, hatto asosiy apparaturadagi farqlar ham dasturiy ta'minotni yetkazib berish qobiliyatingizga ta'sir qiladi.
 
-Pinning a library refers to specifying an exact version rather than a range, e.g. `requests==2.32.3` instead of `requests>=2.0`.
+Kutubxonani mixlash (pinning) diapazon o'rniga aniq versiyani ko'rsatishni bildiradi, masalan `requests>=2.0` o'rniga `requests==2.32.3`.
 
-Part of the job of a package manager is to consider all the constraints provided by the dependencies --- and transitive dependencies --- and then produce a valid list of versions that will satisfy all the constraints.
-The specific list of versions can then be saved to a file for reproducibility purposes; these files are referred to as _lock files_.
+Paketlar menejeri vazifalaridan biri qaramliklar --- va tranzitiv qaramliklar --- tomonidan taqdim etilgan barcha cheklovlarni hisobga olish va keyin barcha cheklovlarni qanoatlantiradigan yaroqli versiyalar ro'yxatini chiqarishdir.
+Keyin qayta tiklanuvchanlik maqsadida aniq versiyalar ro'yxatini faylga saqlash mumkin; bunday fayllar _lock fayllari_ deb ataladi.
 
 ```console
 $ uv lock
@@ -362,37 +362,37 @@ wheels = [
 ...
 ```
 
-One critical distinction when dealing with dependency versioning and reproducibility is the difference between libraries and applications/services.
-A library is intended to be imported and used by other code which might have its own dependencies, so specifying overly strict version constraints can cause conflicts with the user's other dependencies.
-In contrast, applications or services are final consumers of the software and typically expose their functionality through a user interface or an API, not through a programming interface.
-For libraries, it is good practice to specify version ranges to maximize compatibility with the wider package ecosystem. For applications, pinning exact versions ensures reproducibility --- everyone running the application uses the exact same dependencies.
+Qaramliklarni versiyalash va qayta tiklanuvchanlik bilan ishlashdagi asosiy farq kutubxonalar va ilovalar/xizmatlar o'rtasidagi tafovutdir.
+Kutubxona import qilinishga va o'zining qaramliklariga ega bo'lishi mumkin bo'lgan boshqa kodlar tomonidan ishlatilishiga mo'ljallangan, shuning uchun juda qat'iy versiya cheklovlarini ko'rsatish foydalanuvchining boshqa qaramliklari bilan ziddiyatlarni keltirib chiqarishi mumkin.
+Bunga qarama-qarshi o'laroq, ilovalar yoki xizmatlar dasturiy ta'minotning oxirgi iste'molchilari hisoblanadi va odatda o'z funksiyalarini dasturlash interfeysi orqali emas, balki foydalanuvchi interfeysi yoki API orqali namoyish etadi.
+Kutubxonalar uchun kengroq paket ekotizimi bilan moslikni maksimal darajada oshirish uchun versiya diapazonlarini belgilash yaxshi amaliyotdir. Ilovalar uchun aniq versiyalarni mixlash (pinning) qayta tiklanuvchanlikni kafolatlaydi --- dasturni ishga tushirgan har bir kishi aynan bir xil qaramliklardan foydalanadi.
 
 
-For projects requiring maximum reproducibility, tools like [Nix](https://nixos.org/) and [Bazel](https://bazel.build/) provide _hermetic_ builds --- where every input including compilers, system libraries, and even the build environment itself is pinned and content-addressed. This guarantees bit-for-bit identical outputs regardless of when or where the build runs.
+Maksimal qayta tiklanuvchanlikni talab qiladigan loyihalar uchun [Nix](https://nixos.org/) va [Bazel](https://bazel.build/) kabi vositalar _germetik_ (hermetic) qurishlarni taqdim etadi --- bu yerda har bir kirish qiymati (input), shu jumladan kompilyatorlar, tizim kutubxonalari va hatto qurish muhitining o'zi ham mixlanadi va mazmuni bo'yicha manzilga yo'naltiriladi (content-addressed). Bu qurish qachon yoki qayerda ishlashidan qat'i nazar, bitma-bit o'xshash natijalarni kafolatlaydi.
 
-> You can even use NixOS to manage your entire computer install so that you can trivially spin up new copies of your computer setup and manage their complete configuration through version-controlled configuration files.
+> Siz hatto kompyuteringiz sozlamalarining to'liq yangi nusxalarini osongina ishga tushirish va ularni versiyalar nazoratidagi konfiguratsiya fayllari orqali boshqarish uchun butun kompyuteringiz o'rnatilishini boshqarish uchun NixOS dan foydalanishingiz mumkin.
 
-A neverending tension in software development is that new software versions introduce breakage either intentionally or unintentionally, while on the other hand, old software versions become compromised with security vulnerabilities over time.
-We can address this by using continuous integration pipelines (we'll see more in the [Code Quality and CI](/2026/code-quality/) lecture) that test our application against new software versions and having automation in place for detecting when new versions of our dependencies are released, such as [Dependabot](https://github.com/dependabot).
+Dasturiy ta'minotni ishlab chiqishdagi cheksiz ziddiyatlardan biri shundaki, yangi dasturiy ta'minot versiyalari kutilgan yoki kutilmaganda buzilishlarni keltirib chiqaradi, boshqa tomondan esa, eski dasturiy ta'minot versiyalari vaqt o'tishi bilan xavfsizlik zaifliklari bilan xavf ostida qoladi.
+Buni bizning ilovamizni yangi dasturiy ta'minot versiyalariga nisbatan testlaydigan va yangi qaramlik versiyalari chiqarilganida avtomatlashtirishga ega bo'lgan uzluksiz integratsiya (continuous integration) qatorlari (pipeline) yordamida hal qilishimiz mumkin (buni [Kod sifati va CI](/2026/code-quality/) darsida ko'ramiz), masalan [Dependabot](https://github.com/dependabot) kabi.
 
-Even with CI testing in place, issues still occur when upgrading software versions, often because of the inevitable mismatch between dev and prod environments.
-In those circumstances the best course of action is to have a _rollback_ plan, where the version upgrade is reverted and a known good version is redeployed instead.
+CI testlari mavjud bo'lsa ham, dasturiy ta'minot versiyalarini yangilashda muammolar baribir yuzaga keladi, ko'pincha bu dev va prod muhitlari o'rtasidagi muqarrar mos kelmaslik sababli yuz beradi.
+Bunday hollarda eng yaxshi yo'l _orqaga qaytarish_ (rollback) rejasiga ega bo'lishdir, bu yerda versiyani yangilash bekor qilinadi va o'rniga ma'lum bo'lgan yaxshi versiya qayta yoyiladi.
 
-# VMs & Containers
+# Virtual mashinalar va konteynerlar
 
-As you start relying on more complex dependencies, it is likely that the dependencies of your code will span beyond the boundaries of what the package manager can handle.
-One common reason is having to interface with specific system libraries or hardware drivers.
-For example, in scientific computing and AI, programs often need specialized libraries and drivers to utilize GPU hardware.
-Many system-level dependencies (GPU drivers, specific compiler versions, shared libraries like OpenSSL) still require system-wide installation.
+Siz murakkabroq qaramliklarga suyana boshlaganingiz sayin, kodingizning qaramliklari paketlar menejeri eplay oladigan chegaralardan chiqib ketishi ehtimoli bor.
+Bunga keng tarqalgan sabablardan biri ma'lum bir tizim kutubxonalari yoki apparatura drayverlari bilan o'zaro ishlashga to'g'ri kelishidir.
+Masalan, ilmiy hisoblash va sun'iy intellekt sohalarida GPU uskunalaridan foydalanish uchun dasturlar ko'pincha maxsus kutubxonalar va drayverlarga muhtoj bo'ladi.
+Ko'pgina tizim darajasidagi qaramliklar (GPU drayverlari, maxsus kompilyator versiyalari, OpenSSL kabi umumiy kutubxonalar) hali ham butun tizim bo'ylab o'rnatishni talab qiladi.
 
-Traditionally this wider dependency problem was solved with Virtual Machines (VMs).
-VMs abstract the entire computer and provide a completely isolated environment with its own dedicated operating system.
-A more modern approach is containers, which package an application along with its dependencies, libraries, and filesystem, but share the host's operating system kernel rather than virtualizing an entire computer.
-Containers are lighter weight than VMs because they share the kernel, making them faster to start and more efficient to run.
+An'anaviy ravishda bu kengroq qaramlik muammosi Virtual mashinalar (VM) bilan hal qilingan.
+Virtual mashinalar butun kompyuterni abstraksiya qiladi va o'zining bag'ishlangan operatsion tizimiga ega bo'lgan mutlaqo izolyatsiyalangan muhitni ta'minlaydi.
+Zamonaviyroq yondashuv bu konteynerlardir, ular ilovani o'z qaramliklari, kutubxonalari va fayl tizimi bilan birgalikda paketlaydi, biroq butun kompyuterni virtuallashtirish o'rniga hostning (mezbonning) operatsion tizimi kerneli bilan bo'lishadi.
+Konteynerlar VMlarga qaraganda yengilroq hisoblanadi, chunki ular kernelni bo'lishadilar, bu esa ularni tezroq ishga tushirishga va ishlash jihatdan samaraliroq bo'lishga olib keladi.
 
-The most popular container platform is [Docker](https://www.docker.com/). Docker introduced a standardized way to build, distribute, and run containers. Under the hood, Docker uses containerd as its container runtime --- an industry standard that other tools like Kubernetes also use.
+Eng ommabop konteyner platformasi [Docker](https://www.docker.com/) hisoblanadi. Docker konteynerlarni qurish, tarqatish va ishga tushirishning standartlashtirilgan usulini joriy qildi. Ichki qismida Docker konteyner runtime sifatida containerd ni ishlatadi --- bu Kubernetes kabi boshqa vositalar ham ishlatadigan sanoat standartidir.
 
-Running a container is straightforward. For example, to run a Python interpreter inside a container we use `docker run` (The `-it` flags make the container interactive with a terminal. When you exit, the container stops.).
+Konteynerni ishga tushirish juda oson. Masalan, Python interpretatorini konteyner ichida ishga tushirish uchun biz `docker run` dan foydalanamiz ( `-it` bayroqlari konteynerni terminal orqali interaktiv qiladi. Siz chiqqaningizda konteyner to'xtaydi.).
 
 ```console
 $ docker run -it python:3.12 python
@@ -401,9 +401,7 @@ Python 3.12.7 (main, Nov  5 2024, 02:53:25) [GCC 12.2.0] on linux
 Hello from inside a container!
 ```
 
-In practice your program might depend on the entire filesystem.
-To overcome this, we can use container images that ship the entire filesystem of the application as the artifact.
-The container images are created programmatically. With docker we specify exactly the dependencies, system libraries, and configuration of the image using a Dockerfile syntax:
+Amalda dasturingiz butun fayl tizimiga bog'liq bo'lishi mumkin. Buni yengib o'tish uchun biz butun ilova fayl tizimini artefakt sifatida yetkazib beradigan konteyner tasvirlaridan (image) foydalanishimiz mumkin. Konteyner tasvirlari dasturiy ravishda yaratiladi. Docker yordamida biz Dockerfile sintaksisi orqali tasvirning qaramliklarini, tizim kutubxonalarini va konfiguratsiyasini aniq ko'rsatamiz:
 
 ```dockerfile
 FROM python:3.12
@@ -417,11 +415,11 @@ WORKDIR /app
 RUN pip install .
 ```
 
-An important distinction: a Docker **image** is the packaged artifact (like a template), while a **container** is a running instance of that image. You can run multiple containers from the same image. Images are built in layers, where each instruction (`FROM`, `RUN`, `COPY`, etc) in a Dockerfile creates a new layer. Docker caches these layers, so if you change a line in your Dockerfile, only that layer and subsequent layers need to be rebuilt.
+Muhim farq: Docker **tasviri** paketlangan artefakt (shablonga o'xshash) bo'lsa, **konteyner** shu tasvirning ishga tushgan instansiyasi hisoblanadi. Siz bitta tasvirdan bir nechta konteynerlarni ishga tushirishingiz mumkin. Tasvirlar qatlamlarda quriladi, bu yerda Dockerfile'dagi har bir ko'rsatma (`FROM`, `RUN`, `COPY` va h.k.) yangi qatlamni yaratadi. Docker bu qatlamlarni keshlaydi, shuning uchun Dockerfile dagi bir qatorni o'zgartirsangiz, faqat o'sha qatlam va undan keyingi qatlamlar qayta qurilishi kerak bo'ladi.
 
-The previous Dockerfile has several issues: it uses the full Python image instead of a slim variant, runs separate `RUN` commands creating unnecessary layers, versions are not pinned, and it doesn't clean up package manager caches, shipping unnecessary files. Other frequent mistakes include insecurely running containers as root and accidentally embedding secrets in layers.
+Oldingi Dockerfile da bir nechta muammolar bor: u qisqartirilgan variant o'rniga to'liq Python tasviridan foydalanadi, alohida `RUN` buyruqlarini ishga tushirib keraksiz qatlamlarni yaratadi, versiyalar mixlanmagan, va u paket menejeri keshlarini tozalamaydi hamda keraksiz fayllarni qo'shib yuboradi. Boshqa keng tarqalgan xatolarga konteynerlarni xavfsiz bo'lmagan tarzda root sifatida ishlatish va qatlamlarda sirlarni adashib kiritib yuborish kabilar kiradi.
 
-Here's an improved version
+Quyida yaxshilangan versiyasi keltirilgan
 
 ```dockerfile
 FROM python:3.12-slim
@@ -434,19 +432,19 @@ RUN uv pip install --system -r uv.lock
 COPY . /app
 ```
 
-In the previous example we see that instead of installing `uv` from source, we are copying the prebuilt binary from the `ghcr.io/astral-sh/uv:latest` image. This is known as the _builder_ pattern. With this pattern we do not need to ship all the tools needed to compile our code, just the final binary that is needed to run the application (`uv` in this case).
+Oldingi misolda biz `uv`ni manbadan o'rnatish o'rniga, uni `ghcr.io/astral-sh/uv:latest` tasviridagi oldindan qurilgan binardan nusxalayotganimizni ko'ramiz. Bu _builder_ namunasi (pattern) sifatida tanilgan. Bu namuna bilan kodimizni kompilyatsiya qilish uchun zarur bo'lgan barcha vositalarni emas, faqat ilovani ishga tushirish uchun kerak bo'lgan yakuniy binarni (`uv` ushbu holatda) yuklashimiz kifoya.
 
-Docker has important limitations to be aware of. First, container images are often platform-specific --- an image built for `linux/amd64` won't run natively on `linux/arm64` (Apple Silicon Macs) without emulation, which is slow. Second, Docker containers require a Linux kernel, so on macOS and Windows, Docker actually runs a lightweight Linux VM under the hood, adding overhead. Third, Docker's isolation is weaker than VMs --- containers share the host kernel, which is a security concern in multi-tenant environments.
+Dockerning yodda saqlash kerak bo'lgan muhim cheklovlari bor. Birinchidan, konteyner tasvirlari ko'pincha platformaga mos ravishda tuziladi --- `linux/amd64` uchun qurilgan tasvir emulsiyasiz sekin bo'ladigan `linux/arm64` da (Apple Silicon Mac'larida) o'z holicha ishlamaydi. Ikkinchidan, Docker konteynerlari Linux kernelini talab qiladi, shuning uchun macOS va Windows da Docker aslidahuddi ostida yengil Linux VM ni ishga tushiradi va bu qo'shimcha yuklama (overhead) ni qo'shadi. Uchinchidan, Dockerning izolyatsiyasi VM larga qaraganda zaifroq --- konteynerlar host kernelni bo'lishadi va bu ko'p foydalanuvchili muhitlarda xavfsizlik muammosini keltirib chiqarishi mumkin.
 
-> These days, more projects are also making use of nix to manage even "system-wide" libraries and applications per project through [nix flakes](https://serokell.io/blog/practical-nix-flakes).
+> Hozirgi kunda, hatto "tizim bo'ylab" ishlaydigan kutubxonalar va dasturlarni har bir loyiha uchun alohida boshqarishda [nix flakes](https://serokell.io/blog/practical-nix-flakes) orqali nix'dan foydalanuvchi loyihalar ko'paymoqda.
 
-# Configuration
+# Konfiguratsiya
 
-Software is inherently configurable. In the [command line environment](/2026/command-line-environment/) lecture we saw programs receiving options via flags, environment variables or even configuration files a.k.a. dotfiles. This holds true even for more complex applications, and there are established patterns for managing configuration at scale.
-Software configuration should not be embedded in the code but be provided at runtime.
-A couple of common ones being environment variables and config files.
+Dasturiy ta'minot o'z-o'zidan sozlanuvchandir. [Buyruqlar satri muhiti](/2026/command-line-environment/) darsida biz bayroqlar (flaglar), muhit o'zgaruvchilari yoki hatto konfiguratsiya fayllari (nuqtali fayllar) orqali parametrlar qabul qiladigan dasturlarni ko'rdik. Bu hatto murakkabroq ilovalar uchun ham amal qiladi va masshtabda konfiguratsiyani boshqarishning belgilangan qonuniyatlari mavjud.
+Dasturiy ta'minot konfiguratsiyasi kodga kiritilmasligi (hardcode qilinmasligi), balki ishlash vaqtida (runtime'da) taqdim etilishi kerak.
+Shulardan ikkitasi umumiy bo'lib: muhit o'zgaruvchilari va konfiguratsiya fayllaridir.
 
-Here's an example of an application that is configured via environment variables:
+Muhit o'zgaruvchilari orqali sozlanadigan ilovaga misol:
 
 ```python
 import os
@@ -456,7 +454,7 @@ DEBUG = os.environ.get("DEBUG", "false").lower() == "true"
 API_KEY = os.environ["API_KEY"]  # Required - will raise if not set
 ```
 
-An application could also be configured via a configuration file (e.g., a Python program that loads a config via `yaml.load`), `config.yaml`:
+Ilovani shuningdek, konfiguratsiya fayli orqali sozlash mumkin (masalan, `yaml.load` orqali config yuklaydigan Python dasturi), `config.yaml`:
 
 ```yaml
 database:
@@ -468,22 +466,22 @@ server:
   debug: false
 ```
 
-A good right-hand rule for thinking about configuration is that the same codebase should be deployable to different environments (development, staging, production) with only configuration changes, never code changes.
+Konfiguratsiya haqida o'ylash uchun yaxshi o'ng qo'l qoidasi shundaki, bitta kod bazasi turli xil muhitlarga (ishlab chiqish, test, ishlab chiqarish) hech qanday kod o'zgartirishlarisiz, faqat konfiguratsiyani o'zgartirish orqali yoyilishi (deploy qilinishi) kerak.
 
-Among the many configuration options there is often sensitive data such as API keys.
-Secrets need to be handled with care to avoid exposing them accidentally, and must not be included in version control.
+Ko'pgina konfiguratsiya imkoniyatlari orasida API kalitlari kabi nozik ma'lumotlar (sirlar) ham bo'ladi.
+Sirlarning adashib fosh qilinishiga yo'l qo'ymaslik uchun ularga ehtiyotkorlik bilan yondashish va ularni versiyalarni boshqarish tizimiga (version control) qo'shmaslik kerak.
 
 
-# Services & Orchestration
+# Xizmatlar va orkestratsiya
 
-Modern applications rarely exist in isolation. A typical web application might need a database for persistent storage, a cache for performance, a message queue for background tasks, and various other supporting services. Rather than bundling everything into a single monolithic application, modern architectures often decompose functionality into separate services that can be developed, deployed, and scaled independently.
+Zamonaviy ilovalar kamdan-kam hollarda yakkalanib qoladi. Odatiy veb ilova ma'lumotlarni doimiy saqlash uchun ma'lumotlar bazasiga, ishlash tezligi uchun keshga, fondagi vazifalar uchun xabar navbatiga va turli boshqa yordamchi xizmatlarga muhtoj bo'lishi mumkin. Hamma narsani bitta yaxlit (monolit) ilovaga yig'ish o'rniga, zamonaviy arxitekturalar funksionallikni mustaqil ravishda ishlab chiqilishi, joylashtirilishi va kengaytirilishi mumkin bo'lgan alohida xizmatlarga ajratadi.
 
-As an example, if we determine our application might benefit from using a cache, instead of rolling our own we can leverage existing battle tested solutions like [Redis](https://redis.io/) or [Memcached](https://memcached.org/).
-We could embed Redis in our application dependencies by building it as part of the container, but that means harmonizing all the dependencies between Redis and our application which could be challenging or even unfeasible.
-Instead what we can do is deploy each application separately in its own container.
-This is commonly referred to as a microservice architecture where each component runs as an independent service that communicates over the network, typically via HTTP APIs.
+Misol tariqasida, ilovamiz keshdan foydalanishi kerak bo'lsa, o'zimiznikini yaratish o'rniga [Redis](https://redis.io/) yoki [Memcached](https://memcached.org/) kabi sinalgan yechimlardan foydalanishimiz mumkin.
+Biz Redisni ilovamiz qaramliklariga konteynerning bir qismi sifatida kiritishimiz mumkin, lekin bu Redis va ilovamiz o'rtasidagi barcha qaramliklarni uyg'unlashtirishni anglatadi, bu esa qiyin yoki hatto imkonsiz bo'lishi mumkin.
+Buning o'rniga biz har bir ilovani o'z konteynerida alohida yoyishimiz mumkin.
+Bu odatda mikroservis arxitekturasi deb ataladi, bu yerda har bir komponent tarmoq orqali, odatda HTTP API lar orqali bog'lanadigan mustaqil xizmat sifatida ishlaydi.
 
-[Docker Compose](https://docs.docker.com/compose/) is a tool for defining and running multi-container applications. Rather than managing containers individually, you declare all services in a single YAML file and orchestrate them together. Now our full application encompasses more than one container:
+[Docker Compose](https://docs.docker.com/compose/) - ko'p konteynerli ilovalarni aniqlash va ishga tushirish uchun vosita. Konteynerlarni yakka o'zi boshqarish o'rniga, siz barcha xizmatlarni bitta YAML faylida e'lon qilasiz va ularni birgalikda boshqarasiz. Endi bizning to'liq ilovamiz bittadan ortiq konteynerlarni o'z ichiga oladi:
 
 ```yaml
 # docker-compose.yml
@@ -506,10 +504,10 @@ volumes:
   redis_data:
 ```
 
-With `docker compose up`, both services start together, and the web application can connect to Redis using the hostname `cache` (Docker's internal DNS resolves service names automatically).
-Docker Compose lets us declare how we want to deploy one or more services, and handles the orchestration of starting them together, setting up networking between them, and managing shared volumes for data persistence.
+`docker compose up` buyrug'i yordamida ikkala xizmat ham birgalikda ishga tushadi va veb ilova `cache` host nomidan foydalangan holda Redis'ga ulanishi mumkin (Dockerning ichki DNS'i xizmat nomlarini avtomatik ravishda hal qiladi).
+Docker Compose bizga bir yoki bir nechta xizmatni qanday yoyish (deploy) qilmoqchiligimizni e'lon qilish imkonini beradi va ularni birgalikda ishga tushirish orkestratsiyasi, ular o'rtasidagi tarmoqni o'rnatish va ma'lumotlarni doimiy saqlash uchun umumiy hajmlarni (volumes) boshqarishni o'z zimmasiga oladi.
 
-For production deployments, you often want your docker compose services to start automatically on boot and restart on failure. A common approach is to use systemd to manage the docker compose deployment:
+Ishlab chiqarishga (production) yoyishlar uchun siz ko'pincha docker compose xizmatlaringiz boot vaqtida avtomatik ravishda ishga tushishini va xatolikda qayta ishga tushishini hohlaysiz. Keng tarqalgan yondashuv docker compose deploymentini boshqarish uchun systemd dan foydalanishdir:
 
 ```ini
 # /etc/systemd/system/myapp.service
@@ -529,11 +527,11 @@ ExecStop=/usr/bin/docker compose down
 WantedBy=multi-user.target
 ```
 
-This systemd unit file ensures your application starts when the system boots (after Docker is ready), and provides standard controls like `systemctl start myapp`, `systemctl stop myapp`, and `systemctl status myapp`.
+Bu systemd unit fayli tizim yuklanganda (Docker tayyor bo'lgandan so'ng) ilovangiz ishga tushishini ta'minlaydi va `systemctl start myapp`, `systemctl stop myapp` hamda `systemctl status myapp` kabi standart boshqaruvlarni taqdim etadi.
 
-As deployment requirements grow more complex --- needing scalability across multiple machines, fault tolerance when services crash, and high availability guarantees --- organizations turn to sophisticated container orchestration platforms like Kubernetes (k8s), which can manage thousands of containers across clusters of machines. That said, Kubernetes has a steep learning curve and significant operational overhead, so it's often overkill for smaller projects.
+Yoyish (deployment) talablari murakkablashib borayotgani sari --- bir nechta mashinalar miqyosida ko'paytirishga bo'lgan ehtiyoj, xizmatlar ishlamay qolganda xatolarga bardoshlilik (fault tolerance) va yuqori mavjudlik (high availability) kafolatlari --- tashkilotlar mashinalar klasterlarida minglab konteynerlarni boshqarishi mumkin bo'lgan Kubernetes (k8s) kabi murakkab konteyner orkestratsiya platformalariga murojaat qilishadi. Shu bilan birga, Kubernetes murakkab o'rganish jarayoniga va sezilarli operatsion qo'shimcha yuklamaga (overhead) ega, shuning uchun kichik loyihalar uchun bu ortiqcha hisoblanadi.
 
-This multi-container setup is partly feasible because modern services communicate with each other via standardized APIs, with HTTP REST APIs. For example, whenever a program interacts with an LLM provider like OpenAI or Anthropic, under the hood it is sending an HTTP request to their servers and parsing the response:
+Ushbu ko'p konteynerli sozlama qisman mumkin bo'ldi, chunki zamonaviy xizmatlar bir-biri bilan standartlashtirilgan API lar, ya'ni HTTP REST API lar orqali aloqa qiladi. Masalan, dastur OpenAI yoki Anthropic kabi LLM provayderi bilan muloqot qilganda, aslidahuddi u o'z serverlariga HTTP so'rov yuboradi va javobni tahlil qiladi (parse qiladi):
 
 ```console
 $ curl https://api.anthropic.com/v1/messages \
@@ -544,19 +542,19 @@ $ curl https://api.anthropic.com/v1/messages \
          "messages": [{"role": "user", "content": "Explain containers vs VMs in one sentence."}]}'
 ```
 
-# Publishing
+# Nashr qilish
 
-Once you have shown your code to work, you might be interested in distributing it for others to download and install.
-Distribution takes many forms and is intrinsically tied to the programming language and environments that you operate with.
+Kodingiz ishlashini isbotlaganingizdan so'ng, siz uni boshqalar yuklab olishi va o'rnatishi uchun tarqatishga (distribution) qiziqishingiz mumkin.
+Tarqatish ko'p shakllarga ega bo'lib, siz ishlaydigan dasturlash tili va muhitlar bilan uzviy bog'liq.
 
-The simplest form of distribution is uploading artifacts for people to download and install locally.
-This is still common and you can find it in places like [Ubuntu's package archive](http://archive.ubuntu.com/ubuntu/pool/main/), which is essentially an HTTP directory listing of `.deb` files.
+Tarqatishning eng oddiy usuli - odamlar mahalliy kompyuterlariga (locally) yuklab olishlari va o'rnatishlari uchun artefaktlarni yuklash.
+Bunga hozirgacha tez-tez duch kelamiz va siz buni asosan `.deb` fayllarining HTTP katalog ro'yxati bo'lgan [Ubuntu'ning paketlar arxivida](http://archive.ubuntu.com/ubuntu/pool/main/) ko'rishingiz mumkin.
 
-These days, GitHub has become the de facto platform for publishing source code and artifacts.
-While the source code is often publicly available, GitHub Releases allow maintainers to attach prebuilt binaries and other artifacts to tagged versions.
+Bugungi kunda GitHub ochiq manba kodlari va artefaktlarni nashr qilish (publishing) uchun amalda yagona standart (de facto) platformaga aylangan.
+Garchi kod asosan hammaga ochiq bo'lsa-da, GitHub relizlari maintainer'larga oldindan tayyorlangan binarlar va boshqa artefaktlarni teglangan versiyalarga qo'shib qo'yish imkoniyatini taqdim etadi.
 
 
-Package managers sometimes support installing directly from GitHub, either from source or from a pre-built wheel:
+Paketlar menejerlari ba'zan to'g'ridan-to'g'ri GitHub'dan o'rnatishni (manbadan yoki oldindan qurilgan wheel'dan) qo'llab-quvvatlaydi:
 
 ```console
 # Install from source (will clone and build)
@@ -569,8 +567,8 @@ $ pip install git+https://github.com/psf/requests.git@v2.32.3
 $ pip install https://github.com/user/repo/releases/download/v1.0/package-1.0-py3-none-any.whl
 ```
 
-In fact, some languages like Go use a decentralized distribution model --- rather than a central package repository, Go modules are distributed directly from their source code repositories.
-Module paths like `github.com/gorilla/mux` indicate where the code lives, and `go get` fetches directly from there. However, most package managers like `pip`, `cargo`, or `brew` have central indexes of pre-packaged projects for ease of distribution and installation. If we run
+Aslida, Go kabi ba'zi tillar markazlashmagan (decentralized) tarqatish modelidan foydalanadi --- markaziy paket repozitoriysidan ko'ra, Go modullari to'g'ridan-to'g'ri manba kodi repozitoriylaridan tarqatiladi.
+`github.com/gorilla/mux` kabi modul yo'llari kod qayerda saqlanishini ko'rsatadi va `go get` to'g'ridan-to'g'ri shu yerdan fetch qiladi. Biroq, `pip`, `cargo` yoki `brew` kabi aksariyat paketlar menejerlari qulay tarqatish va o'rnatish maqsadida avvaldan tayyorlangan paketlarning markaziy indekslariga ega. Agar biz ishga tushirsak
 
 ```console
 $ uv pip install requests --verbose --no-cache 2>&1 | grep -F '.whl'
@@ -579,18 +577,18 @@ DEBUG No cache entry for: https://files.pythonhosted.org/packages/1e/db/4254e3ea
 DEBUG No cache entry for: https://files.pythonhosted.org/packages/1e/db/4254e3eabe8020b458f1a747140d32277ec7a271daf1d235b70dc0b4e6e3/requests-2.32.5-py3-none-any.whl
 ```
 
-we see where we are fetching the `requests` wheel from. Notice the `py3-none-any` in the filename --- this means the wheel works with any Python 3 version, on any OS, on any architecture. For packages with compiled code, the wheel is platform-specific:
+biz `requests` wheel ni qayerdan fetch qilayotganimizni ko'ramiz. Fayl nomidagi `py3-none-any` ga e'tibor bering --- bu wheel har qanday Python 3 versiyasi, har qanday operatsion tizim (OS) va har qanday arxitektura bilan ishlashini anglatadi. Kompilyatsiya qilingan kodli paketlar uchun wheel platformaga xos bo'ladi:
 
 ```console
 $ uv pip install numpy --verbose --no-cache 2>&1 | grep -F '.whl'
 DEBUG Selecting: numpy==2.2.1 [compatible] (numpy-2.2.1-cp312-cp312-macosx_14_0_arm64.whl)
 ```
 
-Here `cp312-cp312-macosx_14_0_arm64` indicates this wheel is specifically for CPython 3.12 on macOS 14+ for ARM64 (Apple Silicon). If you're on a different platform, `pip` will download a different wheel or build from source.
+Bu yerda `cp312-cp312-macosx_14_0_arm64` bu wheel faqat ARM64 (Apple Silicon) arxitekturasi uchun macOS 14+ da CPython 3.12 gagina xos ekanligini ko'rsatadi. Agar siz boshqa platformada bo'lsangiz, `pip` boshqa wheel yuklab oladi yoki manbadan quradi.
 
-Conversely, for people to be able to find a package we've created, we need to publish it to one of these registries.
-In Python, the main registry is the [Python Package Index (PyPI)](https://pypi.org).
-Like with installing, there are multiple ways of publishing packages. The `uv publish` command provides a modern interface for uploading packages to PyPI:
+Aksincha, biz yaratgan paketni boshqalar topishi uchun uni reyestrlaridan (registry) biriga joylashimiz zarur.
+Python'da asosiy reyestr [Python Package Index (PyPI)](https://pypi.org) hisoblanadi.
+O'rnatish singari, paketlarni nashr qilishning ham bir nechta usullari mavjud. PyPI ga paketlarni yuklash uchun zamonaviy usul `uv publish` buyrug'idir:
 
 ```console
 $ uv publish --publish-url https://test.pypi.org/legacy/
@@ -598,17 +596,17 @@ Publishing greeting-0.1.0.tar.gz
 Publishing greeting-0.1.0-py3-none-any.whl
 ```
 
-Here we are using [TestPyPI](https://test.pypi.org) --- a separate package registry intended for testing your publishing workflow without polluting the real PyPI. Once uploaded, you can install from TestPyPI:
+Bu yerda biz haqiqiy PyPI reyestrini ifloslantirmasdan nashr qilish jarayonini testlash uchun mo'ljallangan alohida [TestPyPI](https://test.pypi.org) reyestridan foydalanmoqdamiz. Yuklaganingizdan so'ng uni TestPyPI orqali o'rnatish mumkin:
 
 ```console
 $ uv pip install --index-url https://test.pypi.org/simple/ greeting
 ```
 
-A key consideration when publishing software is trust. How do users verify that the package they download actually comes from you and hasn't been tampered with? Package registries use checksums to verify integrity, and some ecosystems support package signing to provide cryptographic proof of authorship.
+Dasturiy ta'minotni nashr qilishdagi asosiy e'tibor --- ishonch. Foydalanuvchilar o'zlari yuklab olgan paket haqiqatan ham sizga tegishli ekanligiga va o'zgartirilmaganligiga qanday ishonch hosil qilishadi? Paket reyestrlari paketning yaxlitligini tekshirish uchun cheksummalardan foydalanadi va ba'zi ekotizimlar mualliflikni kriptografik dalillashni ta'minlash uchun paketlarni imzolash imkoniyatini ham beradi.
 
-Different languages have their own package registries: [crates.io](https://crates.io) for Rust, [npm](https://www.npmjs.com) for JavaScript, [RubyGems](https://rubygems.org) for Ruby, and [Docker Hub](https://hub.docker.com) for container images. Meanwhile, for private or internal packages, organizations often deploy their own package repositories (such as a private PyPI server or a private Docker registry) or use managed solutions from cloud providers.
+Turli tillarning o'ziga xos paket reyestrlari mavjud: Rust uchun [crates.io](https://crates.io), JavaScript uchun [npm](https://www.npmjs.com), Ruby uchun [RubyGems](https://rubygems.org) va konteyner tasvirlari uchun [Docker Hub](https://hub.docker.com). Shu bilan birga, yopiq (shaxsiy) yoki ichki paketlar uchun tashkilotlar o'zlarining shaxsiy paket repozitoriylaridan foydalanishi (masalan, xususiy PyPI serveri yoki Docker reyestri) yoki bulut (cloud) provayderlarining boshqariladigan yechimlaridan foydalanishi mumkin.
 
-Deploying a web service to the internet involves additional infrastructure: domain name registration, DNS configuration to point your domain to your server, and often a reverse proxy like nginx to handle HTTPS and route traffic. For simpler use cases like documentation or static sites, [GitHub Pages](https://pages.github.com/) provides free hosting directly from a repository.
+Veb-xizmatni internetga yoyish (deploy qilish) qo'shimcha infratuzilmani talab qiladi: domen nomini ro'yxatdan o'tkazish, nomni serveringizga bog'lash uchun DNS konfiguratsiyasi va odatda HTTPS ulanishni qo'llab-quvvatlash hamda trafikni yo'naltirish uchun nginx kabi teskari proksini sozlash. Hujjatlar yoki statik saytlar kabi soddaroq vazifalar uchun, [GitHub Pages](https://pages.github.com/) kodingizning repozitoriysidan to'g'ridan-to'g'ri bepul hosting imkoniyatini beradi.
 
 <!--
 ## Documentation
@@ -620,11 +618,11 @@ Tools like [Sphinx](https://www.sphinx-doc.org/) (Python) and [MkDocs](https://w
 For HTTP-based APIs, the [OpenAPI specification](https://www.openapis.org/) (formerly Swagger) provides a standard format for describing API endpoints, which tools can use to generate interactive documentation and client libraries automatically. -->
 
 
-# Exercises
+# Mashqlar
 
-1. Save your environment with `printenv` to a file, create a venv, activate it, `printenv` to another file and `diff before.txt after.txt`. What changed in the environment? Why does the shell prefer the venv? (Hint: look at `$PATH` before and after activation.) Run `which deactivate` and reason about what the deactivate bash function is doing.
-1. Create a Python package with a `pyproject.toml` and install it in a virtual environment. Create a lockfile and inspect it.
-1. Install Docker and use it to build the Missing Semester class website locally using docker compose.
-1. Write a Dockerfile for a simple Python application. Then write a `docker-compose.yml` that runs your application alongside a Redis cache.
-1. Publish a Python package to TestPyPI (don't publish to the real PyPI unless it's worth sharing!). Then build a Docker image with said package and push it to `ghcr.io`.
-1. Make a website using [GitHub Pages](https://docs.github.com/en/pages/quickstart). Extra (non-)credit: configure it with a custom domain.
+1. O'z muhitingizni `printenv` buyrug'i bilan saqlang, bitta venv yarating va ishga tushiring, `printenv` buyrug'ini boshqa faylga yo'naltiring va `diff before.txt after.txt` ni ko'ring. Muhitda nima o'zgargan? Nimaga shell virtual muhitni (venv) ni ko'proq ma'qul ko'radi? (Maslahat: Aktivatsiya (ishga tushirish)dan oldin va keyin `$PATH` ga e'tibor qiling.) `which deactivate` buyrug'ini ishga tushiring va deactivate bash funksiyasi nima qilayotganini tahlil qiling.
+1. `pyproject.toml` orqali bitta Python paketini yarating va uni virtual muhitda (venv) o'rnating. Bitta lock fayli yarating va uni tekshirib ko'ring.
+1. Docker'ni o'rnating va undan Missing Semester saytini o'z kompyuteringizda (locally) docker compose orqali yurgizib ko'ring.
+1. Sodda bitta Python ilovasi uchun Dockerfile yozing. So'ng Redis keshni o'z ilovangiz bilan ishga tushiradigan `docker-compose.yml` ni yozing.
+1. TestPyPI ga bitta Python paketini nashr qiling (hech qanday qo'shimchasiz, oddiy loyiha bo'lsa uni haqiqiy PyPI ga yuklamang!). Keyin o'sha paketdan foydalanadigan Docker tasvirini (image) yarating va uni `ghcr.io` ga push qiling.
+1. [GitHub Pages](https://docs.github.com/en/pages/quickstart) yordamida veb-sayt yarating. Qo'shimcha (non-credit): unga maxsus domenni (custom domain) moslashtiring.
