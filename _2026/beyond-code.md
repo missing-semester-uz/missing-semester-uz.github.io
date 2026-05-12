@@ -1,8 +1,8 @@
 ---
 layout: lecture
-title: "Beyond the Code"
+title: "Koddan tashqari"
 description: >
-  Learn about essential soft skills including documentation, open-source community norms, and AI etiquette.
+  Muhim yumshoq ko'nikmalar, jumladan hujjatlashtirish, ochiq kodli hamjamiyat me'yorlari va AI odoblari haqida bilib oling.
 thumbnail: /static/assets/thumbnails/2026/lec8.png
 date: 2026-01-22
 ready: true
@@ -11,408 +11,154 @@ video:
   id: 2DOEATfXT8k
 ---
 
-Being a good software engineer isn't just about writing code that
-works. It's about writing code that others (including future you) can
-understand, maintain, and build upon. It's about communicating
-clearly, contributing thoughtfully, and being a good citizen in the
-ecosystems you participate in—whether open source or proprietary.
+Yaxshi dasturiy ta'minot muhandisi bo'lish faqatgina ishlaydigan kod yozishdangina iborat emas. Bu boshqalar (jumladan, kelajakdagi o'zingiz) tushuna oladigan, qo'llab-quvvatlaydigan va ustiga qura oladigan kod yozishdir. Bu ochiq tushuntirish, o'ylab hissa qo'shish va siz ishtirok etayotgan ekotizimlarda — xoh u ochiq kodli, xoh yopiq loyihalarda bo'lsin — yaxshi fuqaro bo'lish demakdir.
 
-# One-way communication
+# Bir tomonlama aloqa
 
-Much of software engineering involves writing for people who lack your
-current context: teammates who join later, maintainers who inherit
-your code, or yourself in six months when you've forgotten why you
-made a particular choice. A key piece of advice for all this kind of
-writing is that your goal is to capture and convey the *why*, not just
-the *what*. The what tends to be self-explanatory, while the *why* is
-hard-earned knowledge that is easily lost to time.
+Dasturiy ta'minot muhandisligining katta qismi joriy kontekstingizni bilmaydigan odamlar uchun yozishdan iborat: jamoaga keyinroq qo'shiladigan jamoadoshlar, kodingizni qabul qilib oladigan maintainer'lar yoki nega aynan shunday qarorga kelganingizni unutib qo'yadigan olti oydan keyingi o'zingiz. Barcha turdagi bunday yozishmalar uchun eng muhim maslahat shuki, sizning maqsadingiz faqatgina *nima* qilinganini emas, balki uning *sababini* (why) ham ko'rsatish va yetkazishdir. *Nima* qilingani odatda tushunarli bo'ladi, lekin uning *sababi* mashaqqat bilan topilgan va vaqt o'tishi bilan oson unutiladigan bilimdir.
 
-Perhaps the most common form of engineer-to-engineer communication
-(apart from the code itself) is code comments. I've personally found
-that a lot of code comments are useless. But they don't have to be! Good
-comments explain things that the code itself cannot: *why* something is
-done a particular way, not *how* it works (which is what the code
-shows). They can save hours of confusion, while bad comments add noise
-or, worse, mislead.
+Balki muhandislar o'rtasidagi eng keng tarqalgan muloqot shakli (kodning o'zidan tashqari) kod izohlaridir. Men shaxsan ko'pgina kod izohlarining foydasiz ekanini ko'rganman. Lekin ular bunday bo'lishi shart emas! Yaxshi izohlar kodning o'zi tushuntirib berolmaydigan narsalarni tushuntiradi: biror narsa *qanday* ishlashini emas (bu kodning o'zida ko'rinadi), nima uchun aynan shunday qilinganini tushuntiradi. Ular soatlab vaqtni tejab, chalkashliklarning oldini oladi, yomon izohlar esa shovqin qo'shadi yoki undan ham yomoni, adashtiradi.
 
-Types of comments that are nearly always worthwhile:
+Deyarli har doim yozishga arziydigan izoh turlari:
 
-- **TODOs**: Mark incomplete or unpolished code, but leave enough
-  context for someone else to understand what's outstanding and why it
-  was deferred. "TODO: optimize" is useless; "TODO: this O(n²) loop is
-  fine for `n<100`, but will need indexing if we scale" is actionable.
-- **References**: Link to external sources when code implements an
-  algorithm from a paper, adapts code from elsewhere, or encodes
-  behaviour specified in documentation. Use permalinks. Note any
-  divergences from the reference.
-- **Correctness arguments**: Explain *why* non-trivial code produces
-  correct results. The code shows the steps; a comment explains why
-  those steps work.
-- **Hard-learned lessons**: If you spent 30+ minutes debugging something
-  and the fix is a non-obvious incantation, document it. Your past self
-  didn't realize it was needed; future readers won't either.
-- **Rationale for constants**: Magic numbers deserve explanation. Why
-  1492? Why 16 bits? Was it chosen randomly, derived from testing, or
-  required for correctness? Even "chosen arbitrarily" is useful
-  information.
-- **Load-bearing choices**: If correctness depends on a
-  seemingly-innocent implementation detail (e.g., "must be a BTreeSet
-  because iteration order matters below"), call it out explicitly.
-- **"Why not"s**: When you deliberately avoid the obvious approach,
-  explain why. Otherwise someone will "fix" it later and break things.
+- **TODO'lar**: Chala yoki silliqlanmagan kodni belgilang, lekin boshqa birov nima qilinmaganligini va nima uchun qoldirilganligini tushunishi uchun yetarli kontekst qoldiring. "TODO: optimallashtirish" foydasiz; "TODO: ushbu O(n²) sikl `n<100` uchun yetarli, ammo biz masshtablashsak, indekslash kerak bo'ladi" degani aniq ko'rsatmadir.
+- **Havolalar**: Agar kod maqoladagi algoritmni amalga oshirsa, boshqa joydan kodni moslashtirsa yoki hujjatlarda ko'rsatilgan xatti-harakatni ifodalasa, tashqi manbalarga havola bering. Doimiy havolalardan (permalink) foydalaning. Asl manbadan har qanday farqlarni yozib qo'ying.
+- **To'g'rilik dalillari**: Nega oddiy bo'lmagan kod to'g'ri natijalarni berishini tushuntiring. Kod qadamlarni ko'rsatadi; izoh esa nima uchun bu qadamlar ishlashini tushuntiradi.
+- **Mashaqqat bilan o'rganilgan darslar**: Agar siz biror narsani debag qilish uchun 30+ daqiqa sarflagan bo'lsangiz va yechim kutilmagan ibora bo'lsa, uni hujjatlashtiring. Sizning o'tmishdagi holatingiz buning kerakligini bilmagan edi; kelajakdagi o'quvchilar ham bilishmaydi.
+- **O'zgarmaslar (konstantalar) mantiqiy asoslari**: Sehrli raqamlar tushuntirishga loyiq. Nega 1492? Nega 16 bit? Bu tasodifan tanlandimi, test natijasida kelib chiqdimi yoki to'g'ri ishlashi uchun kerakmi? Hatoki "ixtiyoriy ravishda tanlangan" degani ham foydali ma'lumotdir.
+- **Muhim tanlovlar**: Agar to'g'rilik qandaydir zararsiz ko'ringan amalga oshirish detaliga bog'liq bo'lsa (masalan, "iteratsiya tartibi quyida muhim bo'lgani uchun BTreeSet bo'lishi kerak"), buni ochiq ayting.
+- **"Nima uchun bunday qilinmadi" (Why not)**: Siz ataylab oson yoki odatiy usuldan qochganingizda, nega shunday qilganingizni tushuntiring. Aks holda kimdir keyinroq uni "tuzatib", narsalarni buzib qo'yadi.
 
-READMEs (you have one, right?) are also a common first touch-point with
-other developers. A good one answers four questions immediately: What
-does this do? Why should I care? How do I use it? How do I install it?
-In that order. Structure it like a funnel: a one-liner and maybe a
-visual demo at the top so someone can decide in seconds if this solves
-their problem, then progressively add depth. Show usage before
-installation — people want to see what they're getting before committing
-to setup steps.
+README'lar (sizda bor, shundaymi?) ham boshqa dasturchilar bilan eng keng tarqalgan birinchi aloqa nuqtasi hisoblanadi. Yaxshi README to'rtta savolga darhol javob beradi: Bu nima qiladi? Bu menga nega kerak? Undan qanday foydalanaman? Uni qanday o'rnataman? Aynan shu tartibda. Uni voronka (funnel) kabi tuzing: eng tepada bir qatorli ta'rif va ehtimol vizual demo, shunda kimdir soniyalar ichida bu ularning muammosini hal qiladimi yoki yo'qligini hal qilishi mumkin, so'ngra asta-sekin chuqurlashib boring. O'rnatishdan oldin undan qanday foydalanishni ko'rsating — odamlar sozlash bosqichlariga kirishishdan oldin nima olishlarini ko'rishni xohlashadi.
 
-Commit messages are another kind of "writing for others" that is often
-neglected. They are often written as "fixed blah" or "added foo", and
-while that may be sufficient in some cases, it's easy to forget that
-they form the historical record of *why* the codebase evolved the way it
-did. When someone (including you!) runs `git blame` trying to understand
-a confusing change, good commit messages should give them answers.
+Commit xabarlari ham ko'pincha e'tibordan chetda qoladigan "boshqalar uchun yozish" ning yana bir turidir. Ular ko'pincha "blah tuzatildi" yoki "foo qo'shildi" deb yoziladi va bu ba'zi hollarda yetarli bo'lishi mumkin bo'lsa-da, ular kod bazasi nima uchun aynan shunday rivojlanganligi haqidagi tarixiy yozuvlarni shakllantirishini unutish oson. Kimdir (shu jumladan siz!) tushunarsiz o'zgarishni tushunishga harakat qilib `git blame`'ni ishga tushirganda, yaxshi commit xabarlari unga javob berishi kerak.
 
-In general, the body should answer:
-- What problem forced this change?
-- What alternatives did you consider?
-- What are the trade-offs or implications?
-- What might be surprising about this approach?
+Umuman olganda, xabarning asosiy qismi quyidagilarga javob berishi kerak:
+- Ushbu o'zgarishni amalga oshirishga qanday muammo majbur qildi?
+- Qanday alternativalarni ko'rib chiqdingiz?
+- Buning foyda va zararlari (trade-offs) yoki oqibatlari qanday?
+- Ushbu yondashuvda nima hayratlanarli bo'lishi mumkin?
 
-> Obviously you should scale detail with complexity. A one-line typo fix
-> needs only a subject. A subtle race condition fix that took hours to
-> debug deserves paragraphs explaining the problem and solution.
+> Albatta, siz batafsillikni qiyinlik darajasiga qarab o'lchashingiz kerak. Bir qatorli xatoni tuzatish faqat mavzuni talab qiladi. Debag qilish uchun soatlab vaqt ketgan nozik poyga holatini tuzatish muammo va echimni tushuntiruvchi xatboshilarga loyiqdir.
 
-For complex changes, it can be useful to follow a Problem → Solution →
-Implications structure: Start with the forcing function or limitation,
-then explain what changed and the key design decisions, and then list
-noteworthy consequences (positive and negative). That last part is
-particularly important; real engineering involves balancing concerns,
-and documenting that a trade-off was intentional prevents future
-developers from thinking you missed the problem.
+Murakkab o'zgarishlar uchun Muammo → Yechim → Oqibatlar tuzilmasiga amal qilish foydali bo'lishi mumkin: Cheklov yoki muammolardan boshlang, nima o'zgargani va asosiy dizayn qarorlarini tushuntiring va keyin muhim oqibatlarni (ijobiy va salbiy) sanab o'ting. Oxirgi qism ayniqsa muhim; haqiqiy muhandislik turli jihatlarni muvozanatlashni o'z ichiga oladi va biror kelishuvning ataylab qilinganligini hujjatlashtirish kelajakdagi dasturchilarga sizning muammoni o'tkazib yuborganingizni o'ylashlariga to'sqinlik qiladi.
 
-LLMs _can_ be helpful in writing commit messages. However, if you simply
-point one at your change and ask it to write the commit message for the
-change, the LLM will only have access to the _what_, not the _why_. And
-the resulting commit message will thus be mostly descriptive (the
-opposite of what we want!). If you used an LLM to help you make the
-change in the first place, asking the LLM to write the commit in that
-same session can be a much better option since your conversation with
-the LLM is inherently a rich source of context about the change!
-Otherwise, or in addition, a useful trick is to specifically tell the
-LLM you'd like a commit message focused on the "why" (and other nuances
-from the notes above), and then _tell it to query you for missing
-context_. Essentially, you're acting like a MCP "tool" for the coding
-agent that it can use to "read" context.
+LLM'lar commit xabarlarini yozishda foydali bo'lishi _mumkin_. Ammo, agar siz shunchaki unga o'zgartirishingizni ko'rsatsangiz va undan o'zgarish uchun commit xabari yozishni so'rasangiz, LLM faqat *nima* bo'lganini biladi, uning *sababini* bilmaydi. Natijada yozilgan commit xabari asosan ta'riflovchi bo'ladi (biz xohlagan narsaning teskarisi!). Agar siz o'zgarish qilish uchun birinchi navbatda LLM'dan foydalansangiz, LLM'dan aynan shu sessiyada commit xabarini yozishni so'rash ancha yaxshiroq variant bo'lishi mumkin, chunki sizning LLM bilan suhbatingiz aslida o'zgarish haqidagi boy kontekst manbaidir! Aks holda yoki bunga qo'shimcha ravishda, LLM'ga *nima uchun* (va yuqoridagi eslatmalardan boshqa jihatlar) asoslangan commit xabarini xohlayotganingizni aniq aytish va so'ngra _yetishmayotgan kontekst uchun sizdan so'rashini buyurish_ foydali hiyladir. Aslida, siz dasturlash agenti uchun u kontekstni "o'qish" uchun ishlata oladigan MCP "vositasi" kabi harakat qilyapsiz.
 
-As your changes get more complex, make sure to also break up commits
-logically (`git add -p` is your friend). Each commit should represent
-one coherent change that could be understood and reviewed independently.
-Don't mix refactoring with new features or combine unrelated bug fixes,
-as this muddies the story for which changes fixed what problem, and will
-almost certainly slow down the eventual review of your changes. It also
-gives you superpowers through `git bisect`, but that's a story for
-another time.
+O'zgarishlaringiz qiyinlashgani sari, commit'larni mantiqan qismlarga ajratishga harakat qiling (`git add -p` sizning do'stingizdir). Har bir commit mustaqil ravishda tushunilishi va ko'rib chiqilishi mumkin bo'lgan bitta yaxlit o'zgarishni ifodalashi kerak. Yangi xususiyatlar bilan refaktor qilishni aralashtirmang yoki bir-biriga aloqasi bo'lmagan xatolarni tuzatishni birlashtirmang, chunki bu qaysi o'zgarish qaysi muammoni hal qilganligi haqidagi hikoyani chalkashtiradi va keyinchalik o'zgarishlaringizni ko'rib chiqishni sekinlashtiradi. Bu shuningdek, `git bisect` orqali sizga katta imkoniyatlar beradi, lekin bu boshqa mavzu.
 
-> One note as you start being more diligent about technical writing, and
-> using it more extensively, make sure you respect the reader. It's easy
-> to end up over-explaining once you start, but you have to resist that
-> urge lest the reader read _none_ of what you've written. Explain the
-> "why" and trust them to figure out the "how" for their situation.
+> Yana bir eslatma: texnik matnlarni yozishda tirishqoqroq bo'la boshlaganingizda va undan kengroq foydalanishni boshlaganingizda, o'quvchini hurmat qilishni unutmang. Boshlaganingizdan so'ng ortiqcha tushuntirish berib yuborish oson, lekin o'quvchi siz yozgan narsalarning _hech birini_ o'qimasligiga yo'l qo'ymaslik uchun bu istakka qarshi turishingiz kerak. Uning *sababini* tushuntiring va ularning holati uchun *qanday* ekanligini o'zlari tushunib olishlariga ishoning.
 
-# Collaboration
+# Hamkorlik
 
-As engineers, we may spend a large part of our job coding at our own
-keyboard, but a sizeable chunk of our time is also taken up by
-communicating with others. That time is usually split into collaboration
-and education, and the payoff from investing in getting better at both is
-significant.
+Muhandis sifatida biz ko'p vaqtimizni klaviatura oldida kod yozish bilan o'tkazishimiz mumkin, biroq vaqtimizning katta qismi boshqalar bilan muloqot qilishga ham ketadi. Bu vaqt odatda hamkorlik va ta'lim o'rtasida bo'linadi va har ikkalasida ham malakani oshirishga sarflangan investitsiyaning foydasi katta bo'ladi.
 
-## Contributing
+## Hissa qo'shish
 
-Whether you are submitting a bug report, contributing a simple bug fix,
-or implementing a huge feature, it's worth keeping in mind that there
-are usually orders of magnitude more users than there are contributors,
-and an order of magnitude more contributors than there are maintainers.
-As a result, maintainer time is highly oversubscribed. If you want to
-increase the likelihood that your contribution goes somewhere
-productive, you have to ensure that your contributions carry a high
-signal-to-noise ratio and are worth the maintainers' time.
+Siz xato haqida hisobot yuboryapsizmi, oddiy xatoni tuzatishga hissa qo'shyapsizmi yoki ulkan xususiyatni yaratyapsizmi, yodda tutingki, odatda hissa qo'shuvchilardan ko'ra foydalanuvchilar soni minglab barobar ko'proq va maintainer'lardan ko'ra hissa qo'shuvchilar o'nlab barobar ko'proq. Natijada, maintainer'larning vaqti juda tig'iz bo'ladi. Agar siz qo'shgan hissangiz qandaydir ijobiy natija berish imkoniyatini oshirmoqchi bo'lsangiz, hissanggizda shovqinga nisbatan foydali ma'lumot yuqori bo'lishini va maintainer'larning vaqtiga arziydigan darajada bo'lishini ta'minlashingiz kerak.
 
-For example, a good bug report respects the maintainer's time by
-providing everything needed to understand and reproduce the problem:
+Masalan, yaxshi xato haqida hisobot maintainer'ning vaqtini hurmat qiladi va muammoni tushunish va qayta takrorlash uchun kerakli bo'lgan barcha narsani taqdim etadi:
 
-- **Environment**: OS, version numbers, relevant configuration
-- **What you expected** vs **what actually happened**
-- **Steps to reproduce**: Be specific. "Click the button" is less useful
-  than "Click the Submit button on the /settings page while logged in as
-  an admin."
-- **What you've already tried**: This prevents duplicate suggestions and
-  shows you've done some investigation
+- **Muhit**: OT, versiya raqamlari, tegishli konfiguratsiya
+- **Nima kutgan edingiz** va **aslida nima bo'ldi**
+- **Qayta takrorlash qadamlari**: Aniq bo'ling. "Tugmani bosing" deganidan ko'ra, "Admin sifatida tizimga kirganda /settings sahifasidagi Submit tugmasini bosing" deb yozish ancha foydaliroq.
+- **Siz allaqachon nima qilib ko'rdingiz**: Bu takroriy takliflarning oldini oladi va siz qandaydir izlanish olib borganingizni ko'rsatadi
 
-> If you find a security vulnerability, don't post it publicly. Contact
-> the maintainers privately first and give them reasonable time to fix
-> it before disclosure. Many projects have a SECURITY.md file or
-> similar for this purpose.
+> Agar xavfsizlik zaifligini topsangiz, uni hammaga ochiq e'lon qilmang. Dastlab maintainer'lar bilan shaxsan bog'laning va muammoni e'lon qilishdan oldin uni tuzatishlari uchun ularga yetarli vaqt bering. Ko'pgina loyihalarda shu maqsadda SECURITY.md yoki unga o'xshash fayl mavjud.
 
-**Make sure you search for existing issues.** Your bug or feature
-request may already be reported, and it's far better to add information
-to existing discussions rather than creating duplicates. Not to mention,
-it reduces noise for the maintainers.
+**Mavjud muammolarni qidirib ko'rganingizga ishonch hosil qiling.** Sizning xato yoki xususiyat so'rovingiz avvalroq e'lon qilingan bo'lishi mumkin va yangi nusxasini yaratish o'rniga mavjud muhokamalarga qo'shimcha ma'lumot kiritish ancha afzalroq. Bundan tashqari, bu maintainer'lar uchun ortiqcha shovqinni kamaytiradi.
 
-Minimal reproducible examples are gold, if you can come up with one.
-They save the maintainer a huge amount of time and effort, and
-reliably reproducing the bug is often the hardest part of fixing it. Not
-to mention, the effort you put into isolating the problem often helps
-you understand it better too, and sometimes leads you to find a fix
-yourself.
+Agar qila olsangiz, minimal qayta takrorlanadigan misollar (minimal reproducible examples) juda qadrlidir. Ular maintainer'ning juda ko'p vaqt va kuchini tejaydi va ko'pincha muammoni ishonchli takrorlash uni tuzatishning eng qiyin qismi bo'ladi. Qolaversa, muammoni ajratib ko'rsatish uchun sarflagan kuchingiz ko'pincha muammoni yaxshiroq tushunishingizga yordam beradi va ba'zan uni o'zingiz tuzatishga ham yordam beradi.
 
-If you don't hear back right away, keep in mind that maintainers are
-often volunteers with limited time. If you're waiting for a reply from
-them, a polite follow-up after a couple weeks is fine; daily pings are
-not. Similarly, "me too" comments, or bug reports that are just a
-copy-paste of some terminal output tend to be a net-negative in terms of
-getting traction for your issue.
+Agar darhol javob olmasangiz, maintainer'lar ko'pincha vaqti cheklangan ko'ngillilar ekanligini yodda tuting. Agar siz ulardan javob kutayotgan bo'lsangiz, bir necha haftadan so'ng xushmuomalalik bilan eslatib o'tish normal holat; har kuni bezovta qilish esa noto'g'ri. Shunga o'xshab, "men ham shunday" qabilidagi izohlar yoki shunchaki terminaldagi xatolarni nusxalab joylashtirilgan xato haqida hisobotlar muammongizga e'tibor jalb etish borasida foydadan xoli bo'ladi.
 
-If you're looking to make a code contribution, you'll also want to
-familiarize yourself with the contribution guidelines. Many projects
-have a `CONTRIBUTING.md` — follow it. You'll also usually want to start
-small; a typo fix or documentation improvement is a great first
-contribution as it helps you learn the project's processes without also
-having to go through lots of back and forth on the content.
+Agar kod qismini hissa sifatida qo'shmoqchi bo'lsangiz, hissa qo'shish qoidalari bilan tanishib chiqing. Ko'pgina loyihalarda `CONTRIBUTING.md` fayli bor — unga amal qiling. Odatda kichik narsadan boshlashni xohlaysiz; xatolarni tuzatish yoki hujjatlarni yaxshilash loyiha jarayonlarini o'rganishda ajoyib dastlabki hissa hisoblanadi.
 
-> Check what license the project uses, as any code you contribute will
-> fall under the same license. In particular, look out for copyleft
-> licenses (like GPL), which requires derivatives to also be open source
-> and may have implications for your employer if you touch it!
-> [choosealicense.com](https://choosealicense.com/) has more useful
-> information.
+> Loyiha qanday litsenziyadan foydalanishini tekshiring, chunki siz qo'shgan har qanday kod aynan shu litsenziya ostida bo'ladi. Xususan, nusxalash huquqi bo'lgan litsenziyalarga (GPL kabi) e'tibor bering, bu keyingi o'zgarishlarni ochiq kodli bo'lishini talab qiladi va agar unga qo'l ursangiz, bu sizning ish beruvchingizga ta'sir qilishi mumkin!
+> [choosealicense.com](https://choosealicense.com/) saytida ko'proq foydali ma'lumotlar bor.
 
-When you've decided to open a pull request ("PR"), first make sure you
-isolate the change you actually want to be accepted. If your PR changes
-lots of other unrelated things at the same time, chances are the
-reviewer will send it back to you asking you to clean it up. This is
-similar to how you should break down your git commits into semantically
-related chunks.
+Siz pull request ("PR") ochishga qaror qilganingizda, avvalo, o'zingiz qabul qilinishini xohlagan o'zgarishni alohida ekanligiga ishonch hosil qiling. Agar sizning PR'ingiz bir vaqtning o'zida boshqa aloqasiz ko'p narsalarni ham o'zgartirsa, katta ehtimol bilan uni tekshiruvchi sizga uni tozalashni so'rab qaytaradi. Bu sizning git commit'larni semantik jihatdan bog'liq qismlarga qanday bo'lishingiz kerakligiga o'xshaydi.
 
-In some cases, if you have many seemingly-disparate changes but
-they're all needed to enable one feature, it may be okay to open a
-larger PR that captures all the changes. However, in this case, commit
-hygiene is particularly important so that maintainers have the option
-to review the change "commit by commit".
+Ba'zi hollarda, agar sizda bir-biriga bog'liq bo'lmagan turli xil o'zgarishlar mavjud bo'lsa, lekin ular bitta xususiyatni ishga tushirish uchun barchasi kerak bo'lsa, barcha o'zgarishlarni o'z ichiga olgan kattaroq PR ni ochish mumkin bo'lishi mumkin. Lekin, bunday holatda, maintainer'lar o'zgarishni "commit'ma commit" ko'rib chiqish imkoniyatiga ega bo'lishlari uchun commit gigiyenasiga ahamiyat berish ayniqsa muhimdir.
 
-Next, make sure you explain the "why" behind the change well. Don't just
-describe _what_ changed — explain _why_ the change is needed and _why_
-this is a good way to address the problem. You should also proactively
-call out parts of the change that warrant special attention in the
-review, if any. Depending on `CONTRIBUTING.md` and the nature of your
-change, reviewers may also expect to see additional information like
-trade-offs you made or how to test the change.
+Keyin, o'zgarishning "nima uchun" ligini yaxshi tushuntirganingizga ishonch hosil qiling. Faqat *nima* o'zgarganligini aytib qolmang — *nima uchun* o'zgartirish kerakligini va nima uchun bu muammoni hal qilishning yaxshi usuli ekanligini tushuntiring. Shuningdek, siz ko'rib chiqishda alohida e'tibor berilishi kerak bo'lgan o'zgarish qismlarini (agar mavjud bo'lsa) ochiqchasiga ajratib ko'rsatishingiz kerak. O'zgarishingiz mohiyatiga va `CONTRIBUTING.md` fayliga qarab, tekshiruvchilar o'zgarishni qanday tekshirish kabi qo'shimcha ma'lumotlarni ham ko'rishni xohlashlari mumkin.
 
-> We recommend contributing back to upstream projects rather than
-> "forking" the project, at least as a first approach. Forking (license
-> permitting) should be reserved for when the contributions you want to
-> make are out of scope for the original project. If you do fork, make
-> sure you acknowledge the original project!
+> Dastlabki yondashuv sifatida biz loyihani "fork" qilish o'rniga to'g'ridan-to'g'ri upstream loyihalarga hissa qo'shishni tavsiya qilamiz. Fork qilish (litsenziya ruxsat bergan hollarda) siz qo'shmoqchi bo'lgan o'zgarishlar asl loyihaning qamrovidan tashqarida bo'lgan hollar uchungina saqlanishi kerak. Agar siz rostdan ham fork qilsangiz, albatta, asl loyihaga havola bering!
 
-AI makes it incredibly easy to generate plausible-looking code and PRs
-quickly, but this doesn't excuse you from understanding what you're
-contributing. Submitting AI-generated code you can't explain burdens
-maintainers with reviewing and potentially maintaining code that even
-its author doesn't understand. It's fine to use AI to help you
-identify issues and produce fixes/features, **so long as you still do
-the due diligence** to polish it into a worthwhile contribution, rather
-than passing that work on to the (already-overloaded) maintainers.
+AI tezkor ravishda ishonarli ko'rinadigan kodlar va PR'larni yaratishni osonlashtiradi, lekin bu sizni o'z hissangizni tushunish mas'uliyatidan ozod qilmaydi. O'zingiz tushuntirib berolmaydigan AI tomonidan yozilgan kodni yuborish, maintainer'larga hatto uning muallifi tushunmaydigan kodni ko'rib chiqish va qo'llab-quvvatlashdek ortiqcha yuk tushiradi. Muammolarni aniqlash va xatolarni tuzatish yoxud yangi xususiyatlarni yaratish uchun AI'dan foydalanish normal holat, **faqat agar siz hali ham uni maintainer'larga yuk qilmay, mazmunli hissa bo'lishi darajasiga keltira olsangizgina**.
 
-Remember that for maintainers, accepting a PR means accepting long-term
-responsibility. They will be maintaining this code long after the
-contributor has moved on, and so may decline changes that are
-well-intentioned but don't fit the project's direction, add complexity
-they don't want to maintain, or where the need simply isn't sufficiently
-well-documented. It's on _you_ as the contributor to make the case for
-why accepting the contribution is worth the maintenance burden.
+Yodda tutingki, maintainer'lar uchun PR ni qabul qilish uzoq muddatli javobgarlikni anglatadi. Ular ushbu kodni hissa qo'shuvchi ketganidan so'ng ham uzoq vaqt qo'llab-quvvatlashadi, shuning uchun ular niyati yaxshi bo'lgan, ammo loyiha yo'nalishiga to'g'ri kelmaydigan, ortiqcha murakkablik qo'shadigan yoki umuman yetarlicha asoslanmagan o'zgarishlarni rad etishlari mumkin. Hissangiz nega arzigulik ekanligini isbotlash sizning, ya'ni hissa qo'shuvchining zimmangizda.
 
-> When receiving feedback on a PR, remember that your code is not you!
-> Reviewers are trying to make the code better, not criticizing you
-> personally. Ask clarifying questions if you disagree — you might learn
-> something, or maybe they will.
+> PR bo'yicha fikr-mulohazalar (feedback) olganingizda, yodda tutingki, yozgan kodingiz bu shaxsan siz emassiz! Ko'rib chiquvchilar kodni yaxshilashga harakat qilishmoqda, sizni shaxsan tanqid qilishmayapti. Agar rozi bo'lmasangiz, savollar bering — ehtimol siz nimanidir o'rganarsiz yoki ular tushunib olishar.
 
-## Reviewing
+## Ko'rib chiqish
 
-You might think code review is something senior developers do, but
-you'll likely be asked to review code much earlier than you expect, and
-your perspective is valuable. Fresh eyes catch things that experienced
-developers overlook, and questions from someone less familiar with the
-code often reveal assumptions that should be documented or simplified.
+Siz kodni ko'rib chiqishni asosan tajribali dasturchilar (senior developers) qilinadigan ish deb o'ylashingiz mumkin, lekin ehtimol sizdan kodni ko'rib chiqish ancha ertaroq so'ralishi mumkin va sizning nuqtai nazaringiz qadrlidir. Yangicha nigohlar tajribali dasturchilar e'tiborsiz qoldirgan narsalarni ko'radi va kod bilan unchalik tanish bo'lmagan kishining savollari ko'pincha hujjatlashtirilishi yoki soddalashtirilishi kerak bo'lgan jihatlarni fosh etadi.
 
-Review is also one of the fastest ways to learn. You'll see how others
-approach problems, pick up patterns and idioms, and develop intuition
-for what makes code readable. Beyond personal growth, reviews catch bugs
-before they reach production, spread knowledge across the team, and
-improve code quality through collaboration. They are not merely
-bureaucratic overhead.
+Shuningdek, kodni ko'rib chiqish eng tez o'rganish usullaridan biridir. Siz boshqalarning muammolarga qanday yondashishini ko'rasiz, turli naqshlar va idiomalarni tushunasiz, hamda kodni o'qish qulayligi qanday bo'lishi kerakligi haqidagi bilimlaringizni oshirasiz. Shaxsiy o'sishdan tashqari, tekshirishlar mahsulot ishlab chiqarishga chiqqunga qadar muammolarni aniqlash, bilimlarni butun jamoa bo'ylab tarqatish va hamkorlik orqali kod sifatini oshirish imkonini beradi. Ular shunchaki byurokratik jarayon emas.
 
-Good code review is a skill you need to hone over time, but there are
-some tips that can make them much better much faster:
+Kodni to'g'ri ko'rib chiqish vaqt o'tishi bilan o'stirilishi kerak bo'lgan ko'nikmadir, biroq ularni tezroq yaxshilashga yordam beruvchi ba'zi maslahatlar mavjud:
 
-- **Review the code, not the person**:
-  "This function is confusing" vs "You wrote confusing code."
-- **Prefer actionable comments**:
-  "Can you replace these globals with a config dataclass" is an easier
-  comment to address than "Don't use globals here"
-- **Ask questions rather than making demands**:
-  "What happens if X is null here?" invites discussion better than
-  "Handle the null case."
-- **Explain the "why"**:
-  "Consider using a constant here" is less useful than "Consider using a
-  constant here so we can easily adjust the timeout based on
-  environment."
-- **Distinguish blocking issues from suggestions**:
-  Be clear about what must change versus what's a matter of preference.
-- **Acknowledge what's good**:
-  Pointing out clever solutions or clean implementations is encouraging
-  and helps the author know what to continue doing.
-- **Know when to stop**:
-  Contributors only have so much time and patience, and it's not always
-  best spent handling all the nits. Focus on the big things, and
-  consider tidying up nits yourself after the fact.
+- **Shaxsni emas, kodni tekshiring**:
+  "Sen chalkash kod yozibsan" o'rniga "Bu funksiya tushunarsiz" deng.
+- **Amalga oshirsa bo'ladigan izohlar bering**:
+  "Bu yerda globallardan foydalanmang" deyishdan ko'ra "Ushbu globallarni config ma'lumotlar sinfiga (dataclass) almashtira olasizmi?" deyish ancha qulay.
+- **Talab qo'yishdan ko'ra savol so'rang**:
+  "Null holatni tuzating" o'rniga "Bu yerda X null bo'lsa nima bo'ladi?" deyish muhokamani osonlashtiradi.
+- **"Sababini" tushuntiring**:
+  "Muhitga qarab kutish vaqtini oson sozlashimiz uchun, bu yerda o'zgarmasdan (constant) foydalanishni o'ylab ko'ring" deyish, "Bu yerda o'zgarmasdan foydalanishni o'ylab ko'ring" deyishdan ancha aniqroq.
+- **To'sqinlik qiluvchi muammolarni takliflardan ajrating**:
+  O'zgarishi shart bo'lgan narsalar va shunchaki tanlov masalasi bo'lgan narsalar o'rtasidagi farqni ochiq ko'rsating.
+- **Yaxshi joylarini e'tirof eting**:
+  Aqlli yechimlar yoki toza amalga oshirilgan joylarni e'tirof etish rag'batlantiradi va muallifga nimani davom ettirishi kerakligini tushunishga yordam beradi.
+- **Qachon to'xtatishni biling**:
+  Hissa qo'shuvchilarning vaqti va sabr-toqati cheklangan va barcha kichik tafsilotlarni (nits) to'g'rilash har doim ham o'zini oqlamaydi. Muhimroq narsalarga e'tibor qarating va o'sha kichik detallarni keyinchalik o'zingiz to'g'irlab qo'yishni o'ylab ko'ring.
 
-> AI tools can catch certain issues, but they're not a substitute for
-> human review. They miss context, don't understand product
-> requirements, and can confidently suggest wrong things. They're worth
-> using as a first pass, but not a replacement for thoughtful human
-> review.
+> AI vositalari muayyan muammolarni ushlab olishi mumkin, ammo ular inson nazoratining o'rnini bosa olmaydi. Ular kontekstni o'tkazib yuborishadi, mahsulot talablarini tushunishmaydi va noto'g'ri narsalarni ishonch bilan taklif qilishlari mumkin. Ularni birinchi yondashuv sifatida ishlatish foydali, lekin o'ylab qilingan insoniy tekshirishning o'rniga emas.
 
-# Education
+# Ta'lim
 
-A lot of our non-coding time as engineers is spent either asking or
-answering questions, possibly a mixture of both; during collaboration,
-in dialogue with peers, or while trying to learn. Asking good questions
-is a skill that makes you better at learning from anyone, not just
-perfect explainers. Julia Evans has some excellent blog posts on "[How
-to ask good questions](https://jvns.ca/blog/good-questions/)" and "[How
-to get useful answers to your
-questions](https://jvns.ca/blog/2021/10/21/how-to-get-useful-answers-to-your-questions/)"
-that are worth reading.
+Muhandis sifatida bizning kodlashdan tashqari vaqtimizning katta qismi yo savol berishga, yoki savolga javob berishga, yoxud ikkalasini aralashtirgan holda: hamkorlik, hamkasblar bilan muloqot va o'rganish davomida sarflanadi. Yaxshi savol berish ko'nikmasi har kimdan — faqat eng zo'r tushuntiruvchilardan emas — o'rganishingizga yordam beradi. Julia Evansning "[How to ask good questions](https://jvns.ca/blog/good-questions/)" (Qanday qilib yaxshi savollar berish kerak) va "[How to get useful answers to your questions](https://jvns.ca/blog/2021/10/21/how-to-get-useful-answers-to-your-questions/)" (Savollaringizga qanday qilib foydali javoblar olish mumkin) deb nomlangan juda ajoyib blog postlari bor, ularni o'qib chiqishni tavsiya qilamiz.
 
-Some particularly valuable pieces of advice are:
+Bunga oid ba'zi xususiy va foydali maslahatlar:
 
-- **State your understanding first**: Say what you think you know and
-  ask "is that right?" This helps the answerer identify your actual
-  knowledge gaps.
-- **Ask yes/no questions**: "Is X true?" prevents tangential
-  explanations and usually prompts useful elaboration anyway.
-- **Be specific**: "How do SQL joins work?" is too vague. "Does a LEFT
-  JOIN include rows where the right table has no match?" is answerable.
-- **Admit when you don't understand**: Interrupt to ask about unfamiliar
-  terms. This reflects confidence, not weakness. Similarly, if they ask
-  questions of you that you do not know the answer to, it's best to say
-  "I don't know", and possibly follow up with "but I think ..." or even
-  "but I can find out".
-- **Don't accept incomplete answers**: Keep asking follow-ups until you
-  actually understand.
-- **Do some research first**: Basic investigation helps you ask more
-  targeted questions (though casual questions among colleagues are
-  fine).
+- **Dastlab qanday tushunganingizni ayting**: Sizningcha nima bilishingizni ayting va "shu to'g'rimi?" deb so'rang. Bu javob beruvchiga bilimingizdagi bo'shliqlarni ko'rishga yordam beradi.
+- **Ha/Yo'q deb javob beriladigan savollar so'rang**: "X to'g'rimi?" deyish ortiqcha tushuntirishlarning oldini oladi va ko'pincha baribir kerakli tafsilotlarga undaydi.
+- **Aniq bo'ling**: "SQL joins qanday ishlaydi?" juda noaniq savol. "LEFT JOIN o'ng jadvalda hech qanday moslik bo'lmagan qatorlarni ham o'z ichiga oladimi?" javob berishga osonroq.
+- **Tushunmaganingizni tan oling**: Notanish so'zlarni so'rash uchun gapni bo'ling. Bu ishonchni aks ettiradi, zaiflikni emas. Xuddi shunday, agar sizdan javobini bilmagan savollar so'rashsa, eng yaxshisi "Men bilmayman", keyin "lekin menimcha ..." yoki hatto "lekin men topishim mumkin" deyishingiz mumkin.
+- **To'liqsiz javoblarni qabul qilmang**: Haqiqatan ham tushunmaguningizcha, qo'shimcha savollar beravering.
+- **Avval ozroq izlanish qiling**: Asosiy tadqiqot qilsangiz, maqsadliroq savol berishingizga yordam beradi (garchi hamkasblar orasidagi oddiy savollar uchun buning hojati yo'q).
 
-Remember: well-crafted questions benefit entire communities. They
-surface hidden assumptions that others need to understand too.
+Yodda tuting: yaxshi tuzilgan savollar butun kompyuter ixlosmandlariga foyda keltiradi. Ular boshqalar ham tushunishi kerak bo'lgan yashirin jihatlarni ochib beradi.
 
-> Note that this advice applies just as much when communicating with
-> LLMs!
+> Esda tutingki, ushbu maslahatlar LLM'lar bilan muloqot qilishda ham to'laqonli tegishli!
 
-# AI etiquette
+# AI odoblari
 
-With the growing use of LLMs and AI across software engineering, the
-social and professional norms around are still in flux. We already
-covered many of the tactical considerations in the [agentic coding
-lecture](/2026/agentic-coding/), but there are also "softer" parts of
-their use that are worth discussing.
+Dasturiy ta'minot yaratishda LLM va AIdan foydalanish tobora o'sib borayotgani sababli, bu boradagi ijtimoiy va professional me'yorlar hali ham o'zgarish holatida. [Dasturlash agenti ma'ruzamizda](/2026/agentic-coding/) ko'plab taktik masalalarni qamrab olgan bo'lsak-da, ularni qo'llashdagi "yumshoqroq" jihatlarni ham muhokama qilish foydalidir.
 
-The first of these is that when AI meaningfully contributed to your
-work, **disclose it**. This isn't about shame — it's about honesty,
-setting appropriate expectations, and ensuring the resulting work gets
-the appropriate level of review. It's also worthwhile to disclose which
-_parts_ you use AI for — there's a meaningful distinction between "this
-whole thing is vibecoded" and "I wrote this backup tool and used an LLM
-to style the web frontend". For example, we've used LLMs to help write
-some of these lecture notes, including proofreading, brainstorming, and
-generating first drafts of code snippets and exercises.
+Ulardan birinchisi - agar AI ishingizda muhim rol o'ynagan bo'lsa, **buni oshkora ayting**. Bu uyat emas — bu halollik, to'g'ri taxminlarni o'rnatish va natijaviy ishlarning tegishli darajada tekshirilishini ta'minlash bilan bog'liq. Shuningdek, qaysi _qismlari_ uchun AI'dan foydalanganingizni oshkor qilish ham muhim — "bu butun narsa vibe coding yordamida qilingan" va "men bu zahira(backup) vositasini yozdim, ammo veb-interfeysni uslublashda LLM'dan foydalandim" degan javoblar o'rtasida farq bor. Masalan, biz ba'zi ushbu ma'ruza yozuvlarini tayyorlashda, jumladan, matnni tahrir qilish, miyaga hujum qilish, shuningdek, kod parchalari va mashqlarni tayyorlashda LLM'lardan yordam sifatida foydalandik.
 
-You'll also want to follow the norms of the teams and projects you're
-contributing to here. Some teams have stricter policies around the use
-of AI than others (e.g., for compliance or data residency reasons), and
-you don't want to accidentally run afoul of that. Being open about your
-use helps prevent potentially costly mistakes.
+Bunda hamkorlik qilayotgan jamoalaringiz va loyihalaringiz tartib-qoidalariga rioya qilishni unutmang. Ba'zi jamoalar AI'dan foydalanish borasida boshqalarga qaraganda qattiqroq qoidalarga ega bo'lishadi (masalan, muvofiqlik yoki ma'lumotlar saqlanishi kabi sabablar bilan) va siz xatolik tufayli ularga qarshi chiqishni xohlamaysiz. AI'dan qanday foydalanayotganingiz borasida ochiqroq bo'lish, kelajakda yuzaga kelishi mumkin bo'lgan qimmatga tushuvchi xatoliklarning oldini oladi.
 
-> If you're aiming to learn as part of the work you're doing, keep in
-> mind that if you have AI do all or most of the work for you can be
-> self-defeating; you're likely to learn more about prompting (and maybe
-> reviewing AI output) than the task itself. Especially when you're
-> learning, the point may be the journey, not the destination, so using
-> AI to "get the solution quickly" is an anti-goal.
+> Agar siz ish faoliyatingiz orqali o'rganishni maqsad qilsangiz, AI barcha yoki aksariyat ishlarni siz uchun qilib bersa, bu sizga aks ta'sir qilishi mumkinligini unutmang; ehtimol siz vazifaning o'zidan ko'ra prompting (yoki sun'iy intellekt xulosalarini ko'rib chiqish) haqida ko'proq o'rganarsiz. Ayniqsa siz o'rganayotgan bo'lsangiz, asosiy maqsad natija emas, balki izlanishdir. Shuning uchun "yechimni tezroq topish" uchun AI'dan foydalanish maqsadlaringizga mos kelmaydi.
 
-A related concern comes up in interviews and other assessment
-situations. These are often intended to specifically evaluate _your_
-skills and abilities, not those of an LLM. More companies now allow you
-to use LLMs and other AI-assisted tooling in interviews as long as you
-let them observe those interactions as part of the interview (i.e., they
-are evaluating your skill in making use of those tools too!), but those
-are still in the minority. If you are unsure about whether AI assistance
-is in scope for a particular task, ask!
+Shunga o'xshash masalalar, ish intervyularida va boshqa baholash vaziyatlarida ham paydo bo'ladi. Ular odatda LLM'ni emas, faqat _sizning_ qobiliyatingizni va ko'nikmangizni baholash maqsadida qo'llaniladi. Aksar kompaniyalar hozirda suhbat paytida LLM va boshqa sun'iy intellektga asoslangan vositalardan foydalanishga ijozat bermoqda, agar ular intervyuning bir qismi bo'lsa (ya'ni, ular sizning asboblardan unumli foydalana olish ko'nikmangizni ham baholashadi!). Biroq bu hali ham kamchilikni tashkil etadi. Agar sun'iy intellekt vositalari qaysidir muayyan vazifa doirasiga kiritilishi haqida shubhalansangiz, avvalo, uni so'rab aniqlashtirib oling!
 
-> It should go without saying that if an assessment situation explicitly
-> calls for no external tools, no LLMs, etc., you should not use them.
-> Trying to do so discretely without getting caught **will** come back
-> to bite you.
+> Agar baholash holatida har qanday tashqi vositalar yoxud LLM'lardan foydalanmaslik ta'kidlab o'tilgan bo'lsa, bilish kerakki, siz ulardan foydalanmasligingiz kerak. Qandaydir ko'rinmas tarzda ularni ishlatishga urinish **oxiri** borib sizga teskari zarba berishi tayin.
 
-# Exercises
+# Mashqlar
 
-1. Browse the source code of a well-known project (e.g.,
-   [Redis](https://github.com/redis/redis) or
-   [curl](https://github.com/curl/curl)). Find examples of some of the
-   comment types mentioned in the lecture: a useful TODO, a reference to
-   external documentation, a "why not" comment explaining an avoided
-   approach, or a hard-learned lesson. What would be lost if that
-   comment was not there?
+1. Taniqli loyihaning kodini ko'rib chiqing (masalan, [Redis](https://github.com/redis/redis) yoki [curl](https://github.com/curl/curl)). Ma'ruzada eslatib o'tilgan izoh turlaridan ba'zilariga misollar toping: foydali TODO, tashqi hujjatlarga havola, nega bunday yondashuv ishlatilmagani tushuntirilgan "Why not" izohi yoki qiyinlik bilan o'rganilgan dars. Agar o'sha izoh bo'lmaganida, loyiha nimani yo'qotardi?
 
-1. Pick an open-source project you're interested in and look at its
-   recent commit history (`git log`). Find one commit with a good
-   message that explains *why* the change was made, and one with a weak
-   message that only describes *what* changed. For the weak one, look at
-   the diff (`git show <hash>`) and try to write a better commit message
-   following the Problem → Solution → Implications structure. Notice how
-   much work is required to reassemble the necessary context after the
-   fact!
+1. O'zingiz qiziqqan ochiq kodli loyihani tanlang va uning so'nggi commit tarixini (`git log`) ko'rib chiqing. O'zgarish *nima uchun* amalga oshirilganligini yaxshi tushuntirib bera oladigan bir yaxshi commit xabarini va faqat *nima* o'zgarganligini ko'rsatadigan bir kuchsiz commit xabarini toping. Kuchsiz xabar uchun farqni ko'ring (`git show <hash>`) va Muammo → Yechim → Oqibatlar tuzilmasidan foydalangan holda yaxshiroq commit xabarini yozishga harakat qiling. Keyinchalik kerakli kontekstni tiklash uchun qancha harakat kerakligiga e'tibor bering!
 
-1. Compare the READMEs of three GitHub projects with 1000+ stars. Are
-   all of them equally useful? Look for things that come across mostly
-   as noise to you as a lesson for future READMEs you write yourself.
+1. 1000+ yulduzi bor uchta GitHub loyihasining README'larini taqqoslang. Ular barchasi birdek foydalimi? Kelajakda o'zingiz yozadigan README'lar uchun shovqin deb biladigan, sizni chalg'itadigan xatoliklarni topishga harakat qiling.
 
-1. Find an open issue on a project you use (check the "good first issue"
-   or "help wanted" labels if they have it). Evaluate the issue against
-   the criteria from the lecture: does it seem like it values the
-   maintainer's time and contains all the information necessary to debug
-   it, or do you expect that the maintainer may need to go multiple
-   rounds of questions with the submitter to get to the root problem?
+1. O'zingiz foydalanayotgan loyihada ochiq muammoni (issue) toping (agar mavjud bo'lsa, "good first issue" yoki "help wanted" belgilarini tekshiring). Muammoni ma'ruzadagi mezonlarga asoslanib baholang: muammo hisobotiga qarab u maintainer'ning vaqtini qadrlagandek, muammoni hal qilish uchun hamma ma'lumotni yetarlicha yozgandekmi yoki maintainer muammo nimaligini tushunish uchun yuboruvchi bilan bir qancha marta yozishishga majburmi?
 
-1. Think of a bug you've encountered in software you use (or find one in
-   an issue tracker). Practice creating a minimal reproducible example:
-   strip away everything unrelated to the bug until you have the
-   smallest case that still demonstrates the problem. Write up what you
-   removed and why.
+1. Foydalanadigan dasturiy ta'minotingizda duch kelgan xatoingizni eslang (yoki issue tracker'dan birortasini toping). Minimal qayta takrorlanadigan misol yaratishni mashq qiling: xato bilan bog'liq bo'lmagan hamma narsani olib tashlab, muammoni namoyish etishda davom etuvchi eng kichik kodni qoldiring. Nima uchun va qaysi narsalarni olib tashlaganingizni yozing.
 
-1. Find a merged pull request on a project you're familiar with that has
-   substantive review comments (not just "LGTM"). Read through the
-   review. Were all the comments equally productive? If you were the PR
-   author, how would you find the experience of getting all those
-   comments?
+1. O'zingiz yaxshi biladigan loyihada mazmunli tahlil qilingan ("LGTM" bo'lmagan) merge qilingan pull request toping. Sharhni oxirigacha o'qing. Barcha izohlar bir xil darajada unumli bo'lganmi? Agar siz PR muallifi bo'lganingizda, barcha sharhlarni qabul qilish tajribasi haqida qanday fikrda bo'lar edingiz?
 
-1. Go to Stack Overflow and find a question in a technology you know
-   that has a highly-voted answer. Then find one that was closed or
-   heavily downvoted. Compare them against the advice from the lecture;
-   was it predictable which question would get better answers?
+1. Stack Overflow saytiga kiring va o'zingiz bilgan texnologiya haqida ko'p ijobiy ovoz olgan savolni toping. Shuningdek, yopib qo'yilgan yoki juda ko'p salbiy ovoz to'plagan bitta savolni qidiring. Ularni ma'ruzadagi maslahatlarga solishtiring; qaysi savol yaxshiroq javob olganini oldindan bilsa bo'larmidi?

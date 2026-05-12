@@ -23,6 +23,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | branch | shox / tarmoq | Git branch |
 | breakpoint | to'xtash nuqtasi | Debugger feature |
 | buffer overflow | bufer to'lib ketishi | Memory bug |
+| bug report | xato haqida hisobot | |
 | cache | kesh | |
 | changelog | o'zgarishlar jurnali | |
 | child process | bola jarayon | |
@@ -35,6 +36,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | command substitution | buyruq almashtirish | In bash, `$()` |
 | comment | izoh | Using `#` in shell scripts |
 | commit | commit | Git snapshot/operation, do not translate |
+| commit message | commit xabari | |
 | compaction | siqish | Context of LLM context window |
 | compile | kompilyatsiya qilish | |
 | compiler | kompilyator | |
@@ -63,6 +65,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | disk partition | disk bo'linishi | |
 | docstring | docstring | Documentation string in code, do not translate |
 | dotfile | nuqtali fayl | Hidden configuration file |
+| ecosystem | ekotizim | |
 | environment | muhit | Execution or dependency environment |
 | environment variable | muhit o'zgaruvchisi | e.g., `$PATH` |
 | example | misol | `[General]` |
@@ -94,16 +97,19 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | integrated development environment | integratsiyalashgan dasturlash muhiti | IDE |
 | interface | interfeys | |
 | interpreter | interpretator | |
+| issue | muammo | GitHub issue / bug tracking context |
 | JSON | JSON | Do not translate |
 | kernel | kernel | Do not translate |
 | language server | til serveri | e.g., Language Server Protocol (LSP) |
 | lecture | ma'ruza | `[General]` |
 | library | kutubxona | Software library |
+| license | litsenziya | |
 | linter | linter | Tool for analyzing code quality, do not translate |
 | LLM | LLM | Large Language Model, do not translate |
 | lock file | lock fayli | Dependency lock file |
 | logging | loglash / jurnallash | |
 | loop | sikl | `for`, `while` |
+| magic number | sehrli raqam | Programming anti-pattern |
 | manifest | manifest | Package/project manifest |
 | manual page | qo'llanma sahifasi | Reference to `man` pages |
 | memory leak | xotira sizib chiqishi | |
@@ -169,11 +175,13 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | sandbox | sandbox | Isolated testing environment |
 | sanitizer | sanitayzer | Tool for analyzing memory/threads, do not translate |
 | script | skript | |
+| security vulnerability | xavfsizlik zaifligi | |
 | semantic versioning | semantik versiyalash | |
 | shebang | shebang | `#!/bin/sh`, do not translate |
 | shell | shell | Do not translate |
 | signal | signal | Software interrupt, e.g., SIGINT |
 | snapshot | snapshot | Version control context, do not translate |
+| soft skill | yumshoq ko'nikma | Non-technical skills context |
 | solution | yechim | `[General]` |
 | ssh key | ssh kaliti | Authentication keys for SSH |
 | stack | stek | Memory structure or call stack |
@@ -201,6 +209,7 @@ This glossary is used to maintain consistency when translating the MIT "Missing 
 | type annotation | tur annotatsiyasi | Type hinting in code |
 | type checker | turni tekshiruvchi dastur | e.g., mypy |
 | type checking | turni tekshirish | Process of verifying program types |
+| upstream | upstream | Open source project context, do not translate |
 | user | foydalanuvchi | `[General]` |
 | variable | o'zgaruvchi | |
 | version control | versiyalarni boshqarish | e.g., Version Control System (VCS) |
